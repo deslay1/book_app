@@ -1,0 +1,7 @@
+{
+    "python.formatting.provider": "autopep8",
+    "python.pythonPath": "env\\Scripts\\python.exe",
+    "python.linting.pylintEnabled": false,
+    "python.linting.pep8Enabled": true,
+    "python.linting.enabled": true
+}

@@ -1,18 +1,26 @@
 from django.shortcuts import render
+from django.db.models import Q
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import (
     ListView,
     DetailView,
     CreateView,
     UpdateView,
-    DeleteView
+    DeleteView,
+    TemplateView
 )
 from .models import Post
 
 
 def home(request):
+
+    query = request.GET['q']
+
     context = {
-        'posts': Post.objects.all()
+        'posts': Post.objects.all(),
+        # 'posts': get_queryset(query),
+        # 'query': str(query)
+        'query': str(query)
     }
     return render(request, 'bookmarket/home.html', context)
 
@@ -22,6 +30,20 @@ class PostListView(ListView):
     template_name = 'bookmarket/home.html'
     context_object_name = 'posts'
     ordering = ['-date_posted']
+
+    def get_queryset(self):
+
+        query = self.request.GET.get('q')
+        if query:
+            queries = query.split(" ")
+            for q in queries:
+                object_list = self.model.objects.filter(
+                    Q(title__icontains=q) |
+                    Q(content__icontains=q)
+                ).distinct()
+        else:
+            object_list = self.model.objects.all()
+        return object_list
 
 
 class PostDetailView(DetailView):

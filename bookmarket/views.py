@@ -4,6 +4,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .forms import PostForm
 from .models import Post
 from django.http import HttpResponse, HttpResponseRedirect
+from django.db.models import Q
 from django.views.generic import (
     ListView,
     DetailView,
@@ -12,7 +13,6 @@ from django.views.generic import (
     DeleteView
 )
 
-from .models import Post
 
 def post_create(request):
     form = PostForm(request.POST or None, request.FILES or None)
@@ -38,8 +38,14 @@ def post_update(request, id=None):
     return render(request, "home.html", context)
 
 def home(request):
+
+    query = request.GET['q']
+
     context = {
-        'posts': Post.objects.all()
+        'posts': Post.objects.all(),
+        # 'posts': get_queryset(query),
+        # 'query': str(query)
+        'query': str(query)
     }
     return render(request, 'bookmarket/home.html', context)
 
@@ -49,6 +55,20 @@ class PostListView(ListView):
     context_object_name = 'posts'
     ordering = ['-date_posted']
     paginate_by = 5
+    
+    def get_queryset(self):
+    
+        query = self.request.GET.get('q')
+        if query:
+            queries = query.split(" ")
+            for q in queries:
+                object_list = self.model.objects.filter(
+                    Q(title__icontains=q) |
+                    Q(content__icontains=q)
+                ).distinct()
+        else:
+            object_list = self.model.objects.all()
+        return object_list
 
 class PostListView2(ListView):
     model = Post

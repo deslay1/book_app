@@ -35,8 +35,6 @@
                     </div>
                     <!-- Navbar Right Side -->
                     <div class="navbar-nav">
-
-                            <a class="nav-item nav-link" href="/post/new">Create Post</a>
                         {% if user.is_authenticated %}
                         {% if user.username == "userAdmin" %}
                         <a class="nav-item nav-link" href="/admin">Admin</a>
@@ -58,7 +56,7 @@
         </nav>
     </header>
     <main role="main" class="container">
-        <div class="row">
+        <div class="row justify-content-md-center">
             <div class="col-md-8">
                 {% if messages %}
                     {% for message in messages%}
@@ -69,7 +67,7 @@
                 {% endif %}
                 {% block content %}{% endblock %}
             </div>
-            <div class="col-md-4">
+            <!-- <div class="col-md-4">
                 <div class="content-section">
                     <h3>Our Sidebar</h3>
                     <p class='text-muted'>You can put any information here you'd like.
@@ -81,7 +79,7 @@
                         </ul>
                     </p>
                 </div>
-            </div>
+            </div> -->
         </div>
     </main>
 

@@ -1,19 +1,48 @@
 from django.shortcuts import render, get_object_or_404
+<<<<<<< HEAD
 from django.db.models import Q
 from .forms import PostForm
 from .models import Post
 from django.http import HttpResponse, HttpResponseRedirect
+=======
+from django.views.generic import ListView
+>>>>>>> 0f9077f38802f78a41dc078229c62b46fbfb716b
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from .forms import PostForm
+from .models import Post
+from django.http import HttpResponse, HttpResponseRedirect
+from django.db.models import Q
 from django.views.generic import (
     ListView,
     DetailView,
     CreateView,
     UpdateView,
-    DeleteView,
-    TemplateView
+    DeleteView
 )
-from .models import Post
 
+
+def post_create(request):
+    form = PostForm(request.POST or None, request.FILES or None)
+    if form.is_valid():
+        instance = form.save(commit=False)
+        instance.save()
+        return HttpResponseRedirect(instance.get_absolute_url())
+    context = {
+     "form": form,
+    }
+    return render(request, "home.html", context)
+
+def post_update(request, id=None):
+    instance = get_object_or_404(Post, id=id)
+    form = PostForm(request.POST or None, request.FILES or None)
+    if form.is_valid():
+        instance = form.save(commit=False)
+        instance.save()
+        return HttpResponseRedirect(instance.get_absolute_url())
+    context = {
+     "form": form,
+    }
+    return render(request, "home.html", context)
 
 def home(request):
 
@@ -27,15 +56,15 @@ def home(request):
     }
     return render(request, 'bookmarket/home.html', context)
 
-
 class PostListView(ListView):
     model = Post
-    template_name = 'bookmarket/home.html'
+    template_name = 'bookmarket/home.html'  # <app>/<model>_<viewtype>.html
     context_object_name = 'posts'
     ordering = ['-date_posted']
-
+    paginate_by = 5
+    
     def get_queryset(self):
-
+    
         query = self.request.GET.get('q')
         if query:
             queries = query.split(" ")
@@ -48,35 +77,38 @@ class PostListView(ListView):
             object_list = self.model.objects.all()
         return object_list
 
+class PostListView2(ListView):
+    model = Post
+    template_name = 'bookmarket/show_user_post.html'  # <app>/<model>_<viewtype>.html
+    context_object_name = 'posts'
+    ordering = ['-date_posted']    
+    paginate_by = 5
 
 class PostDetailView(DetailView):
     model = Post
-
-
+    
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
-    fields = ['title', 'content']
+    fields = ['title', 'content', 'image']
 
     def form_valid(self, form):
-        form.instance.authour = self.request.user
+        form.instance.author = self.request.user
         return super().form_valid(form)
-        """ SuccessUrl to home?"""
 
-
-class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+class PostUpdateView(LoginRequiredMixin, UpdateView, UserPassesTestMixin):
     model = Post
-    fields = ['title', 'content']
+    fields = ['title', 'content', 'image']
 
     def form_valid(self, form):
-        form.instance.authour = self.request.user
-        return super().form_valid(form)
+        form.instance.author = self.request.user
+        return super().form_valid(form)        
 
     def test_func(self):
         post = self.get_object()
-        if self.request.user == post.authour:
+        if self.request.user == post.author:
             return True
-        return False
-
+        return False        
+    
 
 class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Post
@@ -84,7 +116,7 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
     def test_func(self):
         post = self.get_object()
-        if self.request.user == post.authour:
+        if self.request.user == post.author:
             return True
         return False
 

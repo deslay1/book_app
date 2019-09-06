@@ -1,15 +1,16 @@
 {% extends "bookmarket/base.html" %}
 {% block content %}
-<form method="GET" action="">
-  <div class="form-row">
-          <div class="col">
-              <input class="form-control" type="text" name="q" placeholder="Search posts" value="{{ request.GET.q }}"/>
-          </div>
-          <div class="col">
-              <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search </button>
-          </div>
-              <a class="add-post" href="{% url 'post-create' %}">Add new post</button>
-  </div>
+
+  <form method="GET" action="">
+    <div class="form-row">
+            <div class="col">
+                <input class="form-control" type="text" name="q" placeholder="Search posts" value="{{ request.GET.q }}"/>
+            </div>
+            <div class="col">
+                <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search </button>
+            </div>
+                <a class="add-post" href="{% url 'post-create' %}">Add new post</button>
+    </div>
 </form>
     {% for post in posts %}
         <article class="media content-section">
@@ -21,9 +22,10 @@
             </div>
             <h2><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h2>
             <p class="article-content">{{ post.content }}</p>
-          </div>
-          <img class="article-img" src="{{ post.image.url }}">
+            <img src="{{ post.image.url }}" width="200" height="200"  alt="Computer Hope" class="center">
 
+          </div>
+          
         </article>
     {% endfor %}
 

@@ -9,7 +9,7 @@
             <p class="text-secondary">{{ user.email }}</p>
         </div>
     </div>
-    <form method="POST" enctype="multipart/form-data">
+    <for    m method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <fieldset class="form-group">
             <legend class="bordor-bottom mb-4">Profile Info</legend>
@@ -20,5 +20,21 @@
             <button class="btn btn-outline-info" type="submit">Update</button>
         </div>
     </form>
+</div>
+<div>
+    <div class="content-section">
+        {% for post in posts %}
+            {% if post.authour == user %}
+                <div class="media-body">
+                    <div class="article-metadata">
+                        <a class="mr-2" href="#">{{ post.authour }}</a>
+                        <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>  
+                    </div>
+                    <h2><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h2>
+                    <p class="article-content">{{ post.content }}</p>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
 </div>
 {% endblock content %}

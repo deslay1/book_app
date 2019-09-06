@@ -36,12 +36,18 @@
                     <!-- Navbar Right Side -->
                     <div class="navbar-nav">
                         {% if user.is_authenticated %}
-                        <!-- <a class="nav-item nav-link" href="{% url 'post-create' %}">New Post</a> -->
-                        <a class="nav-item nav-link" href="{% url 'profile' %}">Profile</a>
-                        <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
+                        {% if user.username == "userAdmin" %}
+                        <a class="nav-item nav-link" href="/admin">Admin</a>
+                        {% endif %}
+                        <a class="nav-item nav-link" href="/profile">Profile</a>
+                        <a class="nav-item nav-link" href="/logout">Logout</a>
+
+                        
                         {% else %}
-                        <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
-                        <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
+                        <a class="nav-item nav-link" href="/login">Login</a>
+                        <a class="nav-item nav-link" href="/register">Register</a>
+                        
+
                         {% endif %}
                     </div>
                 </div>
@@ -52,11 +58,11 @@
         <div class="row justify-content-md-center">
             <div class="col-md-8">
                 {% if messages %}
-                {% for message in messages %}
-                <div class="alert alert-{{ message.tags }}">
-                    {{ message }}
-                </div>
-                {% endfor %}
+                    {% for message in messages%}
+                    <div class="alert alert-{{message.tags}}">
+                        {{message}}
+                    </div>
+                    {%endfor%}
                 {% endif %}
                 {% block content %}{% endblock %}
             </div>

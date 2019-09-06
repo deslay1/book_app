@@ -31,11 +31,9 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'users.apps.UsersConfig',
     'crispy_forms',
     'bookmarket.apps.BookmarketConfig',
     'users.apps.UsersConfig',
-    'crispy_forms',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -128,9 +126,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
-<<<<<<< HEAD
-=======
-
->>>>>>> master
 LOGIN_REDIRECT_URL = 'app-home'
 LOGIN_URL = 'login'

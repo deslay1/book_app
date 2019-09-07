@@ -1,10 +1,6 @@
 {
     "python.formatting.provider": "autopep8",
-<<<<<<< HEAD
-    "python.pythonPath": "/usr/local/bin/python3",
-=======
-    "python.pythonPath": "C:\\Users\\Tobias Carlsson\\AppData\\Local\\Programs\\Python\\Python37-32\\python.exe",
->>>>>>> 0f9077f38802f78a41dc078229c62b46fbfb716b
+    "python.pythonPath": "venv/bin/python",
     "python.linting.pylintEnabled": false,
     "python.linting.pep8Enabled": true,
     "python.linting.enabled": true

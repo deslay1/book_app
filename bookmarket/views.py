@@ -1,12 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-<<<<<<< HEAD
-from django.db.models import Q
-from .forms import PostForm
-from .models import Post
-from django.http import HttpResponse, HttpResponseRedirect
-=======
 from django.views.generic import ListView
->>>>>>> 0f9077f38802f78a41dc078229c62b46fbfb716b
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .forms import PostForm
 from .models import Post
@@ -56,6 +49,7 @@ def home(request):
     }
     return render(request, 'bookmarket/home.html', context)
 
+
 class PostListView(ListView):
     model = Post
     template_name = 'bookmarket/home.html'  # <app>/<model>_<viewtype>.html
@@ -64,7 +58,6 @@ class PostListView(ListView):
     paginate_by = 5
     
     def get_queryset(self):
-    
         query = self.request.GET.get('q')
         if query:
             queries = query.split(" ")
@@ -72,9 +65,9 @@ class PostListView(ListView):
                 object_list = self.model.objects.filter(
                     Q(title__icontains=q) |
                     Q(content__icontains=q)
-                ).distinct()
+                ).distinct().order_by('-date_posted')
         else:
-            object_list = self.model.objects.all()
+            object_list = self.model.objects.all().order_by('-date_posted')
         return object_list
 
 class PostListView2(ListView):

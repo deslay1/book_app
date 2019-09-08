@@ -26,9 +26,8 @@
 
 
 
-<!--
-%% not done %%
+
+### %% not done %%
 git fetch: updates without making changes on the remote tracking branch.
 git merge: merge the remote tracking branch to local branch.
 git pull: git fetch + git merge !!!!
--->

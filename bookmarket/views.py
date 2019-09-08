@@ -45,7 +45,7 @@ def add_comment_to_post(request, pk):
         if form.is_valid():
             comment = form.save(commit=False)
             comment.post = post
-            comment.comuser = request.user  # ###############
+            comment.comuser = request.user
             comment.save()
             return redirect('post-detail', pk=post.pk)
     else:
@@ -64,7 +64,9 @@ def home(request):
     }
     return render(request, 'bookmarket/home.html', context)
 
+
 class PostListView(ListView):
+    
     model = Post
     template_name = 'bookmarket/home.html'  # <app>/<model>_<viewtype>.html
     context_object_name = 'posts'
@@ -72,7 +74,7 @@ class PostListView(ListView):
     paginate_by = 5
     
     def get_queryset(self):
-    
+            
         query = self.request.GET.get('q')
         if query:
             queries = query.split(" ")
@@ -84,6 +86,7 @@ class PostListView(ListView):
         else:
             object_list = self.model.objects.all().order_by('-date_posted')
         return object_list
+
 
 class PostListView2(ListView):
     model = Post

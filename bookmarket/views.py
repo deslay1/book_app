@@ -49,6 +49,9 @@ def home(request):
     }
     return render(request, 'bookmarket/home.html', context)
 
+
+
+
 class PostListView(ListView):
     
     model = Post
@@ -72,19 +75,8 @@ class PostListView(ListView):
 
         return object_list
     
-    
-    
-  
-    
 
 
-
-class PostListView2(ListView):
-    model = Post
-    template_name = 'bookmarket/show_user_post.html'  # <app>/<model>_<viewtype>.html
-    context_object_name = 'posts'
-    ordering = ['-date_posted']    
-    paginate_by = 5
 
 class PostDetailView(DetailView):
     model = Post

@@ -1,20 +1,26 @@
-Git processes:
+# Git processes:
 
-Switching branches:
+## Switching branches:
+```bash
 - git add, commit to save changes
 - git checkout <branch>
 
-Steps to add/push changes:
+
+## Steps to add/push changes:
+```bash
 - git checkout branch (to see what branch you're on)
 - git add .
 - git commit -m "message"
 - git push
+```
 
-Steps to merge with another branch:
+## Steps to merge with another branch:
+```bash
 - git pull (to download remote updates)
 - git add, commit to save changes
 - git merge <branch>
-- solve eventual conflicts by opening important unstaged files (files that are not associated with the database or end with .pyc)
+```
+Solve eventual conflicts by opening important unstaged files (files that are not associated with the database or end with .pyc)
 
 
 

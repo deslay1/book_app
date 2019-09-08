@@ -4,6 +4,7 @@
 ```bash
 - git add, commit to save changes
 - git checkout <branch>
+```
 
 
 ## Steps to add/push changes:

@@ -51,6 +51,7 @@ def home(request):
 
 
 class PostListView(ListView):
+    
     model = Post
     template_name = 'bookmarket/home.html'  # <app>/<model>_<viewtype>.html
     context_object_name = 'posts'
@@ -58,6 +59,7 @@ class PostListView(ListView):
     paginate_by = 5
     
     def get_queryset(self):
+            
         query = self.request.GET.get('q')
         if query:
             queries = query.split(" ")
@@ -67,8 +69,16 @@ class PostListView(ListView):
                     Q(content__icontains=q)
                 ).distinct().order_by('-date_posted')
         else:
-            object_list = self.model.objects.all().order_by('-date_posted')
+            object_list = Post.objects.all().order_by('-date_posted')
+
         return object_list
+    
+    
+    
+  
+    
+
+
 
 class PostListView2(ListView):
     model = Post

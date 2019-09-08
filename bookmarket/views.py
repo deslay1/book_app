@@ -50,8 +50,11 @@ def home(request):
     return render(request, 'bookmarket/home.html', context)
 
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 882a787e8b9fef43f2562fb6ff012f5e74408606
 class PostListView(ListView):
     
     model = Post

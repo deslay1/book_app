@@ -21,4 +21,17 @@
     </div>
     
   </article>
+
+  <div class="media-body">
+    <a class="btn btn-secondary" href="{% url 'add-comment-to-post' post.id %}">Add comment</a>
+    {% for comment in post.comments.all %}
+      <div class="post-comment" >
+          <div class="date">{{ comment.date_posted }}</div>
+          <strong>{{ comment.comuser }}</strong>
+          <p>{{ comment.content|linebreaks }}</p>
+      </div>
+    {% empty %}
+      <p>No comments here yet :(</p>
+    {% endfor %}
+  </div>
 {% endblock content %}

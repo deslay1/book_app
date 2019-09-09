@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
 from bookmarket.models import Post
+from django.http import HttpResponse
 
 
 def register(request):
@@ -42,3 +43,21 @@ def profile(request):
     }
 
     return render(request, 'users/profile.html', context)
+
+def profileUser(request, username):
+
+    
+
+
+    inte = int(username, 10);
+
+    context = {
+        'userPost': inte,
+      
+        'posts': Post.objects.all()
+    }
+
+    return render(request, 'users/profileUser.html', context)
+
+
+

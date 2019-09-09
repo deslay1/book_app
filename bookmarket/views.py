@@ -1,7 +1,7 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from .forms import PostForm
+from .forms import PostForm, CommentForm
 from .models import Post
 from django.http import HttpResponse, HttpResponseRedirect
 from django.db.models import Q
@@ -37,6 +37,21 @@ def post_update(request, id=None):
     }
     return render(request, "home.html", context)
 
+
+def add_comment_to_post(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    if request.method == "POST":
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.post = post
+            comment.comuser = request.user
+            comment.save()
+            return redirect('post-detail', pk=post.pk)
+    else:
+        form = CommentForm()
+    return render(request, 'bookmarket/add_comment.html', {'form': form})
+
 def home(request):
 
     query = request.GET['q']
@@ -69,10 +84,8 @@ class PostListView(ListView):
                     Q(content__icontains=q)
                 ).distinct().order_by('-date_posted')
         else:
-            object_list = Post.objects.all().order_by('-date_posted')
-
+            object_list = self.model.objects.all().order_by('-date_posted')
         return object_list
-    
 
 
 
@@ -100,7 +113,7 @@ class PostUpdateView(LoginRequiredMixin, UpdateView, UserPassesTestMixin):
         if self.request.user == post.author:
             return True
         return False        
-    
+
 
 class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Post

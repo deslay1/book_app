@@ -46,6 +46,7 @@
           </div>
           
         </article>
+        <a href="{% url 'post-detail' post.id %}">Comments: {{ post.comments.count }}</a>
     {% endfor %}
 
     {% if is_paginated %}

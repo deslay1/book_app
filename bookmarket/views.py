@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.decorators import login_required
 from .forms import PostForm, CommentForm
 from .models import Post
 from django.http import HttpResponse, HttpResponseRedirect
@@ -25,6 +26,7 @@ def post_create(request):
     }
     return render(request, "home.html", context)
 
+
 def post_update(request, id=None):
     instance = get_object_or_404(Post, id=id)
     form = PostForm(request.POST or None, request.FILES or None)
@@ -38,6 +40,7 @@ def post_update(request, id=None):
     return render(request, "home.html", context)
 
 
+@login_required(login_url='login')
 def add_comment_to_post(request, pk):
     post = get_object_or_404(Post, pk=pk)
     if request.method == "POST":
@@ -52,8 +55,8 @@ def add_comment_to_post(request, pk):
         form = CommentForm()
     return render(request, 'bookmarket/add_comment.html', {'form': form})
 
-def home(request):
 
+def home(request):
     query = request.GET['q']
 
     context = {
@@ -63,10 +66,9 @@ def home(request):
         'query': str(query)
     }
     return render(request, 'bookmarket/home.html', context)
-
+    
 
 class PostListView(ListView):
-    
     model = Post
     template_name = 'bookmarket/home.html'  # <app>/<model>_<viewtype>.html
     context_object_name = 'posts'
@@ -88,13 +90,13 @@ class PostListView(ListView):
         return object_list
 
 
-
 class PostDetailView(DetailView):
     model = Post
-    
+
+
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
-    fields = ['title', 'content', 'image']
+    fields = ['title', 'content', 'image', 'price']
 
     def form_valid(self, form):
         form.instance.author = self.request.user

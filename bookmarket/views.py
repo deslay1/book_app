@@ -65,6 +65,7 @@ def home(request):
     return render(request, 'bookmarket/home.html', context)
 
 
+
 class PostListView(ListView):
     
     model = Post

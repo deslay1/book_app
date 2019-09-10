@@ -20,33 +20,48 @@
             <div class="article-metadata">
                 {% if post.author == user %}
                 <div>
-                    <a class="mr-2" href="/profile/">{{ post.author }}</a>
+                    <a class="mr-2" href="/profile/">{{ post.author.last_name }}</a>
                     <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
                     <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' post.id %}">Update</a>
                     <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-delete' post.id %}">Delete</a>
 
                 </div>
+              </div>
+              <h2><a class="article-title" >{{ post.title }}</a></h2>
+              <p class="article-content">{{ post.content }}</p>
+              <img src="{{ post.image.url }}" width="200" height="200"  alt="Computer Hope" class="center">
+              
+  
+            </div>
+  
+            <a href="{% url 'post-detail' post.id %}">Comments: {{ post.comments.count }}</a>
               {% else %}
               <div>
-                <a class="mr-2"href="profileUser/{{ post.id }}">{{ post.author }}</a>
+                <a class="mr-2"href="profileUser/{{ post.id }}">{{ post.author.last_name }}</a>
                 <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
-                <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-detail' post.id %}">View post</a>
 
 
                 </div>
+
+            </div>
+            <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-detail' post.id %}">View post</a>
+
+            <h2><a class="article-title" >{{ post.title }}</a></h2>
+            <p class="article-content">{{ post.content }}</p>
+            <img src="{{ post.image.url }}" width="200" height="200"  alt="Computer Hope" class="center">
+            
+
+          </div>
+
+          <a href="{% url 'post-detail' post.id %}">Comments: {{ post.comments.count }}</a>
+
         {% endif %}
 
               
             
-            </div>
-            <h2><a class="article-title" >{{ post.title }}</a></h2>
-            <p class="article-content">{{ post.content }}</p>
-            <img src="{{ post.image.url }}" width="200" height="200"  alt="Computer Hope" class="center">
 
-          </div>
-          
         </article>
-        <a href="{% url 'post-detail' post.id %}">Comments: {{ post.comments.count }}</a>
+        
     {% endfor %}
 
     {% if is_paginated %}

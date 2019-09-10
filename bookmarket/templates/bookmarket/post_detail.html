@@ -18,7 +18,9 @@
   </article>
 
   <div class="media-body">
+    {% if user.is_authenticated %}
     <a class="btn btn-secondary" href="{% url 'add-comment-to-post' post.id %}">Add comment</a>
+    {% endif %}
     {% for comment in post.comments.all %}
       <div class="post-comment" >
           <div class="date">{{ comment.date_posted }}</div>

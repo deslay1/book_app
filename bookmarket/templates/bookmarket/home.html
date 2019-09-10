@@ -1,3 +1,5 @@
+
+  
 {% extends "bookmarket/base.html" %}
 {% block content %}
 
@@ -24,7 +26,7 @@
                 <div class="post-admin">
                     <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}">
                     {% if post.author == user %}
-                    <a class="mr-2" href="/profile/">{{ post.author }}</a>
+                    <a class="mr-2" href="/profile/">{{ post.author.last_name }}</a>
                     <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
                 </div>
                     <div class="post-button">

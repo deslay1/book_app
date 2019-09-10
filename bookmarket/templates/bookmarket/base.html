@@ -39,6 +39,9 @@
                     <!-- Navbar Right Side -->
                     <div class="navbar-nav">
                         {% if user.is_authenticated %}
+                        {% if user.username == "Tobias@admin.se" %}
+                        <a class="nav-item nav-link" href="/admin">Admin</a>
+                        {% endif %}
                         <a class="nav-item nav-link" href="/profile">Profile</a>
                         <a class="nav-item nav-link" href="/logout">Logout</a>
                         

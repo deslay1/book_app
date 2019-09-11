@@ -1,6 +1,6 @@
 {
     "python.formatting.provider": "autopep8",
-    "python.pythonPath": "C:\\Users\\Tobias Carlsson\\AppData\\Local\\Programs\\Python\\Python37-32\\python.exe",
+    "python.pythonPath": "D:\\Programs\\Anaconda\\python.exe",
     "python.linting.pylintEnabled": false,
     "python.linting.pep8Enabled": true,
     "python.linting.enabled": true

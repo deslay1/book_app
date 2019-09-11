@@ -1,5 +1,5 @@
 body {
-    background: #fafafa;
+    background-image: url(../bookmarket/images/background_home2.jpg);
     color: #333333;
     margin-top: 5rem;
 }
@@ -21,6 +21,11 @@ ul {
     background-color: #5f788a;
 }
 
+.bg-red {
+    background-color: #a33003;
+    background: linear-gradient(to right, rgb(207, 75, 75),rgb(192, 57, 3), rgb(207, 75, 75));
+}
+
 .site-header .navbar-nav .nav-link {
     color: #cbd5db;
 }
@@ -39,6 +44,8 @@ ul {
     border: 1px solid #dddddd;
     border-radius: 3px;
     margin-bottom: 20px;
+    padding: 20px;
+    box-shadow: inset 0 0 10px #000000;
 }
 
 .article-title {
@@ -55,15 +62,15 @@ a.article-title:hover {
 }
 
 .article-img {
-    height: 65px;
-    width: 65px;
+    height: 50px;
+    width: 50px;
     margin-right: 16px;
+    float: left;
 }
 
 .article-metadata {
     padding-bottom: 1px;
     margin-bottom: 4px;
-    border-bottom: 1px solid #e3e3e3
 }
 
 .article-metadata a:hover {
@@ -87,3 +94,94 @@ a.article-title:hover {
 .account-heading {
     font-size: 2.5rem;
 }
+
+.post-comment {
+    background-color: white;
+    margin: 2rem;
+}
+.mr-2 {
+    color: rgb(175, 53, 4);
+}
+
+.post-image {
+    padding: 1rem;
+    text-align: center;
+}
+
+.post-admin {
+    display: inline;
+    vertical-align: top;
+}
+
+.post-button {
+    float: right;
+}
+
+.post-information {
+    margin-left: 2rem;
+    margin-right: 2rem;
+    margin-top: 2rem;
+}
+
+.post-bar {
+    display:flex;
+    justify-content: space-between;
+}
+
+.post-price {
+    margin-top: 1rem;
+}
+
+.tab {
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  border: 1px solid #ccc;
+  margin-bottom: 1rem;
+  border-radius: 2rem; /*
+  /* background-color: #f1f1f1; */
+  background-color: rgb(207, 75, 75);
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+  background-color: inherit;
+  border-radius: 20px;
+/* border-radius: 10% / 50%; */
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+  background-color: white;
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  border-top: none;
+  -webkit-animation: fadeEffect 1s;
+  animation: fadeEffect 1s;
+}
+
+/* Fade in tabs */
+@-webkit-keyframes fadeEffect {
+    from {opacity: 0.5;}
+    to {opacity: 1;}
+  }
+  
+  @keyframes fadeEffect {
+    from {opacity: 0.5;}
+    to {opacity: 1;}
+  }

@@ -6,18 +6,29 @@
       <div class="article-metadata">
         <a class="mr-2" href="#">{{ object.author }}</a>
        <small class="text-muted">{{ object.date_posted|date:"F d, Y" }}</small>
-        {% if object.author == user %}
-          <div>
-            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' object.id %}">Update</a>
-            <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-delete' object.id %}">Delete</a>
-          </div>
-        {% endif %}
+       
       </div>
       <h2 class="article-title">{{ object.title }}</h2>
       <p class="article-content">{{ object.content }}</p>
-      <img class="article-img" src="{{ object.image.url }}">
+
+      <img src="{{ object.image.url }}" width="500" height="500" alt="Computer Hope">
 
     </div>
     
   </article>
+
+  <div class="media-body">
+    {% if user.is_authenticated %}
+    <a class="btn btn-secondary" href="{% url 'add-comment-to-post' post.id %}">Add comment</a>
+    {% endif %}
+    {% for comment in post.comments.all %}
+      <div class="post-comment" >
+          <div class="date">{{ comment.date_posted }}</div>
+          <strong>{{ comment.comuser }}</strong>
+          <p>{{ comment.content|linebreaks }}</p>
+      </div>
+    {% empty %}
+      <p>No comments here yet :(</p>
+    {% endfor %}
+  </div>
 {% endblock content %}

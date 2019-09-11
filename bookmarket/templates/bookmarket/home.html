@@ -1,31 +1,71 @@
 {% extends "bookmarket/base.html" %}
 {% block content %}
-<form method="GET" action="">
-  <div class="form-row">
-          <div class="col">
-              <input class="form-control" type="text" name="q" placeholder="Search posts" value="{{ request.GET.q }}"/>
-          </div>
-          <div class="col">
-              <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search </button>
-          </div>
-              <a class="add-post" href="{% url 'post-create' %}">Add new post</button>
-  </div>
+
+  <form method="GET" action="">
+    <div class="form-row">
+            <div class="col">
+                <input class="form-control" type="text" name="q" placeholder="Search posts" value="{{ request.GET.q }}"/>
+            </div>
+            <div class="col">
+                <button class="btn btn-info my-2 my-sm-0" type="submit">Search </button>
+            </div>
+                <a class="btn btn-primary active my-2 my-sm-0" href="{% url 'post-create' %}">Add new post</a>
+    </div>
 </form>
+<div class="tab">
+    <button class="tablinks" onclick="Market(event, 'Sell')" id="defaultOpen">Sellers</button>
+    <button class="tablinks" onclick="Market(event, 'Buy')">Buyers</button>
+</div>
+<div id="Sell" class="tabcontent">
     {% for post in posts %}
         <article class="media content-section">
-          <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}">
           <div class="media-body">
             <div class="article-metadata">
-              <a class="mr-2" href="#">{{ post.author }}</a>
-              <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
-            </div>
-            <h2><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h2>
-            <p class="article-content">{{ post.content }}</p>
-          </div>
-          <img class="article-img" src="{{ post.image.url }}">
+                <div class="post-admin">
+                    <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}">
+                    {% if post.author == user %}
+                    <a class="mr-2" href="/profile/">{{ post.author }}</a>
+                    <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
+                </div>
+                    <div class="post-button">
+                      <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' post.id %}">Update</a>
+                      <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-delete' post.id %}">Delete</a>
+                      <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-detail' post.id %}">View post</a>
+                    </div>
 
+              {% else %}
+              <div>
+                <a class="mr-2"href="profileUser/{{ post.id }}">{{ post.author }}</a>
+                <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
+                <div class="post-button">
+                  <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-detail' post.id %}">View post</a>
+                </div>
+
+
+                </div>
+        {% endif %}
+            </div>
+
+            <div class="post-information">
+              <div class="post-bar">
+                <h2 class="article-title" >{{ post.title }}</h2>
+                <h4 class="post-price">{{ post.price }} kr</h4>
+              </div>
+              <p class="article-content">{{ post.content }}</p>
+              <div class="post-image">
+                <img src="{{ post.image.url }}" width="200" height="200"  alt="Computer Hope" class="center">
+              </div>
+              <a href="{% url 'post-detail' post.id %}">Comments: {{ post.comments.count }}</a>
+          </div>
+
+          </div>
+          
         </article>
     {% endfor %}
+  </div>
+  <div id="Buy" class="tabcontent">
+    <h2> Buy tab!!!!!</h2>
+  </div>
 
     {% if is_paginated %}
       

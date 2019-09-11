@@ -22,7 +22,7 @@ def post_create(request):
         instance.save()
         return HttpResponseRedirect(instance.get_absolute_url())
     context = {
-     "form": form,
+        "form": form,
     }
     return render(request, "home.html", context)
 
@@ -35,7 +35,7 @@ def post_update(request, id=None):
         instance.save()
         return HttpResponseRedirect(instance.get_absolute_url())
     context = {
-     "form": form,
+        "form": form,
     }
     return render(request, "home.html", context)
 
@@ -66,7 +66,7 @@ def home(request):
         'query': str(query)
     }
     return render(request, 'bookmarket/home.html', context)
-    
+
 
 class PostListView(ListView):
     model = Post
@@ -74,9 +74,9 @@ class PostListView(ListView):
     context_object_name = 'posts'
     ordering = ['-date_posted']
     paginate_by = 5
-    
+
     def get_queryset(self):
-            
+
         query = self.request.GET.get('q')
         if query:
             queries = query.split(" ")
@@ -96,25 +96,26 @@ class PostDetailView(DetailView):
 
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
-    fields = ['title', 'content', 'image', 'price']
+    fields = ['title', 'content', 'image', 'image2', 'image3', 'price']
 
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
 
+
 class PostUpdateView(LoginRequiredMixin, UpdateView, UserPassesTestMixin):
     model = Post
-    fields = ['title', 'content', 'image']
+    fields = ['title', 'content', 'image', 'image2', 'image3']
 
     def form_valid(self, form):
         form.instance.author = self.request.user
-        return super().form_valid(form)        
+        return super().form_valid(form)
 
     def test_func(self):
         post = self.get_object()
         if self.request.user == post.author:
             return True
-        return False        
+        return False
 
 
 class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):

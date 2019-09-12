@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from .models import Profile
 from phonenumber_field.formfields import PhoneNumberField
+
+
 class UserRegisterForm(UserCreationForm):
     username = forms.EmailField()
     username.label = "Email adress"
@@ -10,7 +12,6 @@ class UserRegisterForm(UserCreationForm):
     first_name.required = False
     first_name.label= "Phone number"
     
-
     class Meta:
         model = User
         fields = ['username','first_name','last_name', 'password1', 'password2']

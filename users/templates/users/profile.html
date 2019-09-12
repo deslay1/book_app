@@ -5,11 +5,12 @@
   <div class="media">
     <img class="rounded-circle account-img" src="{{ user.profile.image.url }}">
     <div class="media-body">
-      <h2 class="account-heading">{{ user.username }}</h2>
-      <p class="text-secondary">{{ user.email }}</p>
+      <h2 class="account-heading">{{ user.profile }}</h2>
+      <p class="text-secondary">{{ user.first_name }}</p>
+      <p class="text-secondary">{{ user.last_name }}</p>
     </div>
   </div>
-  <for m method="POST" enctype="multipart/form-data">
+  <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     <fieldset class="form-group">
       <legend class="bordor-bottom mb-4">Profile Info</legend>
@@ -19,12 +20,11 @@
     <div class="form-group">
       <button class="btn btn-outline-info" type="submit">Update</button>
     </div>
-    </form>
+  </form>
 </div>
 <div>
   <div class="content-section">
     {% for post in posts %}
-
     {% if post.author == user %}
     <article class="media content-section">
       <div class="media-body">
@@ -40,7 +40,6 @@
             <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-delete' post.id %}">Delete</a>
             <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-detail' post.id %}">View post</a>
           </div>
-
           {% else %}
           <div>
             <a class="mr-2" href="profileUser/{{ post.id }}">{{ post.author }}</a>
@@ -51,7 +50,6 @@
           </div>
           {% endif %}
         </div>
-
         <div class="post-information">
           <div class="post-bar">
             <h2 class="article-title">{{ post.title }}</h2>
@@ -105,7 +103,6 @@
           <a href="{% url 'post-detail' post.id %}">Comments: {{ post.comments.count }}</a>
         </div>
     </article>
-
     {% endif %}
     {% endfor %}
 

@@ -12,9 +12,11 @@
             <div class="media">
                 <img class="rounded-circle account-img" src="{{  poste.author.profile.image.url }}">
                 <div class="media-body">
-                    <h2 class="account-heading">{{ poste.author }}</h2>
-                    <p class="text-secondary">Email: {{ poste.author.email }}</p>
-                    <p class="text-secondary">Nummer: {{ ..... }}</p>
+                    <h2 class="account-heading">{{ poste.author.profile }}</h2>
+                    <p class="text-secondary"> {{ poste.author.first_name }}</p>
+                    <p class="text-secondary"> {{ poste.author.last_name }}</p>
+
+                   
                 </div>
             </div>
             

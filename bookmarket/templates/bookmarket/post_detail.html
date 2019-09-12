@@ -5,7 +5,10 @@
     <div class="article-metadata">
       <div class="post-admin">
         <img class="rounded-circle article-img" src="{{ object.author.profile.image.url }}">
-        <a class="mr-2" href="#">{{ object.author }}</a>
+        {% if object.author == user %}
+        <a class="mr-2" href="profile/">{{ object.author }}</a>
+        {% else %}
+        <a class="mr-2" href="{% url 'post-user' object.id %}">{{ object.author }}</a>
         <small class="text-muted">{{ object.date_posted|date:"F d, Y H:i" }}</small>
         <div class="post-button">
           <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' post.id %}">Update</a>

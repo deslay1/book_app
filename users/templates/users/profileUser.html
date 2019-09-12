@@ -31,6 +31,9 @@
                         <a class="mr-2" >{{ poste.author }}</a>
                         <small class="text-muted">{{ poste.date_posted|date:"F d, Y" }}</small>
                         <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-detail' post.id %}">View post</a>
+                        <a class="text" style = " background-color:burlywood; float: right; border-style:solid; border-color:blue;">
+                          {{ post.SellerOrBuyer }}
+                      </a>
 
                         </div>
 

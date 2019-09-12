@@ -24,7 +24,7 @@ Copyright (c) Corporation for National Research Initiatives.
    The search_function's refcount is incremented by this function. */
 
 PyAPI_FUNC(int) PyCodec_Register(
-       PyObject *search_function
+       PSellerOrBuyerbject *search_function
        );
 
 /* Codec registry lookup API.
@@ -46,7 +46,7 @@ PyAPI_FUNC(int) PyCodec_Register(
  */
 
 #ifndef Py_LIMITED_API
-PyAPI_FUNC(PyObject *) _PyCodec_Lookup(
+PyAPI_FUNC(PSellerOrBuyerbject *) _PyCodec_Lookup(
        const char *encoding
        );
 
@@ -76,8 +76,8 @@ PyAPI_FUNC(int) PyCodec_KnownEncoding(
 
  */
 
-PyAPI_FUNC(PyObject *) PyCodec_Encode(
-       PyObject *object,
+PyAPI_FUNC(PSellerOrBuyerbject *) PyCodec_Encode(
+       PSellerOrBuyerbject *object,
        const char *encoding,
        const char *errors
        );
@@ -92,8 +92,8 @@ PyAPI_FUNC(PyObject *) PyCodec_Encode(
 
  */
 
-PyAPI_FUNC(PyObject *) PyCodec_Decode(
-       PyObject *object,
+PyAPI_FUNC(PSellerOrBuyerbject *) PyCodec_Decode(
+       PSellerOrBuyerbject *object,
        const char *encoding,
        const char *errors
        );
@@ -112,19 +112,19 @@ PyAPI_FUNC(PyObject *) PyCodec_Decode(
    in Python 3.5+?
 
  */
-PyAPI_FUNC(PyObject *) _PyCodec_LookupTextEncoding(
+PyAPI_FUNC(PSellerOrBuyerbject *) _PyCodec_LookupTextEncoding(
        const char *encoding,
        const char *alternate_command
        );
 
-PyAPI_FUNC(PyObject *) _PyCodec_EncodeText(
-       PyObject *object,
+PyAPI_FUNC(PSellerOrBuyerbject *) _PyCodec_EncodeText(
+       PSellerOrBuyerbject *object,
        const char *encoding,
        const char *errors
        );
 
-PyAPI_FUNC(PyObject *) _PyCodec_DecodeText(
-       PyObject *object,
+PyAPI_FUNC(PSellerOrBuyerbject *) _PyCodec_DecodeText(
+       PSellerOrBuyerbject *object,
        const char *encoding,
        const char *errors
        );
@@ -132,13 +132,13 @@ PyAPI_FUNC(PyObject *) _PyCodec_DecodeText(
 /* These two aren't actually text encoding specific, but _io.TextIOWrapper
  * is the only current API consumer.
  */
-PyAPI_FUNC(PyObject *) _PyCodecInfo_GetIncrementalDecoder(
-       PyObject *codec_info,
+PyAPI_FUNC(PSellerOrBuyerbject *) _PyCodecInfo_GetIncrementalDecoder(
+       PSellerOrBuyerbject *codec_info,
        const char *errors
        );
 
-PyAPI_FUNC(PyObject *) _PyCodecInfo_GetIncrementalEncoder(
-       PyObject *codec_info,
+PyAPI_FUNC(PSellerOrBuyerbject *) _PyCodecInfo_GetIncrementalEncoder(
+       PSellerOrBuyerbject *codec_info,
        const char *errors
        );
 #endif
@@ -155,43 +155,43 @@ PyAPI_FUNC(PyObject *) _PyCodecInfo_GetIncrementalEncoder(
 
 /* Get an encoder function for the given encoding. */
 
-PyAPI_FUNC(PyObject *) PyCodec_Encoder(
+PyAPI_FUNC(PSellerOrBuyerbject *) PyCodec_Encoder(
        const char *encoding
        );
 
 /* Get a decoder function for the given encoding. */
 
-PyAPI_FUNC(PyObject *) PyCodec_Decoder(
+PyAPI_FUNC(PSellerOrBuyerbject *) PyCodec_Decoder(
        const char *encoding
        );
 
 /* Get an IncrementalEncoder object for the given encoding. */
 
-PyAPI_FUNC(PyObject *) PyCodec_IncrementalEncoder(
+PyAPI_FUNC(PSellerOrBuyerbject *) PyCodec_IncrementalEncoder(
        const char *encoding,
        const char *errors
        );
 
 /* Get an IncrementalDecoder object function for the given encoding. */
 
-PyAPI_FUNC(PyObject *) PyCodec_IncrementalDecoder(
+PyAPI_FUNC(PSellerOrBuyerbject *) PyCodec_IncrementalDecoder(
        const char *encoding,
        const char *errors
        );
 
 /* Get a StreamReader factory function for the given encoding. */
 
-PyAPI_FUNC(PyObject *) PyCodec_StreamReader(
+PyAPI_FUNC(PSellerOrBuyerbject *) PyCodec_StreamReader(
        const char *encoding,
-       PyObject *stream,
+       PSellerOrBuyerbject *stream,
        const char *errors
        );
 
 /* Get a StreamWriter factory function for the given encoding. */
 
-PyAPI_FUNC(PyObject *) PyCodec_StreamWriter(
+PyAPI_FUNC(PSellerOrBuyerbject *) PyCodec_StreamWriter(
        const char *encoding,
-       PyObject *stream,
+       PSellerOrBuyerbject *stream,
        const char *errors
        );
 
@@ -203,31 +203,31 @@ PyAPI_FUNC(PyObject *) PyCodec_StreamWriter(
    callback name, when name is specified as the error parameter
    in the call to the encode/decode function.
    Return 0 on success, -1 on error */
-PyAPI_FUNC(int) PyCodec_RegisterError(const char *name, PyObject *error);
+PyAPI_FUNC(int) PyCodec_RegisterError(const char *name, PSellerOrBuyerbject *error);
 
 /* Lookup the error handling callback function registered under the given
    name. As a special case NULL can be passed, in which case
    the error handling callback for "strict" will be returned. */
-PyAPI_FUNC(PyObject *) PyCodec_LookupError(const char *name);
+PyAPI_FUNC(PSellerOrBuyerbject *) PyCodec_LookupError(const char *name);
 
 /* raise exc as an exception */
-PyAPI_FUNC(PyObject *) PyCodec_StrictErrors(PyObject *exc);
+PyAPI_FUNC(PSellerOrBuyerbject *) PyCodec_StrictErrors(PSellerOrBuyerbject *exc);
 
 /* ignore the unicode error, skipping the faulty input */
-PyAPI_FUNC(PyObject *) PyCodec_IgnoreErrors(PyObject *exc);
+PyAPI_FUNC(PSellerOrBuyerbject *) PyCodec_IgnoreErrors(PSellerOrBuyerbject *exc);
 
 /* replace the unicode encode error with ? or U+FFFD */
-PyAPI_FUNC(PyObject *) PyCodec_ReplaceErrors(PyObject *exc);
+PyAPI_FUNC(PSellerOrBuyerbject *) PyCodec_ReplaceErrors(PSellerOrBuyerbject *exc);
 
 /* replace the unicode encode error with XML character references */
-PyAPI_FUNC(PyObject *) PyCodec_XMLCharRefReplaceErrors(PyObject *exc);
+PyAPI_FUNC(PSellerOrBuyerbject *) PyCodec_XMLCharRefReplaceErrors(PSellerOrBuyerbject *exc);
 
 /* replace the unicode encode error with backslash escapes (\x, \u and \U) */
-PyAPI_FUNC(PyObject *) PyCodec_BackslashReplaceErrors(PyObject *exc);
+PyAPI_FUNC(PSellerOrBuyerbject *) PyCodec_BackslashReplaceErrors(PSellerOrBuyerbject *exc);
 
 #if !defined(Py_LIMITED_API) || Py_LIMITED_API+0 >= 0x03050000
 /* replace the unicode encode error with backslash escapes (\N, \x, \u and \U) */
-PyAPI_FUNC(PyObject *) PyCodec_NameReplaceErrors(PyObject *exc);
+PyAPI_FUNC(PSellerOrBuyerbject *) PyCodec_NameReplaceErrors(PSellerOrBuyerbject *exc);
 #endif
 
 #ifndef Py_LIMITED_API

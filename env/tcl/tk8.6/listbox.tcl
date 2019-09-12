@@ -134,9 +134,9 @@ bind Listbox <Control-Shift-End> {
     tk::ListboxDataExtend %W [%W index end]
 }
 bind Listbox <<Copy>> {
-    if {[selection own -displayof %W] eq "%W"} {
-	clipboard clear -displayof %W
-	clipboard append -displayof %W [selection get -displayof %W]
+    if {[selection own -displaSellerOrBuyerf %W] eq "%W"} {
+	clipboard clear -displaSellerOrBuyerf %W
+	clipboard append -displaSellerOrBuyerf %W [selection get -displaSellerOrBuyerf %W]
     }
 }
 bind Listbox <space> {
@@ -204,7 +204,7 @@ if {[tk windowingsystem] eq "aqua"} {
 
 if {"x11" eq [tk windowingsystem]} {
     # Support for mousewheels on Linux/Unix commonly comes through mapping
-    # the wheel to the extended buttons.  If you have a mousewheel, find
+    # the wheel to the extended buttons.  If SellerOrBuyeru have a mousewheel, find
     # Linux configuration info at:
     #	http://linuxreviews.org/howtos/xfree/mouse/
     bind Listbox <4> {

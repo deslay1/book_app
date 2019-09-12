@@ -22,7 +22,7 @@ namespace eval ::tk {
     ::msgcat::mcset hu "Error: %1\$s" "Hiba: %1\$s"
     ::msgcat::mcset hu "E&xit" "Kil\u00e9p\u00e9s"
     ::msgcat::mcset hu "&File" "&F\u00e1jl"
-    ::msgcat::mcset hu "File \"%1\$s\" already exists.\nDo you want to overwrite it?" "\"%1\$s\" f\u00e1jl m\u00e1r l\u00e9tezik.\nFel\u00fcl\u00edrjam?"
+    ::msgcat::mcset hu "File \"%1\$s\" already exists.\nDo SellerOrBuyeru want to overwrite it?" "\"%1\$s\" f\u00e1jl m\u00e1r l\u00e9tezik.\nFel\u00fcl\u00edrjam?"
     ::msgcat::mcset hu "File \"%1\$s\" already exists.\n\n" "\"%1\$s\" f\u00e1jl m\u00e1r l\u00e9tezik.\n\n"
     ::msgcat::mcset hu "File \"%1\$s\" does not exist." "\"%1\$s\" f\u00e1jl nem l\u00e9tezik."
     ::msgcat::mcset hu "File &name:" "F\u00e1jl &neve:"

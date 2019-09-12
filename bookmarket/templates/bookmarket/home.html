@@ -1,94 +1,181 @@
-
-  
 {% extends "bookmarket/base.html" %}
 {% block content %}
 
-  <form method="GET" action="">
-    <div class="form-row">
-            <div class="col">
-                <input class="form-control" type="text" name="q" placeholder="Search posts" value="{{ request.GET.q }}"/>
-            </div>
-            <div class="col">
-                <button class="btn btn-info my-2 my-sm-0" type="submit">Search </button>
-            </div>
-                <a class="btn btn-primary active my-2 my-sm-0" href="{% url 'post-create' %}">Add new post</a>
+<form method="GET" action="">
+  <div class="form-row">
+    <div class="col">
+      <input class="form-control" type="text" name="q" placeholder="Search posts" value="{{ request.GET.q }}" />
     </div>
+    <div class="col">
+      <button class="btn btn-info my-2 my-sm-0" type="submit">Search </button>
+    </div>
+    <a class="btn btn-primary active my-2 my-sm-0" href="{% url 'post-create' %}">Add new post</a>
+  </div>
 </form>
+
 <div class="tab">
-    <button class="tablinks" onclick="Market(event, 'Sell')" id="defaultOpen">Sellers</button>
-    <button class="tablinks" onclick="Market(event, 'Buy')">Buyers</button>
+
+  <button class="tablinks" onclick="Market(event, 'Sell')" id="defaultOpen">Sell</button>
+  <button class="tablinks" name="buy" onclick="Market(event, 'Buy')" id="et" value="{{ request.GET.buy }}">Buy</button>
+
+
+
+
 </div>
+
 <div id="Sell" class="tabcontent">
-    {% for post in posts %}
-        <article class="media content-section">
-          <div class="media-body">
-            <div class="article-metadata">
-                <div class="post-admin">
-                    <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}">
-                    {% if post.author == user %}
-                    <a class="mr-2" href="/profile/">{{ post.author.last_name }}</a>
-                    <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
-                </div>
-                    <div class="post-button">
-                      <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' post.id %}">Update</a>
-                      <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-delete' post.id %}">Delete</a>
-                      <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-detail' post.id %}">View post</a>
-                    </div>
+  {% for post in sellers %}
+  {% if post.SellerOrBuyer == "Seller" %}
+  <article class="media content-section">
+    <div class="media-body">
+      <div class="article-metadata">
+        <div class="post-admin">
+          <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}">
+          {% if post.author == user %}
+          <a class="mr-2" href="/profile/">{{ post.author.last_name }}</a>
+          <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
 
-              {% else %}
-              <div>
-                <a class="mr-2"href="profileUser/{{ post.id }}">{{ post.author }}</a>
-                <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
-                <div class="post-button">
-                  <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-detail' post.id %}">View post</a>
-                </div>
+        </div>
+        <div class="post-button">
+          <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' post.id %}">Update</a>
+          <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-delete' post.id %}">Delete</a>
+          <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-detail' post.id %}">View post</a>
+        </div>
 
-
-                </div>
-        {% endif %}
-            </div>
-
-            <div class="post-information">
-              <div class="post-bar">
-                <h2 class="article-title" >{{ post.title }}</h2>
-                <h4 class="post-price">{{ post.price }} kr</h4>
-              </div>
-              <p class="article-content">{{ post.content }}</p>
-              <div class="post-image">
-                <img src="{{ post.image.url }}" width="200" height="200"  alt="Computer Hope" class="center">
-              </div>
-              <a href="{% url 'post-detail' post.id %}">Comments: {{ post.comments.count }}</a>
+        {% else %}
+        <div>
+          <a class="mr-2" href="profileUser/{{ post.id }}">{{ post.author }}</a>
+          <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
+          <div class="post-button">
+            <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-detail' post.id %}">View post</a>
           </div>
-
-          </div>
-          
-        </article>
-    {% endfor %}
-  </div>
-  <div id="Buy" class="tabcontent">
-    <h2> Buy tab!!!!!</h2>
-  </div>
-
-    {% if is_paginated %}
-      
-    {% if page_obj.has_previous %}
-        <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
-        <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>
-      {% endif %}
-
-      {% for num in page_obj.paginator.page_range %}
-        {% if page_obj.number == num %}
-          <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
-        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-          <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+        </div>
         {% endif %}
-      {% endfor %}
+      </div>
 
-      {% if page_obj.has_next %}
-        <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
-        <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
-      {% endif %}
+      <div class="post-information">
+        <div class="post-bar">
+          <h2 class="article-title">{{ post.author.last_name }}</h2>
+          <h4 class="post-price">{{ post.price }} kr</h4>
+        </div>
+        <p class="article-content">{{ post.content }}</p>
+        <div class="post-image">
+          <img src="{{ post.image.url }}" width="200" height="200" alt="Computer Hope" class="center">
+        </div>
+        <a href="{% url 'post-detail' post.id %}">Comments: {{ post.comments.count }}</a>
+      </div>
+
+    </div>
+
 
     {% endif %}
+  </article>
+
+  {% endfor %}
+  {% if sellers %}
+
+  {% if sellers.has_previous %}
+  <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
+  <a class="btn btn-outline-info mb-4" href="?page={{ sellers.previous_page_number }}">Previous</a>
+  {% endif %}
+
+  {% for num in sellers.paginator.page_range %}
+  {% if sellers.number == num %}
+  <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+  {% elif num > sellers.number|add:'-3' and num < sellers.number|add:'3' %}
+  <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+  {% endif %}
+  {% endfor %}
+
+  {% if sellers.has_next %}
+  <a class="btn btn-outline-info mb-4" href="?page={{ sellers.next_page_number }}">Next</a>
+  <a class="btn btn-outline-info mb-4" href="?page={{ sellers.paginator.num_pages }}">Last</a>
+  {% endif %}
+
+  {% endif %}
+</div>
+
+
+<div id="Buy" class="tabcontent">
+  {% for post in buyers %}
+  {% if post.SellerOrBuyer == "Buyer" %}
+  <article class="media content-section">
+    <div class="media-body">
+      <div class="article-metadata">
+        <div class="post-admin">
+          <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}">
+          {% if post.author == user %}
+          <a class="mr-2" href="/profile/">{{ post.author.last_name }}</a>
+          <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
+
+        </div>
+        <div class="post-button">
+          <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' post.id %}">Update</a>
+          <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-delete' post.id %}">Delete</a>
+          <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-detail' post.id %}">View post</a>
+        </div>
+
+        {% else %}
+        <div>
+          <a class="mr-2" href="profileUser/{{ post.id }}">{{ post.author }}</a>
+          <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
+          <div class="post-button">
+            <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-detail' post.id %}">View post</a>
+          </div>
+
+
+        </div>
+        {% endif %}
+      </div>
+
+
+
+
+
+      <div class="post-information">
+        <div class="post-bar">
+          <h2 class="article-title">{{ post.author.last_name }}</h2>
+          <h4 class="post-price">{{ post.price }} kr</h4>
+        </div>
+        <p class="article-content">{{ post.content }}</p>
+        <div class="post-image">
+          <img src="{{ post.image.url }}" width="200" height="200" alt="Computer Hope" class="center">
+        </div>
+        <a href="{% url 'post-detail' post.id %}">Comments: {{ post.comments.count }}</a>
+      </div>
+
+    </div>
+
+  </article>
+  {% endif %}
+
+  {% endfor %}
+
+  {% if buyers %}
+
+  {% if buyers.has_previous %}
+  <a class="btn btn-outline-info mb-4" href="?page2=1">First</a>
+  <a class="btn btn-outline-info mb-4" href="?page2={{ buyers.previous_page_number }}">Previous</a>
+  {% endif %}
+
+  {% for num in buyers.paginator.page_range %}
+  {% if buyers.number == num %}
+  <a class="btn btn-info mb-4" href="?page2={{ num }}">{{ num }}</a>
+  {% elif num > buyers.number|add:'-3' and num < buyers.number|add:'3' %}
+  <a class="btn btn-outline-info mb-4" href="?page2={{ num }}">{{ num }}</a>
+  {% endif %}
+  {% endfor %}
+
+  {% if buyers.has_next %}
+  <a class="btn btn-outline-info mb-4" href="?page2={{ buyers.next_page_number }}">Next</a>
+  <a class="btn btn-outline-info mb-4" href="?page2={{ buyers.paginator.num_pages }}">Last</a>
+  {% endif %}
+
+  {% endif %}
+</div>
+
+
+
+
 
 {% endblock content %}

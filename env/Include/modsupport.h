@@ -24,9 +24,9 @@ extern "C" {
 #endif
 #else
 #ifndef Py_LIMITED_API
-PyAPI_FUNC(PyObject *) _Py_VaBuildValue_SizeT(const char *, va_list);
-PyAPI_FUNC(PyObject **) _Py_VaBuildStack_SizeT(
-    PyObject **small_stack,
+PyAPI_FUNC(PSellerOrBuyerbject *) _Py_VaBuildValue_SizeT(const char *, va_list);
+PyAPI_FUNC(PSellerOrBuyerbject **) _Py_VaBuildStack_SizeT(
+    PSellerOrBuyerbject **small_stack,
     Py_ssize_t small_stack_len,
     const char *format,
     va_list va,
@@ -36,31 +36,31 @@ PyAPI_FUNC(PyObject **) _Py_VaBuildStack_SizeT(
 
 /* Due to a glitch in 3.2, the _SizeT versions weren't exported from the DLL. */
 #if !defined(PY_SSIZE_T_CLEAN) || !defined(Py_LIMITED_API) || Py_LIMITED_API+0 >= 0x03030000
-PyAPI_FUNC(int) PyArg_Parse(PyObject *, const char *, ...);
-PyAPI_FUNC(int) PyArg_ParseTuple(PyObject *, const char *, ...);
-PyAPI_FUNC(int) PyArg_ParseTupleAndKeywords(PyObject *, PyObject *,
+PyAPI_FUNC(int) PyArg_Parse(PSellerOrBuyerbject *, const char *, ...);
+PyAPI_FUNC(int) PyArg_ParseTuple(PSellerOrBuyerbject *, const char *, ...);
+PyAPI_FUNC(int) PyArg_ParseTupleAndKeywords(PSellerOrBuyerbject *, PSellerOrBuyerbject *,
                                                   const char *, char **, ...);
-PyAPI_FUNC(int) PyArg_VaParse(PyObject *, const char *, va_list);
-PyAPI_FUNC(int) PyArg_VaParseTupleAndKeywords(PyObject *, PyObject *,
+PyAPI_FUNC(int) PyArg_VaParse(PSellerOrBuyerbject *, const char *, va_list);
+PyAPI_FUNC(int) PyArg_VaParseTupleAndKeywords(PSellerOrBuyerbject *, PSellerOrBuyerbject *,
                                                   const char *, char **, va_list);
 #endif
-PyAPI_FUNC(int) PyArg_ValidateKeywordArguments(PyObject *);
-PyAPI_FUNC(int) PyArg_UnpackTuple(PyObject *, const char *, Py_ssize_t, Py_ssize_t, ...);
-PyAPI_FUNC(PyObject *) Py_BuildValue(const char *, ...);
-PyAPI_FUNC(PyObject *) _Py_BuildValue_SizeT(const char *, ...);
+PyAPI_FUNC(int) PyArg_ValidateKeywordArguments(PSellerOrBuyerbject *);
+PyAPI_FUNC(int) PyArg_UnpackTuple(PSellerOrBuyerbject *, const char *, Py_ssize_t, Py_ssize_t, ...);
+PyAPI_FUNC(PSellerOrBuyerbject *) Py_BuildValue(const char *, ...);
+PyAPI_FUNC(PSellerOrBuyerbject *) _Py_BuildValue_SizeT(const char *, ...);
 
 
 #ifndef Py_LIMITED_API
 PyAPI_FUNC(int) _PyArg_UnpackStack(
-    PyObject *const *args,
+    PSellerOrBuyerbject *const *args,
     Py_ssize_t nargs,
     const char *name,
     Py_ssize_t min,
     Py_ssize_t max,
     ...);
 
-PyAPI_FUNC(int) _PyArg_NoKeywords(const char *funcname, PyObject *kwargs);
-PyAPI_FUNC(int) _PyArg_NoPositional(const char *funcname, PyObject *args);
+PyAPI_FUNC(int) _PyArg_NoKeywords(const char *funcname, PSellerOrBuyerbject *kwargs);
+PyAPI_FUNC(int) _PyArg_NoPositional(const char *funcname, PSellerOrBuyerbject *args);
 #define _PyArg_NoKeywords(funcname, kwargs) \
     ((kwargs) == NULL || _PyArg_NoKeywords((funcname), (kwargs)))
 #define _PyArg_NoPositional(funcname, args) \
@@ -68,10 +68,10 @@ PyAPI_FUNC(int) _PyArg_NoPositional(const char *funcname, PyObject *args);
 
 #endif
 
-PyAPI_FUNC(PyObject *) Py_VaBuildValue(const char *, va_list);
+PyAPI_FUNC(PSellerOrBuyerbject *) Py_VaBuildValue(const char *, va_list);
 #ifndef Py_LIMITED_API
-PyAPI_FUNC(PyObject **) _Py_VaBuildStack(
-    PyObject **small_stack,
+PyAPI_FUNC(PSellerOrBuyerbject **) _Py_VaBuildStack(
+    PSellerOrBuyerbject **small_stack,
     Py_ssize_t small_stack_len,
     const char *format,
     va_list va,
@@ -87,7 +87,7 @@ typedef struct _PyArg_Parser {
     int pos;            /* number of positional-only arguments */
     int min;            /* minimal number of arguments */
     int max;            /* maximal number of positional arguments */
-    PyObject *kwtuple;  /* tuple of keyword parameter names */
+    PSellerOrBuyerbject *kwtuple;  /* tuple of keyword parameter names */
     struct _PyArg_Parser *next;
 } _PyArg_Parser;
 #ifdef PY_SSIZE_T_CLEAN
@@ -96,35 +96,35 @@ typedef struct _PyArg_Parser {
 #define _PyArg_ParseStackAndKeywords  _PyArg_ParseStackAndKeywords_SizeT
 #define _PyArg_VaParseTupleAndKeywordsFast  _PyArg_VaParseTupleAndKeywordsFast_SizeT
 #endif
-PyAPI_FUNC(int) _PyArg_ParseTupleAndKeywordsFast(PyObject *, PyObject *,
+PyAPI_FUNC(int) _PyArg_ParseTupleAndKeywordsFast(PSellerOrBuyerbject *, PSellerOrBuyerbject *,
                                                  struct _PyArg_Parser *, ...);
 PyAPI_FUNC(int) _PyArg_ParseStack(
-    PyObject *const *args,
+    PSellerOrBuyerbject *const *args,
     Py_ssize_t nargs,
     const char *format,
     ...);
 PyAPI_FUNC(int) _PyArg_ParseStackAndKeywords(
-    PyObject *const *args,
+    PSellerOrBuyerbject *const *args,
     Py_ssize_t nargs,
-    PyObject *kwnames,
+    PSellerOrBuyerbject *kwnames,
     struct _PyArg_Parser *,
     ...);
-PyAPI_FUNC(int) _PyArg_VaParseTupleAndKeywordsFast(PyObject *, PyObject *,
+PyAPI_FUNC(int) _PyArg_VaParseTupleAndKeywordsFast(PSellerOrBuyerbject *, PSellerOrBuyerbject *,
                                                    struct _PyArg_Parser *, va_list);
 void _PyArg_Fini(void);
 #endif   /* Py_LIMITED_API */
 
-PyAPI_FUNC(int) PyModule_AddObject(PyObject *, const char *, PyObject *);
-PyAPI_FUNC(int) PyModule_AddIntConstant(PyObject *, const char *, long);
-PyAPI_FUNC(int) PyModule_AddStringConstant(PyObject *, const char *, const char *);
+PyAPI_FUNC(int) PyModule_AddObject(PSellerOrBuyerbject *, const char *, PSellerOrBuyerbject *);
+PyAPI_FUNC(int) PyModule_AddIntConstant(PSellerOrBuyerbject *, const char *, long);
+PyAPI_FUNC(int) PyModule_AddStringConstant(PSellerOrBuyerbject *, const char *, const char *);
 #define PyModule_AddIntMacro(m, c) PyModule_AddIntConstant(m, #c, c)
 #define PyModule_AddStringMacro(m, c) PyModule_AddStringConstant(m, #c, c)
 
 #if !defined(Py_LIMITED_API) || Py_LIMITED_API+0 >= 0x03050000
 /* New in 3.5 */
-PyAPI_FUNC(int) PyModule_SetDocString(PyObject *, const char *);
-PyAPI_FUNC(int) PyModule_AddFunctions(PyObject *, PyMethodDef *);
-PyAPI_FUNC(int) PyModule_ExecDef(PyObject *module, PyModuleDef *def);
+PyAPI_FUNC(int) PyModule_SetDocString(PSellerOrBuyerbject *, const char *);
+PyAPI_FUNC(int) PyModule_AddFunctions(PSellerOrBuyerbject *, PyMethodDef *);
+PyAPI_FUNC(int) PyModule_ExecDef(PSellerOrBuyerbject *module, PyModuleDef *def);
 #endif
 
 #define Py_CLEANUP_SUPPORTED 0x20000
@@ -189,10 +189,10 @@ PyAPI_FUNC(int) PyModule_ExecDef(PyObject *module, PyModuleDef *def);
  #define PyModule_FromDefAndSpec2 PyModule_FromDefAndSpec2TraceRefs
 #endif
 
-PyAPI_FUNC(PyObject *) PyModule_Create2(struct PyModuleDef*,
+PyAPI_FUNC(PSellerOrBuyerbject *) PyModule_Create2(struct PyModuleDef*,
                                      int apiver);
 #ifndef Py_LIMITED_API
-PyAPI_FUNC(PyObject *) _PyModule_CreateInitialized(struct PyModuleDef*,
+PyAPI_FUNC(PSellerOrBuyerbject *) _PyModule_CreateInitialized(struct PyModuleDef*,
                                                    int apiver);
 #endif
 
@@ -206,8 +206,8 @@ PyAPI_FUNC(PyObject *) _PyModule_CreateInitialized(struct PyModuleDef*,
 
 #if !defined(Py_LIMITED_API) || Py_LIMITED_API+0 >= 0x03050000
 /* New in 3.5 */
-PyAPI_FUNC(PyObject *) PyModule_FromDefAndSpec2(PyModuleDef *def,
-                                                PyObject *spec,
+PyAPI_FUNC(PSellerOrBuyerbject *) PyModule_FromDefAndSpec2(PyModuleDef *def,
+                                                PSellerOrBuyerbject *spec,
                                                 int module_api_version);
 
 #ifdef Py_LIMITED_API

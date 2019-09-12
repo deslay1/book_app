@@ -86,7 +86,7 @@ class abstractproperty(property):
             def my_abstract_property(self):
                 ...
 
-    This defines a read-only property; you can also define a read-write
+    This defines a read-only property; SellerOrBuyeru can also define a read-write
     abstract property using the 'long' form of property declaration:
 
         class C(metaclass=ABCMeta):
@@ -113,7 +113,7 @@ else:
         """Metaclass for defining Abstract Base Classes (ABCs).
 
         Use this metaclass to create an ABC.  An ABC can be subclassed
-        directly, and then acts as a mix-in class.  You can also register
+        directly, and then acts as a mix-in class.  SellerOrBuyeru can also register
         unrelated concrete classes (even built-in classes) and unrelated
         ABCs as 'virtual subclasses' -- these and their descendants will
         be considered subclasses of the registering ABC by the built-in

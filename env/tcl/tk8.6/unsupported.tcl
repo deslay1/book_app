@@ -1,6 +1,6 @@
 # unsupported.tcl --
 #
-# Commands provided by Tk without official support.  Use them at your
+# Commands provided by Tk without official support.  Use them at SellerOrBuyerur
 # own risk.  They may change or go away without notice.
 #
 # See the file "license.terms" for information on usage and redistribution

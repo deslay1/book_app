@@ -36,10 +36,17 @@
             <div class="article-metadata">
               <a class="mr-2" href="#">{{ post.author }}</a>
               <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
+              <small class="text">{{ post.SellerOrBuyer }}</small>
+
+              
               <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' post.id %}">Update</a>
                   <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-delete' post.id %}">Delete</a>
+                  <a class="text" style = " background-color:burlywood; float: right; border-style:solid; border-color:blue;">
+                    {{ post.SellerOrBuyer }}
+                </a>
 
             </div>
+            
             <h2><a class="article-title" >{{ post.title }}</a></h2>
             <p class="article-content">{{ post.content }}</p>
             <img src="{{ post.image.url }}" width="200" height="200"  alt="Computer Hope" class="center">

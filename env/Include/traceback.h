@@ -12,7 +12,7 @@ struct _frame;
 /* Traceback interface */
 #ifndef Py_LIMITED_API
 typedef struct _traceback {
-    PyObject_HEAD
+    PSellerOrBuyerbject_HEAD
     struct _traceback *tb_next;
     struct _frame *tb_frame;
     int tb_lasti;
@@ -21,9 +21,9 @@ typedef struct _traceback {
 #endif
 
 PyAPI_FUNC(int) PyTraceBack_Here(struct _frame *);
-PyAPI_FUNC(int) PyTraceBack_Print(PyObject *, PyObject *);
+PyAPI_FUNC(int) PyTraceBack_Print(PSellerOrBuyerbject *, PSellerOrBuyerbject *);
 #ifndef Py_LIMITED_API
-PyAPI_FUNC(int) _Py_DisplaySourceLine(PyObject *, PyObject *, int, int);
+PyAPI_FUNC(int) _Py_DisplaySourceLine(PSellerOrBuyerbject *, PSellerOrBuyerbject *, int, int);
 PyAPI_FUNC(void) _PyTraceback_Add(const char *, const char *, int);
 #endif
 
@@ -91,7 +91,7 @@ PyAPI_FUNC(const char*) _Py_DumpTracebackThreads(
    string which is not ready (PyUnicode_WCHAR_KIND).
 
    This function is signal safe. */
-PyAPI_FUNC(void) _Py_DumpASCII(int fd, PyObject *text);
+PyAPI_FUNC(void) _Py_DumpASCII(int fd, PSellerOrBuyerbject *text);
 
 /* Format an integer as decimal into the file descriptor fd.
 

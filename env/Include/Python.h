@@ -75,7 +75,7 @@
 
 #include "pydebug.h"
 
-#include "bytearrayobject.h"
+#include "bytearraSellerOrBuyerbject.h"
 #include "bytesobject.h"
 #include "unicodeobject.h"
 #include "longobject.h"
@@ -84,7 +84,7 @@
 #include "floatobject.h"
 #include "complexobject.h"
 #include "rangeobject.h"
-#include "memoryobject.h"
+#include "memorSellerOrBuyerbject.h"
 #include "tupleobject.h"
 #include "listobject.h"
 #include "dictobject.h"

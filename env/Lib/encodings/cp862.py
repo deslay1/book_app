@@ -54,7 +54,7 @@ decoding_map.update({
     0x0086: 0x05d6,     #  HEBREW LETTER ZAYIN
     0x0087: 0x05d7,     #  HEBREW LETTER HET
     0x0088: 0x05d8,     #  HEBREW LETTER TET
-    0x0089: 0x05d9,     #  HEBREW LETTER YOD
+    0x0089: 0x05d9,     #  HEBREW LETTER SellerOrBuyerD
     0x008a: 0x05da,     #  HEBREW LETTER FINAL KAF
     0x008b: 0x05db,     #  HEBREW LETTER KAF
     0x008c: 0x05dc,     #  HEBREW LETTER LAMED
@@ -315,7 +315,7 @@ decoding_table = (
     '\u05d6'   #  0x0086 -> HEBREW LETTER ZAYIN
     '\u05d7'   #  0x0087 -> HEBREW LETTER HET
     '\u05d8'   #  0x0088 -> HEBREW LETTER TET
-    '\u05d9'   #  0x0089 -> HEBREW LETTER YOD
+    '\u05d9'   #  0x0089 -> HEBREW LETTER SellerOrBuyerD
     '\u05da'   #  0x008a -> HEBREW LETTER FINAL KAF
     '\u05db'   #  0x008b -> HEBREW LETTER KAF
     '\u05dc'   #  0x008c -> HEBREW LETTER LAMED
@@ -615,7 +615,7 @@ encoding_map = {
     0x05d6: 0x0086,     #  HEBREW LETTER ZAYIN
     0x05d7: 0x0087,     #  HEBREW LETTER HET
     0x05d8: 0x0088,     #  HEBREW LETTER TET
-    0x05d9: 0x0089,     #  HEBREW LETTER YOD
+    0x05d9: 0x0089,     #  HEBREW LETTER SellerOrBuyerD
     0x05da: 0x008a,     #  HEBREW LETTER FINAL KAF
     0x05db: 0x008b,     #  HEBREW LETTER KAF
     0x05dc: 0x008c,     #  HEBREW LETTER LAMED

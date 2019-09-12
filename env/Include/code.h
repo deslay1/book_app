@@ -19,31 +19,31 @@ typedef uint16_t _Py_CODEUNIT;
 
 /* Bytecode object */
 typedef struct {
-    PyObject_HEAD
+    PSellerOrBuyerbject_HEAD
     int co_argcount;            /* #arguments, except *args */
     int co_kwonlyargcount;      /* #keyword only arguments */
     int co_nlocals;             /* #local variables */
     int co_stacksize;           /* #entries needed for evaluation stack */
     int co_flags;               /* CO_..., see below */
     int co_firstlineno;         /* first source line number */
-    PyObject *co_code;          /* instruction opcodes */
-    PyObject *co_consts;        /* list (constants used) */
-    PyObject *co_names;         /* list of strings (names used) */
-    PyObject *co_varnames;      /* tuple of strings (local variable names) */
-    PyObject *co_freevars;      /* tuple of strings (free variable names) */
-    PyObject *co_cellvars;      /* tuple of strings (cell variable names) */
+    PSellerOrBuyerbject *co_code;          /* instruction opcodes */
+    PSellerOrBuyerbject *co_consts;        /* list (constants used) */
+    PSellerOrBuyerbject *co_names;         /* list of strings (names used) */
+    PSellerOrBuyerbject *co_varnames;      /* tuple of strings (local variable names) */
+    PSellerOrBuyerbject *co_freevars;      /* tuple of strings (free variable names) */
+    PSellerOrBuyerbject *co_cellvars;      /* tuple of strings (cell variable names) */
     /* The rest aren't used in either hash or comparisons, except for co_name,
        used in both. This is done to preserve the name and line number
        for tracebacks and debuggers; otherwise, constant de-duplication
        would collapse identical functions/lambdas defined on different lines.
     */
     Py_ssize_t *co_cell2arg;    /* Maps cell vars which are arguments. */
-    PyObject *co_filename;      /* unicode (where it was loaded from) */
-    PyObject *co_name;          /* unicode (name, for reference) */
-    PyObject *co_lnotab;        /* string (encoding addr<->lineno mapping) See
+    PSellerOrBuyerbject *co_filename;      /* unicode (where it was loaded from) */
+    PSellerOrBuyerbject *co_name;          /* unicode (name, for reference) */
+    PSellerOrBuyerbject *co_lnotab;        /* string (encoding addr<->lineno mapping) See
                                    Objects/lnotab_notes.txt for details. */
     void *co_zombieframe;       /* for optimization only (see frameobject.c) */
-    PyObject *co_weakreflist;   /* to support weakrefs to code objects */
+    PSellerOrBuyerbject *co_weakreflist;   /* to support weakrefs to code objects */
     /* Scratch space for extra data relating to the code object.
        Type is a void* to keep the format private in codeobject.c to force
        people to go through the proper APIs. */
@@ -102,9 +102,9 @@ PyAPI_DATA(PyTypeObject) PyCode_Type;
 
 /* Public interface */
 PyAPI_FUNC(PyCodeObject *) PyCode_New(
-        int, int, int, int, int, PyObject *, PyObject *,
-        PyObject *, PyObject *, PyObject *, PyObject *,
-        PyObject *, PyObject *, int, PyObject *);
+        int, int, int, int, int, PSellerOrBuyerbject *, PSellerOrBuyerbject *,
+        PSellerOrBuyerbject *, PSellerOrBuyerbject *, PSellerOrBuyerbject *, PSellerOrBuyerbject *,
+        PSellerOrBuyerbject *, PSellerOrBuyerbject *, int, PSellerOrBuyerbject *);
         /* same as struct above */
 
 /* Creates a new empty code object with the specified source location. */
@@ -112,7 +112,7 @@ PyAPI_FUNC(PyCodeObject *)
 PyCode_NewEmpty(const char *filename, const char *funcname, int firstlineno);
 
 /* Return the line number associated with the specified bytecode index
-   in this code object.  If you just need the line number of a frame,
+   in this code object.  If SellerOrBuyeru just need the line number of a frame,
    use PyFrame_GetLineNumber() instead. */
 PyAPI_FUNC(int) PyCode_Addr2Line(PyCodeObject *, int);
 
@@ -136,17 +136,17 @@ PyAPI_FUNC(int) _PyCode_CheckLineNumber(PyCodeObject* co,
  * Return (type(obj), obj, ...): a tuple with variable size (at least 2 items)
  * depending on the type and the value. The type is the first item to not
  * compare bytes and str which can raise a BytesWarning exception. */
-PyAPI_FUNC(PyObject*) _PyCode_ConstantKey(PyObject *obj);
+PyAPI_FUNC(PSellerOrBuyerbject*) _PyCode_ConstantKey(PSellerOrBuyerbject *obj);
 #endif
 
-PyAPI_FUNC(PyObject*) PyCode_Optimize(PyObject *code, PyObject* consts,
-                                      PyObject *names, PyObject *lnotab);
+PyAPI_FUNC(PSellerOrBuyerbject*) PyCode_Optimize(PSellerOrBuyerbject *code, PSellerOrBuyerbject* consts,
+                                      PSellerOrBuyerbject *names, PSellerOrBuyerbject *lnotab);
 
 
 #ifndef Py_LIMITED_API
-PyAPI_FUNC(int) _PyCode_GetExtra(PyObject *code, Py_ssize_t index,
+PyAPI_FUNC(int) _PyCode_GetExtra(PSellerOrBuyerbject *code, Py_ssize_t index,
                                  void **extra);
-PyAPI_FUNC(int) _PyCode_SetExtra(PyObject *code, Py_ssize_t index,
+PyAPI_FUNC(int) _PyCode_SetExtra(PSellerOrBuyerbject *code, Py_ssize_t index,
                                  void *extra);
 #endif
 

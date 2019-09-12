@@ -1956,7 +1956,7 @@ class TarFile(object):
     def addfile(self, tarinfo, fileobj=None):
         """Add the TarInfo object `tarinfo' to the archive. If `fileobj' is
            given, it should be a binary file, and tarinfo.size bytes are read
-           from it and added to the archive. You can create TarInfo objects
+           from it and added to the archive. SellerOrBuyeru can create TarInfo objects
            directly, or by using gettarinfo().
         """
         self._check("awx")
@@ -2021,7 +2021,7 @@ class TarFile(object):
     def extract(self, member, path="", set_attrs=True, *, numeric_owner=False):
         """Extract a member from the archive to the current working directory,
            using its full name. Its file information is extracted as accurately
-           as possible. `member' may be a filename or a TarInfo object. You can
+           as possible. `member' may be a filename or a TarInfo object. SellerOrBuyeru can
            specify a different directory using `path'. File attributes (owner,
            mtime, mode) are set unless `set_attrs' is False. If `numeric_owner`
            is True, only the numbers for user/group names are used and not

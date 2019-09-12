@@ -5,8 +5,8 @@
 extern "C" {
 #endif
 
-typedef PyObject *(*getter)(PyObject *, void *);
-typedef int (*setter)(PyObject *, PyObject *, void *);
+typedef PSellerOrBuyerbject *(*getter)(PSellerOrBuyerbject *, void *);
+typedef int (*setter)(PSellerOrBuyerbject *, PSellerOrBuyerbject *, void *);
 
 typedef struct PyGetSetDef {
     const char *name;
@@ -17,11 +17,11 @@ typedef struct PyGetSetDef {
 } PyGetSetDef;
 
 #ifndef Py_LIMITED_API
-typedef PyObject *(*wrapperfunc)(PyObject *self, PyObject *args,
+typedef PSellerOrBuyerbject *(*wrapperfunc)(PSellerOrBuyerbject *self, PSellerOrBuyerbject *args,
                                  void *wrapped);
 
-typedef PyObject *(*wrapperfunc_kwds)(PyObject *self, PyObject *args,
-                                      void *wrapped, PyObject *kwds);
+typedef PSellerOrBuyerbject *(*wrapperfunc_kwds)(PSellerOrBuyerbject *self, PSellerOrBuyerbject *args,
+                                      void *wrapped, PSellerOrBuyerbject *kwds);
 
 struct wrapperbase {
     const char *name;
@@ -30,7 +30,7 @@ struct wrapperbase {
     wrapperfunc wrapper;
     const char *doc;
     int flags;
-    PyObject *name_strobj;
+    PSellerOrBuyerbject *name_strobj;
 };
 
 /* Flags for above struct */
@@ -39,10 +39,10 @@ struct wrapperbase {
 /* Various kinds of descriptor objects */
 
 typedef struct {
-    PyObject_HEAD
+    PSellerOrBuyerbject_HEAD
     PyTypeObject *d_type;
-    PyObject *d_name;
-    PyObject *d_qualname;
+    PSellerOrBuyerbject *d_name;
+    PSellerOrBuyerbject *d_qualname;
 } PyDescrObject;
 
 #define PyDescr_COMMON PyDescrObject d_common
@@ -82,24 +82,24 @@ PyAPI_DATA(PyTypeObject) PyDictProxy_Type;
 PyAPI_DATA(PyTypeObject) _PyMethodWrapper_Type;
 #endif /* Py_LIMITED_API */
 
-PyAPI_FUNC(PyObject *) PyDescr_NewMethod(PyTypeObject *, PyMethodDef *);
-PyAPI_FUNC(PyObject *) PyDescr_NewClassMethod(PyTypeObject *, PyMethodDef *);
+PyAPI_FUNC(PSellerOrBuyerbject *) PyDescr_NewMethod(PyTypeObject *, PyMethodDef *);
+PyAPI_FUNC(PSellerOrBuyerbject *) PyDescr_NewClassMethod(PyTypeObject *, PyMethodDef *);
 struct PyMemberDef; /* forward declaration for following prototype */
-PyAPI_FUNC(PyObject *) PyDescr_NewMember(PyTypeObject *,
+PyAPI_FUNC(PSellerOrBuyerbject *) PyDescr_NewMember(PyTypeObject *,
                                                struct PyMemberDef *);
-PyAPI_FUNC(PyObject *) PyDescr_NewGetSet(PyTypeObject *,
+PyAPI_FUNC(PSellerOrBuyerbject *) PyDescr_NewGetSet(PyTypeObject *,
                                                struct PyGetSetDef *);
 #ifndef Py_LIMITED_API
 
-PyAPI_FUNC(PyObject *) _PyMethodDescr_FastCallKeywords(
-        PyObject *descrobj, PyObject *const *stack, Py_ssize_t nargs, PyObject *kwnames);
-PyAPI_FUNC(PyObject *) PyDescr_NewWrapper(PyTypeObject *,
+PyAPI_FUNC(PSellerOrBuyerbject *) _PyMethodDescr_FastCallKeywords(
+        PSellerOrBuyerbject *descrobj, PSellerOrBuyerbject *const *stack, Py_ssize_t nargs, PSellerOrBuyerbject *kwnames);
+PyAPI_FUNC(PSellerOrBuyerbject *) PyDescr_NewWrapper(PyTypeObject *,
                                                 struct wrapperbase *, void *);
 #define PyDescr_IsData(d) (Py_TYPE(d)->tp_descr_set != NULL)
 #endif
 
-PyAPI_FUNC(PyObject *) PyDictProxy_New(PyObject *);
-PyAPI_FUNC(PyObject *) PyWrapper_New(PyObject *, PyObject *);
+PyAPI_FUNC(PSellerOrBuyerbject *) PyDictProxy_New(PSellerOrBuyerbject *);
+PyAPI_FUNC(PSellerOrBuyerbject *) PyWrapper_New(PSellerOrBuyerbject *, PSellerOrBuyerbject *);
 
 
 PyAPI_DATA(PyTypeObject) PyProperty_Type;

@@ -51,7 +51,7 @@ else:
 _w_long = _bootstrap_external._w_long
 _r_long = _bootstrap_external._r_long
 
-# Fully bootstrapped at this point, import whatever you like, circular
+# Fully bootstrapped at this point, import whatever SellerOrBuyeru like, circular
 # dependencies and startup overhead minimisation permitting :)
 
 import types

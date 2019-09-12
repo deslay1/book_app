@@ -57,7 +57,7 @@ PyAPI_FUNC(PyCodeObject *) PyAST_CompileEx(
     PyArena *arena);
 PyAPI_FUNC(PyCodeObject *) PyAST_CompileObject(
     struct _mod *mod,
-    PyObject *filename,
+    PSellerOrBuyerbject *filename,
     PyCompilerFlags *flags,
     int optimize,
     PyArena *arena);
@@ -67,11 +67,11 @@ PyAPI_FUNC(PyFutureFeatures *) PyFuture_FromAST(
     );
 PyAPI_FUNC(PyFutureFeatures *) PyFuture_FromASTObject(
     struct _mod * mod,
-    PyObject *filename
+    PSellerOrBuyerbject *filename
     );
 
 /* _Py_Mangle is defined in compile.c */
-PyAPI_FUNC(PyObject*) _Py_Mangle(PyObject *p, PyObject *name);
+PyAPI_FUNC(PSellerOrBuyerbject*) _Py_Mangle(PSellerOrBuyerbject *p, PSellerOrBuyerbject *name);
 
 #define PY_INVALID_STACK_EFFECT INT_MAX
 PyAPI_FUNC(int) PyCompile_OpcodeStackEffect(int opcode, int oparg);

@@ -1298,7 +1298,7 @@ wm iconname $w "Floorplan"
 wm geometry $w +20+20
 wm minsize $w 100 100
 
-label $w.msg -font $font -wraplength 8i -justify left  -text "This window contains a canvas widget showing the floorplan of Digital Equipment Corporation's Western Research Laboratory.  It has three levels.  At any given time one of the levels is active, meaning that you can see its room structure.  To activate a level, click the left mouse button anywhere on it.  As the mouse moves over the active level, the room under the mouse lights up and its room number appears in the \"Room:\" entry.  You can also type a room number in the entry and the room will light up."
+label $w.msg -font $font -wraplength 8i -justify left  -text "This window contains a canvas widget showing the floorplan of Digital Equipment Corporation's Western Research Laboratory.  It has three levels.  At any given time one of the levels is active, meaning that SellerOrBuyeru can see its room structure.  To activate a level, click the left mouse button anywhere on it.  As the mouse moves over the active level, the room under the mouse lights up and its room number appears in the \"Room:\" entry.  SellerOrBuyeru can also type a room number in the entry and the room will light up."
 pack $w.msg -side top
 
 ## See Code / Dismiss buttons

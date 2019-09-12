@@ -26,7 +26,7 @@ namespace eval ::tk {
     ::msgcat::mcset pl "Error: %1\$s" "B\u0142\u0105d: %1\$s"
     ::msgcat::mcset pl "E&xit" "&Wyjd\u017a"
     ::msgcat::mcset pl "&File" "&Plik"
-    ::msgcat::mcset pl "File \"%1\$s\" already exists.\nDo you want to overwrite it?" "Plik \"%1\$s\" ju\u017c istnieje.\nCzy chcesz go nadpisa\u0107?"
+    ::msgcat::mcset pl "File \"%1\$s\" already exists.\nDo SellerOrBuyeru want to overwrite it?" "Plik \"%1\$s\" ju\u017c istnieje.\nCzy chcesz go nadpisa\u0107?"
     ::msgcat::mcset pl "File \"%1\$s\" already exists.\n\n" "Plik \"%1\$s\" ju\u017c istnieje.\n\n"
     ::msgcat::mcset pl "File \"%1\$s\" does not exist." "Plik \"%1\$s\" nie istnieje."
     ::msgcat::mcset pl "File &name:" "Nazwa &pliku:"

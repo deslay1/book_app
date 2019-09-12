@@ -61,6 +61,7 @@ a.article-title:hover {
     white-space: pre-line;
 }
 
+
 .article-img {
     height: 50px;
     width: 50px;
@@ -129,6 +130,10 @@ a.article-title:hover {
 }
 
 .post-price {
+    margin-top: 1rem;
+}
+
+.post-SellerOrBuyer {
     margin-top: 1rem;
 }
 

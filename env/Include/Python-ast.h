@@ -19,7 +19,7 @@ typedef enum _operator { Add=1, Sub=2, Mult=3, MatMult=4, Div=5, Mod=6, Pow=7,
                          LShift=8, RShift=9, BitOr=10, BitXor=11, BitAnd=12,
                          FloorDiv=13 } operator_ty;
 
-typedef enum _unaryop { Invert=1, Not=2, UAdd=3, USub=4 } unaryop_ty;
+typedef enum _unarSellerOrBuyerp { Invert=1, Not=2, UAdd=3, USub=4 } unarSellerOrBuyerp_ty;
 
 typedef enum _cmpop { Eq=1, NotEq=2, Lt=3, LtE=4, Gt=5, GtE=6, Is=7, IsNot=8,
                       In=9, NotIn=10 } cmpop_ty;
@@ -204,7 +204,7 @@ struct _stmt {
     int col_offset;
 };
 
-enum _expr_kind {BoolOp_kind=1, BinOp_kind=2, UnaryOp_kind=3, Lambda_kind=4,
+enum _expr_kind {BoolOp_kind=1, BinOp_kind=2, UnarSellerOrBuyerp_kind=3, Lambda_kind=4,
                   IfExp_kind=5, Dict_kind=6, Set_kind=7, ListComp_kind=8,
                   SetComp_kind=9, DictComp_kind=10, GeneratorExp_kind=11,
                   Await_kind=12, Yield_kind=13, YieldFrom_kind=14,
@@ -228,9 +228,9 @@ struct _expr {
         } BinOp;
 
         struct {
-            unaryop_ty op;
+            unarSellerOrBuyerp_ty op;
             expr_ty operand;
-        } UnaryOp;
+        } UnarSellerOrBuyerp;
 
         struct {
             arguments_ty args;
@@ -527,8 +527,8 @@ expr_ty _Py_BoolOp(boolop_ty op, asdl_seq * values, int lineno, int col_offset,
 #define BinOp(a0, a1, a2, a3, a4, a5) _Py_BinOp(a0, a1, a2, a3, a4, a5)
 expr_ty _Py_BinOp(expr_ty left, operator_ty op, expr_ty right, int lineno, int
                   col_offset, PyArena *arena);
-#define UnaryOp(a0, a1, a2, a3, a4) _Py_UnaryOp(a0, a1, a2, a3, a4)
-expr_ty _Py_UnaryOp(unaryop_ty op, expr_ty operand, int lineno, int col_offset,
+#define UnarSellerOrBuyerp(a0, a1, a2, a3, a4) _Py_UnarSellerOrBuyerp(a0, a1, a2, a3, a4)
+expr_ty _Py_UnarSellerOrBuyerp(unarSellerOrBuyerp_ty op, expr_ty operand, int lineno, int col_offset,
                     PyArena *arena);
 #define Lambda(a0, a1, a2, a3, a4) _Py_Lambda(a0, a1, a2, a3, a4)
 expr_ty _Py_Lambda(arguments_ty args, expr_ty body, int lineno, int col_offset,
@@ -632,6 +632,6 @@ alias_ty _Py_alias(identifier name, identifier asname, PyArena *arena);
 withitem_ty _Py_withitem(expr_ty context_expr, expr_ty optional_vars, PyArena
                          *arena);
 
-PyObject* PyAST_mod2obj(mod_ty t);
-mod_ty PyAST_obj2mod(PyObject* ast, PyArena* arena, int mode);
-int PyAST_Check(PyObject* obj);
+PSellerOrBuyerbject* PyAST_mod2obj(mod_ty t);
+mod_ty PyAST_obj2mod(PSellerOrBuyerbject* ast, PyArena* arena, int mode);
+int PyAST_Check(PSellerOrBuyerbject* obj);

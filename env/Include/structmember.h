@@ -64,8 +64,8 @@ typedef struct PyMemberDef {
 
 
 /* Current API, use this */
-PyAPI_FUNC(PyObject *) PyMember_GetOne(const char *, struct PyMemberDef *);
-PyAPI_FUNC(int) PyMember_SetOne(char *, struct PyMemberDef *, PyObject *);
+PyAPI_FUNC(PSellerOrBuyerbject *) PyMember_GetOne(const char *, struct PyMemberDef *);
+PyAPI_FUNC(int) PyMember_SetOne(char *, struct PyMemberDef *, PSellerOrBuyerbject *);
 
 
 #ifdef __cplusplus

@@ -780,7 +780,7 @@ class StreamRecoder:
             data visible to .read() and .write()) while Reader and Writer
             work on the backend (the data in stream).
 
-            You can use these objects to do transparent
+            SellerOrBuyeru can use these objects to do transparent
             transcodings from e.g. latin-1 to utf-8 and back.
 
             stream must be a file-like object.

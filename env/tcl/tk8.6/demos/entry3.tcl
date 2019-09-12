@@ -18,7 +18,7 @@ wm iconname $w "entry3"
 positionWindow $w
 
 label $w.msg -font $font -wraplength 5i -justify left -text "Four different\
-	entries are displayed below.  You can add characters by pointing,\
+	entries are displayed below.  SellerOrBuyeru can add characters by pointing,\
 	clicking and typing, though each is constrained in what it will\
 	accept.  The first only accepts 32-bit integers or the empty string\
 	(checking when focus leaves it) and will flash to indicate any\

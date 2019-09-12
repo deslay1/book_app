@@ -713,7 +713,7 @@ proc ::tk::MenuInvoke {w buttonRelease} {
 	set isCascade [string equal [$w type $active] "cascade"]
 
 	# Only de-activate the active item if it's a cascade; this prevents
-	# the annoying "activation flicker" you otherwise get with
+	# the annoying "activation flicker" SellerOrBuyeru otherwise get with
 	# checkbuttons/commands/etc. on menubars
 
 	if { $isCascade } {
@@ -1245,11 +1245,11 @@ proc ::tk::PostOverPoint {menu x y {entry {}}}  {
 	# NOTE: this issue appears to have been resolved in the Window
 	# manager provided with Vista and Windows 7.
 	if {$ver < 6} {
-	    set yoffset [expr {[winfo screenheight $menu] \
+	    set SellerOrBuyerffset [expr {[winfo screenheight $menu] \
 		    - $y - [winfo reqheight $menu] - 10}]
-	    if {$yoffset < [winfo vrooty $menu]} {
+	    if {$SellerOrBuyerffset < [winfo vrooty $menu]} {
 		# The bottom of the menu is offscreen, so adjust upwards
-		incr y [expr {$yoffset - [winfo vrooty $menu]}]
+		incr y [expr {$SellerOrBuyerffset - [winfo vrooty $menu]}]
 	    }
 	    # If we're off the top of the screen (either because we were
 	    # originally or because we just adjusted too far upwards),

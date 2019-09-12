@@ -17,7 +17,7 @@ members:
 It is designed to match the working of the Python tokenizer exactly, except
 that it produces COMMENT tokens for comments and gives type OP for all
 operators.  Additionally, all token lists start with an ENCODING token
-which tells you which encoding was used to decode the bytes stream.
+which tells SellerOrBuyeru which encoding was used to decode the bytes stream.
 """
 
 __author__ = 'Ka-Ping Yee <ping@lfw.org>'
@@ -473,7 +473,7 @@ def tokenize(readline):
     logical line; continuation lines are included.
 
     The first token sequence will always be an ENCODING token
-    which tells you which encoding was used to decode the bytes stream.
+    which tells SellerOrBuyeru which encoding was used to decode the bytes stream.
     """
     # This import is here to avoid problems when the itertools module is not
     # built yet and tokenize is imported.

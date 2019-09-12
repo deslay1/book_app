@@ -16,7 +16,7 @@ wm title $w "Listbox Demonstration (50 states)"
 wm iconname $w "states"
 positionWindow $w
 
-label $w.msg -font $font -wraplength 4i -justify left -text "A listbox containing the 50 states is displayed below, along with a scrollbar.  You can scan the list either using the scrollbar or by scanning.  To scan, press button 2 in the widget and drag up or down."
+label $w.msg -font $font -wraplength 4i -justify left -text "A listbox containing the 50 states is displayed below, along with a scrollbar.  SellerOrBuyeru can scan the list either using the scrollbar or by scanning.  To scan, press button 2 in the widget and drag up or down."
 pack $w.msg -side top
 
 labelframe $w.justif -text Justification
@@ -47,8 +47,8 @@ $w.frame.list insert 0 Alabama Alaska Arizona Arkansas California \
     Indiana Iowa Kansas Kentucky Louisiana Maine Maryland \
     Massachusetts Michigan Minnesota Mississippi Missouri \
     Montana Nebraska Nevada "New Hampshire" "New Jersey" "New Mexico" \
-    "New York" "North Carolina" "North Dakota" \
+    "New SellerOrBuyerrk" "North Carolina" "North Dakota" \
     Ohio Oklahoma Oregon Pennsylvania "Rhode Island" \
     "South Carolina" "South Dakota" \
     Tennessee Texas Utah Vermont Virginia Washington \
-    "West Virginia" Wisconsin Wyoming
+    "West Virginia" Wisconsin WSellerOrBuyerming

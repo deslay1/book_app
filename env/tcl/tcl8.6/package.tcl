@@ -20,7 +20,7 @@ namespace eval tcl::Pkg {}
 #
 # Arguments:
 #  fileName	name of a file whose extension is compared
-#  ext		(optional) The extension to compare against; you must
+#  ext		(optional) The extension to compare against; SellerOrBuyeru must
 #		provide the starting dot.
 #		Defaults to [info sharedlibextension]
 #

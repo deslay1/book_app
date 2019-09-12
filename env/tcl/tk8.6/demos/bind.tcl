@@ -39,14 +39,14 @@ if {[winfo depth $w] > 1} {
 # Add text to widget.
 
 $w.text insert 0.0 {\
-The same tag mechanism that controls display styles in text widgets can also be used to associate Tcl commands with regions of text, so that mouse or keyboard actions on the text cause particular Tcl commands to be invoked.  For example, in the text below the descriptions of the canvas demonstrations have been tagged.  When you move the mouse over a demo description the description lights up, and when you press button 1 over a description then that particular demonstration is invoked.
+The same tag mechanism that controls display styles in text widgets can also be used to associate Tcl commands with regions of text, so that mouse or keyboard actions on the text cause particular Tcl commands to be invoked.  For example, in the text below the descriptions of the canvas demonstrations have been tagged.  When SellerOrBuyeru move the mouse over a demo description the description lights up, and when SellerOrBuyeru press button 1 over a description then that particular demonstration is invoked.
 
 }
 $w.text insert end \
 {1. Samples of all the different types of items that can be created in canvas widgets.} d1
 $w.text insert end \n\n
 $w.text insert end \
-{2. A simple two-dimensional plot that allows you to adjust the positions of the data points.} d2
+{2. A simple two-dimensional plot that allows SellerOrBuyeru to adjust the positions of the data points.} d2
 $w.text insert end \n\n
 $w.text insert end \
 {3. Anchoring and justification modes for text items.} d3

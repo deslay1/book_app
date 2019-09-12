@@ -35,7 +35,7 @@ namespace eval ::tcl::clock {
         "febrero"\
         "marzo"\
         "abril"\
-        "mayo"\
+        "maSellerOrBuyer"\
         "junio"\
         "julio"\
         "agosto"\

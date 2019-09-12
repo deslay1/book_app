@@ -14,68 +14,68 @@ PyMODINIT_FUNC PyInit__imp(void);
 #endif /* !Py_LIMITED_API */
 PyAPI_FUNC(long) PyImport_GetMagicNumber(void);
 PyAPI_FUNC(const char *) PyImport_GetMagicTag(void);
-PyAPI_FUNC(PyObject *) PyImport_ExecCodeModule(
+PyAPI_FUNC(PSellerOrBuyerbject *) PyImport_ExecCodeModule(
     const char *name,           /* UTF-8 encoded string */
-    PyObject *co
+    PSellerOrBuyerbject *co
     );
-PyAPI_FUNC(PyObject *) PyImport_ExecCodeModuleEx(
+PyAPI_FUNC(PSellerOrBuyerbject *) PyImport_ExecCodeModuleEx(
     const char *name,           /* UTF-8 encoded string */
-    PyObject *co,
+    PSellerOrBuyerbject *co,
     const char *pathname        /* decoded from the filesystem encoding */
     );
-PyAPI_FUNC(PyObject *) PyImport_ExecCodeModuleWithPathnames(
+PyAPI_FUNC(PSellerOrBuyerbject *) PyImport_ExecCodeModuleWithPathnames(
     const char *name,           /* UTF-8 encoded string */
-    PyObject *co,
+    PSellerOrBuyerbject *co,
     const char *pathname,       /* decoded from the filesystem encoding */
     const char *cpathname       /* decoded from the filesystem encoding */
     );
 #if !defined(Py_LIMITED_API) || Py_LIMITED_API+0 >= 0x03030000
-PyAPI_FUNC(PyObject *) PyImport_ExecCodeModuleObject(
-    PyObject *name,
-    PyObject *co,
-    PyObject *pathname,
-    PyObject *cpathname
+PyAPI_FUNC(PSellerOrBuyerbject *) PyImport_ExecCodeModuleObject(
+    PSellerOrBuyerbject *name,
+    PSellerOrBuyerbject *co,
+    PSellerOrBuyerbject *pathname,
+    PSellerOrBuyerbject *cpathname
     );
 #endif
-PyAPI_FUNC(PyObject *) PyImport_GetModuleDict(void);
+PyAPI_FUNC(PSellerOrBuyerbject *) PyImport_GetModuleDict(void);
 #if !defined(Py_LIMITED_API) || Py_LIMITED_API+0 >= 0x03070000
-PyAPI_FUNC(PyObject *) PyImport_GetModule(PyObject *name);
+PyAPI_FUNC(PSellerOrBuyerbject *) PyImport_GetModule(PSellerOrBuyerbject *name);
 #endif
 #ifndef Py_LIMITED_API
 PyAPI_FUNC(int) _PyImport_IsInitialized(PyInterpreterState *);
-PyAPI_FUNC(PyObject *) _PyImport_GetModuleId(struct _Py_Identifier *name);
-PyAPI_FUNC(PyObject *) _PyImport_AddModuleObject(PyObject *name,
-                                                 PyObject *modules);
-PyAPI_FUNC(int) _PyImport_SetModule(PyObject *name, PyObject *module);
-PyAPI_FUNC(int) _PyImport_SetModuleString(const char *name, PyObject* module);
+PyAPI_FUNC(PSellerOrBuyerbject *) _PyImport_GetModuleId(struct _Py_Identifier *name);
+PyAPI_FUNC(PSellerOrBuyerbject *) _PyImport_AddModuleObject(PSellerOrBuyerbject *name,
+                                                 PSellerOrBuyerbject *modules);
+PyAPI_FUNC(int) _PyImport_SetModule(PSellerOrBuyerbject *name, PSellerOrBuyerbject *module);
+PyAPI_FUNC(int) _PyImport_SetModuleString(const char *name, PSellerOrBuyerbject* module);
 #endif
 #if !defined(Py_LIMITED_API) || Py_LIMITED_API+0 >= 0x03030000
-PyAPI_FUNC(PyObject *) PyImport_AddModuleObject(
-    PyObject *name
+PyAPI_FUNC(PSellerOrBuyerbject *) PyImport_AddModuleObject(
+    PSellerOrBuyerbject *name
     );
 #endif
-PyAPI_FUNC(PyObject *) PyImport_AddModule(
+PyAPI_FUNC(PSellerOrBuyerbject *) PyImport_AddModule(
     const char *name            /* UTF-8 encoded string */
     );
-PyAPI_FUNC(PyObject *) PyImport_ImportModule(
+PyAPI_FUNC(PSellerOrBuyerbject *) PyImport_ImportModule(
     const char *name            /* UTF-8 encoded string */
     );
-PyAPI_FUNC(PyObject *) PyImport_ImportModuleNoBlock(
+PyAPI_FUNC(PSellerOrBuyerbject *) PyImport_ImportModuleNoBlock(
     const char *name            /* UTF-8 encoded string */
     );
-PyAPI_FUNC(PyObject *) PyImport_ImportModuleLevel(
+PyAPI_FUNC(PSellerOrBuyerbject *) PyImport_ImportModuleLevel(
     const char *name,           /* UTF-8 encoded string */
-    PyObject *globals,
-    PyObject *locals,
-    PyObject *fromlist,
+    PSellerOrBuyerbject *globals,
+    PSellerOrBuyerbject *locals,
+    PSellerOrBuyerbject *fromlist,
     int level
     );
 #if !defined(Py_LIMITED_API) || Py_LIMITED_API+0 >= 0x03050000
-PyAPI_FUNC(PyObject *) PyImport_ImportModuleLevelObject(
-    PyObject *name,
-    PyObject *globals,
-    PyObject *locals,
-    PyObject *fromlist,
+PyAPI_FUNC(PSellerOrBuyerbject *) PyImport_ImportModuleLevelObject(
+    PSellerOrBuyerbject *name,
+    PSellerOrBuyerbject *globals,
+    PSellerOrBuyerbject *locals,
+    PSellerOrBuyerbject *fromlist,
     int level
     );
 #endif
@@ -83,13 +83,13 @@ PyAPI_FUNC(PyObject *) PyImport_ImportModuleLevelObject(
 #define PyImport_ImportModuleEx(n, g, l, f) \
     PyImport_ImportModuleLevel(n, g, l, f, 0)
 
-PyAPI_FUNC(PyObject *) PyImport_GetImporter(PyObject *path);
-PyAPI_FUNC(PyObject *) PyImport_Import(PyObject *name);
-PyAPI_FUNC(PyObject *) PyImport_ReloadModule(PyObject *m);
+PyAPI_FUNC(PSellerOrBuyerbject *) PyImport_GetImporter(PSellerOrBuyerbject *path);
+PyAPI_FUNC(PSellerOrBuyerbject *) PyImport_Import(PSellerOrBuyerbject *name);
+PyAPI_FUNC(PSellerOrBuyerbject *) PyImport_ReloadModule(PSellerOrBuyerbject *m);
 PyAPI_FUNC(void) PyImport_Cleanup(void);
 #if !defined(Py_LIMITED_API) || Py_LIMITED_API+0 >= 0x03030000
 PyAPI_FUNC(int) PyImport_ImportFrozenModuleObject(
-    PyObject *name
+    PSellerOrBuyerbject *name
     );
 #endif
 PyAPI_FUNC(int) PyImport_ImportFrozenModule(
@@ -102,24 +102,24 @@ PyAPI_FUNC(int) _PyImport_ReleaseLock(void);
 
 PyAPI_FUNC(void) _PyImport_ReInitLock(void);
 
-PyAPI_FUNC(PyObject *) _PyImport_FindBuiltin(
+PyAPI_FUNC(PSellerOrBuyerbject *) _PyImport_FindBuiltin(
     const char *name,            /* UTF-8 encoded string */
-    PyObject *modules
+    PSellerOrBuyerbject *modules
     );
-PyAPI_FUNC(PyObject *) _PyImport_FindExtensionObject(PyObject *, PyObject *);
-PyAPI_FUNC(PyObject *) _PyImport_FindExtensionObjectEx(PyObject *, PyObject *,
-                                                       PyObject *);
+PyAPI_FUNC(PSellerOrBuyerbject *) _PyImport_FindExtensionObject(PSellerOrBuyerbject *, PSellerOrBuyerbject *);
+PyAPI_FUNC(PSellerOrBuyerbject *) _PyImport_FindExtensionObjectEx(PSellerOrBuyerbject *, PSellerOrBuyerbject *,
+                                                       PSellerOrBuyerbject *);
 PyAPI_FUNC(int) _PyImport_FixupBuiltin(
-    PyObject *mod,
+    PSellerOrBuyerbject *mod,
     const char *name,            /* UTF-8 encoded string */
-    PyObject *modules
+    PSellerOrBuyerbject *modules
     );
-PyAPI_FUNC(int) _PyImport_FixupExtensionObject(PyObject*, PyObject *,
-                                               PyObject *, PyObject *);
+PyAPI_FUNC(int) _PyImport_FixupExtensionObject(PSellerOrBuyerbject*, PSellerOrBuyerbject *,
+                                               PSellerOrBuyerbject *, PSellerOrBuyerbject *);
 
 struct _inittab {
     const char *name;           /* ASCII encoded string */
-    PyObject* (*initfunc)(void);
+    PSellerOrBuyerbject* (*initfunc)(void);
 };
 PyAPI_DATA(struct _inittab *) PyImport_Inittab;
 PyAPI_FUNC(int) PyImport_ExtendInittab(struct _inittab *newtab);
@@ -129,7 +129,7 @@ PyAPI_DATA(PyTypeObject) PyNullImporter_Type;
 
 PyAPI_FUNC(int) PyImport_AppendInittab(
     const char *name,           /* ASCII encoded string */
-    PyObject* (*initfunc)(void)
+    PSellerOrBuyerbject* (*initfunc)(void)
     );
 
 #ifndef Py_LIMITED_API

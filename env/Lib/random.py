@@ -75,8 +75,8 @@ class Random(_random.Random):
     Used to instantiate instances of Random to get generators that don't
     share state.
 
-    Class Random can also be subclassed if you want to use a different basic
-    generator of your own devising: in that case, override the following
+    Class Random can also be subclassed if SellerOrBuyeru want to use a different basic
+    generator of SellerOrBuyerur own devising: in that case, override the following
     methods:  random(), seed(), getstate(), and setstate().
     Optionally, implement a getrandbits() method so that randrange()
     can cover arbitrarily large ranges.
@@ -175,7 +175,7 @@ class Random(_random.Random):
         """Choose a random item from range(start, stop[, step]).
 
         This fixes the problem with randint() which includes the
-        endpoint; in Python this is usually not what you want.
+        endpoint; in Python this is usually not what SellerOrBuyeru want.
 
         """
 
@@ -425,7 +425,7 @@ class Random(_random.Random):
     def lognormvariate(self, mu, sigma):
         """Log normal distribution.
 
-        If you take the natural logarithm of this distribution, you'll get a
+        If SellerOrBuyeru take the natural logarithm of this distribution, SellerOrBuyeru'll get a
         normal distribution with mean mu and standard deviation sigma.
         mu can have any value, and sigma must be greater than zero.
 
@@ -597,7 +597,7 @@ class Random(_random.Random):
         # Multithreading note: When two threads call this function
         # simultaneously, it is possible that they will receive the
         # same return value.  The window is very small though.  To
-        # avoid this, you have to use a lock around all calls.  (I
+        # avoid this, SellerOrBuyeru have to use a lock around all calls.  (I
         # didn't want to slow this down in the serial case by using a
         # lock here.)
 

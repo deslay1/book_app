@@ -1,5 +1,5 @@
 # created by tools/tclZIC.tcl - do not edit
-if {![info exists TZData(Asia/Tokyo)]} {
-    LoadTimeZoneFile Asia/Tokyo
+if {![info exists TZData(Asia/TokSellerOrBuyer)]} {
+    LoadTimeZoneFile Asia/TokSellerOrBuyer
 }
-set TZData(:Japan) $TZData(:Asia/Tokyo)
+set TZData(:Japan) $TZData(:Asia/TokSellerOrBuyer)

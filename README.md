@@ -9,7 +9,7 @@
 
 ## Steps to add/push changes:
 ```
-- git checkout branch (to see what branch you're on)
+- git checkout branch (to see what branch SellerOrBuyeru're on)
 - git add .
 - git commit -m "message"
 - git push

@@ -13,6 +13,10 @@ function Market(evt, market) {
   evt.currentTarget.className += " active";
   sessionStorage.setItem("activeTabId", market);
 }
-var activeTabId = sessionStorage.getItem("activeTabId");
 
-document.getElementById("defaultOpen").click();
+var activeTabId = sessionStorage.getItem("activeTabId");
+if (activeTabId == "Buy") {
+  document.getElementById("buy").click();
+} else {
+  document.getElementById("defaultOpen").click();
+}

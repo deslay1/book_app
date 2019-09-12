@@ -4,6 +4,21 @@ body {
     margin-top: 5rem;
 }
 
+
+
+
+
+#container p {
+    text-align: center;
+    text-transform: uppercase;
+    text-shadow: #2c2c2c 3px 3px 5px;
+
+
+}
+
+
+
+
 h1,
 h2,
 h3,
@@ -23,7 +38,7 @@ ul {
 
 .bg-red {
     background-color: #a33003;
-    background: linear-gradient(to right, rgb(207, 75, 75),rgb(192, 57, 3), rgb(207, 75, 75));
+    background: linear-gradient(to right, rgb(207, 75, 75), rgb(192, 57, 3), rgb(207, 75, 75));
 }
 
 .site-header .navbar-nav .nav-link {
@@ -100,6 +115,7 @@ a.article-title:hover {
     background-color: white;
     margin: 2rem;
 }
+
 .mr-2 {
     color: rgb(175, 53, 4);
 }
@@ -125,7 +141,7 @@ a.article-title:hover {
 }
 
 .post-bar {
-    display:flex;
+    display: flex;
     justify-content: space-between;
 }
 
@@ -138,55 +154,66 @@ a.article-title:hover {
 }
 
 .tab {
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-  border: 1px solid #ccc;
-  margin-bottom: 1rem;
-  border-radius: 2rem; /*
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    border: 1px solid #ccc;
+    margin-bottom: 1rem;
+    border-radius: 2rem;
+    /*
   /* background-color: #f1f1f1; */
-  background-color: rgb(207, 75, 75);
+    background-color: rgb(207, 75, 75);
 }
 
 /* Style the buttons inside the tab */
 .tab button {
-  background-color: inherit;
-  border-radius: 20px;
-/* border-radius: 10% / 50%; */
-  float: left;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  padding: 14px 16px;
-  transition: 0.3s;
-  font-size: 17px;
+    background-color: inherit;
+    border-radius: 20px;
+    /* border-radius: 10% / 50%; */
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 17px;
 }
 
 /* Change background color of buttons on hover */
 .tab button:hover {
-  background-color: #ddd;
+    background-color: #ddd;
 }
 
 /* Create an active/current tablink class */
 .tab button.active {
-  background-color: white;
+    background-color: white;
 }
 
 /* Style the tab content */
 .tabcontent {
-  display: none;
-  border-top: none;
-  -webkit-animation: fadeEffect 1s;
-  animation: fadeEffect 1s;
+    display: none;
+    border-top: none;
+    -webkit-animation: fadeEffect 1s;
+    animation: fadeEffect 1s;
 }
 
 /* Fade in tabs */
 @-webkit-keyframes fadeEffect {
-    from {opacity: 0.5;}
-    to {opacity: 1;}
-  }
-  
-  @keyframes fadeEffect {
-    from {opacity: 0.5;}
-    to {opacity: 1;}
-  }
+    from {
+        opacity: 0.5;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeEffect {
+    from {
+        opacity: 0.5;
+    }
+
+    to {
+        opacity: 1;
+    }
+}

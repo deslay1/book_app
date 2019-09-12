@@ -69,12 +69,7 @@ def home(request):
     return render(request, 'bookmarket/home.html', context)
     
 
-def oddFilter(Post):
-    
-    if(Post.SellerOrBuyer =="Seller"):
-        return True
-    else:
-        return False
+
 
 class PostListView(ListView):
     model = Post
@@ -84,7 +79,7 @@ class PostListView(ListView):
     paginate_by = 3
     
 
-
+        # Detta är för paginator och sökfältet
     def get_context_data(self, **kwargs):
         context = super(PostListView, self).get_context_data(**kwargs)
 
@@ -115,14 +110,8 @@ class PostListView(ListView):
 
 
         paginator = Paginator(object_list1, self.paginate_by)
-
-
         page = self.request.GET.get('page')
         
-
-        
-       
-
         try:
             object_list1 = paginator.page(page)
         except PageNotAnInteger:
@@ -149,34 +138,6 @@ class PostListView(ListView):
         # Add any other variables to the context here
      
         return context
-
-
-
-class PostListViewBuyer(ListView):
-    model = Post
-    template_name = 'bookmarket/home.html'  # <app>/<model>_<viewtype>.html
-    context_object_name = 'posts'
-    ordering = ['-date_posted']
-    paginate_by = 2
-    
-    def get_queryset(self):
-            
-        query = self.request.GET.get('q')
-        if query=='q':
-            queries = query.split(" ")
-            for q in queries:
-                object_list2 = self.model.objects.filter(
-                    Q(title__icontains=q) |
-                    Q(content__icontains=q)
-                ).distinct().order_by('-date_posted')
-        else:
-            query = self.request.GET.get('buy')
-            if query=="buy":
-    
-                object_list2 = self.model.objects.filter(
-                        Q(SellerOrBuyer__icontains="Seller")
-                    ).distinct().order_by('-date_posted')
-        return object_list2
 
 class PostDetailView(DetailView):
     model = Post

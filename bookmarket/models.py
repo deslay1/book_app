@@ -9,19 +9,17 @@ from django import forms
 
 
 class Post(models.Model):
-    TIPOLOGIA_CHOICES = [
-    ("Buyer", "Buyer"),
-    ("Seller", "Seller"),
+    Buy_Sell = [
+    ("Buyer", "Buy"),
+    ("Seller", "Sell"),
 ]
     title = models.CharField(max_length=100)
     content = models.TextField()
-    image = models.ImageField(null=True, blank=True)
-    
-    
+    image = models.ImageField()
     price = models.DecimalField(max_digits=5, decimal_places=2, default="0.0",blank=True,null=True)
     date_posted = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    SellerOrBuyer = models.CharField(max_length=50,default=TIPOLOGIA_CHOICES[0], choices=TIPOLOGIA_CHOICES,verbose_name="Buyer or Seller?")
+    SellerOrBuyer = models.CharField(max_length=50,default=Buy_Sell[0], choices=Buy_Sell,verbose_name="Are you here to buy or sell?")
                                    
     def __str__(self):
         return self.title

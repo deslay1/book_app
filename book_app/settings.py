@@ -30,8 +30,6 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'phonenumber_field',
-    'phone_field',
     'crispy_forms',
     'bookmarket.apps.BookmarketConfig',
     'users.apps.UsersConfig',

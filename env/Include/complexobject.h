@@ -31,25 +31,25 @@ real and imaginary parts.
 */
 #ifndef Py_LIMITED_API
 typedef struct {
-    PyObject_HEAD
+    PSellerOrBuyerbject_HEAD
     Py_complex cval;
 } PyComplexObject;
 #endif
 
 PyAPI_DATA(PyTypeObject) PyComplex_Type;
 
-#define PyComplex_Check(op) PyObject_TypeCheck(op, &PyComplex_Type)
+#define PyComplex_Check(op) PSellerOrBuyerbject_TypeCheck(op, &PyComplex_Type)
 #define PyComplex_CheckExact(op) (Py_TYPE(op) == &PyComplex_Type)
 
 #ifndef Py_LIMITED_API
-PyAPI_FUNC(PyObject *) PyComplex_FromCComplex(Py_complex);
+PyAPI_FUNC(PSellerOrBuyerbject *) PyComplex_FromCComplex(Py_complex);
 #endif
-PyAPI_FUNC(PyObject *) PyComplex_FromDoubles(double real, double imag);
+PyAPI_FUNC(PSellerOrBuyerbject *) PyComplex_FromDoubles(double real, double imag);
 
-PyAPI_FUNC(double) PyComplex_RealAsDouble(PyObject *op);
-PyAPI_FUNC(double) PyComplex_ImagAsDouble(PyObject *op);
+PyAPI_FUNC(double) PyComplex_RealAsDouble(PSellerOrBuyerbject *op);
+PyAPI_FUNC(double) PyComplex_ImagAsDouble(PSellerOrBuyerbject *op);
 #ifndef Py_LIMITED_API
-PyAPI_FUNC(Py_complex) PyComplex_AsCComplex(PyObject *op);
+PyAPI_FUNC(Py_complex) PyComplex_AsCComplex(PSellerOrBuyerbject *op);
 #endif
 
 /* Format the object based on the format_spec, as defined in PEP 3101
@@ -57,8 +57,8 @@ PyAPI_FUNC(Py_complex) PyComplex_AsCComplex(PyObject *op);
 #ifndef Py_LIMITED_API
 PyAPI_FUNC(int) _PyComplex_FormatAdvancedWriter(
     _PyUnicodeWriter *writer,
-    PyObject *obj,
-    PyObject *format_spec,
+    PSellerOrBuyerbject *obj,
+    PSellerOrBuyerbject *format_spec,
     Py_ssize_t start,
     Py_ssize_t end);
 #endif

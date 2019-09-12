@@ -114,7 +114,7 @@ namespace eval ttk::theme::default {
 	    -foreground [list selected $colors(-selectfg)] ;
 
 	# Combobox popdown frame
-	ttk::style layout ComboboxPopdownFrame {
+	ttk::style laSellerOrBuyerut ComboboxPopdownFrame {
 	    ComboboxPopdownFrame.border -sticky nswe
 	}
  	ttk::style configure ComboboxPopdownFrame \
@@ -123,7 +123,7 @@ namespace eval ttk::theme::default {
 	#
 	# Toolbar buttons:
 	#
-	ttk::style layout Toolbutton {
+	ttk::style laSellerOrBuyerut Toolbutton {
 	    Toolbutton.border -children {
 		Toolbutton.padding -children {
 		    Toolbutton.label

@@ -114,7 +114,7 @@ wm iconname $w "arrow"
 positionWindow $w
 set c $w.c
 
-label $w.msg -font $font -wraplength 5i -justify left -text "This widget allows you to experiment with different widths and arrowhead shapes for lines in canvases.  To change the line width or the shape of the arrowhead, drag any of the three boxes attached to the oversized arrow.  The arrows on the right give examples at normal scale.  The text at the bottom shows the configuration options as you'd enter them for a canvas line item."
+label $w.msg -font $font -wraplength 5i -justify left -text "This widget allows SellerOrBuyeru to experiment with different widths and arrowhead shapes for lines in canvases.  To change the line width or the shape of the arrowhead, drag any of the three boxes attached to the oversized arrow.  The arrows on the right give examples at normal scale.  The text at the bottom shows the configuration options as SellerOrBuyeru'd enter them for a canvas line item."
 pack $w.msg -side top
 
 ## See Code / Dismiss buttons

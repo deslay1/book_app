@@ -366,18 +366,18 @@ Py_NO_ENABLE_SHARED to find out.  Also support MS_NO_COREDLL for b/w compat */
 
 /* Fairly standard from here! */
 
-/* Define to 1 if you have the `copysign' function. */
+/* Define to 1 if SellerOrBuyeru have the `copysign' function. */
 #define HAVE_COPYSIGN 1
 
-/* Define to 1 if you have the `round' function. */
+/* Define to 1 if SellerOrBuyeru have the `round' function. */
 #if _MSC_VER >= 1800
 #define HAVE_ROUND 1
 #endif
 
-/* Define to 1 if you have the `isinf' macro. */
+/* Define to 1 if SellerOrBuyeru have the `isinf' macro. */
 #define HAVE_DECL_ISINF 1
 
-/* Define to 1 if you have the `isnan' function. */
+/* Define to 1 if SellerOrBuyeru have the `isnan' function. */
 #define HAVE_DECL_ISNAN 1
 
 /* Define if on AIX 3.
@@ -390,13 +390,13 @@ Py_NO_ENABLE_SHARED to find out.  Also support MS_NO_COREDLL for b/w compat */
 /* Define to empty if the keyword does not work.  */
 /* #define const  */
 
-/* Define to 1 if you have the <conio.h> header file. */
+/* Define to 1 if SellerOrBuyeru have the <conio.h> header file. */
 #define HAVE_CONIO_H 1
 
-/* Define to 1 if you have the <direct.h> header file. */
+/* Define to 1 if SellerOrBuyeru have the <direct.h> header file. */
 #define HAVE_DIRECT_H 1
 
-/* Define if you have dirent.h.  */
+/* Define if SellerOrBuyeru have dirent.h.  */
 /* #define DIRENT 1 */
 
 /* Define to the type of elements in the array set by `getgroups'.
@@ -406,17 +406,17 @@ Py_NO_ENABLE_SHARED to find out.  Also support MS_NO_COREDLL for b/w compat */
 /* Define to `int' if <sys/types.h> doesn't define.  */
 /* #undef gid_t */
 
-/* Define if your struct tm has tm_zone.  */
+/* Define if SellerOrBuyerur struct tm has tm_zone.  */
 /* #undef HAVE_TM_ZONE */
 
-/* Define if you don't have tm_zone but do have the external array
+/* Define if SellerOrBuyeru don't have tm_zone but do have the external array
    tzname.  */
 #define HAVE_TZNAME
 
 /* Define to `int' if <sys/types.h> doesn't define.  */
 /* #undef mode_t */
 
-/* Define if you don't have dirent.h, but have ndir.h.  */
+/* Define if SellerOrBuyeru don't have dirent.h, but have ndir.h.  */
 /* #undef NDIR */
 
 /* Define to `long' if <sys/types.h> doesn't define.  */
@@ -429,7 +429,7 @@ Py_NO_ENABLE_SHARED to find out.  Also support MS_NO_COREDLL for b/w compat */
    with this defined.  */
 /* #undef _POSIX_1_SOURCE */
 
-/* Define if you need to in order for stat and other things to work.  */
+/* Define if SellerOrBuyeru need to in order for stat and other things to work.  */
 /* #undef _POSIX_SOURCE */
 
 /* Define as the return type of signal handlers (int or void).  */
@@ -438,19 +438,19 @@ Py_NO_ENABLE_SHARED to find out.  Also support MS_NO_COREDLL for b/w compat */
 /* Define to `unsigned' if <sys/types.h> doesn't define.  */
 /* #undef size_t */
 
-/* Define if you have the ANSI C header files.  */
+/* Define if SellerOrBuyeru have the ANSI C header files.  */
 #define STDC_HEADERS 1
 
-/* Define if you don't have dirent.h, but have sys/dir.h.  */
+/* Define if SellerOrBuyeru don't have dirent.h, but have sys/dir.h.  */
 /* #undef SYSDIR */
 
-/* Define if you don't have dirent.h, but have sys/ndir.h.  */
+/* Define if SellerOrBuyeru don't have dirent.h, but have sys/ndir.h.  */
 /* #undef SYSNDIR */
 
-/* Define if you can safely include both <sys/time.h> and <time.h>.  */
+/* Define if SellerOrBuyeru can safely include both <sys/time.h> and <time.h>.  */
 /* #undef TIME_WITH_SYS_TIME */
 
-/* Define if your <sys/time.h> declares struct tm.  */
+/* Define if SellerOrBuyerur <sys/time.h> declares struct tm.  */
 /* #define TM_IN_SYS_TIME 1 */
 
 /* Define to `int' if <sys/types.h> doesn't define.  */
@@ -463,169 +463,169 @@ Py_NO_ENABLE_SHARED to find out.  Also support MS_NO_COREDLL for b/w compat */
    and (consequently) setpgrp() as setpgrp(0, 0). */
 /* #undef GETPGRP_HAVE_ARGS */
 
-/* Define this if your time.h defines altzone */
+/* Define this if SellerOrBuyerur time.h defines altzone */
 /* #define HAVE_ALTZONE */
 
-/* Define if you have the putenv function.  */
+/* Define if SellerOrBuyeru have the putenv function.  */
 #define HAVE_PUTENV
 
-/* Define if your compiler supports function prototypes */
+/* Define if SellerOrBuyerur compiler supports function prototypes */
 #define HAVE_PROTOTYPES
 
-/* Define if  you can safely include both <sys/select.h> and <sys/time.h>
-   (which you can't on SCO ODT 3.0). */
+/* Define if  SellerOrBuyeru can safely include both <sys/select.h> and <sys/time.h>
+   (which SellerOrBuyeru can't on SCO ODT 3.0). */
 /* #undef SYS_SELECT_WITH_SYS_TIME */
 
-/* Define if you want documentation strings in extension modules */
+/* Define if SellerOrBuyeru want documentation strings in extension modules */
 #define WITH_DOC_STRINGS 1
 
-/* Define if you want to compile in rudimentary thread support */
+/* Define if SellerOrBuyeru want to compile in rudimentary thread support */
 /* #undef WITH_THREAD */
 
-/* Define if you want to use the GNU readline library */
+/* Define if SellerOrBuyeru want to use the GNU readline library */
 /* #define WITH_READLINE 1 */
 
 /* Use Python's own small-block memory-allocator. */
 #define WITH_PYMALLOC 1
 
-/* Define if you have clock.  */
+/* Define if SellerOrBuyeru have clock.  */
 /* #define HAVE_CLOCK */
 
 /* Define when any dynamic module loading is enabled */
 #define HAVE_DYNAMIC_LOADING
 
-/* Define if you have ftime.  */
+/* Define if SellerOrBuyeru have ftime.  */
 #define HAVE_FTIME
 
-/* Define if you have getpeername.  */
+/* Define if SellerOrBuyeru have getpeername.  */
 #define HAVE_GETPEERNAME
 
-/* Define if you have getpgrp.  */
+/* Define if SellerOrBuyeru have getpgrp.  */
 /* #undef HAVE_GETPGRP */
 
-/* Define if you have getpid.  */
+/* Define if SellerOrBuyeru have getpid.  */
 #define HAVE_GETPID
 
-/* Define if you have gettimeofday.  */
+/* Define if SellerOrBuyeru have gettimeofday.  */
 /* #undef HAVE_GETTIMEOFDAY */
 
-/* Define if you have getwd.  */
+/* Define if SellerOrBuyeru have getwd.  */
 /* #undef HAVE_GETWD */
 
-/* Define if you have lstat.  */
+/* Define if SellerOrBuyeru have lstat.  */
 /* #undef HAVE_LSTAT */
 
-/* Define if you have the mktime function.  */
+/* Define if SellerOrBuyeru have the mktime function.  */
 #define HAVE_MKTIME
 
-/* Define if you have nice.  */
+/* Define if SellerOrBuyeru have nice.  */
 /* #undef HAVE_NICE */
 
-/* Define if you have readlink.  */
+/* Define if SellerOrBuyeru have readlink.  */
 /* #undef HAVE_READLINK */
 
-/* Define if you have setpgid.  */
+/* Define if SellerOrBuyeru have setpgid.  */
 /* #undef HAVE_SETPGID */
 
-/* Define if you have setpgrp.  */
+/* Define if SellerOrBuyeru have setpgrp.  */
 /* #undef HAVE_SETPGRP */
 
-/* Define if you have setsid.  */
+/* Define if SellerOrBuyeru have setsid.  */
 /* #undef HAVE_SETSID */
 
-/* Define if you have setvbuf.  */
+/* Define if SellerOrBuyeru have setvbuf.  */
 #define HAVE_SETVBUF
 
-/* Define if you have siginterrupt.  */
+/* Define if SellerOrBuyeru have siginterrupt.  */
 /* #undef HAVE_SIGINTERRUPT */
 
-/* Define if you have symlink.  */
+/* Define if SellerOrBuyeru have symlink.  */
 /* #undef HAVE_SYMLINK */
 
-/* Define if you have tcgetpgrp.  */
+/* Define if SellerOrBuyeru have tcgetpgrp.  */
 /* #undef HAVE_TCGETPGRP */
 
-/* Define if you have tcsetpgrp.  */
+/* Define if SellerOrBuyeru have tcsetpgrp.  */
 /* #undef HAVE_TCSETPGRP */
 
-/* Define if you have times.  */
+/* Define if SellerOrBuyeru have times.  */
 /* #undef HAVE_TIMES */
 
-/* Define if you have uname.  */
+/* Define if SellerOrBuyeru have uname.  */
 /* #undef HAVE_UNAME */
 
-/* Define if you have waitpid.  */
+/* Define if SellerOrBuyeru have waitpid.  */
 /* #undef HAVE_WAITPID */
 
-/* Define to 1 if you have the `wcsftime' function. */
+/* Define to 1 if SellerOrBuyeru have the `wcsftime' function. */
 #if defined(_MSC_VER) && _MSC_VER >= 1310
 #define HAVE_WCSFTIME 1
 #endif
 
-/* Define to 1 if you have the `wcscoll' function. */
+/* Define to 1 if SellerOrBuyeru have the `wcscoll' function. */
 #define HAVE_WCSCOLL 1
 
-/* Define to 1 if you have the `wcsxfrm' function. */
+/* Define to 1 if SellerOrBuyeru have the `wcsxfrm' function. */
 #define HAVE_WCSXFRM 1
 
 /* Define if the zlib library has inflateCopy */
 #define HAVE_ZLIB_COPY 1
 
-/* Define if you have the <dlfcn.h> header file.  */
+/* Define if SellerOrBuyeru have the <dlfcn.h> header file.  */
 /* #undef HAVE_DLFCN_H */
 
-/* Define to 1 if you have the <errno.h> header file. */
+/* Define to 1 if SellerOrBuyeru have the <errno.h> header file. */
 #define HAVE_ERRNO_H 1
 
-/* Define if you have the <fcntl.h> header file.  */
+/* Define if SellerOrBuyeru have the <fcntl.h> header file.  */
 #define HAVE_FCNTL_H 1
 
-/* Define to 1 if you have the <process.h> header file. */
+/* Define to 1 if SellerOrBuyeru have the <process.h> header file. */
 #define HAVE_PROCESS_H 1
 
-/* Define to 1 if you have the <signal.h> header file. */
+/* Define to 1 if SellerOrBuyeru have the <signal.h> header file. */
 #define HAVE_SIGNAL_H 1
 
-/* Define if you have the <stdarg.h> prototypes.  */
+/* Define if SellerOrBuyeru have the <stdarg.h> prototypes.  */
 #define HAVE_STDARG_PROTOTYPES
 
-/* Define if you have the <stddef.h> header file.  */
+/* Define if SellerOrBuyeru have the <stddef.h> header file.  */
 #define HAVE_STDDEF_H 1
 
-/* Define if you have the <sys/audioio.h> header file.  */
+/* Define if SellerOrBuyeru have the <sys/audioio.h> header file.  */
 /* #undef HAVE_SYS_AUDIOIO_H */
 
-/* Define if you have the <sys/param.h> header file.  */
+/* Define if SellerOrBuyeru have the <sys/param.h> header file.  */
 /* #define HAVE_SYS_PARAM_H 1 */
 
-/* Define if you have the <sys/select.h> header file.  */
+/* Define if SellerOrBuyeru have the <sys/select.h> header file.  */
 /* #define HAVE_SYS_SELECT_H 1 */
 
-/* Define to 1 if you have the <sys/stat.h> header file.  */
+/* Define to 1 if SellerOrBuyeru have the <sys/stat.h> header file.  */
 #define HAVE_SYS_STAT_H 1
 
-/* Define if you have the <sys/time.h> header file.  */
+/* Define if SellerOrBuyeru have the <sys/time.h> header file.  */
 /* #define HAVE_SYS_TIME_H 1 */
 
-/* Define if you have the <sys/times.h> header file.  */
+/* Define if SellerOrBuyeru have the <sys/times.h> header file.  */
 /* #define HAVE_SYS_TIMES_H 1 */
 
-/* Define to 1 if you have the <sys/types.h> header file.  */
+/* Define to 1 if SellerOrBuyeru have the <sys/types.h> header file.  */
 #define HAVE_SYS_TYPES_H 1
 
-/* Define if you have the <sys/un.h> header file.  */
+/* Define if SellerOrBuyeru have the <sys/un.h> header file.  */
 /* #define HAVE_SYS_UN_H 1 */
 
-/* Define if you have the <sys/utime.h> header file.  */
+/* Define if SellerOrBuyeru have the <sys/utime.h> header file.  */
 /* #define HAVE_SYS_UTIME_H 1 */
 
-/* Define if you have the <sys/utsname.h> header file.  */
+/* Define if SellerOrBuyeru have the <sys/utsname.h> header file.  */
 /* #define HAVE_SYS_UTSNAME_H 1 */
 
-/* Define if you have the <unistd.h> header file.  */
+/* Define if SellerOrBuyeru have the <unistd.h> header file.  */
 /* #define HAVE_UNISTD_H 1 */
 
-/* Define if you have the <utime.h> header file.  */
+/* Define if SellerOrBuyeru have the <utime.h> header file.  */
 /* #define HAVE_UTIME_H 1 */
 
 /* Define if the compiler provides a wchar.h header file. */
@@ -640,31 +640,31 @@ Py_NO_ENABLE_SHARED to find out.  Also support MS_NO_COREDLL for b/w compat */
 /* The size of `pid_t', as computed by sizeof. */
 #define SIZEOF_PID_T SIZEOF_INT
 
-/* Define if you have the dl library (-ldl).  */
+/* Define if SellerOrBuyeru have the dl library (-ldl).  */
 /* #undef HAVE_LIBDL */
 
-/* Define if you have the mpc library (-lmpc).  */
+/* Define if SellerOrBuyeru have the mpc library (-lmpc).  */
 /* #undef HAVE_LIBMPC */
 
-/* Define if you have the nsl library (-lnsl).  */
+/* Define if SellerOrBuyeru have the nsl library (-lnsl).  */
 #define HAVE_LIBNSL 1
 
-/* Define if you have the seq library (-lseq).  */
+/* Define if SellerOrBuyeru have the seq library (-lseq).  */
 /* #undef HAVE_LIBSEQ */
 
-/* Define if you have the socket library (-lsocket).  */
+/* Define if SellerOrBuyeru have the socket library (-lsocket).  */
 #define HAVE_LIBSOCKET 1
 
-/* Define if you have the sun library (-lsun).  */
+/* Define if SellerOrBuyeru have the sun library (-lsun).  */
 /* #undef HAVE_LIBSUN */
 
-/* Define if you have the termcap library (-ltermcap).  */
+/* Define if SellerOrBuyeru have the termcap library (-ltermcap).  */
 /* #undef HAVE_LIBTERMCAP */
 
-/* Define if you have the termlib library (-ltermlib).  */
+/* Define if SellerOrBuyeru have the termlib library (-ltermlib).  */
 /* #undef HAVE_LIBTERMLIB */
 
-/* Define if you have the thread library (-lthread).  */
+/* Define if SellerOrBuyeru have the thread library (-lthread).  */
 /* #undef HAVE_LIBTHREAD */
 
 /* WinSock does not use a bitmask in select, and uses
@@ -675,13 +675,13 @@ Py_NO_ENABLE_SHARED to find out.  Also support MS_NO_COREDLL for b/w compat */
    least significant byte first */
 #define DOUBLE_IS_LITTLE_ENDIAN_IEEE754 1
 
-/* Define to 1 if you have the `erf' function. */
+/* Define to 1 if SellerOrBuyeru have the `erf' function. */
 #define HAVE_ERF 1
 
-/* Define to 1 if you have the `erfc' function. */
+/* Define to 1 if SellerOrBuyeru have the `erfc' function. */
 #define HAVE_ERFC 1
 
-/* Define if you have the 'inet_pton' function. */
+/* Define if SellerOrBuyeru have the 'inet_pton' function. */
 #define HAVE_INET_PTON 1
 
 /* framework name */

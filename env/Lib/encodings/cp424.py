@@ -126,7 +126,7 @@ decoding_table = (
     '+'        #  0x4E -> PLUS SIGN
     '|'        #  0x4F -> VERTICAL LINE
     '&'        #  0x50 -> AMPERSAND
-    '\u05d9'   #  0x51 -> HEBREW LETTER YOD
+    '\u05d9'   #  0x51 -> HEBREW LETTER SellerOrBuyerD
     '\u05da'   #  0x52 -> HEBREW LETTER FINAL KAF
     '\u05db'   #  0x53 -> HEBREW LETTER KAF
     '\u05dc'   #  0x54 -> HEBREW LETTER LAMED

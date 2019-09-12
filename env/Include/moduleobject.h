@@ -9,46 +9,46 @@ extern "C" {
 
 PyAPI_DATA(PyTypeObject) PyModule_Type;
 
-#define PyModule_Check(op) PyObject_TypeCheck(op, &PyModule_Type)
+#define PyModule_Check(op) PSellerOrBuyerbject_TypeCheck(op, &PyModule_Type)
 #define PyModule_CheckExact(op) (Py_TYPE(op) == &PyModule_Type)
 
 #if !defined(Py_LIMITED_API) || Py_LIMITED_API+0 >= 0x03030000
-PyAPI_FUNC(PyObject *) PyModule_NewObject(
-    PyObject *name
+PyAPI_FUNC(PSellerOrBuyerbject *) PyModule_NewObject(
+    PSellerOrBuyerbject *name
     );
 #endif
-PyAPI_FUNC(PyObject *) PyModule_New(
+PyAPI_FUNC(PSellerOrBuyerbject *) PyModule_New(
     const char *name            /* UTF-8 encoded string */
     );
-PyAPI_FUNC(PyObject *) PyModule_GetDict(PyObject *);
+PyAPI_FUNC(PSellerOrBuyerbject *) PyModule_GetDict(PSellerOrBuyerbject *);
 #if !defined(Py_LIMITED_API) || Py_LIMITED_API+0 >= 0x03030000
-PyAPI_FUNC(PyObject *) PyModule_GetNameObject(PyObject *);
+PyAPI_FUNC(PSellerOrBuyerbject *) PyModule_GetNameObject(PSellerOrBuyerbject *);
 #endif
-PyAPI_FUNC(const char *) PyModule_GetName(PyObject *);
-PyAPI_FUNC(const char *) PyModule_GetFilename(PyObject *) Py_DEPRECATED(3.2);
-PyAPI_FUNC(PyObject *) PyModule_GetFilenameObject(PyObject *);
+PyAPI_FUNC(const char *) PyModule_GetName(PSellerOrBuyerbject *);
+PyAPI_FUNC(const char *) PyModule_GetFilename(PSellerOrBuyerbject *) Py_DEPRECATED(3.2);
+PyAPI_FUNC(PSellerOrBuyerbject *) PyModule_GetFilenameObject(PSellerOrBuyerbject *);
 #ifndef Py_LIMITED_API
-PyAPI_FUNC(void) _PyModule_Clear(PyObject *);
-PyAPI_FUNC(void) _PyModule_ClearDict(PyObject *);
+PyAPI_FUNC(void) _PyModule_Clear(PSellerOrBuyerbject *);
+PyAPI_FUNC(void) _PyModule_ClearDict(PSellerOrBuyerbject *);
 #endif
-PyAPI_FUNC(struct PyModuleDef*) PyModule_GetDef(PyObject*);
-PyAPI_FUNC(void*) PyModule_GetState(PyObject*);
+PyAPI_FUNC(struct PyModuleDef*) PyModule_GetDef(PSellerOrBuyerbject*);
+PyAPI_FUNC(void*) PyModule_GetState(PSellerOrBuyerbject*);
 
 #if !defined(Py_LIMITED_API) || Py_LIMITED_API+0 >= 0x03050000
 /* New in 3.5 */
-PyAPI_FUNC(PyObject *) PyModuleDef_Init(struct PyModuleDef*);
+PyAPI_FUNC(PSellerOrBuyerbject *) PyModuleDef_Init(struct PyModuleDef*);
 PyAPI_DATA(PyTypeObject) PyModuleDef_Type;
 #endif
 
 typedef struct PyModuleDef_Base {
-  PyObject_HEAD
-  PyObject* (*m_init)(void);
+  PSellerOrBuyerbject_HEAD
+  PSellerOrBuyerbject* (*m_init)(void);
   Py_ssize_t m_index;
-  PyObject* m_copy;
+  PSellerOrBuyerbject* m_copy;
 } PyModuleDef_Base;
 
 #define PyModuleDef_HEAD_INIT { \
-    PyObject_HEAD_INIT(NULL)    \
+    PSellerOrBuyerbject_HEAD_INIT(NULL)    \
     NULL, /* m_init */          \
     0,    /* m_index */         \
     NULL, /* m_copy */          \

@@ -42,7 +42,7 @@ proc ::tk_setPalette {args} {
     set bg [winfo rgb . $new(background)]
     if {![info exists new(foreground)]} {
 	# Note that the range of each value in the triple returned by
-	# [winfo rgb] is 0-65535, and your eyes are more sensitive to
+	# [winfo rgb] is 0-65535, and SellerOrBuyerur eyes are more sensitive to
 	# green than to red, and more to red than to blue.
 	foreach {r g b} $bg {break}
 	if {$r+1.5*$g+0.5*$b > 100000} {

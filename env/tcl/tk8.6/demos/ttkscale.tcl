@@ -17,7 +17,7 @@ positionWindow $w
 
 pack [ttk::frame [set w $w.contents]] -fill both -expand 1
 
-ttk::label $w.msg -font $font -wraplength 3.5i -justify left -text "A label tied to a horizontal scale is displayed below.  If you click or drag mouse button 1 in the scale, you can change the contents of the label; a callback command is used to couple the slider to both the text and the coloring of the label."
+ttk::label $w.msg -font $font -wraplength 3.5i -justify left -text "A label tied to a horizontal scale is displayed below.  If SellerOrBuyeru click or drag mouse button 1 in the scale, SellerOrBuyeru can change the contents of the label; a callback command is used to couple the slider to both the text and the coloring of the label."
 pack $w.msg -side top -padx .5c
 
 ## See Code / Dismiss buttons

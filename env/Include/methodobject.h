@@ -15,18 +15,18 @@ PyAPI_DATA(PyTypeObject) PyCFunction_Type;
 
 #define PyCFunction_Check(op) (Py_TYPE(op) == &PyCFunction_Type)
 
-typedef PyObject *(*PyCFunction)(PyObject *, PyObject *);
-typedef PyObject *(*_PyCFunctionFast) (PyObject *, PyObject *const *, Py_ssize_t);
-typedef PyObject *(*PyCFunctionWithKeywords)(PyObject *, PyObject *,
-                                             PyObject *);
-typedef PyObject *(*_PyCFunctionFastWithKeywords) (PyObject *,
-                                                   PyObject *const *, Py_ssize_t,
-                                                   PyObject *);
-typedef PyObject *(*PyNoArgsFunction)(PyObject *);
+typedef PSellerOrBuyerbject *(*PyCFunction)(PSellerOrBuyerbject *, PSellerOrBuyerbject *);
+typedef PSellerOrBuyerbject *(*_PyCFunctionFast) (PSellerOrBuyerbject *, PSellerOrBuyerbject *const *, Py_ssize_t);
+typedef PSellerOrBuyerbject *(*PyCFunctionWithKeywords)(PSellerOrBuyerbject *, PSellerOrBuyerbject *,
+                                             PSellerOrBuyerbject *);
+typedef PSellerOrBuyerbject *(*_PyCFunctionFastWithKeywords) (PSellerOrBuyerbject *,
+                                                   PSellerOrBuyerbject *const *, Py_ssize_t,
+                                                   PSellerOrBuyerbject *);
+typedef PSellerOrBuyerbject *(*PyNoArgsFunction)(PSellerOrBuyerbject *);
 
-PyAPI_FUNC(PyCFunction) PyCFunction_GetFunction(PyObject *);
-PyAPI_FUNC(PyObject *) PyCFunction_GetSelf(PyObject *);
-PyAPI_FUNC(int) PyCFunction_GetFlags(PyObject *);
+PyAPI_FUNC(PyCFunction) PyCFunction_GetFunction(PSellerOrBuyerbject *);
+PyAPI_FUNC(PSellerOrBuyerbject *) PyCFunction_GetSelf(PSellerOrBuyerbject *);
+PyAPI_FUNC(int) PyCFunction_GetFlags(PSellerOrBuyerbject *);
 
 /* Macros for direct access to these values. Type checks are *not*
    done, so use with care. */
@@ -39,18 +39,18 @@ PyAPI_FUNC(int) PyCFunction_GetFlags(PyObject *);
 #define PyCFunction_GET_FLAGS(func) \
         (((PyCFunctionObject *)func) -> m_ml -> ml_flags)
 #endif
-PyAPI_FUNC(PyObject *) PyCFunction_Call(PyObject *, PyObject *, PyObject *);
+PyAPI_FUNC(PSellerOrBuyerbject *) PyCFunction_Call(PSellerOrBuyerbject *, PSellerOrBuyerbject *, PSellerOrBuyerbject *);
 
 #ifndef Py_LIMITED_API
-PyAPI_FUNC(PyObject *) _PyCFunction_FastCallDict(PyObject *func,
-    PyObject *const *args,
+PyAPI_FUNC(PSellerOrBuyerbject *) _PyCFunction_FastCallDict(PSellerOrBuyerbject *func,
+    PSellerOrBuyerbject *const *args,
     Py_ssize_t nargs,
-    PyObject *kwargs);
+    PSellerOrBuyerbject *kwargs);
 
-PyAPI_FUNC(PyObject *) _PyCFunction_FastCallKeywords(PyObject *func,
-    PyObject *const *stack,
+PyAPI_FUNC(PSellerOrBuyerbject *) _PyCFunction_FastCallKeywords(PSellerOrBuyerbject *func,
+    PSellerOrBuyerbject *const *stack,
     Py_ssize_t nargs,
-    PyObject *kwnames);
+    PSellerOrBuyerbject *kwnames);
 #endif
 
 struct PyMethodDef {
@@ -63,8 +63,8 @@ struct PyMethodDef {
 typedef struct PyMethodDef PyMethodDef;
 
 #define PyCFunction_New(ML, SELF) PyCFunction_NewEx((ML), (SELF), NULL)
-PyAPI_FUNC(PyObject *) PyCFunction_NewEx(PyMethodDef *, PyObject *,
-                                         PyObject *);
+PyAPI_FUNC(PSellerOrBuyerbject *) PyCFunction_NewEx(PyMethodDef *, PSellerOrBuyerbject *,
+                                         PSellerOrBuyerbject *);
 
 /* Flag passed to newmethodobject */
 /* #define METH_OLDARGS  0x0000   -- unsupported now */
@@ -100,26 +100,26 @@ PyAPI_FUNC(PyObject *) PyCFunction_NewEx(PyMethodDef *, PyObject *,
 
 #ifndef Py_LIMITED_API
 typedef struct {
-    PyObject_HEAD
+    PSellerOrBuyerbject_HEAD
     PyMethodDef *m_ml; /* Description of the C function to call */
-    PyObject    *m_self; /* Passed as 'self' arg to the C func, can be NULL */
-    PyObject    *m_module; /* The __module__ attribute, can be anything */
-    PyObject    *m_weakreflist; /* List of weak references */
+    PSellerOrBuyerbject    *m_self; /* Passed as 'self' arg to the C func, can be NULL */
+    PSellerOrBuyerbject    *m_module; /* The __module__ attribute, can be anything */
+    PSellerOrBuyerbject    *m_weakreflist; /* List of weak references */
 } PyCFunctionObject;
 
-PyAPI_FUNC(PyObject *) _PyMethodDef_RawFastCallDict(
+PyAPI_FUNC(PSellerOrBuyerbject *) _PyMethodDef_RawFastCallDict(
     PyMethodDef *method,
-    PyObject *self,
-    PyObject *const *args,
+    PSellerOrBuyerbject *self,
+    PSellerOrBuyerbject *const *args,
     Py_ssize_t nargs,
-    PyObject *kwargs);
+    PSellerOrBuyerbject *kwargs);
 
-PyAPI_FUNC(PyObject *) _PyMethodDef_RawFastCallKeywords(
+PyAPI_FUNC(PSellerOrBuyerbject *) _PyMethodDef_RawFastCallKeywords(
     PyMethodDef *method,
-    PyObject *self,
-    PyObject *const *args,
+    PSellerOrBuyerbject *self,
+    PSellerOrBuyerbject *const *args,
     Py_ssize_t nargs,
-    PyObject *kwnames);
+    PSellerOrBuyerbject *kwnames);
 #endif
 
 PyAPI_FUNC(int) PyCFunction_ClearFreeList(void);

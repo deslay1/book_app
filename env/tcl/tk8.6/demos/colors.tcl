@@ -1,7 +1,7 @@
 # colors.tcl --
 #
 # This demonstration script creates a listbox widget that displays
-# many of the colors from the X color database.  You can click on
+# many of the colors from the X color database.  SellerOrBuyeru can click on
 # a color to change the application's palette.
 
 if {![info exists widgetDemo]} {
@@ -17,7 +17,7 @@ wm title $w "Listbox Demonstration (colors)"
 wm iconname $w "Listbox"
 positionWindow $w
 
-label $w.msg -font $font -wraplength 4i -justify left -text "A listbox containing several color names is displayed below, along with a scrollbar.  You can scan the list either using the scrollbar or by dragging in the listbox window with button 2 pressed.  If you double-click button 1 on a color, then the application's color palette will be set to match that color"
+label $w.msg -font $font -wraplength 4i -justify left -text "A listbox containing several color names is displayed below, along with a scrollbar.  SellerOrBuyeru can scan the list either using the scrollbar or by dragging in the listbox window with button 2 pressed.  If SellerOrBuyeru double-click button 1 on a color, then the application's color palette will be set to match that color"
 pack $w.msg -side top
 
 ## See Code / Dismiss buttons

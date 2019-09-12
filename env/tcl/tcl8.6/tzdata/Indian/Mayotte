@@ -2,4 +2,4 @@
 if {![info exists TZData(Africa/Nairobi)]} {
     LoadTimeZoneFile Africa/Nairobi
 }
-set TZData(:Indian/Mayotte) $TZData(:Africa/Nairobi)
+set TZData(:Indian/MaSellerOrBuyertte) $TZData(:Africa/Nairobi)

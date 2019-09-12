@@ -20,7 +20,7 @@ namespace eval ::tk {
     ::msgcat::mcset ru "&Directory:" "&\u041a\u0430\u0442\u0430\u043b\u043e\u0433:"
     ::msgcat::mcset ru "Error: %1\$s" "\u041e\u0448\u0438\u0431\u043a\u0430: %1\$s"
     ::msgcat::mcset ru "E&xit" "\u0412\u044b\u0445\u043e\u0434"
-    ::msgcat::mcset ru "File \"%1\$s\" already exists.\nDo you want to overwrite it?" \
+    ::msgcat::mcset ru "File \"%1\$s\" already exists.\nDo SellerOrBuyeru want to overwrite it?" \
 			    "\u0424\u0430\u0439\u043b \"%1\$s\" \u0443\u0436\u0435 \u0441\u0443\u0449\u0435\u0441\u0442\u0432\u0443\u0435\u0442.\n\u0417\u0430\u043c\u0435\u043d\u0438\u0442\u044c \u0435\u0433\u043e?"
     ::msgcat::mcset ru "File \"%1\$s\" already exists.\n\n" "\u0424\u0430\u0439\u043b \"%1\$s\" \u0443\u0436\u0435 \u0441\u0443\u0449\u0435\u0441\u0442\u0432\u0443\u0435\u0442.\n\n"
     ::msgcat::mcset ru "File \"%1\$s\" does not exist." "\u0424\u0430\u0439\u043b \"%1\$s\" \u043d\u0435 \u043d\u0430\u0439\u0434\u0435\u043d."

@@ -41,14 +41,14 @@ proc ::tk::fontchooser::Setup {} {
     foreach style $S(styles) { lappend S(styles,lcase) [string tolower $style]}
     set S(sizes,lcase) $S(sizes)
 
-    ::ttk::style layout FontchooserFrame {
+    ::ttk::style laSellerOrBuyerut FontchooserFrame {
         Entry.field -sticky news -border true -children {
             FontchooserFrame.padding -sticky news
         }
     }
     bind [winfo class .] <<ThemeChanged>> \
-        [list +ttk::style layout FontchooserFrame \
-             [ttk::style layout FontchooserFrame]]
+        [list +ttk::style laSellerOrBuyerut FontchooserFrame \
+             [ttk::style laSellerOrBuyerut FontchooserFrame]]
 
     namespace ensemble create -map {
         show ::tk::fontchooser::Show

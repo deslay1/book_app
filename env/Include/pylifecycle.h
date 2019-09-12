@@ -103,7 +103,7 @@ PyAPI_FUNC(void) Py_EndInterpreter(PyThreadState *);
  * exit functions.
  */
 #ifndef Py_LIMITED_API
-PyAPI_FUNC(void) _Py_PyAtExit(void (*func)(PyObject *), PyObject *);
+PyAPI_FUNC(void) _Py_PyAtExit(void (*func)(PSellerOrBuyerbject *), PSellerOrBuyerbject *);
 #endif
 PyAPI_FUNC(int) Py_AtExit(void (*func)(void));
 
@@ -129,7 +129,7 @@ PyAPI_FUNC(wchar_t *) Py_GetExecPrefix(void);
 PyAPI_FUNC(wchar_t *) Py_GetPath(void);
 #ifdef Py_BUILD_CORE
 PyAPI_FUNC(_PyInitError) _PyPathConfig_Init(const _PyCoreConfig *core_config);
-PyAPI_FUNC(PyObject*) _PyPathConfig_ComputeArgv0(int argc, wchar_t **argv);
+PyAPI_FUNC(PSellerOrBuyerbject*) _PyPathConfig_ComputeArgv0(int argc, wchar_t **argv);
 PyAPI_FUNC(int) _Py_FindEnvConfigValue(
     FILE *env_file,
     const wchar_t *key,
@@ -154,11 +154,11 @@ PyAPI_FUNC(const char *) _Py_gitversion(void);
 
 /* Internal -- various one-time initializations */
 #ifndef Py_LIMITED_API
-PyAPI_FUNC(PyObject *) _PyBuiltin_Init(void);
-PyAPI_FUNC(_PyInitError) _PySys_BeginInit(PyObject **sysmod);
-PyAPI_FUNC(int) _PySys_EndInit(PyObject *sysdict, _PyMainInterpreterConfig *config);
+PyAPI_FUNC(PSellerOrBuyerbject *) _PyBuiltin_Init(void);
+PyAPI_FUNC(_PyInitError) _PySys_BeginInit(PSellerOrBuyerbject **sysmod);
+PyAPI_FUNC(int) _PySys_EndInit(PSellerOrBuyerbject *sysdict, _PyMainInterpreterConfig *config);
 PyAPI_FUNC(_PyInitError) _PyImport_Init(PyInterpreterState *interp);
-PyAPI_FUNC(void) _PyExc_Init(PyObject * bltinmod);
+PyAPI_FUNC(void) _PyExc_Init(PSellerOrBuyerbject * bltinmod);
 PyAPI_FUNC(_PyInitError) _PyImportHooks_Init(void);
 PyAPI_FUNC(int) _PyFrame_Init(void);
 PyAPI_FUNC(int) _PyFloat_Init(void);
@@ -195,7 +195,7 @@ PyAPI_FUNC(void) PySet_Fini(void);
 PyAPI_FUNC(void) PyBytes_Fini(void);
 PyAPI_FUNC(void) PyByteArray_Fini(void);
 PyAPI_FUNC(void) PyFloat_Fini(void);
-PyAPI_FUNC(void) PyOS_FiniInterrupts(void);
+PyAPI_FUNC(void) PSellerOrBuyerS_FiniInterrupts(void);
 PyAPI_FUNC(void) PySlice_Fini(void);
 PyAPI_FUNC(void) PyAsyncGen_Fini(void);
 
@@ -203,14 +203,14 @@ PyAPI_FUNC(int) _Py_IsFinalizing(void);
 #endif   /* !Py_LIMITED_API */
 
 /* Signals */
-typedef void (*PyOS_sighandler_t)(int);
-PyAPI_FUNC(PyOS_sighandler_t) PyOS_getsig(int);
-PyAPI_FUNC(PyOS_sighandler_t) PyOS_setsig(int, PyOS_sighandler_t);
+typedef void (*PSellerOrBuyerS_sighandler_t)(int);
+PyAPI_FUNC(PSellerOrBuyerS_sighandler_t) PSellerOrBuyerS_getsig(int);
+PyAPI_FUNC(PSellerOrBuyerS_sighandler_t) PSellerOrBuyerS_setsig(int, PSellerOrBuyerS_sighandler_t);
 
 #ifndef Py_LIMITED_API
 /* Random */
-PyAPI_FUNC(int) _PyOS_URandom(void *buffer, Py_ssize_t size);
-PyAPI_FUNC(int) _PyOS_URandomNonblock(void *buffer, Py_ssize_t size);
+PyAPI_FUNC(int) _PSellerOrBuyerS_URandom(void *buffer, Py_ssize_t size);
+PyAPI_FUNC(int) _PSellerOrBuyerS_URandomNonblock(void *buffer, Py_ssize_t size);
 #endif /* !Py_LIMITED_API */
 
 /* Legacy locale support */

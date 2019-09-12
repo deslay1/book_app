@@ -16,7 +16,7 @@ wm title $w "Checkbutton Demonstration"
 wm iconname $w "check"
 positionWindow $w
 
-label $w.msg -font $font -wraplength 4i -justify left -text "Four checkbuttons are displayed below.  If you click on a button, it will toggle the button's selection state and set a Tcl variable to a value indicating the state of the checkbutton.  The first button also follows the state of the other three.  If only some of the three are checked, the first button will display the tri-state mode. Click the \"See Variables\" button to see the current values of the variables."
+label $w.msg -font $font -wraplength 4i -justify left -text "Four checkbuttons are displayed below.  If SellerOrBuyeru click on a button, it will toggle the button's selection state and set a Tcl variable to a value indicating the state of the checkbutton.  The first button also follows the state of the other three.  If only some of the three are checked, the first button will display the tri-state mode. Click the \"See Variables\" button to see the current values of the variables."
 pack $w.msg -side top
 
 ## See Code / Dismiss buttons

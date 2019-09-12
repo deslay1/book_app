@@ -6,7 +6,7 @@ provided by this module can be used without fear of race conditions
 except for 'mktemp'.  'mktemp' is subject to race conditions and
 should not be used; it is provided for backward compatibility only.
 
-The default path names are returned as str.  If you supply bytes as
+The default path names are returned as str.  If SellerOrBuyeru supply bytes as
 input, all return values will be in bytes.  Ex:
 
     >>> tempfile.mkstemp()
@@ -389,12 +389,12 @@ def mktemp(suffix="", prefix=template, dir=None):
 
     THIS FUNCTION IS UNSAFE AND SHOULD NOT BE USED.  The file name may
     refer to a file that did not exist at some point, but by the time
-    you get around to creating it, someone else may have beaten you to
+    SellerOrBuyeru get around to creating it, someone else may have beaten SellerOrBuyeru to
     the punch.
     """
 
 ##    from warnings import warn as _warn
-##    _warn("mktemp is a potential security risk to your program",
+##    _warn("mktemp is a potential security risk to SellerOrBuyerur program",
 ##          RuntimeWarning, stacklevel=2)
 
     if dir is None:

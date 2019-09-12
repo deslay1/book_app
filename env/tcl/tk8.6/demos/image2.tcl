@@ -1,7 +1,7 @@
 # image2.tcl --
 #
 # This demonstration script creates a simple collection of widgets
-# that allow you to select and view images in a Tk label.
+# that allow SellerOrBuyeru to select and view images in a Tk label.
 
 if {![info exists widgetDemo]} {
     error "This script should be run from the \"widget\" demo."
@@ -70,7 +70,7 @@ wm title $w "Image Demonstration #2"
 wm iconname $w "Image2"
 positionWindow $w
 
-label $w.msg -font $font -wraplength 4i -justify left -text "This demonstration allows you to view images using a Tk \"photo\" image.  First type a directory name in the listbox, then type Return to load the directory into the listbox.  Then double-click on a file name in the listbox to see that image."
+label $w.msg -font $font -wraplength 4i -justify left -text "This demonstration allows SellerOrBuyeru to view images using a Tk \"photo\" image.  First type a directory name in the listbox, then type Return to load the directory into the listbox.  Then double-click on a file name in the listbox to see that image."
 pack $w.msg -side top
 
 ## See Code / Dismiss buttons

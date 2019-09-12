@@ -14,6 +14,7 @@ Begin developing by cloning this repository:
 
 Adding to stagin area:
 ```
+<<<<<<< HEAD
 - git checkout branch (to see what branch you're on)
 - git add . or git add -A
 ```
@@ -21,6 +22,10 @@ To revert added files from staging area, do **git reset**
 
 Commiting and pushing to remote repo:
 ```
+=======
+- git checkout branch (to see what branch SellerOrBuyeru're on)
+- git add .
+>>>>>>> tobi
 - git commit -m "message"
 - git push
 ```

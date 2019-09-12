@@ -22,7 +22,7 @@ namespace eval ::tk {
     ::msgcat::mcset da "Error: %1\$s" "Fejl: %1\$s"
     ::msgcat::mcset da "E&xit" "&Afslut"
     ::msgcat::mcset da "&File" "&Fil"
-    ::msgcat::mcset da "File \"%1\$s\" already exists.\nDo you want to overwrite it?" "Filen \"%1\$s\" findes allerede.\nSkal den overskrives?"
+    ::msgcat::mcset da "File \"%1\$s\" already exists.\nDo SellerOrBuyeru want to overwrite it?" "Filen \"%1\$s\" findes allerede.\nSkal den overskrives?"
     ::msgcat::mcset da "File \"%1\$s\" already exists.\n\n" "Filen \"%1\$s\" findes allerede.\n\n"
     ::msgcat::mcset da "File \"%1\$s\" does not exist." "Filen \"%1\$s\" findes ikke."
     ::msgcat::mcset da "File &name:" "Fil&navn:"

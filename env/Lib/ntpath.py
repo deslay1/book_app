@@ -123,7 +123,7 @@ def splitdrive(p):
     """Split a pathname into drive/UNC sharepoint and relative path specifiers.
     Returns a 2-tuple (drive_or_unc, path); either part may be empty.
 
-    If you assign
+    If SellerOrBuyeru assign
         result = splitdrive(p)
     It is always true that:
         result[0] + result[1] == p
@@ -183,7 +183,7 @@ def split(p):
     p = os.fspath(p)
     seps = _get_bothseps(p)
     d, p = splitdrive(p)
-    # set i to index beyond p's last slash
+    # set i to index beSellerOrBuyernd p's last slash
     i = len(p)
     while i and p[i-1] not in seps:
         i -= 1
@@ -331,7 +331,7 @@ def expanduser(path):
 #       - %varname% is accepted.
 #       - varnames can be made out of letters, digits and the characters '_-'
 #         (though is not verified in the ${varname} and %varname% cases)
-# XXX With COMMAND.COM you can use any characters in a variable name,
+# XXX With COMMAND.COM SellerOrBuyeru can use any characters in a variable name,
 # XXX except '^|<>='.
 
 def expandvars(path):

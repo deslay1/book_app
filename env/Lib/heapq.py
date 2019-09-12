@@ -69,11 +69,11 @@ find the "next" winner is to move some loser (let's say cell 30 in the
 diagram above) into the 0 position, and then percolate this new 0 down
 the tree, exchanging values, until the invariant is re-established.
 This is clearly logarithmic on the total number of items in the tree.
-By iterating over all items, you get an O(n ln n) sort.
+By iterating over all items, SellerOrBuyeru get an O(n ln n) sort.
 
-A nice feature of this sort is that you can efficiently insert new
+A nice feature of this sort is that SellerOrBuyeru can efficiently insert new
 items while the sort is going on, provided that the inserted items are
-not "better" than the last 0'th element you extracted.  This is
+not "better" than the last 0'th element SellerOrBuyeru extracted.  This is
 especially useful in simulation contexts, where the tree holds all
 incoming events, and the "win" condition means the smallest scheduled
 time.  When an event schedule other events for execution, they are
@@ -87,24 +87,24 @@ the speed is almost constant, and the worst case is not much different
 than the average case.  However, there are other representations which
 are more efficient overall, yet the worst cases might be terrible.
 
-Heaps are also very useful in big disk sorts.  You most probably all
+Heaps are also very useful in big disk sorts.  SellerOrBuyeru most probably all
 know that a big sort implies producing "runs" (which are pre-sorted
 sequences, which size is usually related to the amount of CPU memory),
 followed by a merging passes for these runs, which merging is often
 very cleverly organised[1].  It is very important that the initial
 sort produces the longest runs possible.  Tournaments are a good way
-to that.  If, using all the memory available to hold a tournament, you
-replace and percolate items that happen to fit the current run, you'll
+to that.  If, using all the memory available to hold a tournament, SellerOrBuyeru
+replace and percolate items that happen to fit the current run, SellerOrBuyeru'll
 produce runs which are twice the size of the memory for random input,
 and much better for input fuzzily ordered.
 
-Moreover, if you output the 0'th item on disk and get an input which
+Moreover, if SellerOrBuyeru output the 0'th item on disk and get an input which
 may not fit in the current tournament (because the value "wins" over
 the last output value), it cannot fit in the heap, so the size of the
 heap decreases.  The freed memory could be cleverly reused immediately
 for progressively building a second heap, which grows at exactly the
 same rate the first heap is melting.  When the first heap completely
-vanishes, you switch heaps and start a new run.  Clever and quite
+vanishes, SellerOrBuyeru switch heaps and start a new run.  Clever and quite
 effective!
 
 In a word, heaps are useful memory structures to know.  I use them in
@@ -248,7 +248,7 @@ def _siftdown(heap, startpos, pos):
 #
 # Building the heap by using heappush() 1000 times instead required
 # 2198, 2148, and 2219 compares:  heapify() is more efficient, when
-# you can use it.
+# SellerOrBuyeru can use it.
 #
 # The total compares needed by list.sort() on the same lists were 8627,
 # 8627, and 8632 (this should be compared to the sum of heapify() and

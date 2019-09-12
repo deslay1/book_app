@@ -228,7 +228,7 @@ proc ::safe::tkTopLevel {slave display} {
     wm title $w $msg
 
     # Control frame (we must create a style for it)
-    ttk::style layout TWarningFrame {WarningFrame.border -sticky nswe}
+    ttk::style laSellerOrBuyerut TWarningFrame {WarningFrame.border -sticky nswe}
     ttk::style configure TWarningFrame -background red
 
     set wc $w.fc

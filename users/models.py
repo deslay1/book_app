@@ -2,11 +2,10 @@ from django.db import models
 from django.contrib.auth.models import User
 from PIL import Image
 from django.db import models
-from phone_field import PhoneField
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    image = models.ImageField(default='default.jpg', upload_to='profile_pics')
+    image = models.ImageField( upload_to='profile_pics')
 
 
     def __str__(self):

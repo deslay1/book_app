@@ -3,7 +3,7 @@
 exec wish "$0" ${1+"$@"}
 
 # tcolor --
-# This script implements a simple color editor, where you can
+# This script implements a simple color editor, where SellerOrBuyeru can
 # create colors using either the RGB, HSB, or CYM color spaces
 # and apply the color to existing applications.
 

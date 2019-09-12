@@ -127,7 +127,7 @@ class HMAC:
         """Return the hash value of this hashing object.
 
         This returns a string containing 8-bit data.  The object is
-        not altered in any way by this function; you can continue
+        not altered in any way by this function; SellerOrBuyeru can continue
         updating the object after calling this function.
         """
         h = self._current()
@@ -146,7 +146,7 @@ def new(key, msg = None, digestmod = None):
     msg: if available, will immediately be hashed into the object's starting
     state.
 
-    You can now feed arbitrary strings into the object using its update()
+    SellerOrBuyeru can now feed arbitrary strings into the object using its update()
     method, and can ask for the hash value at any time by calling its digest()
     method.
     """

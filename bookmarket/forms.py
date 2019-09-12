@@ -10,10 +10,9 @@ class PostForm(forms.ModelForm):
                 "title", 
                 "content",
                 "image",
-                "price"
+                "price",
+                "SellerOrBuyer",
                   ]
-
-
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment

@@ -11,7 +11,7 @@ typedef struct {
     int error;
 #ifndef PGEN
     /* The filename is useless for pgen, see comment in tok_state structure */
-    PyObject *filename;
+    PSellerOrBuyerbject *filename;
 #endif
     int lineno;
     int offset;
@@ -65,7 +65,7 @@ PyAPI_FUNC(node *) PyParser_ParseFileFlagsEx(
     int *flags);
 PyAPI_FUNC(node *) PyParser_ParseFileObject(
     FILE *fp,
-    PyObject *filename,
+    PSellerOrBuyerbject *filename,
     const char *enc,
     grammar *g,
     int start,
@@ -90,7 +90,7 @@ PyAPI_FUNC(node *) PyParser_ParseStringFlagsFilenameEx(
     int *flags);
 PyAPI_FUNC(node *) PyParser_ParseStringObject(
     const char *s,
-    PyObject *filename,
+    PSellerOrBuyerbject *filename,
     grammar *g,
     int start,
     perrdetail *err_ret,

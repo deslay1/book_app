@@ -38,16 +38,16 @@ namespace eval ::tk::spinbox {}
 #-------------------------------------------------------------------------
 bind Spinbox <<Cut>> {
     if {![catch {::tk::spinbox::GetSelection %W} tk::Priv(data)]} {
-	clipboard clear -displayof %W
-	clipboard append -displayof %W $tk::Priv(data)
+	clipboard clear -displaSellerOrBuyerf %W
+	clipboard append -displaSellerOrBuyerf %W $tk::Priv(data)
 	%W delete sel.first sel.last
 	unset tk::Priv(data)
     }
 }
 bind Spinbox <<Copy>> {
     if {![catch {::tk::spinbox::GetSelection %W} tk::Priv(data)]} {
-	clipboard clear -displayof %W
-	clipboard append -displayof %W $tk::Priv(data)
+	clipboard clear -displaSellerOrBuyerf %W
+	clipboard append -displaSellerOrBuyerf %W $tk::Priv(data)
 	unset tk::Priv(data)
     }
 }

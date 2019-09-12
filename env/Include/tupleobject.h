@@ -23,8 +23,8 @@ returned item's reference count.
 
 #ifndef Py_LIMITED_API
 typedef struct {
-    PyObject_VAR_HEAD
-    PyObject *ob_item[1];
+    PSellerOrBuyerbject_VAR_HEAD
+    PSellerOrBuyerbject *ob_item[1];
 
     /* ob_item contains space for 'ob_size' elements.
      * Items must normally not be NULL, except during construction when
@@ -40,17 +40,17 @@ PyAPI_DATA(PyTypeObject) PyTupleIter_Type;
                  PyType_FastSubclass(Py_TYPE(op), Py_TPFLAGS_TUPLE_SUBCLASS)
 #define PyTuple_CheckExact(op) (Py_TYPE(op) == &PyTuple_Type)
 
-PyAPI_FUNC(PyObject *) PyTuple_New(Py_ssize_t size);
-PyAPI_FUNC(Py_ssize_t) PyTuple_Size(PyObject *);
-PyAPI_FUNC(PyObject *) PyTuple_GetItem(PyObject *, Py_ssize_t);
-PyAPI_FUNC(int) PyTuple_SetItem(PyObject *, Py_ssize_t, PyObject *);
-PyAPI_FUNC(PyObject *) PyTuple_GetSlice(PyObject *, Py_ssize_t, Py_ssize_t);
+PyAPI_FUNC(PSellerOrBuyerbject *) PyTuple_New(Py_ssize_t size);
+PyAPI_FUNC(Py_ssize_t) PyTuple_Size(PSellerOrBuyerbject *);
+PyAPI_FUNC(PSellerOrBuyerbject *) PyTuple_GetItem(PSellerOrBuyerbject *, Py_ssize_t);
+PyAPI_FUNC(int) PyTuple_SetItem(PSellerOrBuyerbject *, Py_ssize_t, PSellerOrBuyerbject *);
+PyAPI_FUNC(PSellerOrBuyerbject *) PyTuple_GetSlice(PSellerOrBuyerbject *, Py_ssize_t, Py_ssize_t);
 #ifndef Py_LIMITED_API
-PyAPI_FUNC(int) _PyTuple_Resize(PyObject **, Py_ssize_t);
+PyAPI_FUNC(int) _PyTuple_Resize(PSellerOrBuyerbject **, Py_ssize_t);
 #endif
-PyAPI_FUNC(PyObject *) PyTuple_Pack(Py_ssize_t, ...);
+PyAPI_FUNC(PSellerOrBuyerbject *) PyTuple_Pack(Py_ssize_t, ...);
 #ifndef Py_LIMITED_API
-PyAPI_FUNC(void) _PyTuple_MaybeUntrack(PyObject *);
+PyAPI_FUNC(void) _PyTuple_MaybeUntrack(PSellerOrBuyerbject *);
 #endif
 
 /* Macro, trading safety for speed */

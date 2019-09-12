@@ -199,7 +199,7 @@ proc ::tk::RestoreFocusGrab {grab focus {destroy destroy}} {
 #   type otherwise.  On Windows, only the STRING type is necessary.
 # Arguments:
 #   w	The widget for which the selection will be retrieved.
-#	Important for the -displayof property.
+#	Important for the -displaSellerOrBuyerf property.
 #   sel	The source of the selection (PRIMARY or CLIPBOARD)
 # Results:
 #   Returns the selection, or an error if none could be found
@@ -207,9 +207,9 @@ proc ::tk::RestoreFocusGrab {grab focus {destroy destroy}} {
 if {[tk windowingsystem] ne "win32"} {
     proc ::tk::GetSelection {w {sel PRIMARY}} {
 	if {[catch {
-	    selection get -displayof $w -selection $sel -type UTF8_STRING
+	    selection get -displaSellerOrBuyerf $w -selection $sel -type UTF8_STRING
 	} txt] && [catch {
-	    selection get -displayof $w -selection $sel
+	    selection get -displaSellerOrBuyerf $w -selection $sel
 	} txt]} then {
 	    return -code error -errorcode {TK SELECTION NONE} \
 		"could not find default selection"
@@ -220,7 +220,7 @@ if {[tk windowingsystem] ne "win32"} {
 } else {
     proc ::tk::GetSelection {w {sel PRIMARY}} {
 	if {[catch {
-	    selection get -displayof $w -selection $sel
+	    selection get -displaSellerOrBuyerf $w -selection $sel
 	} txt]} then {
 	    return -code error -errorcode {TK SELECTION NONE} \
 		"could not find default selection"

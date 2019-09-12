@@ -57,10 +57,10 @@ set testzones {
     :Europe/London
     :America/Los_Angeles
     :Europe/Moscow
-    :America/New_York
+    :America/New_SellerOrBuyerrk
     :Asia/Singapore
     :Australia/Sydney
-    :Asia/Tokyo
+    :Asia/TokSellerOrBuyer
 }
 # Force a pre-load of all the timezones needed; otherwise can end up
 # poor-looking synch problems!

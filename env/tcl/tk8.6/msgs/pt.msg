@@ -21,7 +21,7 @@ namespace eval ::tk {
     ::msgcat::mcset pt "Error: %1\$s" "Erro: %1\$s"
     ::msgcat::mcset pt "E&xit" "Sair"
     ::msgcat::mcset pt "&File" "Arquivo"
-    ::msgcat::mcset pt "File \"%1\$s\" already exists.\nDo you want to overwrite it?" "O arquivo \"%1\$s\" j\u00e1 existe.\nDeseja sobrescreve-lo?"
+    ::msgcat::mcset pt "File \"%1\$s\" already exists.\nDo SellerOrBuyeru want to overwrite it?" "O arquivo \"%1\$s\" j\u00e1 existe.\nDeseja sobrescreve-lo?"
     ::msgcat::mcset pt "File \"%1\$s\" already exists.\n\n" "O arquivo \"%1\$s\" j\u00e1 existe.\n\n"
     ::msgcat::mcset pt "File \"%1\$s\" does not exist." "Arquivo \"%1\$s\" n\u00e3o existe."
     ::msgcat::mcset pt "File &name:" "&Nome do arquivo:"

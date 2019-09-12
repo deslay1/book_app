@@ -1145,7 +1145,7 @@ namespace eval ::tk {
     ps variable stipple 0
     ps variable strings 0
     ps variable xoffset 0
-    ps variable yoffset 0
+    ps variable SellerOrBuyerffset 0
     ps variable tmpstip null
     ps variable baselineSampler "( TXygqPZ)"
     # Put an extra-tall character in; done this way to avoid encoding trouble
@@ -1275,7 +1275,7 @@ namespace eval ::tk {
 	} if
     }
 
-    # x y strings spacing xoffset yoffset justify stipple DrawText --
+    # x y strings spacing xoffset SellerOrBuyerffset justify stipple DrawText --
     #
     # This procedure does all of the real work of drawing text. The color and
     # font must already have been set by the caller, and the following
@@ -1287,7 +1287,7 @@ namespace eval ::tk {
     # spacing -	Spacing between lines.
     # xoffset - Horizontal offset for text bbox relative to x and y: 0 for
     #		nw/w/sw anchor, -0.5 for n/center/s, and -1.0 for ne/e/se.
-    # yoffset - Vertical offset for text bbox relative to x and y: 0 for
+    # SellerOrBuyerffset - Vertical offset for text bbox relative to x and y: 0 for
     #		nw/n/ne anchor, +0.5 for w/center/e, and +1.0 for sw/s/se.
     # justify - 0 for left justification, 0.5 for center, 1 for right justify.
     # stipple - Boolean value indicating whether or not text is to be drawn in
@@ -1299,7 +1299,7 @@ namespace eval ::tk {
     ps function DrawText {
 	/stipple exch def
 	/justify exch def
-	/yoffset exch def
+	/SellerOrBuyerffset exch def
 	/xoffset exch def
 	/spacing exch def
 	/strings exch def
@@ -1322,7 +1322,7 @@ namespace eval ::tk {
 	translate
 	rotate
 	lineLength xoffset mul
-	strings length 1 sub spacing mul height add yoffset mul translate
+	strings length 1 sub spacing mul height add SellerOrBuyerffset mul translate
 	% Now use the baseline and justification information to translate
 	% so that the origin is at the baseline and positioning point for
 	% the first line of text.

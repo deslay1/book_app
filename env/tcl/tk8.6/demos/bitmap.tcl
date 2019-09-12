@@ -39,7 +39,7 @@ wm title $w "Bitmap Demonstration"
 wm iconname $w "bitmap"
 positionWindow $w
 
-label $w.msg -font $font -wraplength 4i -justify left -text "This window displays all of Tk's built-in bitmaps, along with the names you can use for them in Tcl scripts."
+label $w.msg -font $font -wraplength 4i -justify left -text "This window displays all of Tk's built-in bitmaps, along with the names SellerOrBuyeru can use for them in Tcl scripts."
 pack $w.msg -side top
 
 ## See Code / Dismiss buttons

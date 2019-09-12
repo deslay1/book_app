@@ -68,7 +68,7 @@ proc fileDialog {w ent operation} {
 	}
 	set file [tk_getOpenFile -filetypes $types -parent $w \
 		-typevariable selected_type]
-	puts "You selected filetype \"$selected_type\""
+	puts "SellerOrBuyeru selected filetype \"$selected_type\""
     } else {
 	set file [tk_getSaveFile -filetypes $types -parent $w \
 		-initialfile Untitled -defaultextension .txt]

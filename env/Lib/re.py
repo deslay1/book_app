@@ -23,7 +23,7 @@ characters outside the US ASCII range.
 
 Regular expressions can contain both special and ordinary characters.
 Most ordinary characters, like "A", "a", or "0", are the simplest
-regular expressions; they simply match themselves.  You can
+regular expressions; they simply match themselves.  SellerOrBuyeru can
 concatenate ordinary characters, so last matches the string 'last'.
 
 The special characters are:

@@ -58,7 +58,7 @@ PyAPI_FUNC(int) _Py_EncodeLocaleEx(
 #endif
 
 #ifndef Py_LIMITED_API
-PyAPI_FUNC(PyObject *) _Py_device_encoding(int);
+PyAPI_FUNC(PSellerOrBuyerbject *) _Py_device_encoding(int);
 
 #ifdef MS_WINDOWS
 struct _Py_stat_struct {
@@ -91,7 +91,7 @@ PyAPI_FUNC(int) _Py_fstat_noraise(
     struct _Py_stat_struct *status);
 
 PyAPI_FUNC(int) _Py_stat(
-    PyObject *path,
+    PSellerOrBuyerbject *path,
     struct stat *status);
 
 PyAPI_FUNC(int) _Py_open(
@@ -111,7 +111,7 @@ PyAPI_FUNC(FILE*) _Py_fopen(
     const char *mode);
 
 PyAPI_FUNC(FILE*) _Py_fopen_obj(
-    PyObject *path,
+    PSellerOrBuyerbject *path,
     const char *mode);
 
 PyAPI_FUNC(Py_ssize_t) _Py_read(
@@ -164,8 +164,8 @@ PyAPI_FUNC(int) _Py_set_blocking(int fd, int blocking);
 #endif   /* !MS_WINDOWS */
 
 PyAPI_FUNC(int) _Py_GetLocaleconvNumeric(
-    PyObject **decimal_point,
-    PyObject **thousands_sep,
+    PSellerOrBuyerbject **decimal_point,
+    PSellerOrBuyerbject **thousands_sep,
     const char **grouping);
 
 #endif   /* Py_LIMITED_API */

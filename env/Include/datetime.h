@@ -33,7 +33,7 @@ extern "C" {
 
 typedef struct
 {
-    PyObject_HEAD
+    PSellerOrBuyerbject_HEAD
     Py_hash_t hashcode;         /* -1 when unknown */
     int days;                   /* -MAX_DELTA_DAYS <= days <= MAX_DELTA_DAYS */
     int seconds;                /* 0 <= seconds < 24*3600 is invariant */
@@ -42,7 +42,7 @@ typedef struct
 
 typedef struct
 {
-    PyObject_HEAD               /* a pure abstract base class */
+    PSellerOrBuyerbject_HEAD               /* a pure abstract base class */
 } PyDateTime_TZInfo;
 
 
@@ -50,7 +50,7 @@ typedef struct
  * present if and only if hastzinfo is true.
  */
 #define _PyTZINFO_HEAD          \
-    PyObject_HEAD               \
+    PSellerOrBuyerbject_HEAD               \
     Py_hash_t hashcode;         \
     char hastzinfo;             /* boolean flag */
 
@@ -82,7 +82,7 @@ typedef struct
 {
     _PyDateTime_TIMEHEAD
     unsigned char fold;
-    PyObject *tzinfo;
+    PSellerOrBuyerbject *tzinfo;
 } PyDateTime_Time;              /* hastzinfo true */
 
 
@@ -110,7 +110,7 @@ typedef struct
 {
     _PyDateTime_DATETIMEHEAD
     unsigned char fold;
-    PyObject *tzinfo;
+    PSellerOrBuyerbject *tzinfo;
 } PyDateTime_DateTime;          /* hastzinfo true */
 
 
@@ -156,24 +156,24 @@ typedef struct {
     PyTypeObject *TZInfoType;
 
     /* singletons */
-    PyObject *TimeZone_UTC;
+    PSellerOrBuyerbject *TimeZone_UTC;
 
     /* constructors */
-    PyObject *(*Date_FromDate)(int, int, int, PyTypeObject*);
-    PyObject *(*DateTime_FromDateAndTime)(int, int, int, int, int, int, int,
-        PyObject*, PyTypeObject*);
-    PyObject *(*Time_FromTime)(int, int, int, int, PyObject*, PyTypeObject*);
-    PyObject *(*Delta_FromDelta)(int, int, int, int, PyTypeObject*);
-    PyObject *(*TimeZone_FromTimeZone)(PyObject *offset, PyObject *name);
+    PSellerOrBuyerbject *(*Date_FromDate)(int, int, int, PyTypeObject*);
+    PSellerOrBuyerbject *(*DateTime_FromDateAndTime)(int, int, int, int, int, int, int,
+        PSellerOrBuyerbject*, PyTypeObject*);
+    PSellerOrBuyerbject *(*Time_FromTime)(int, int, int, int, PSellerOrBuyerbject*, PyTypeObject*);
+    PSellerOrBuyerbject *(*Delta_FromDelta)(int, int, int, int, PyTypeObject*);
+    PSellerOrBuyerbject *(*TimeZone_FromTimeZone)(PSellerOrBuyerbject *offset, PSellerOrBuyerbject *name);
 
     /* constructors for the DB API */
-    PyObject *(*DateTime_FromTimestamp)(PyObject*, PyObject*, PyObject*);
-    PyObject *(*Date_FromTimestamp)(PyObject*, PyObject*);
+    PSellerOrBuyerbject *(*DateTime_FromTimestamp)(PSellerOrBuyerbject*, PSellerOrBuyerbject*, PSellerOrBuyerbject*);
+    PSellerOrBuyerbject *(*Date_FromTimestamp)(PSellerOrBuyerbject*, PSellerOrBuyerbject*);
 
     /* PEP 495 constructors */
-    PyObject *(*DateTime_FromDateAndTimeAndFold)(int, int, int, int, int, int, int,
-        PyObject*, int, PyTypeObject*);
-    PyObject *(*Time_FromTimeAndFold)(int, int, int, int, PyObject*, int, PyTypeObject*);
+    PSellerOrBuyerbject *(*DateTime_FromDateAndTimeAndFold)(int, int, int, int, int, int, int,
+        PSellerOrBuyerbject*, int, PyTypeObject*);
+    PSellerOrBuyerbject *(*Time_FromTimeAndFold)(int, int, int, int, PSellerOrBuyerbject*, int, PyTypeObject*);
 
 } PyDateTime_CAPI;
 
@@ -183,19 +183,19 @@ typedef struct {
 #ifdef Py_BUILD_CORE
 
 /* Macros for type checking when building the Python core. */
-#define PyDate_Check(op) PyObject_TypeCheck(op, &PyDateTime_DateType)
+#define PyDate_Check(op) PSellerOrBuyerbject_TypeCheck(op, &PyDateTime_DateType)
 #define PyDate_CheckExact(op) (Py_TYPE(op) == &PyDateTime_DateType)
 
-#define PyDateTime_Check(op) PyObject_TypeCheck(op, &PyDateTime_DateTimeType)
+#define PyDateTime_Check(op) PSellerOrBuyerbject_TypeCheck(op, &PyDateTime_DateTimeType)
 #define PyDateTime_CheckExact(op) (Py_TYPE(op) == &PyDateTime_DateTimeType)
 
-#define PyTime_Check(op) PyObject_TypeCheck(op, &PyDateTime_TimeType)
+#define PyTime_Check(op) PSellerOrBuyerbject_TypeCheck(op, &PyDateTime_TimeType)
 #define PyTime_CheckExact(op) (Py_TYPE(op) == &PyDateTime_TimeType)
 
-#define PyDelta_Check(op) PyObject_TypeCheck(op, &PyDateTime_DeltaType)
+#define PyDelta_Check(op) PSellerOrBuyerbject_TypeCheck(op, &PyDateTime_DeltaType)
 #define PyDelta_CheckExact(op) (Py_TYPE(op) == &PyDateTime_DeltaType)
 
-#define PyTZInfo_Check(op) PyObject_TypeCheck(op, &PyDateTime_TZInfoType)
+#define PyTZInfo_Check(op) PSellerOrBuyerbject_TypeCheck(op, &PyDateTime_TZInfoType)
 #define PyTZInfo_CheckExact(op) (Py_TYPE(op) == &PyDateTime_TZInfoType)
 
 #else
@@ -210,19 +210,19 @@ static PyDateTime_CAPI *PyDateTimeAPI = NULL;
 #define PyDateTime_TimeZone_UTC PyDateTimeAPI->TimeZone_UTC
 
 /* Macros for type checking when not building the Python core. */
-#define PyDate_Check(op) PyObject_TypeCheck(op, PyDateTimeAPI->DateType)
+#define PyDate_Check(op) PSellerOrBuyerbject_TypeCheck(op, PyDateTimeAPI->DateType)
 #define PyDate_CheckExact(op) (Py_TYPE(op) == PyDateTimeAPI->DateType)
 
-#define PyDateTime_Check(op) PyObject_TypeCheck(op, PyDateTimeAPI->DateTimeType)
+#define PyDateTime_Check(op) PSellerOrBuyerbject_TypeCheck(op, PyDateTimeAPI->DateTimeType)
 #define PyDateTime_CheckExact(op) (Py_TYPE(op) == PyDateTimeAPI->DateTimeType)
 
-#define PyTime_Check(op) PyObject_TypeCheck(op, PyDateTimeAPI->TimeType)
+#define PyTime_Check(op) PSellerOrBuyerbject_TypeCheck(op, PyDateTimeAPI->TimeType)
 #define PyTime_CheckExact(op) (Py_TYPE(op) == PyDateTimeAPI->TimeType)
 
-#define PyDelta_Check(op) PyObject_TypeCheck(op, PyDateTimeAPI->DeltaType)
+#define PyDelta_Check(op) PSellerOrBuyerbject_TypeCheck(op, PyDateTimeAPI->DeltaType)
 #define PyDelta_CheckExact(op) (Py_TYPE(op) == PyDateTimeAPI->DeltaType)
 
-#define PyTZInfo_Check(op) PyObject_TypeCheck(op, PyDateTimeAPI->TZInfoType)
+#define PyTZInfo_Check(op) PSellerOrBuyerbject_TypeCheck(op, PyDateTimeAPI->TZInfoType)
 #define PyTZInfo_CheckExact(op) (Py_TYPE(op) == PyDateTimeAPI->TZInfoType)
 
 /* Macros for accessing constructors in a simplified fashion. */
@@ -258,11 +258,11 @@ static PyDateTime_CAPI *PyDateTimeAPI = NULL;
 /* Macros supporting the DB API. */
 #define PyDateTime_FromTimestamp(args) \
     PyDateTimeAPI->DateTime_FromTimestamp( \
-        (PyObject*) (PyDateTimeAPI->DateTimeType), args, NULL)
+        (PSellerOrBuyerbject*) (PyDateTimeAPI->DateTimeType), args, NULL)
 
 #define PyDate_FromTimestamp(args) \
     PyDateTimeAPI->Date_FromTimestamp( \
-        (PyObject*) (PyDateTimeAPI->DateType), args)
+        (PSellerOrBuyerbject*) (PyDateTimeAPI->DateType), args)
 
 #endif  /* Py_BUILD_CORE */
 

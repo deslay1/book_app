@@ -16,7 +16,7 @@ wm title $w "Form Demonstration"
 wm iconname $w "form"
 positionWindow $w
 
-label $w.msg -font $font -wraplength 4i -justify left -text "This window contains a simple form where you can type in the various entries and use tabs to move circularly between the entries."
+label $w.msg -font $font -wraplength 4i -justify left -text "This window contains a simple form where SellerOrBuyeru can type in the various entries and use tabs to move circularly between the entries."
 pack $w.msg -side top
 
 ## See Code / Dismiss buttons

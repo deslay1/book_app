@@ -4,6 +4,21 @@ body {
     margin-top: 5rem;
 }
 
+
+
+
+
+#container p {
+    text-align: center;
+    text-transform: uppercase;
+    text-shadow: #2c2c2c 3px 3px 5px;
+
+
+}
+
+
+
+
 h1,
 h2,
 h3,
@@ -61,6 +76,7 @@ a.article-title:hover {
 .article-content {
     white-space: pre-line;
 }
+
 
 .article-img {
     height: 50px;
@@ -131,6 +147,10 @@ a.article-title:hover {
 }
 
 .post-price {
+    margin-top: 1rem;
+}
+
+.post-SellerOrBuyer {
     margin-top: 1rem;
 }
 

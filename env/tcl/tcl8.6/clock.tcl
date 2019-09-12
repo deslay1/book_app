@@ -295,10 +295,10 @@ proc ::tcl::clock::Initialize {} {
     # The keys are long lists of values obtained from the time zone
     # information in the Registry.  In order, the list elements are:
     # 	Bias StandardBias DaylightBias
-    #   StandardDate.wYear StandardDate.wMonth StandardDate.wDayOfWeek
+    #   StandardDate.wYear StandardDate.wMonth StandardDate.wDaSellerOrBuyerfWeek
     #   StandardDate.wDay StandardDate.wHour StandardDate.wMinute
     #   StandardDate.wSecond StandardDate.wMilliseconds
-    #   DaylightDate.wYear DaylightDate.wMonth DaylightDate.wDayOfWeek
+    #   DaylightDate.wYear DaylightDate.wMonth DaylightDate.wDaSellerOrBuyerfWeek
     #   DaylightDate.wDay DaylightDate.wHour DaylightDate.wMinute
     #   DaylightDate.wSecond DaylightDate.wMilliseconds
     # The values are the names of time zones where those rules apply.  There
@@ -319,7 +319,7 @@ proc ::tcl::clock::Initialize {} {
 	{-21600 0 3600 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0}  :America/Regina
 	{-21600 0 3600 0 11 0 1 2 0 0 0 0 3 0 2 2 0 0 0} :America/Chicago
         {-21600 0 3600 0 10 0 5 2 0 0 0 0 4 0 1 2 0 0 0} :America/Mexico_City
-	{-18000 0 3600 0 11 0 1 2 0 0 0 0 3 0 2 2 0 0 0} :America/New_York
+	{-18000 0 3600 0 11 0 1 2 0 0 0 0 3 0 2 2 0 0 0} :America/New_SellerOrBuyerrk
 	{-18000 0 3600 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0}  :America/Indianapolis
 	{-14400 0 3600 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0}  :America/Caracas
         {-14400 0 3600 0 3 6 2 23 59 59 999 0 10 6 2 23 59 59 999}
@@ -369,7 +369,7 @@ proc ::tcl::clock::Initialize {} {
 	{25200 0 3600 0 10 0 5 3 0 0 0 0 3 0 5 2 0 0 0}  :Asia/Krasnoyarsk
 	{28800 0 3600 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0}   :Asia/Chongqing
 	{28800 0 3600 0 10 0 5 3 0 0 0 0 3 0 5 2 0 0 0}  :Asia/Irkutsk
-	{32400 0 3600 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0}   :Asia/Tokyo
+	{32400 0 3600 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0}   :Asia/TokSellerOrBuyer
 	{32400 0 3600 0 10 0 5 3 0 0 0 0 3 0 5 2 0 0 0}  :Asia/Yakutsk
 	{34200 0 3600 0 3 0 5 3 0 0 0 0 10 0 5 2 0 0 0}  :Australia/Adelaide
 	{34200 0 3600 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0}   :Australia/Darwin
@@ -394,34 +394,34 @@ proc ::tcl::clock::Initialize {} {
 
 	{ julianDay } 1 {}
 
-	{ era century yearOfCentury month dayOfMonth } 2 {
+	{ era century yearOfCentury month daSellerOrBuyerfMonth } 2 {
 	    dict set date year [expr { 100 * [dict get $date century]
 				       + [dict get $date yearOfCentury] }]
 	    set date [GetJulianDayFromEraYearMonthDay $date[set date {}] \
 			  $changeover]
 	}
-	{ era century yearOfCentury dayOfYear } 2 {
+	{ era century yearOfCentury daSellerOrBuyerfYear } 2 {
 	    dict set date year [expr { 100 * [dict get $date century]
 				       + [dict get $date yearOfCentury] }]
 	    set date [GetJulianDayFromEraYearDay $date[set date {}] \
 			  $changeover]
 	}
 
-	{ century yearOfCentury month dayOfMonth } 3 {
+	{ century yearOfCentury month daSellerOrBuyerfMonth } 3 {
 	    dict set date era CE
 	    dict set date year [expr { 100 * [dict get $date century]
 				       + [dict get $date yearOfCentury] }]
 	    set date [GetJulianDayFromEraYearMonthDay $date[set date {}] \
 			  $changeover]
 	}
-	{ century yearOfCentury dayOfYear } 3 {
+	{ century yearOfCentury daSellerOrBuyerfYear } 3 {
 	    dict set date era CE
 	    dict set date year [expr { 100 * [dict get $date century]
 				       + [dict get $date yearOfCentury] }]
 	    set date [GetJulianDayFromEraYearDay $date[set date {}] \
 			  $changeover]
 	}
-	{ iso8601Century iso8601YearOfCentury iso8601Week dayOfWeek } 3 {
+	{ iso8601Century iso8601YearOfCentury iso8601Week daSellerOrBuyerfWeek } 3 {
 	    dict set date era CE
 	    dict set date iso8601Year \
 		[expr { 100 * [dict get $date iso8601Century]
@@ -430,19 +430,19 @@ proc ::tcl::clock::Initialize {} {
 			 $changeover]
 	}
 
-	{ yearOfCentury month dayOfMonth } 4 {
+	{ yearOfCentury month daSellerOrBuyerfMonth } 4 {
 	    set date [InterpretTwoDigitYear $date[set date {}] $baseTime]
 	    dict set date era CE
 	    set date [GetJulianDayFromEraYearMonthDay $date[set date {}] \
 			  $changeover]
 	}
-	{ yearOfCentury dayOfYear } 4 {
+	{ yearOfCentury daSellerOrBuyerfYear } 4 {
 	    set date [InterpretTwoDigitYear $date[set date {}] $baseTime]
 	    dict set date era CE
 	    set date [GetJulianDayFromEraYearDay $date[set date {}] \
 			  $changeover]
 	}
-	{ iso8601YearOfCentury iso8601Week dayOfWeek } 4 {
+	{ iso8601YearOfCentury iso8601Week daSellerOrBuyerfWeek } 4 {
 	    set date [InterpretTwoDigitYear \
 			  $date[set date {}] $baseTime \
 			  iso8601YearOfCentury iso8601Year]
@@ -451,33 +451,33 @@ proc ::tcl::clock::Initialize {} {
 			 $changeover]
 	}
 
-	{ month dayOfMonth } 5 {
+	{ month daSellerOrBuyerfMonth } 5 {
 	    set date [AssignBaseYear $date[set date {}] \
 			  $baseTime $timeZone $changeover]
 	    set date [GetJulianDayFromEraYearMonthDay $date[set date {}] \
 			  $changeover]
 	}
-	{ dayOfYear } 5 {
+	{ daSellerOrBuyerfYear } 5 {
 	    set date [AssignBaseYear $date[set date {}] \
 			  $baseTime $timeZone $changeover]
 	    set date [GetJulianDayFromEraYearDay $date[set date {}] \
 			 $changeover]
 	}
-	{ iso8601Week dayOfWeek } 5 {
+	{ iso8601Week daSellerOrBuyerfWeek } 5 {
 	    set date [AssignBaseIso8601Year $date[set date {}] \
 			  $baseTime $timeZone $changeover]
 	    set date [GetJulianDayFromEraYearWeekDay $date[set date {}] \
 			 $changeover]
 	}
 
-	{ dayOfMonth } 6 {
+	{ daSellerOrBuyerfMonth } 6 {
 	    set date [AssignBaseMonth $date[set date {}] \
 			  $baseTime $timeZone $changeover]
 	    set date [GetJulianDayFromEraYearMonthDay $date[set date {}] \
 			  $changeover]
 	}
 
-	{ dayOfWeek } 7 {
+	{ daSellerOrBuyerfWeek } 7 {
 	    set date [AssignBaseWeek $date[set date {}] \
 			  $baseTime $timeZone $changeover]
 	    set date [GetJulianDayFromEraYearWeekDay $date[set date {}] \
@@ -772,7 +772,7 @@ proc ::tcl::clock::ParseClockFormatFormat2 {format locale procName} {
 				 [list @DAYS_OF_WEEK_ABBREV@ \
 				      [list [mc DAYS_OF_WEEK_ABBREV]]] \
 				 { [lindex @DAYS_OF_WEEK_ABBREV@ \
-					[expr {[dict get $date dayOfWeek] \
+					[expr {[dict get $date daSellerOrBuyerfWeek] \
 						   % 7}]]}]
 		    }
 		    A {			# Day of week, spelt out.
@@ -782,7 +782,7 @@ proc ::tcl::clock::ParseClockFormatFormat2 {format locale procName} {
 				 [list @DAYS_OF_WEEK_FULL@ \
 				      [list [mc DAYS_OF_WEEK_FULL]]] \
 				 { [lindex @DAYS_OF_WEEK_FULL@ \
-					[expr {[dict get $date dayOfWeek] \
+					[expr {[dict get $date daSellerOrBuyerfWeek] \
 						   % 7}]]}]
 		    }
 		    b - h {		# Name of month, abbreviated.
@@ -810,11 +810,11 @@ proc ::tcl::clock::ParseClockFormatFormat2 {format locale procName} {
 		    }
 		    d {			# Day of month, with leading zero
 			append formatString %02d
-			append substituents { [dict get $date dayOfMonth]}
+			append substituents { [dict get $date daSellerOrBuyerfMonth]}
 		    }
 		    e {			# Day of month, without leading zero
 			append formatString %2d
-			append substituents { [dict get $date dayOfMonth]}
+			append substituents { [dict get $date daSellerOrBuyerfMonth]}
 		    }
 		    E {			# Format group in a locale-dependent
 					# alternative era
@@ -866,7 +866,7 @@ proc ::tcl::clock::ParseClockFormatFormat2 {format locale procName} {
 		    }
 		    j {			# Day of year (001-366)
 			append formatString %03d
-			append substituents { [dict get $date dayOfYear]}
+			append substituents { [dict get $date daSellerOrBuyerfYear]}
 		    }
 		    J {			# Julian Day Number
 			append formatString %07ld
@@ -959,20 +959,20 @@ proc ::tcl::clock::ParseClockFormatFormat2 {format locale procName} {
 		    }
 		    u {			# Day of the week (1-Monday, 7-Sunday)
 			append formatString %1d
-			append substituents { [dict get $date dayOfWeek]}
+			append substituents { [dict get $date daSellerOrBuyerfWeek]}
 		    }
 		    U {			# Week of the year (00-53). The
 					# first Sunday of the year is the
 					# first day of week 01
 			append formatString %02d
 			append preFormatCode {
-			    set dow [dict get $date dayOfWeek]
+			    set dow [dict get $date daSellerOrBuyerfWeek]
 			    if { $dow == 7 } {
 				set dow 0
 			    }
 			    incr dow
 			    set UweekNumber \
-				[expr { ( [dict get $date dayOfYear]
+				[expr { ( [dict get $date daSellerOrBuyerfYear]
 					  - $dow + 7 )
 					/ 7 }]
 			}
@@ -986,15 +986,15 @@ proc ::tcl::clock::ParseClockFormatFormat2 {format locale procName} {
 					# 6-Saturday)
 			append formatString %1d
 			append substituents \
-			    { [expr { [dict get $date dayOfWeek] % 7 }]}
+			    { [expr { [dict get $date daSellerOrBuyerfWeek] % 7 }]}
 		    }
 		    W {			# Week of the year (00-53). The first
 					# Monday of the year is the first day
 					# of week 01.
 			append preFormatCode {
 			    set WweekNumber \
-				[expr { ( [dict get $date dayOfYear]
-					  - [dict get $date dayOfWeek]
+				[expr { ( [dict get $date daSellerOrBuyerfYear]
+					  - [dict get $date daSellerOrBuyerfWeek]
 					  + 7 )
 					/ 7 }]
 			}
@@ -1069,7 +1069,7 @@ proc ::tcl::clock::ParseClockFormatFormat2 {format locale procName} {
 			append formatString %s
 			append substituents \
 			    { [lindex $localeNumerals \
-				   [dict get $date dayOfMonth]]}
+				   [dict get $date daSellerOrBuyerfMonth]]}
 		    }
 		    H - k {		# Hour of the day in alternative
 					# numerals
@@ -1119,14 +1119,14 @@ proc ::tcl::clock::ParseClockFormatFormat2 {format locale procName} {
 			append formatString %s
 			append substituents \
 			    { [lindex $localeNumerals \
-				   [dict get $date dayOfWeek]]}
+				   [dict get $date daSellerOrBuyerfWeek]]}
 			}
 		    w {			# Day of the week (Sunday=0,Saturday=6)
 					# in alternative numerals
 			append formatString %s
 			append substituents \
 			    { [lindex $localeNumerals \
-				   [expr { [dict get $date dayOfWeek] % 7 }]]}
+				   [expr { [dict get $date daSellerOrBuyerfWeek] % 7 }]]}
 		    }
 		    y {			# Year of the century in alternative
 					# numerals
@@ -1323,7 +1323,7 @@ proc ::tcl::clock::FreeScan { string base timezone locale } {
 	set scanned [Oldscan $string \
 		     [dict get $date year] \
 		     [dict get $date month] \
-		     [dict get $date dayOfMonth]]
+		     [dict get $date daSellerOrBuyerfMonth]]
 	lassign $scanned \
 	    parseDate parseTime parseZone parseRel \
 	    parseWeekday parseOrdinalMonth
@@ -1348,7 +1348,7 @@ proc ::tcl::clock::FreeScan { string base timezone locale } {
 	dict set date era CE
 	dict set date year $y
 	dict set date month $m
-	dict set date dayOfMonth $d
+	dict set date daSellerOrBuyerfMonth $d
 	if { $parseTime eq {} } {
 	    set parseTime 0
 	}
@@ -1402,14 +1402,14 @@ proc ::tcl::clock::FreeScan { string base timezone locale } {
     # Do relative weekday
 
     if { [llength $parseWeekday] > 0 } {
-	lassign $parseWeekday dayOrdinal dayOfWeek
+	lassign $parseWeekday daSellerOrBuyerrdinal daSellerOrBuyerfWeek
 	set date2 [GetDateFields $seconds $TZData($timezone) 2361222]
 	dict set date2 era CE
-	set jdwkday [WeekdayOnOrBefore $dayOfWeek [expr {
+	set jdwkday [WeekdaSellerOrBuyernOrBefore $daSellerOrBuyerfWeek [expr {
 	    [dict get $date2 julianDay] + 6
 	}]]
-	incr jdwkday [expr { 7 * $dayOrdinal }]
-	if { $dayOrdinal > 0 } {
+	incr jdwkday [expr { 7 * $daSellerOrBuyerrdinal }]
+	if { $daSellerOrBuyerrdinal > 0 } {
 	    incr jdwkday -7
 	}
 	dict set date2 secondOfDay \
@@ -1553,8 +1553,8 @@ proc ::tcl::clock::ParseClockScanFormat {formatString locale} {
 			    }
 			lassign [UniquePrefixRegexp $l] regex lookup
 			append re ( $regex )
-			dict set fieldSet dayOfWeek [incr fieldCount]
-			append postcode "dict set date dayOfWeek \[" \
+			dict set fieldSet daSellerOrBuyerfWeek [incr fieldCount]
+			append postcode "dict set date daSellerOrBuyerfWeek \[" \
 			    "dict get " [list $lookup] " " \
 			    \[ {string tolower $field} [incr captureCount] \] \
 			    "\]\n"
@@ -1587,8 +1587,8 @@ proc ::tcl::clock::ParseClockScanFormat {formatString locale} {
 		    }
 		    d - e {		# Day of month
 			append re \\s*(\\d\\d?)
-			dict set fieldSet dayOfMonth [incr fieldCount]
-			append postcode "dict set date dayOfMonth \[" \
+			dict set fieldSet daSellerOrBuyerfMonth [incr fieldCount]
+			append postcode "dict set date daSellerOrBuyerfMonth \[" \
 			    "::scan \$field" [incr captureCount] " %d" \
 			    "\]\n"
 		    }
@@ -1633,8 +1633,8 @@ proc ::tcl::clock::ParseClockScanFormat {formatString locale} {
 		    }
 		    j {			# Day of year
 			append re \\s*(\\d\\d?\\d?)
-			dict set fieldSet dayOfYear [incr fieldCount]
-			append postcode "dict set date dayOfYear \[" \
+			dict set fieldSet daSellerOrBuyerfYear [incr fieldCount]
+			append postcode "dict set date daSellerOrBuyerfYear \[" \
 			    "::scan \$field" [incr captureCount] " %d" \
 			    "\]\n"
 		    }
@@ -1709,7 +1709,7 @@ proc ::tcl::clock::ParseClockScanFormat {formatString locale} {
 		    u - w {		# Day number within week, 0 or 7 == Sun
 					# 1=Mon, 6=Sat
 			append re \\s*(\\d)
-			dict set fieldSet dayOfWeek [incr fieldCount]
+			dict set fieldSet daSellerOrBuyerfWeek [incr fieldCount]
 			append postcode {::scan $field} [incr captureCount] \
 			    { %d dow} \n \
 			    {
@@ -1717,10 +1717,10 @@ proc ::tcl::clock::ParseClockScanFormat {formatString locale} {
 				    set dow 7
 				} elseif { $dow > 7 } {
 				    return -code error \
-					-errorcode [list CLOCK badDayOfWeek] \
+					-errorcode [list CLOCK badDaSellerOrBuyerfWeek] \
 					"day of week is greater than 7"
 				}
-				dict set date dayOfWeek $dow
+				dict set date daSellerOrBuyerfWeek $dow
 			    }
 		    }
 		    U {			# Week of year. The first Sunday of
@@ -1835,8 +1835,8 @@ proc ::tcl::clock::ParseClockScanFormat {formatString locale} {
 		    d - e {
 			lassign [LocaleNumeralMatcher $locale] regex lookup
 			append re $regex
-			dict set fieldSet dayOfMonth [incr fieldCount]
-			append postcode "dict set date dayOfMonth \[" \
+			dict set fieldSet daSellerOrBuyerfMonth [incr fieldCount]
+			append postcode "dict set date daSellerOrBuyerfMonth \[" \
 			    "dict get " [list $lookup] " \$field" \
 			    [incr captureCount] \
 			    "\]\n"
@@ -1889,7 +1889,7 @@ proc ::tcl::clock::ParseClockScanFormat {formatString locale} {
 		    u - w {
 			lassign [LocaleNumeralMatcher $locale] regex lookup
 			append re $regex
-			dict set fieldSet dayOfWeek [incr fieldCount]
+			dict set fieldSet daSellerOrBuyerfWeek [incr fieldCount]
 			append postcode "set dow \[dict get " [list $lookup] \
 			    { $field} [incr captureCount] \] \n \
 			    {
@@ -1897,10 +1897,10 @@ proc ::tcl::clock::ParseClockScanFormat {formatString locale} {
 				    set dow 7
 				} elseif { $dow > 7 } {
 				    return -code error \
-					-errorcode [list CLOCK badDayOfWeek] \
+					-errorcode [list CLOCK badDaSellerOrBuyerfWeek] \
 					"day of week is greater than 7"
 				}
-				dict set date dayOfWeek $dow
+				dict set date daSellerOrBuyerfWeek $dow
 			    }
 		    }
 		    y {
@@ -2555,7 +2555,7 @@ proc ::tcl::clock::FormatNumericTimeZone { z } {
 #	Formats a date as a StarDate.
 #
 # Parameters:
-#	date - Dictionary containing 'year', 'dayOfYear', and
+#	date - Dictionary containing 'year', 'daSellerOrBuyerfYear', and
 #	       'localSeconds' fields.
 #
 # Results:
@@ -2574,7 +2574,7 @@ proc ::tcl::clock::FormatStarDate { date } {
 
     # Get day of year, zero based
 
-    set doy [expr { [dict get $date dayOfYear] - 1 }]
+    set doy [expr { [dict get $date daSellerOrBuyerfYear] - 1 }]
 
     # Determine whether the year is a leap year
 
@@ -2628,7 +2628,7 @@ proc ::tcl::clock::ParseStarDate { year fractYear fractDay } {
 		  gregorian 1 \
 		  era CE \
 		  year [expr { $year + $Roddenberry }] \
-		  dayOfYear [expr { $fractYear * 365 / 1000 + 1 }]]
+		  daSellerOrBuyerfYear [expr { $fractYear * 365 / 1000 + 1 }]]
     set date [GetJulianDayFromGregorianEraYearDay $date[set date {}]]
 
     # Determine whether the given year is a leap year
@@ -2639,10 +2639,10 @@ proc ::tcl::clock::ParseStarDate { year fractYear fractDay } {
     # leap year
 
     if { $lp } {
-	dict set date dayOfYear \
+	dict set date daSellerOrBuyerfYear \
 	    [expr { $fractYear * 366 / 1000 + 1 }]
     } else {
-	dict set date dayOfYear \
+	dict set date daSellerOrBuyerfYear \
 	    [expr { $fractYear * 365 / 1000 + 1 }]
     }
     dict unset date julianDay
@@ -3213,9 +3213,9 @@ proc ::tcl::clock::GuessWindowsTimeZone {} {
     if { $tzname eq {} || [dict get $TimeZoneBad $tzname] } {
 	lassign $data \
 	    bias stdBias dstBias \
-	    stdYear stdMonth stdDayOfWeek stdDayOfMonth \
+	    stdYear stdMonth stdDaSellerOrBuyerfWeek stdDaSellerOrBuyerfMonth \
 	    stdHour stdMinute stdSecond stdMillisec \
-	    dstYear dstMonth dstDayOfWeek dstDayOfMonth \
+	    dstYear dstMonth dstDaSellerOrBuyerfWeek dstDaSellerOrBuyerfMonth \
 	    dstHour dstMinute dstSecond dstMillisec
 	set stdDelta [expr { $bias + $stdBias }]
 	set dstDelta [expr { $bias + $dstBias }]
@@ -3246,7 +3246,7 @@ proc ::tcl::clock::GuessWindowsTimeZone {} {
 	    set ss [::format %02d [expr { $dstDelta % 60 }]]
 	    append tzname < $dispDstSignum $hh $mm > $dstSignum $hh : $mm : $ss
 	    if { $dstYear == 0 } {
-		append tzname ,M $dstMonth . $dstDayOfMonth . $dstDayOfWeek
+		append tzname ,M $dstMonth . $dstDaSellerOrBuyerfMonth . $dstDaSellerOrBuyerfWeek
 	    } else {
 		# I have not been able to find any locale on which Windows
 		# converts time zone on a fixed day of the year, hence don't
@@ -3259,7 +3259,7 @@ proc ::tcl::clock::GuessWindowsTimeZone {} {
 		: [::format %02d $dstMinute] \
 		: [::format %02d $dstSecond]
 	    if { $stdYear == 0 } {
-		append tzname ,M $stdMonth . $stdDayOfMonth . $stdDayOfWeek
+		append tzname ,M $stdMonth . $stdDaSellerOrBuyerfMonth . $stdDaSellerOrBuyerfWeek
 	    } else {
 		# I have not been able to find any locale on which Windows
 		# converts time zone on a fixed day of the year, hence don't
@@ -3563,22 +3563,22 @@ proc ::tcl::clock::ReadZoneinfoFile {fileName fname} {
 #		Fields corresponding to stdSignum, stdHours, stdMinutes,
 #		stdSeconds for the Daylight Saving Time version of the
 #		time zone.  If dstHours is empty, it is presumed to be 1.
-#	startDayOfYear - The ordinal number of the day of the year on which
+#	startDaSellerOrBuyerfYear - The ordinal number of the day of the year on which
 #			 Daylight Saving Time begins.  If this field is
 #			 empty, then DST begins on a given month-week-day,
 #			 as below.
 #	startJ - The letter J, or an empty string.  If a J is present in
-#		 this field, then startDayOfYear does not count February 29
+#		 this field, then startDaSellerOrBuyerfYear does not count February 29
 #		 even in leap years.
 #	startMonth - The number of the month in which Daylight Saving Time
-#		     begins, supplied if startDayOfYear is empty.  If both
-#		     startDayOfYear and startMonth are empty, then US rules
+#		     begins, supplied if startDaSellerOrBuyerfYear is empty.  If both
+#		     startDaSellerOrBuyerfYear and startMonth are empty, then US rules
 #		     are presumed.
 #	startWeekOfMonth - The number of the week in the month in which
 #			   Daylight Saving Time begins, in the range 1-5.
 #			   5 denotes the last week of the month even in a
 #			   4-week month.
-#	startDayOfWeek - The number of the day of the week (Sunday=0,
+#	startDaSellerOrBuyerfWeek - The number of the day of the week (Sunday=0,
 #			 Saturday=6) on which Daylight Saving Time begins.
 #	startHours - The hours part of the time of day at which Daylight
 #		     Saving Time begins. An empty string is presumed to be 2.
@@ -3586,7 +3586,7 @@ proc ::tcl::clock::ReadZoneinfoFile {fileName fname} {
 #		       An empty string is presumed zero.
 #	startSeconds - The seconds part of the time of day at which DST begins.
 #		       An empty string is presumed zero.
-#	endDayOfYear, endJ, endMonth, endWeekOfMonth, endDayOfWeek,
+#	endDaSellerOrBuyerfYear, endJ, endMonth, endWeekOfMonth, endDaSellerOrBuyerfWeek,
 #	endHours, endMinutes, endSeconds -
 #		Specify the end of DST in the same way that the start* fields
 #		specify the beginning of DST.
@@ -3682,11 +3682,11 @@ proc ::tcl::clock::ParsePosixTimeZone { tz } {
 	$
     } $tz -> x(stdName) x(stdSignum) x(stdHours) x(stdMinutes) x(stdSeconds) \
 	     x(dstName) x(dstSignum) x(dstHours) x(dstMinutes) x(dstSeconds) \
-	     x(startJ) x(startDayOfYear) \
-	     x(startMonth) x(startWeekOfMonth) x(startDayOfWeek) \
+	     x(startJ) x(startDaSellerOrBuyerfYear) \
+	     x(startMonth) x(startWeekOfMonth) x(startDaSellerOrBuyerfWeek) \
 	     x(startHours) x(startMinutes) x(startSeconds) \
-	     x(endJ) x(endDayOfYear) \
-	     x(endMonth) x(endWeekOfMonth) x(endDayOfWeek) \
+	     x(endJ) x(endDaSellerOrBuyerfYear) \
+	     x(endMonth) x(endWeekOfMonth) x(endDaSellerOrBuyerfWeek) \
 	     x(endHours) x(endMinutes) x(endSeconds)] } {
 	# it's a good timezone
 
@@ -3789,7 +3789,7 @@ proc ::tcl::clock::ProcessPosixTimeZone { z } {
     # EU end time is the last Sunday in October
 
     if {
-	[dict get $z startDayOfYear] eq {}
+	[dict get $z startDaSellerOrBuyerfYear] eq {}
 	&& [dict get $z startMonth] eq {}
     } then {
 	if {($stdSignum * $stdHours>=0) && ($stdSignum * $stdHours<=12)} {
@@ -3806,12 +3806,12 @@ proc ::tcl::clock::ProcessPosixTimeZone { z } {
 	    dict set z startHours 2
 	}
 	dict set z startMonth 3
-	dict set z startDayOfWeek 0
+	dict set z startDaSellerOrBuyerfWeek 0
 	dict set z startMinutes 0
 	dict set z startSeconds 0
     }
     if {
-	[dict get $z endDayOfYear] eq {}
+	[dict get $z endDaSellerOrBuyerfYear] eq {}
 	&& [dict get $z endMonth] eq {}
     } then {
 	if {($stdSignum * $stdHours>=0) && ($stdSignum * $stdHours<=12)} {
@@ -3829,7 +3829,7 @@ proc ::tcl::clock::ProcessPosixTimeZone { z } {
 	    dict set z endWeekOfMonth 1
 	    dict set z endHours 2
 	}
-	dict set z endDayOfWeek 0
+	dict set z endDaSellerOrBuyerfWeek 0
 	dict set z endMinutes 0
 	dict set z endSeconds 0
     }
@@ -3882,7 +3882,7 @@ proc ::tcl::clock::DeterminePosixDSTTime { z bound y } {
     # Determine the start or end day of DST
 
     set date [dict create era CE year $y]
-    set doy [dict get $z ${bound}DayOfYear]
+    set doy [dict get $z ${bound}DaSellerOrBuyerfYear]
     if { $doy ne {} } {
 
 	# Time was specified as a day of the year
@@ -3892,18 +3892,18 @@ proc ::tcl::clock::DeterminePosixDSTTime { z bound y } {
 	     && ( $doy > $FEB_28 ) } {
 	    incr doy
 	}
-	dict set date dayOfYear $doy
+	dict set date daSellerOrBuyerfYear $doy
 	set date [GetJulianDayFromEraYearDay $date[set date {}] 2361222]
     } else {
 	# Time was specified as a day of the week within a month
 
 	dict set date month [dict get $z ${bound}Month]
-	dict set date dayOfWeek [dict get $z ${bound}DayOfWeek]
+	dict set date daSellerOrBuyerfWeek [dict get $z ${bound}DaSellerOrBuyerfWeek]
 	set dowim [dict get $z ${bound}WeekOfMonth]
 	if { $dowim >= 5 } {
 	    set dowim -1
 	}
-	dict set date dayOfWeekInMonth $dowim
+	dict set date daSellerOrBuyerfWeekInMonth $dowim
 	set date [GetJulianDayFromEraYearMonthWeekDay $date[set date {}] 2361222]
 
     }
@@ -3981,7 +3981,7 @@ proc ::tcl::clock::GetLocaleEra { date etable } {
 #
 # Parameters:
 #	date -- A dictionary in which the 'era', 'year', and
-#		'dayOfYear' slots are populated. The calendar in use
+#		'daSellerOrBuyerfYear' slots are populated. The calendar in use
 #		is determined by the date itself relative to:
 #       changeover -- Julian day on which the Gregorian calendar was
 #		adopted in the current locale.
@@ -4017,7 +4017,7 @@ proc ::tcl::clock::GetJulianDayFromEraYearDay {date changeover} {
     dict set date gregorian 1
     set jd [expr {
 	1721425
-	+ [dict get $date dayOfYear]
+	+ [dict get $date daSellerOrBuyerfYear]
 	+ ( 365 * $ym1 )
 	+ ( $ym1 / 4 )
 	- ( $ym1 / 100 )
@@ -4030,7 +4030,7 @@ proc ::tcl::clock::GetJulianDayFromEraYearDay {date changeover} {
 	dict set date gregorian 0
 	set jd [expr {
 	    1721423
-	    + [dict get $date dayOfYear]
+	    + [dict get $date daSellerOrBuyerfYear]
 	    + ( 365 * $ym1 )
 	    + ( $ym1 / 4 )
 	}]
@@ -4049,7 +4049,7 @@ proc ::tcl::clock::GetJulianDayFromEraYearDay {date changeover} {
 #
 # Parameters:
 #	date - Dictionary containing the keys, 'era', 'year', 'month'
-#	       'weekOfMonth', 'dayOfWeek', and 'dayOfWeekInMonth'.
+#	       'weekOfMonth', 'daSellerOrBuyerfWeek', and 'daSellerOrBuyerfWeekInMonth'.
 #	changeover - Julian Day of adoption of the Gregorian calendar
 #
 # Results:
@@ -4065,20 +4065,20 @@ proc ::tcl::clock::GetJulianDayFromEraYearDay {date changeover} {
 
 proc ::tcl::clock::GetJulianDayFromEraYearMonthWeekDay {date changeover} {
     # Come up with a reference day; either the zeroeth day of the given month
-    # (dayOfWeekInMonth >= 0) or the seventh day of the following month
-    # (dayOfWeekInMonth < 0)
+    # (daSellerOrBuyerfWeekInMonth >= 0) or the seventh day of the following month
+    # (daSellerOrBuyerfWeekInMonth < 0)
 
     set date2 $date
-    set week [dict get $date dayOfWeekInMonth]
+    set week [dict get $date daSellerOrBuyerfWeekInMonth]
     if { $week >= 0 } {
-	dict set date2 dayOfMonth 0
+	dict set date2 daSellerOrBuyerfMonth 0
     } else {
 	dict incr date2 month
-	dict set date2 dayOfMonth 7
+	dict set date2 daSellerOrBuyerfMonth 7
     }
     set date2 [GetJulianDayFromEraYearMonthDay $date2[set date2 {}] \
 		   $changeover]
-    set wd0 [WeekdayOnOrBefore [dict get $date dayOfWeek] \
+    set wd0 [WeekdaSellerOrBuyernOrBefore [dict get $date daSellerOrBuyerfWeek] \
 		 [dict get $date2 julianDay]]
     dict set date julianDay [expr { $wd0 + 7 * $week }]
     return $date
@@ -4127,7 +4127,7 @@ proc ::tcl::clock::IsGregorianLeapYear { date } {
 
 #----------------------------------------------------------------------
 #
-# WeekdayOnOrBefore --
+# WeekdaSellerOrBuyernOrBefore --
 #
 #	Determine the nearest day of week (given by the 'weekday' parameter,
 #	Sunday==0) on or before a given Julian Day.
@@ -4144,7 +4144,7 @@ proc ::tcl::clock::IsGregorianLeapYear { date } {
 #
 #----------------------------------------------------------------------
 
-proc ::tcl::clock::WeekdayOnOrBefore { weekday j } {
+proc ::tcl::clock::WeekdaSellerOrBuyernOrBefore { weekday j } {
     set k [expr { ( $weekday + 6 )  % 7 }]
     return [expr { $j - ( $j - $k ) % 7 }]
 }
@@ -4402,8 +4402,8 @@ proc ::tcl::clock::AddMonths { months clockval timezone changeover } {
     } else {
 	set hath [lindex $DaysInRomanMonthInCommonYear $mm]
     }
-    if { [dict get $date dayOfMonth] > $hath } {
-	dict set date dayOfMonth $hath
+    if { [dict get $date daSellerOrBuyerfMonth] > $hath } {
+	dict set date daSellerOrBuyerfMonth $hath
     }
 
     # Reconvert to a number of seconds

@@ -12,7 +12,7 @@
 
 # The procedures below are here strictly for backward compatibility with
 # Tk version 3.6 and earlier.  The procedures are no longer needed, so
-# they are no-ops.  You should not use these procedures anymore, since
+# they are no-ops.  SellerOrBuyeru should not use these procedures anymore, since
 # they may be removed in some future release.
 
 proc tk_menuBar args {}

@@ -23,7 +23,7 @@ namespace eval ::tk {
     ::msgcat::mcset cs "Error: %1\$s" "Chyba: %1\$s"
     ::msgcat::mcset cs "E&xit" "&Konec"
     ::msgcat::mcset cs "&File" "&Soubor"
-    ::msgcat::mcset cs "File \"%1\$s\" already exists.\nDo you want to overwrite it?" "Soubor \"%1\$s\" ji\u017e existuje.\nChcete jej p\u0159epsat?"
+    ::msgcat::mcset cs "File \"%1\$s\" already exists.\nDo SellerOrBuyeru want to overwrite it?" "Soubor \"%1\$s\" ji\u017e existuje.\nChcete jej p\u0159epsat?"
     ::msgcat::mcset cs "File \"%1\$s\" already exists.\n\n" "Soubor \"%1\$s\" ji\u017e existuje.\n\n"
     ::msgcat::mcset cs "File \"%1\$s\" does not exist." "Soubor \"%1\$s\" neexistuje."
     ::msgcat::mcset cs "File &name:" "&Jm\351no souboru:"

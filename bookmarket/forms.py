@@ -12,8 +12,9 @@ class PostForm(forms.ModelForm):
             "image",
             "image2",
             "image3",
-            "price"
-        ]
+            "price",
+            "SellerOrBuyer",
+            ]
 
 
 class CommentForm(forms.ModelForm):

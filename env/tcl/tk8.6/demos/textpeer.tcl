@@ -24,7 +24,7 @@ set first [text $w.text[incr count]]
 $first insert end "This is a coupled pair of text widgets; they are peers to "
 $first insert end "each other. They have the same underlying data model, but "
 $first insert end "can show different locations, have different current edit "
-$first insert end "locations, and have different selections. You can also "
+$first insert end "locations, and have different selections. SellerOrBuyeru can also "
 $first insert end "create additional peers of any of these text widgets using "
 $first insert end "the Make Peer button beside the text widget to clone, and "
 $first insert end "delete a particular peer widget using the Delete Peer "

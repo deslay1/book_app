@@ -522,7 +522,7 @@ class Set(Collection):
         """Compute the hash value of a set.
 
         Note that we don't define __hash__: not all sets are hashable.
-        But if you define a hashable set type, its __hash__ should
+        But if SellerOrBuyeru define a hashable set type, its __hash__ should
         call this function.
 
         This must be compatible __eq__.
@@ -561,7 +561,7 @@ class MutableSet(Set):
     add(), and discard().
 
     To override the comparisons (presumably for speed, as the
-    semantics are fixed), all you have to do is redefine __le__ and
+    semantics are fixed), all SellerOrBuyeru have to do is redefine __le__ and
     then the other operations will automatically follow suit.
     """
 

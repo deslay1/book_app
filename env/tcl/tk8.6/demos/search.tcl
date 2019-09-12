@@ -1,7 +1,7 @@
 # search.tcl --
 #
 # This demonstration script creates a collection of widgets that
-# allow you to load a file into a text widget, then perform searches
+# allow SellerOrBuyeru to load a file into a text widget, then perform searches
 # on that file.
 
 if {![info exists widgetDemo]} {

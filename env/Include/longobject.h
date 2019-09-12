@@ -15,21 +15,21 @@ PyAPI_DATA(PyTypeObject) PyLong_Type;
         PyType_FastSubclass(Py_TYPE(op), Py_TPFLAGS_LONG_SUBCLASS)
 #define PyLong_CheckExact(op) (Py_TYPE(op) == &PyLong_Type)
 
-PyAPI_FUNC(PyObject *) PyLong_FromLong(long);
-PyAPI_FUNC(PyObject *) PyLong_FromUnsignedLong(unsigned long);
-PyAPI_FUNC(PyObject *) PyLong_FromSize_t(size_t);
-PyAPI_FUNC(PyObject *) PyLong_FromSsize_t(Py_ssize_t);
-PyAPI_FUNC(PyObject *) PyLong_FromDouble(double);
-PyAPI_FUNC(long) PyLong_AsLong(PyObject *);
-PyAPI_FUNC(long) PyLong_AsLongAndOverflow(PyObject *, int *);
-PyAPI_FUNC(Py_ssize_t) PyLong_AsSsize_t(PyObject *);
-PyAPI_FUNC(size_t) PyLong_AsSize_t(PyObject *);
-PyAPI_FUNC(unsigned long) PyLong_AsUnsignedLong(PyObject *);
-PyAPI_FUNC(unsigned long) PyLong_AsUnsignedLongMask(PyObject *);
+PyAPI_FUNC(PSellerOrBuyerbject *) PyLong_FromLong(long);
+PyAPI_FUNC(PSellerOrBuyerbject *) PyLong_FromUnsignedLong(unsigned long);
+PyAPI_FUNC(PSellerOrBuyerbject *) PyLong_FromSize_t(size_t);
+PyAPI_FUNC(PSellerOrBuyerbject *) PyLong_FromSsize_t(Py_ssize_t);
+PyAPI_FUNC(PSellerOrBuyerbject *) PyLong_FromDouble(double);
+PyAPI_FUNC(long) PyLong_AsLong(PSellerOrBuyerbject *);
+PyAPI_FUNC(long) PyLong_AsLongAndOverflow(PSellerOrBuyerbject *, int *);
+PyAPI_FUNC(Py_ssize_t) PyLong_AsSsize_t(PSellerOrBuyerbject *);
+PyAPI_FUNC(size_t) PyLong_AsSize_t(PSellerOrBuyerbject *);
+PyAPI_FUNC(unsigned long) PyLong_AsUnsignedLong(PSellerOrBuyerbject *);
+PyAPI_FUNC(unsigned long) PyLong_AsUnsignedLongMask(PSellerOrBuyerbject *);
 #ifndef Py_LIMITED_API
-PyAPI_FUNC(int) _PyLong_AsInt(PyObject *);
+PyAPI_FUNC(int) _PyLong_AsInt(PSellerOrBuyerbject *);
 #endif
-PyAPI_FUNC(PyObject *) PyLong_GetInfo(void);
+PyAPI_FUNC(PSellerOrBuyerbject *) PyLong_GetInfo(void);
 
 /* It may be useful in the future. I've added it in the PyInt -> PyLong
    cleanup to keep the extra information. [CH] */
@@ -81,22 +81,22 @@ PyAPI_DATA(unsigned char) _PyLong_DigitValue[256];
 PyAPI_FUNC(double) _PyLong_Frexp(PyLongObject *a, Py_ssize_t *e);
 #endif
 
-PyAPI_FUNC(double) PyLong_AsDouble(PyObject *);
-PyAPI_FUNC(PyObject *) PyLong_FromVoidPtr(void *);
-PyAPI_FUNC(void *) PyLong_AsVoidPtr(PyObject *);
+PyAPI_FUNC(double) PyLong_AsDouble(PSellerOrBuyerbject *);
+PyAPI_FUNC(PSellerOrBuyerbject *) PyLong_FromVoidPtr(void *);
+PyAPI_FUNC(void *) PyLong_AsVoidPtr(PSellerOrBuyerbject *);
 
-PyAPI_FUNC(PyObject *) PyLong_FromLongLong(long long);
-PyAPI_FUNC(PyObject *) PyLong_FromUnsignedLongLong(unsigned long long);
-PyAPI_FUNC(long long) PyLong_AsLongLong(PyObject *);
-PyAPI_FUNC(unsigned long long) PyLong_AsUnsignedLongLong(PyObject *);
-PyAPI_FUNC(unsigned long long) PyLong_AsUnsignedLongLongMask(PyObject *);
-PyAPI_FUNC(long long) PyLong_AsLongLongAndOverflow(PyObject *, int *);
+PyAPI_FUNC(PSellerOrBuyerbject *) PyLong_FromLongLong(long long);
+PyAPI_FUNC(PSellerOrBuyerbject *) PyLong_FromUnsignedLongLong(unsigned long long);
+PyAPI_FUNC(long long) PyLong_AsLongLong(PSellerOrBuyerbject *);
+PyAPI_FUNC(unsigned long long) PyLong_AsUnsignedLongLong(PSellerOrBuyerbject *);
+PyAPI_FUNC(unsigned long long) PyLong_AsUnsignedLongLongMask(PSellerOrBuyerbject *);
+PyAPI_FUNC(long long) PyLong_AsLongLongAndOverflow(PSellerOrBuyerbject *, int *);
 
-PyAPI_FUNC(PyObject *) PyLong_FromString(const char *, char **, int);
+PyAPI_FUNC(PSellerOrBuyerbject *) PyLong_FromString(const char *, char **, int);
 #ifndef Py_LIMITED_API
-PyAPI_FUNC(PyObject *) PyLong_FromUnicode(Py_UNICODE*, Py_ssize_t, int) Py_DEPRECATED(3.3);
-PyAPI_FUNC(PyObject *) PyLong_FromUnicodeObject(PyObject *u, int base);
-PyAPI_FUNC(PyObject *) _PyLong_FromBytes(const char *, Py_ssize_t, int);
+PyAPI_FUNC(PSellerOrBuyerbject *) PyLong_FromUnicode(Py_UNICODE*, Py_ssize_t, int) Py_DEPRECATED(3.3);
+PyAPI_FUNC(PSellerOrBuyerbject *) PyLong_FromUnicodeObject(PSellerOrBuyerbject *u, int base);
+PyAPI_FUNC(PSellerOrBuyerbject *) _PyLong_FromBytes(const char *, Py_ssize_t, int);
 #endif
 
 #ifndef Py_LIMITED_API
@@ -104,7 +104,7 @@ PyAPI_FUNC(PyObject *) _PyLong_FromBytes(const char *, Py_ssize_t, int);
    v must not be NULL, and must be a normalized long.
    There are no error cases.
 */
-PyAPI_FUNC(int) _PyLong_Sign(PyObject *v);
+PyAPI_FUNC(int) _PyLong_Sign(PSellerOrBuyerbject *v);
 
 
 /* _PyLong_NumBits.  Return the number of bits needed to represent the
@@ -114,7 +114,7 @@ PyAPI_FUNC(int) _PyLong_Sign(PyObject *v);
    (size_t)-1 is returned and OverflowError set if the true result doesn't
    fit in a size_t.
 */
-PyAPI_FUNC(size_t) _PyLong_NumBits(PyObject *v);
+PyAPI_FUNC(size_t) _PyLong_NumBits(PSellerOrBuyerbject *v);
 
 /* _PyLong_DivmodNear.  Given integers a and b, compute the nearest
    integer q to the exact quotient a / b, rounding to the nearest even integer
@@ -122,7 +122,7 @@ PyAPI_FUNC(size_t) _PyLong_NumBits(PyObject *v);
    will satisfy abs(r) <= abs(b)/2, with equality possible only if q is
    even.
 */
-PyAPI_FUNC(PyObject *) _PyLong_DivmodNear(PyObject *, PyObject *);
+PyAPI_FUNC(PSellerOrBuyerbject *) _PyLong_DivmodNear(PSellerOrBuyerbject *, PSellerOrBuyerbject *);
 
 /* _PyLong_FromByteArray:  View the n unsigned bytes as a binary integer in
    base 256, and return a Python int with the same numeric value.
@@ -137,7 +137,7 @@ PyAPI_FUNC(PyObject *) _PyLong_DivmodNear(PyObject *, PyObject *);
    + Return NULL with the appropriate exception set if there's not
      enough memory to create the Python int.
 */
-PyAPI_FUNC(PyObject *) _PyLong_FromByteArray(
+PyAPI_FUNC(PSellerOrBuyerbject *) _PyLong_FromByteArray(
     const unsigned char* bytes, size_t n,
     int little_endian, int is_signed);
 
@@ -169,22 +169,22 @@ PyAPI_FUNC(int) _PyLong_AsByteArray(PyLongObject* v,
    nb_int slot is not available or the result of the call to nb_int
    returns something not of type int.
 */
-PyAPI_FUNC(PyLongObject *)_PyLong_FromNbInt(PyObject *);
+PyAPI_FUNC(PyLongObject *)_PyLong_FromNbInt(PSellerOrBuyerbject *);
 
 /* _PyLong_Format: Convert the long to a string object with given base,
    appending a base prefix of 0[box] if base is 2, 8 or 16. */
-PyAPI_FUNC(PyObject *) _PyLong_Format(PyObject *obj, int base);
+PyAPI_FUNC(PSellerOrBuyerbject *) _PyLong_Format(PSellerOrBuyerbject *obj, int base);
 
 PyAPI_FUNC(int) _PyLong_FormatWriter(
     _PyUnicodeWriter *writer,
-    PyObject *obj,
+    PSellerOrBuyerbject *obj,
     int base,
     int alternate);
 
 PyAPI_FUNC(char*) _PyLong_FormatBytesWriter(
     _PyBytesWriter *writer,
     char *str,
-    PyObject *obj,
+    PSellerOrBuyerbject *obj,
     int base,
     int alternate);
 
@@ -192,8 +192,8 @@ PyAPI_FUNC(char*) _PyLong_FormatBytesWriter(
    (Advanced String Formatting). */
 PyAPI_FUNC(int) _PyLong_FormatAdvancedWriter(
     _PyUnicodeWriter *writer,
-    PyObject *obj,
-    PyObject *format_spec,
+    PSellerOrBuyerbject *obj,
+    PSellerOrBuyerbject *format_spec,
     Py_ssize_t start,
     Py_ssize_t end);
 #endif /* Py_LIMITED_API */
@@ -201,17 +201,17 @@ PyAPI_FUNC(int) _PyLong_FormatAdvancedWriter(
 /* These aren't really part of the int object, but they're handy. The
    functions are in Python/mystrtoul.c.
  */
-PyAPI_FUNC(unsigned long) PyOS_strtoul(const char *, char **, int);
-PyAPI_FUNC(long) PyOS_strtol(const char *, char **, int);
+PyAPI_FUNC(unsigned long) PSellerOrBuyerS_strtoul(const char *, char **, int);
+PyAPI_FUNC(long) PSellerOrBuyerS_strtol(const char *, char **, int);
 
 #ifndef Py_LIMITED_API
 /* For use by the gcd function in mathmodule.c */
-PyAPI_FUNC(PyObject *) _PyLong_GCD(PyObject *, PyObject *);
+PyAPI_FUNC(PSellerOrBuyerbject *) _PyLong_GCD(PSellerOrBuyerbject *, PSellerOrBuyerbject *);
 #endif /* !Py_LIMITED_API */
 
 #ifndef Py_LIMITED_API
-PyAPI_DATA(PyObject *) _PyLong_Zero;
-PyAPI_DATA(PyObject *) _PyLong_One;
+PyAPI_DATA(PSellerOrBuyerbject *) _PyLong_Zero;
+PyAPI_DATA(PSellerOrBuyerbject *) _PyLong_One;
 #endif
 
 #ifdef __cplusplus

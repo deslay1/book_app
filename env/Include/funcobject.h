@@ -19,19 +19,19 @@ extern "C" {
  */
 
 typedef struct {
-    PyObject_HEAD
-    PyObject *func_code;        /* A code object, the __code__ attribute */
-    PyObject *func_globals;     /* A dictionary (other mappings won't do) */
-    PyObject *func_defaults;    /* NULL or a tuple */
-    PyObject *func_kwdefaults;  /* NULL or a dict */
-    PyObject *func_closure;     /* NULL or a tuple of cell objects */
-    PyObject *func_doc;         /* The __doc__ attribute, can be anything */
-    PyObject *func_name;        /* The __name__ attribute, a string object */
-    PyObject *func_dict;        /* The __dict__ attribute, a dict or NULL */
-    PyObject *func_weakreflist; /* List of weak references */
-    PyObject *func_module;      /* The __module__ attribute, can be anything */
-    PyObject *func_annotations; /* Annotations, a dict or NULL */
-    PyObject *func_qualname;    /* The qualified name */
+    PSellerOrBuyerbject_HEAD
+    PSellerOrBuyerbject *func_code;        /* A code object, the __code__ attribute */
+    PSellerOrBuyerbject *func_globals;     /* A dictionary (other mappings won't do) */
+    PSellerOrBuyerbject *func_defaults;    /* NULL or a tuple */
+    PSellerOrBuyerbject *func_kwdefaults;  /* NULL or a dict */
+    PSellerOrBuyerbject *func_closure;     /* NULL or a tuple of cell objects */
+    PSellerOrBuyerbject *func_doc;         /* The __doc__ attribute, can be anything */
+    PSellerOrBuyerbject *func_name;        /* The __name__ attribute, a string object */
+    PSellerOrBuyerbject *func_dict;        /* The __dict__ attribute, a dict or NULL */
+    PSellerOrBuyerbject *func_weakreflist; /* List of weak references */
+    PSellerOrBuyerbject *func_module;      /* The __module__ attribute, can be anything */
+    PSellerOrBuyerbject *func_annotations; /* Annotations, a dict or NULL */
+    PSellerOrBuyerbject *func_qualname;    /* The qualified name */
 
     /* Invariant:
      *     func_closure contains the bindings for func_code->co_freevars, so
@@ -44,32 +44,32 @@ PyAPI_DATA(PyTypeObject) PyFunction_Type;
 
 #define PyFunction_Check(op) (Py_TYPE(op) == &PyFunction_Type)
 
-PyAPI_FUNC(PyObject *) PyFunction_New(PyObject *, PyObject *);
-PyAPI_FUNC(PyObject *) PyFunction_NewWithQualName(PyObject *, PyObject *, PyObject *);
-PyAPI_FUNC(PyObject *) PyFunction_GetCode(PyObject *);
-PyAPI_FUNC(PyObject *) PyFunction_GetGlobals(PyObject *);
-PyAPI_FUNC(PyObject *) PyFunction_GetModule(PyObject *);
-PyAPI_FUNC(PyObject *) PyFunction_GetDefaults(PyObject *);
-PyAPI_FUNC(int) PyFunction_SetDefaults(PyObject *, PyObject *);
-PyAPI_FUNC(PyObject *) PyFunction_GetKwDefaults(PyObject *);
-PyAPI_FUNC(int) PyFunction_SetKwDefaults(PyObject *, PyObject *);
-PyAPI_FUNC(PyObject *) PyFunction_GetClosure(PyObject *);
-PyAPI_FUNC(int) PyFunction_SetClosure(PyObject *, PyObject *);
-PyAPI_FUNC(PyObject *) PyFunction_GetAnnotations(PyObject *);
-PyAPI_FUNC(int) PyFunction_SetAnnotations(PyObject *, PyObject *);
+PyAPI_FUNC(PSellerOrBuyerbject *) PyFunction_New(PSellerOrBuyerbject *, PSellerOrBuyerbject *);
+PyAPI_FUNC(PSellerOrBuyerbject *) PyFunction_NewWithQualName(PSellerOrBuyerbject *, PSellerOrBuyerbject *, PSellerOrBuyerbject *);
+PyAPI_FUNC(PSellerOrBuyerbject *) PyFunction_GetCode(PSellerOrBuyerbject *);
+PyAPI_FUNC(PSellerOrBuyerbject *) PyFunction_GetGlobals(PSellerOrBuyerbject *);
+PyAPI_FUNC(PSellerOrBuyerbject *) PyFunction_GetModule(PSellerOrBuyerbject *);
+PyAPI_FUNC(PSellerOrBuyerbject *) PyFunction_GetDefaults(PSellerOrBuyerbject *);
+PyAPI_FUNC(int) PyFunction_SetDefaults(PSellerOrBuyerbject *, PSellerOrBuyerbject *);
+PyAPI_FUNC(PSellerOrBuyerbject *) PyFunction_GetKwDefaults(PSellerOrBuyerbject *);
+PyAPI_FUNC(int) PyFunction_SetKwDefaults(PSellerOrBuyerbject *, PSellerOrBuyerbject *);
+PyAPI_FUNC(PSellerOrBuyerbject *) PyFunction_GetClosure(PSellerOrBuyerbject *);
+PyAPI_FUNC(int) PyFunction_SetClosure(PSellerOrBuyerbject *, PSellerOrBuyerbject *);
+PyAPI_FUNC(PSellerOrBuyerbject *) PyFunction_GetAnnotations(PSellerOrBuyerbject *);
+PyAPI_FUNC(int) PyFunction_SetAnnotations(PSellerOrBuyerbject *, PSellerOrBuyerbject *);
 
 #ifndef Py_LIMITED_API
-PyAPI_FUNC(PyObject *) _PyFunction_FastCallDict(
-    PyObject *func,
-    PyObject *const *args,
+PyAPI_FUNC(PSellerOrBuyerbject *) _PyFunction_FastCallDict(
+    PSellerOrBuyerbject *func,
+    PSellerOrBuyerbject *const *args,
     Py_ssize_t nargs,
-    PyObject *kwargs);
+    PSellerOrBuyerbject *kwargs);
 
-PyAPI_FUNC(PyObject *) _PyFunction_FastCallKeywords(
-    PyObject *func,
-    PyObject *const *stack,
+PyAPI_FUNC(PSellerOrBuyerbject *) _PyFunction_FastCallKeywords(
+    PSellerOrBuyerbject *func,
+    PSellerOrBuyerbject *const *stack,
     Py_ssize_t nargs,
-    PyObject *kwnames);
+    PSellerOrBuyerbject *kwnames);
 #endif
 
 /* Macros for direct access to these values. Type checks are *not*
@@ -93,8 +93,8 @@ PyAPI_FUNC(PyObject *) _PyFunction_FastCallKeywords(
 PyAPI_DATA(PyTypeObject) PyClassMethod_Type;
 PyAPI_DATA(PyTypeObject) PyStaticMethod_Type;
 
-PyAPI_FUNC(PyObject *) PyClassMethod_New(PyObject *);
-PyAPI_FUNC(PyObject *) PyStaticMethod_New(PyObject *);
+PyAPI_FUNC(PSellerOrBuyerbject *) PyClassMethod_New(PSellerOrBuyerbject *);
+PyAPI_FUNC(PSellerOrBuyerbject *) PyStaticMethod_New(PSellerOrBuyerbject *);
 
 #ifdef __cplusplus
 }

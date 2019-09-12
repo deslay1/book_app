@@ -15,7 +15,7 @@ wm title $w "Horizontal Scale Demonstration"
 wm iconname $w "hscale"
 positionWindow $w
 
-label $w.msg -font $font -wraplength 3.5i -justify left -text "An arrow and a horizontal scale are displayed below.  If you click or drag mouse button 1 in the scale, you can change the length of the arrow."
+label $w.msg -font $font -wraplength 3.5i -justify left -text "An arrow and a horizontal scale are displayed below.  If SellerOrBuyeru click or drag mouse button 1 in the scale, SellerOrBuyeru can change the length of the arrow."
 pack $w.msg -side top -padx .5c
 
 ## See Code / Dismiss buttons

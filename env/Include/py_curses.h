@@ -59,7 +59,7 @@ extern "C" {
 /* Type declarations */
 
 typedef struct {
-    PyObject_HEAD
+    PSellerOrBuyerbject_HEAD
     WINDOW *win;
     char *encoding;
 } PyCursesWindowObject;
@@ -100,13 +100,13 @@ static const char catchall_NULL[] = "curses function returned NULL";
    */
 
 #define NoArgNoReturnFunction(X) \
-static PyObject *PyCurses_ ## X (PyObject *self) \
+static PSellerOrBuyerbject *PyCurses_ ## X (PSellerOrBuyerbject *self) \
 { \
   PyCursesInitialised \
   return PyCursesCheckERR(X(), # X); }
 
 #define NoArgOrFlagNoReturnFunction(X) \
-static PyObject *PyCurses_ ## X (PyObject *self, PyObject *args) \
+static PSellerOrBuyerbject *PyCurses_ ## X (PSellerOrBuyerbject *self, PSellerOrBuyerbject *args) \
 { \
   int flag = 0; \
   PyCursesInitialised \
@@ -122,20 +122,20 @@ static PyObject *PyCurses_ ## X (PyObject *self, PyObject *args) \
     return NULL; } }
 
 #define NoArgReturnIntFunction(X) \
-static PyObject *PyCurses_ ## X (PyObject *self) \
+static PSellerOrBuyerbject *PyCurses_ ## X (PSellerOrBuyerbject *self) \
 { \
  PyCursesInitialised \
  return PyLong_FromLong((long) X()); }
 
 
 #define NoArgReturnStringFunction(X) \
-static PyObject *PyCurses_ ## X (PyObject *self) \
+static PSellerOrBuyerbject *PyCurses_ ## X (PSellerOrBuyerbject *self) \
 { \
   PyCursesInitialised \
   return PyBytes_FromString(X()); }
 
 #define NoArgTrueFalseFunction(X) \
-static PyObject *PyCurses_ ## X (PyObject *self) \
+static PSellerOrBuyerbject *PyCurses_ ## X (PSellerOrBuyerbject *self) \
 { \
   PyCursesInitialised \
   if (X () == FALSE) { \
@@ -144,7 +144,7 @@ static PyObject *PyCurses_ ## X (PyObject *self) \
   Py_RETURN_TRUE; }
 
 #define NoArgNoReturnVoidFunction(X) \
-static PyObject *PyCurses_ ## X (PyObject *self) \
+static PSellerOrBuyerbject *PyCurses_ ## X (PSellerOrBuyerbject *self) \
 { \
   PyCursesInitialised \
   X(); \

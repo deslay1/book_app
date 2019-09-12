@@ -5,15 +5,15 @@
 extern "C" {
 #endif
 
-PyAPI_FUNC(int) PyOS_mystrnicmp(const char *, const char *, Py_ssize_t);
-PyAPI_FUNC(int) PyOS_mystricmp(const char *, const char *);
+PyAPI_FUNC(int) PSellerOrBuyerS_mystrnicmp(const char *, const char *, Py_ssize_t);
+PyAPI_FUNC(int) PSellerOrBuyerS_mystricmp(const char *, const char *);
 
 #ifdef MS_WINDOWS
-#define PyOS_strnicmp strnicmp
-#define PyOS_stricmp stricmp
+#define PSellerOrBuyerS_strnicmp strnicmp
+#define PSellerOrBuyerS_stricmp stricmp
 #else
-#define PyOS_strnicmp PyOS_mystrnicmp
-#define PyOS_stricmp PyOS_mystricmp
+#define PSellerOrBuyerS_strnicmp PSellerOrBuyerS_mystrnicmp
+#define PSellerOrBuyerS_stricmp PSellerOrBuyerS_mystricmp
 #endif
 
 #ifdef __cplusplus

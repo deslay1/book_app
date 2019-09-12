@@ -33,6 +33,7 @@
             <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}" />
             {% if post.author == user %}
             <a class="mr-2" href="/profile/">{{ post.author }}</a>
+            <h2 class="article-title">{{ post.SellerOrBuyer }}</h2>
             <small class="text-muted">{{ post.date_posted|date:"F d, Y H:i" }}</small>
           </div>
           <div class="post-button">
@@ -112,21 +113,33 @@
     <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
     <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>
     {% endif %}
+    <<<<<<< HEAD {% for num in page_obj.paginator.page_range %} {% if page_obj.number == num %} <a
+      class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+      {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+      <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+      {% endif %}
+      {% endfor %}
 
-    {% for num in page_obj.paginator.page_range %}
-    {% if page_obj.number == num %}
-    <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
-    {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-    <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
-    {% endif %}
-    {% endfor %}
+      {% if page_obj.has_next %}
+      <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
+      <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+      {% endif %}
+      =======
+      >>>>>>> origin/release
 
-    {% if page_obj.has_next %}
-    <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
-    <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
-    {% endif %}
+      {% for num in page_obj.paginator.page_range %}
+      {% if page_obj.number == num %}
+      <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+      {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+      <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+      {% endif %}
+      <<<<<<< HEAD======={% endfor %} {% if page_obj.has_next %} <a class="btn btn-outline-info mb-4"
+        href="?page={{ page_obj.next_page_number }}">Next</a>
+        <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+        {% endif %}
 
-    {% endif %}
+        {% endif %}
+        >>>>>>> origin/release
   </div>
 </div>
 {% endblock content %}

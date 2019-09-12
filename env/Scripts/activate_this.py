@@ -1,7 +1,7 @@
-"""By using execfile(this_file, dict(__file__=this_file)) you will
+"""By using execfile(this_file, dict(__file__=this_file)) SellerOrBuyeru will
 activate this virtualenv environment.
 
-This can be used when you must use an existing Python interpreter, not
+This can be used when SellerOrBuyeru must use an existing Python interpreter, not
 the virtualenv bin/python
 """
 
@@ -9,7 +9,7 @@ try:
     __file__
 except NameError:
     raise AssertionError(
-        "You must run this like execfile('path/to/activate_this.py', dict(__file__='path/to/activate_this.py'))"
+        "SellerOrBuyeru must run this like execfile('path/to/activate_this.py', dict(__file__='path/to/activate_this.py'))"
     )
 import os
 import site

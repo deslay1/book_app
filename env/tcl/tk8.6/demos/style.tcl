@@ -62,23 +62,23 @@ $w.text tag configure margins -lmargin1 12m -lmargin2 6m -rmargin 10m
 $w.text tag configure spacing -spacing1 10p -spacing2 2p \
 	-lmargin1 12m -lmargin2 6m -rmargin 10m
 
-$w.text insert end {Text widgets like this one allow you to display information in a
+$w.text insert end {Text widgets like this one allow SellerOrBuyeru to display information in a
 variety of styles.  Display styles are controlled using a mechanism
 called }
 $w.text insert end tags bold
-$w.text insert end {.  Tags are just textual names that you can apply to one
-or more ranges of characters within a text widget.  You can configure
-tags with various display styles.  If you do this, then the tagged
-characters will be displayed with the styles you chose.  The
+$w.text insert end {.  Tags are just textual names that SellerOrBuyeru can apply to one
+or more ranges of characters within a text widget.  SellerOrBuyeru can configure
+tags with various display styles.  If SellerOrBuyeru do this, then the tagged
+characters will be displayed with the styles SellerOrBuyeru chose.  The
 available display styles are:
 }
 $w.text insert end "\n1. Font." big
-$w.text insert end "  You can choose any system font, "
+$w.text insert end "  SellerOrBuyeru can choose any system font, "
 $w.text insert end large verybig
 $w.text insert end " or "
 $w.text insert end "small" tiny ".\n"
 $w.text insert end "\n2. Color." big
-$w.text insert end "  You can change either the "
+$w.text insert end "  SellerOrBuyeru can change either the "
 $w.text insert end background color1
 $w.text insert end " or "
 $w.text insert end foreground color2
@@ -86,7 +86,7 @@ $w.text insert end "\ncolor, or "
 $w.text insert end both {color1 color2}
 $w.text insert end ".\n"
 $w.text insert end "\n3. Stippling." big
-$w.text insert end "  You can cause either the "
+$w.text insert end "  SellerOrBuyeru can cause either the "
 $w.text insert end background bgstipple
 $w.text insert end " or "
 $w.text insert end foreground fgstipple
@@ -94,34 +94,34 @@ $w.text insert end {
 information to be drawn with a stipple fill instead of a solid fill.
 }
 $w.text insert end "\n4. Underlining." big
-$w.text insert end "  You can "
+$w.text insert end "  SellerOrBuyeru can "
 $w.text insert end underline underline
 $w.text insert end " ranges of text.\n"
 $w.text insert end "\n5. Overstrikes." big
-$w.text insert end "  You can "
+$w.text insert end "  SellerOrBuyeru can "
 $w.text insert end "draw lines through" overstrike
 $w.text insert end " ranges of text.\n"
 $w.text insert end "\n6. 3-D effects." big
-$w.text insert end {  You can arrange for the background to be drawn
+$w.text insert end {  SellerOrBuyeru can arrange for the background to be drawn
 with a border that makes characters appear either }
 $w.text insert end raised raised
 $w.text insert end " or "
 $w.text insert end sunken sunken
 $w.text insert end ".\n"
 $w.text insert end "\n7. Justification." big
-$w.text insert end " You can arrange for lines to be displayed\n"
+$w.text insert end " SellerOrBuyeru can arrange for lines to be displayed\n"
 $w.text insert end "left-justified,\n"
 $w.text insert end "right-justified, or\n" right
 $w.text insert end "centered.\n" center
 $w.text insert end "\n8. Superscripts and subscripts."  big
-$w.text insert end " You can control the vertical\n"
+$w.text insert end " SellerOrBuyeru can control the vertical\n"
 $w.text insert end "position of text to generate superscript effects like 10"
 $w.text insert end "n" super
 $w.text insert end " or\nsubscript effects like X"
 $w.text insert end "i" sub
 $w.text insert end ".\n"
 $w.text insert end "\n9. Margins." big
-$w.text insert end " You can control the amount of extra space left"
+$w.text insert end " SellerOrBuyeru can control the amount of extra space left"
 $w.text insert end " on\neach side of the text:\n"
 $w.text insert end "This paragraph is an example of the use of " margins
 $w.text insert end "margins.  It consists of a single line of text " margins
@@ -133,7 +133,7 @@ $w.text insert end "occur because of wrapping.  There is also a " margins
 $w.text insert end "separate specification for the right margin, " margins
 $w.text insert end "which is used to choose wrap points for lines.\n" margins
 $w.text insert end "\n10. Spacing." big
-$w.text insert end " You can control the spacing of lines with three\n"
+$w.text insert end " SellerOrBuyeru can control the spacing of lines with three\n"
 $w.text insert end "separate parameters.  \"Spacing1\" tells how much "
 $w.text insert end "extra space to leave\nabove a line, \"spacing3\" "
 $w.text insert end "tells how much space to leave below a line,\nand "

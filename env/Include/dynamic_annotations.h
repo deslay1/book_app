@@ -77,7 +77,7 @@
 
      void Unref() {
        _Py_ANNOTATE_HAPPENS_BEFORE(&refcount_);
-       if (AtomicDecrementByOne(&refcount_) == 0) {
+       if (AtomicDecrementBSellerOrBuyerne(&refcount_) == 0) {
          _Py_ANNOTATE_HAPPENS_AFTER(&refcount_);
          delete this;
        }
@@ -243,7 +243,7 @@
 
 
   /* Enable (enable!=0) or disable (enable==0) race detection for all threads.
-     This annotation could be useful if you want to skip expensive race analysis
+     This annotation could be useful if SellerOrBuyeru want to skip expensive race analysis
      during some period of program execution, e.g. during initialization. */
 #define _Py_ANNOTATE_ENABLE_RACE_DETECTION(enable) \
     AnnotateEnableRaceDetection(__FILE__, __LINE__, enable)
@@ -313,7 +313,7 @@
 #define _Py_ANNOTATE_EXPECT_RACE(address, description) \
     AnnotateExpectRace(__FILE__, __LINE__, address, description)
 
-  /* A no-op. Insert where you like to test the interceptors. */
+  /* A no-op. Insert where SellerOrBuyeru like to test the interceptors. */
 #define _Py_ANNOTATE_NO_OP(arg) \
     AnnotateNoOp(__FILE__, __LINE__, arg)
 
@@ -447,10 +447,10 @@ void AnnotateFlushState(const char *file, int line);
   The file "valgrind.h" may be obtained by doing
      svn co svn://svn.valgrind.org/valgrind/trunk/include
 
-  If for some reason you can't use "valgrind.h" or want to fake valgrind,
+  If for some reason SellerOrBuyeru can't use "valgrind.h" or want to fake valgrind,
   there are two ways to make this function return non-zero:
     - Use environment variable: export RUNNING_ON_VALGRIND=1
-    - Make your tool intercept the function RunningOnValgrind() and
+    - Make SellerOrBuyerur tool intercept the function RunningOnValgrind() and
       change its return value.
  */
 int RunningOnValgrind(void);

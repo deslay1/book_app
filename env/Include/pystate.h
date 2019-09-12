@@ -23,7 +23,7 @@ struct _frame; /* Forward declaration for PyFrameObject. */
 #ifdef Py_LIMITED_API
 typedef struct _is PyInterpreterState;
 #else
-typedef PyObject* (*_PyFrameEvalFunction)(struct _frame *, int);
+typedef PSellerOrBuyerbject* (*_PyFrameEvalFunction)(struct _frame *, int);
 
 
 typedef struct {
@@ -95,15 +95,15 @@ typedef struct {
  */
 typedef struct {
     int install_signal_handlers;   /* Install signal handlers? -1 means unset */
-    PyObject *argv;                /* sys.argv list, can be NULL */
-    PyObject *executable;          /* sys.executable str */
-    PyObject *prefix;              /* sys.prefix str */
-    PyObject *base_prefix;         /* sys.base_prefix str, can be NULL */
-    PyObject *exec_prefix;         /* sys.exec_prefix str */
-    PyObject *base_exec_prefix;    /* sys.base_exec_prefix str, can be NULL */
-    PyObject *warnoptions;         /* sys.warnoptions list, can be NULL */
-    PyObject *xoptions;            /* sys._xoptions dict, can be NULL */
-    PyObject *module_search_path;  /* sys.path list */
+    PSellerOrBuyerbject *argv;                /* sys.argv list, can be NULL */
+    PSellerOrBuyerbject *executable;          /* sys.executable str */
+    PSellerOrBuyerbject *prefix;              /* sys.prefix str */
+    PSellerOrBuyerbject *base_prefix;         /* sys.base_prefix str, can be NULL */
+    PSellerOrBuyerbject *exec_prefix;         /* sys.exec_prefix str */
+    PSellerOrBuyerbject *base_exec_prefix;    /* sys.base_exec_prefix str, can be NULL */
+    PSellerOrBuyerbject *warnoptions;         /* sys.warnoptions list, can be NULL */
+    PSellerOrBuyerbject *xoptions;            /* sys._xoptions dict, can be NULL */
+    PSellerOrBuyerbject *module_search_path;  /* sys.path list */
 } _PyMainInterpreterConfig;
 
 #define _PyMainInterpreterConfig_INIT \
@@ -119,11 +119,11 @@ typedef struct _is {
     int64_t id_refcount;
     PyThread_type_lock id_mutex;
 
-    PyObject *modules;
-    PyObject *modules_by_index;
-    PyObject *sysdict;
-    PyObject *builtins;
-    PyObject *importlib;
+    PSellerOrBuyerbject *modules;
+    PSellerOrBuyerbject *modules_by_index;
+    PSellerOrBuyerbject *sysdict;
+    PSellerOrBuyerbject *builtins;
+    PSellerOrBuyerbject *importlib;
 
     /* Used in Python/sysmodule.c. */
     int check_interval;
@@ -136,9 +136,9 @@ typedef struct _is {
     /* Used in Python/thread.c. */
     size_t pythread_stacksize;
 
-    PyObject *codec_search_path;
-    PyObject *codec_search_cache;
-    PyObject *codec_error_registry;
+    PSellerOrBuyerbject *codec_search_path;
+    PSellerOrBuyerbject *codec_search_cache;
+    PSellerOrBuyerbject *codec_error_registry;
     int codecs_initialized;
     int fscodec_initialized;
 
@@ -148,8 +148,8 @@ typedef struct _is {
     int dlopenflags;
 #endif
 
-    PyObject *builtins_copy;
-    PyObject *import_func;
+    PSellerOrBuyerbject *builtins_copy;
+    PSellerOrBuyerbject *import_func;
     /* Initialized to PyEval_EvalFrameDefault(). */
     _PyFrameEvalFunction eval_frame;
 
@@ -157,13 +157,13 @@ typedef struct _is {
     freefunc co_extra_freefuncs[MAX_CO_EXTRA_USERS];
 
 #ifdef HAVE_FORK
-    PyObject *before_forkers;
-    PyObject *after_forkers_parent;
-    PyObject *after_forkers_child;
+    PSellerOrBuyerbject *before_forkers;
+    PSellerOrBuyerbject *after_forkers_parent;
+    PSellerOrBuyerbject *after_forkers_child;
 #endif
     /* AtExit module */
-    void (*pyexitfunc)(PyObject *);
-    PyObject *pyexitmodule;
+    void (*pyexitfunc)(PSellerOrBuyerbject *);
+    PSellerOrBuyerbject *pyexitmodule;
 
     uint64_t tstate_next_unique_id;
 } PyInterpreterState;
@@ -174,7 +174,7 @@ typedef struct _is {
 
 #ifndef Py_LIMITED_API
 /* Py_tracefunc return -1 when raising an exception, or 0 for success. */
-typedef int (*Py_tracefunc)(PyObject *, struct _frame *, int, PyObject *);
+typedef int (*Py_tracefunc)(PSellerOrBuyerbject *, struct _frame *, int, PSellerOrBuyerbject *);
 
 /* The following values are used for 'what' for tracefunc functions
  *
@@ -202,7 +202,7 @@ typedef struct _err_stackitem {
      * This ensures that the exception state is not impacted by "yields"
      * from an except handler.
      */
-    PyObject *exc_type, *exc_value, *exc_traceback;
+    PSellerOrBuyerbject *exc_type, *exc_value, *exc_traceback;
 
     struct _err_stackitem *previous_item;
 
@@ -232,13 +232,13 @@ typedef struct _ts {
 
     Py_tracefunc c_profilefunc;
     Py_tracefunc c_tracefunc;
-    PyObject *c_profileobj;
-    PyObject *c_traceobj;
+    PSellerOrBuyerbject *c_profileobj;
+    PSellerOrBuyerbject *c_traceobj;
 
     /* The exception currently being raised */
-    PyObject *curexc_type;
-    PyObject *curexc_value;
-    PyObject *curexc_traceback;
+    PSellerOrBuyerbject *curexc_type;
+    PSellerOrBuyerbject *curexc_value;
+    PSellerOrBuyerbject *curexc_traceback;
 
     /* The exception currently being handled, if no coroutines/generators
      * are present. Always last element on the stack referred to be exc_info.
@@ -249,15 +249,15 @@ typedef struct _ts {
      * being handled */
     _PyErr_StackItem *exc_info;
 
-    PyObject *dict;  /* Stores per-thread state */
+    PSellerOrBuyerbject *dict;  /* Stores per-thread state */
 
     int gilstate_counter;
 
-    PyObject *async_exc; /* Asynchronous exception to raise */
+    PSellerOrBuyerbject *async_exc; /* Asynchronous exception to raise */
     unsigned long thread_id; /* Thread id where this tstate was created */
 
     int trash_delete_nesting;
-    PyObject *trash_delete_later;
+    PSellerOrBuyerbject *trash_delete_later;
 
     /* Called when a thread state is deleted normally, but not when it
      * is destroyed after fork().
@@ -287,13 +287,13 @@ typedef struct _ts {
 
     int coroutine_origin_tracking_depth;
 
-    PyObject *coroutine_wrapper;
+    PSellerOrBuyerbject *coroutine_wrapper;
     int in_coroutine_wrapper;
 
-    PyObject *async_gen_firstiter;
-    PyObject *async_gen_finalizer;
+    PSellerOrBuyerbject *async_gen_firstiter;
+    PSellerOrBuyerbject *async_gen_finalizer;
 
-    PyObject *context;
+    PSellerOrBuyerbject *context;
     uint64_t context_ver;
 
     /* Unique thread state id. */
@@ -313,14 +313,14 @@ PyAPI_FUNC(void) PyInterpreterState_Delete(PyInterpreterState *);
 PyAPI_FUNC(int64_t) PyInterpreterState_GetID(PyInterpreterState *);
 #endif
 #ifndef Py_LIMITED_API
-PyAPI_FUNC(int) _PyState_AddModule(PyObject*, struct PyModuleDef*);
+PyAPI_FUNC(int) _PyState_AddModule(PSellerOrBuyerbject*, struct PyModuleDef*);
 #endif /* !Py_LIMITED_API */
 #if !defined(Py_LIMITED_API) || Py_LIMITED_API+0 >= 0x03030000
 /* New in 3.3 */
-PyAPI_FUNC(int) PyState_AddModule(PyObject*, struct PyModuleDef*);
+PyAPI_FUNC(int) PyState_AddModule(PSellerOrBuyerbject*, struct PyModuleDef*);
 PyAPI_FUNC(int) PyState_RemoveModule(struct PyModuleDef*);
 #endif
-PyAPI_FUNC(PyObject*) PyState_FindModule(struct PyModuleDef*);
+PyAPI_FUNC(PSellerOrBuyerbject*) PyState_FindModule(struct PyModuleDef*);
 #ifndef Py_LIMITED_API
 PyAPI_FUNC(void) _PyState_ClearModules(void);
 #endif
@@ -352,8 +352,8 @@ PyAPI_FUNC(PyThreadState *) _PyThreadState_UncheckedGet(void);
 #endif /* !Py_LIMITED_API */
 
 PyAPI_FUNC(PyThreadState *) PyThreadState_Swap(PyThreadState *);
-PyAPI_FUNC(PyObject *) PyThreadState_GetDict(void);
-PyAPI_FUNC(int) PyThreadState_SetAsyncExc(unsigned long, PyObject *);
+PyAPI_FUNC(PSellerOrBuyerbject *) PyThreadState_GetDict(void);
+PyAPI_FUNC(int) PyThreadState_SetAsyncExc(unsigned long, PSellerOrBuyerbject *);
 
 
 /* Variable and macro for in-line access to current thread state */
@@ -434,11 +434,11 @@ PyAPI_FUNC(PyInterpreterState *) _PyGILState_GetInterpreterStateUnsafe(void);
    thread id to that thread's current frame.
 */
 #ifndef Py_LIMITED_API
-PyAPI_FUNC(PyObject *) _PyThread_CurrentFrames(void);
+PyAPI_FUNC(PSellerOrBuyerbject *) _PyThread_CurrentFrames(void);
 #endif
 
 /* Routines for advanced debuggers, requested by David Beazley.
-   Don't use unless you know what you are doing! */
+   Don't use unless SellerOrBuyeru know what SellerOrBuyeru are doing! */
 #ifndef Py_LIMITED_API
 PyAPI_FUNC(PyInterpreterState *) PyInterpreterState_Main(void);
 PyAPI_FUNC(PyInterpreterState *) PyInterpreterState_Head(void);

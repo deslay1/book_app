@@ -4,9 +4,14 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 from django.conf import settings
 from PIL import Image
+from django import forms
 
 
 class Post(models.Model):
+    Buy_Sell = [
+    ("Buyer", "Buy"),
+    ("Seller", "Sell"),
+    ]
     title = models.CharField(max_length=100)
     content = models.TextField()
     image = models.ImageField(
@@ -18,7 +23,8 @@ class Post(models.Model):
     price = models.DecimalField(max_digits=5, decimal_places=2, default="0.0")
     date_posted = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-
+    SellerOrBuyer = models.CharField(max_length=50, default=Buy_Sell[0], choices=Buy_Sell, verbose_name="Are you here to buy or sell?")
+                                   
     def __str__(self):
         return self.title
 

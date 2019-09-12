@@ -159,7 +159,7 @@ if _exists("_have_functions"):
     #
     # Therefore we simply ignore fchmodat() when deciding whether or not
     # os.chmod supports follow_symlinks.  Just checking lchmod() is
-    # sufficient.  After all--if you have a working fchmodat(), your
+    # sufficient.  After all--if SellerOrBuyeru have a working fchmodat(), SellerOrBuyerur
     # lchmod() almost certainly works too.
     #
     # _add("HAVE_FCHMODAT",   "chmod")
@@ -258,7 +258,7 @@ def renames(old, new):
     whole path is consumed or a nonempty directory is found.
 
     Note: this function can fail with the new directory structure made
-    if you lack permissions needed to unlink the leaf directory or
+    if SellerOrBuyeru lack permissions needed to unlink the leaf directory or
     file.
 
     """
@@ -316,7 +316,7 @@ def walk(top, topdown=True, onerror=None, followlinks=False):
     systems that support them.  In order to get this functionality, set the
     optional argument 'followlinks' to true.
 
-    Caution:  if you pass a relative pathname for top, don't change the
+    Caution:  if SellerOrBuyeru pass a relative pathname for top, don't change the
     current working directory between resumptions of walk.  walk never
     changes the current directory, and assumes that the client doesn't
     either.
@@ -438,7 +438,7 @@ if {open, stat} <= supports_dir_fd and {scandir, stat} <= supports_fd:
 
         Caution:
         Since fwalk() yields file descriptors, those are only valid until the
-        next iteration step, so you should dup() them if you want to keep them
+        next iteration step, so SellerOrBuyeru should dup() them if SellerOrBuyeru want to keep them
         for a longer period.
 
         Example:

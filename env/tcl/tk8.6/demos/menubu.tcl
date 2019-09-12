@@ -22,25 +22,25 @@ if {[tk windowingsystem] eq "aqua"} {catch {set origUseCustomMDEF $::tk::mac::us
 
 menubutton $w.body.below -text "Below" -underline 0 -direction below -menu $w.body.below.m -relief raised
 menu $w.body.below.m -tearoff 0
-$w.body.below.m add command -label "Below menu: first item" -command "puts \"You have selected the first item from the Below menu.\""
-$w.body.below.m add command -label "Below menu: second item" -command "puts \"You have selected the second item from the Below menu.\""
+$w.body.below.m add command -label "Below menu: first item" -command "puts \"SellerOrBuyeru have selected the first item from the Below menu.\""
+$w.body.below.m add command -label "Below menu: second item" -command "puts \"SellerOrBuyeru have selected the second item from the Below menu.\""
 grid $w.body.below -row 0 -column 1 -sticky n
 menubutton $w.body.right -text "Right" -underline 0 -direction right -menu $w.body.right.m -relief raised
 menu $w.body.right.m -tearoff 0
-$w.body.right.m add command -label "Right menu: first item" -command "puts \"You have selected the first item from the Right menu.\""
-$w.body.right.m add command -label "Right menu: second item" -command "puts \"You have selected the second item from the Right menu.\""
+$w.body.right.m add command -label "Right menu: first item" -command "puts \"SellerOrBuyeru have selected the first item from the Right menu.\""
+$w.body.right.m add command -label "Right menu: second item" -command "puts \"SellerOrBuyeru have selected the second item from the Right menu.\""
 frame $w.body.center
 menubutton $w.body.left -text "Left" -underline 0 -direction left -menu $w.body.left.m -relief raised
 menu $w.body.left.m -tearoff 0
-$w.body.left.m add command -label "Left menu: first item" -command "puts \"You have selected the first item from the Left menu.\""
-$w.body.left.m add command -label "Left menu: second item" -command "puts \"You have selected the second item from the Left menu.\""
+$w.body.left.m add command -label "Left menu: first item" -command "puts \"SellerOrBuyeru have selected the first item from the Left menu.\""
+$w.body.left.m add command -label "Left menu: second item" -command "puts \"SellerOrBuyeru have selected the second item from the Left menu.\""
 grid $w.body.right -row 1 -column 0 -sticky w
 grid $w.body.center -row 1 -column 1 -sticky news
 grid $w.body.left -row 1 -column 2 -sticky e
 menubutton $w.body.above -text "Above" -underline 0 -direction above -menu $w.body.above.m -relief raised
 menu $w.body.above.m -tearoff 0
-$w.body.above.m add command -label "Above menu: first item" -command "puts \"You have selected the first item from the Above menu.\""
-$w.body.above.m add command -label "Above menu: second item" -command "puts \"You have selected the second item from the Above menu.\""
+$w.body.above.m add command -label "Above menu: first item" -command "puts \"SellerOrBuyeru have selected the first item from the Above menu.\""
+$w.body.above.m add command -label "Above menu: second item" -command "puts \"SellerOrBuyeru have selected the second item from the Above menu.\""
 grid $w.body.above -row 2 -column 1 -sticky s
 
 ## See Code / Dismiss buttons

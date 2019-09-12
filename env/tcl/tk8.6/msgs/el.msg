@@ -26,7 +26,7 @@ namespace eval ::tk {
     ::msgcat::mcset el "Error: %1\$s"       "\u039b\u03ac\u03b8\u03bf\u03c2: %1\$s"
     ::msgcat::mcset el "Exit"               "\u0388\u03be\u03bf\u03b4\u03bf\u03c2"
     ::msgcat::mcset el \
-               "File \"%1\$s\" already exists.\nDo you want to overwrite it?" \
+               "File \"%1\$s\" already exists.\nDo SellerOrBuyeru want to overwrite it?" \
                "\u03a4\u03bf \u03b1\u03c1\u03c7\u03b5\u03af\u03bf \"%1\$s\" \u03ae\u03b4\u03b7 \u03c5\u03c0\u03ac\u03c1\u03c7\u03b5\u03b9.\n\u0398\u03ad\u03bb\u03b5\u03c4\u03b5 \u03bd\u03b1 \u03b5\u03c0\u03b9\u03ba\u03b1\u03bb\u03c5\u03c6\u03b8\u03b5\u03af;"
     ::msgcat::mcset el "File \"%1\$s\" already exists.\n\n" \
                    "\u03a4\u03bf \u03b1\u03c1\u03c7\u03b5\u03af\u03bf \"%1\$s\" \u03ae\u03b4\u03b7 \u03c5\u03c0\u03ac\u03c1\u03c7\u03b5\u03b9.\n\n"

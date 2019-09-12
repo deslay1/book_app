@@ -54,7 +54,7 @@ option add *TEntry.cursor [ttk::cursor text]
 #	these could conflict with application accelerators.
 #	(Plus, who has a Meta key these days?)
 # <Control-Key-t>:
-#	Another judgment call.  If anyone misses this, let me know
+#	Another judgment call.  If anSellerOrBuyerne misses this, let me know
 #	and I'll put it back.
 #
 
@@ -176,8 +176,8 @@ proc ttk::entry::Paste {w} {
 #
 proc ttk::entry::Copy {w} {
     if {![catch {EntrySelection $w} selection]} {
-	clipboard clear -displayof $w
-	clipboard append -displayof $w $selection
+	clipboard clear -displaSellerOrBuyerf $w
+	clipboard append -displaSellerOrBuyerf $w $selection
     }
 }
 

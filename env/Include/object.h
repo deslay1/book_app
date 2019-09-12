@@ -37,12 +37,12 @@ object can be simply a pointer -- moving an object would require
 updating all the pointers, and changing an object's size would require
 moving it if there was another object right next to it.)
 
-Objects are always accessed through pointers of the type 'PyObject *'.
-The type 'PyObject' is a structure that only contains the reference count
+Objects are always accessed through pointers of the type 'PSellerOrBuyerbject *'.
+The type 'PSellerOrBuyerbject' is a structure that only contains the reference count
 and the type pointer.  The actual memory allocated for an object
 contains other data that can only be accessed after casting the pointer
 to a pointer to a longer structure type.  This longer type must start
-with the reference count and type fields; the macro PyObject_HEAD should be
+with the reference count and type fields; the macro PSellerOrBuyerbject_HEAD should be
 used for this (to accommodate for future changes).  The implementation
 of a particular object type can cast the object pointer to the proper
 type and back.
@@ -68,54 +68,54 @@ whose size is determined when the object is allocated.
 
 #ifdef Py_TRACE_REFS
 /* Define pointers to support a doubly-linked list of all live heap objects. */
-#define _PyObject_HEAD_EXTRA            \
+#define _PSellerOrBuyerbject_HEAD_EXTRA            \
     struct _object *_ob_next;           \
     struct _object *_ob_prev;
 
-#define _PyObject_EXTRA_INIT 0, 0,
+#define _PSellerOrBuyerbject_EXTRA_INIT 0, 0,
 
 #else
-#define _PyObject_HEAD_EXTRA
-#define _PyObject_EXTRA_INIT
+#define _PSellerOrBuyerbject_HEAD_EXTRA
+#define _PSellerOrBuyerbject_EXTRA_INIT
 #endif
 
-/* PyObject_HEAD defines the initial segment of every PyObject. */
-#define PyObject_HEAD                   PyObject ob_base;
+/* PSellerOrBuyerbject_HEAD defines the initial segment of every PSellerOrBuyerbject. */
+#define PSellerOrBuyerbject_HEAD                   PSellerOrBuyerbject ob_base;
 
-#define PyObject_HEAD_INIT(type)        \
-    { _PyObject_EXTRA_INIT              \
+#define PSellerOrBuyerbject_HEAD_INIT(type)        \
+    { _PSellerOrBuyerbject_EXTRA_INIT              \
     1, type },
 
 #define PyVarObject_HEAD_INIT(type, size)       \
-    { PyObject_HEAD_INIT(type) size },
+    { PSellerOrBuyerbject_HEAD_INIT(type) size },
 
-/* PyObject_VAR_HEAD defines the initial segment of all variable-size
+/* PSellerOrBuyerbject_VAR_HEAD defines the initial segment of all variable-size
  * container objects.  These end with a declaration of an array with 1
  * element, but enough space is malloc'ed so that the array actually
  * has room for ob_size elements.  Note that ob_size is an element count,
  * not necessarily a byte count.
  */
-#define PyObject_VAR_HEAD      PyVarObject ob_base;
+#define PSellerOrBuyerbject_VAR_HEAD      PyVarObject ob_base;
 #define Py_INVALID_SIZE (Py_ssize_t)-1
 
-/* Nothing is actually declared to be a PyObject, but every pointer to
- * a Python object can be cast to a PyObject*.  This is inheritance built
+/* Nothing is actually declared to be a PSellerOrBuyerbject, but every pointer to
+ * a Python object can be cast to a PSellerOrBuyerbject*.  This is inheritance built
  * by hand.  Similarly every pointer to a variable-size Python object can,
  * in addition, be cast to PyVarObject*.
  */
 typedef struct _object {
-    _PyObject_HEAD_EXTRA
+    _PSellerOrBuyerbject_HEAD_EXTRA
     Py_ssize_t ob_refcnt;
     struct _typeobject *ob_type;
-} PyObject;
+} PSellerOrBuyerbject;
 
 typedef struct {
-    PyObject ob_base;
+    PSellerOrBuyerbject ob_base;
     Py_ssize_t ob_size; /* Number of items in variable part */
 } PyVarObject;
 
-#define Py_REFCNT(ob)           (((PyObject*)(ob))->ob_refcnt)
-#define Py_TYPE(ob)             (((PyObject*)(ob))->ob_type)
+#define Py_REFCNT(ob)           (((PSellerOrBuyerbject*)(ob))->ob_refcnt)
+#define Py_TYPE(ob)             (((PSellerOrBuyerbject*)(ob))->ob_type)
 #define Py_SIZE(ob)             (((PyVarObject*)(ob))->ob_size)
 
 #ifndef Py_LIMITED_API
@@ -123,13 +123,13 @@ typedef struct {
 /* This structure helps managing static strings. The basic usage goes like this:
    Instead of doing
 
-       r = PyObject_CallMethod(o, "foo", "args", ...);
+       r = PSellerOrBuyerbject_CallMethod(o, "foo", "args", ...);
 
    do
 
        _Py_IDENTIFIER(foo);
        ...
-       r = _PyObject_CallMethodId(o, &PyId_foo, "args", ...);
+       r = _PSellerOrBuyerbject_CallMethodId(o, &PyId_foo, "args", ...);
 
    PyId_foo is a static variable, either on block level or file level. On first
    usage, the string "foo" is interned, and the structures are linked. On interpreter
@@ -137,12 +137,12 @@ typedef struct {
 
    Alternatively, _Py_static_string allows choosing the variable name.
    _PyUnicode_FromId returns a borrowed reference to the interned string.
-   _PyObject_{Get,Set,Has}AttrId are __getattr__ versions using _Py_Identifier*.
+   _PSellerOrBuyerbject_{Get,Set,Has}AttrId are __getattr__ versions using _Py_Identifier*.
 */
 typedef struct _Py_Identifier {
     struct _Py_Identifier *next;
     const char* string;
-    PyObject *object;
+    PSellerOrBuyerbject *object;
 } _Py_Identifier;
 
 #define _Py_static_string_init(value) { .next = NULL, .string = value, .object = NULL }
@@ -153,8 +153,8 @@ typedef struct _Py_Identifier {
 
 /*
 Type objects contain a string containing the type name (to help somewhat
-in debugging), the allocation parameters (see PyObject_New() and
-PyObject_NewVar()),
+in debugging), the allocation parameters (see PSellerOrBuyerbject_New() and
+PSellerOrBuyerbject_NewVar()),
 and methods for accessing objects of the type.  Methods are optional, a
 nil pointer meaning that particular kind of access is not available for
 this type.  The Py_DECREF() macro uses the tp_dealloc method without
@@ -166,22 +166,22 @@ NB: the methods for certain type groups are now contained in separate
 method blocks.
 */
 
-typedef PyObject * (*unaryfunc)(PyObject *);
-typedef PyObject * (*binaryfunc)(PyObject *, PyObject *);
-typedef PyObject * (*ternaryfunc)(PyObject *, PyObject *, PyObject *);
-typedef int (*inquiry)(PyObject *);
-typedef Py_ssize_t (*lenfunc)(PyObject *);
-typedef PyObject *(*ssizeargfunc)(PyObject *, Py_ssize_t);
-typedef PyObject *(*ssizessizeargfunc)(PyObject *, Py_ssize_t, Py_ssize_t);
-typedef int(*ssizeobjargproc)(PyObject *, Py_ssize_t, PyObject *);
-typedef int(*ssizessizeobjargproc)(PyObject *, Py_ssize_t, Py_ssize_t, PyObject *);
-typedef int(*objobjargproc)(PyObject *, PyObject *, PyObject *);
+typedef PSellerOrBuyerbject * (*unaryfunc)(PSellerOrBuyerbject *);
+typedef PSellerOrBuyerbject * (*binaryfunc)(PSellerOrBuyerbject *, PSellerOrBuyerbject *);
+typedef PSellerOrBuyerbject * (*ternaryfunc)(PSellerOrBuyerbject *, PSellerOrBuyerbject *, PSellerOrBuyerbject *);
+typedef int (*inquiry)(PSellerOrBuyerbject *);
+typedef Py_ssize_t (*lenfunc)(PSellerOrBuyerbject *);
+typedef PSellerOrBuyerbject *(*ssizeargfunc)(PSellerOrBuyerbject *, Py_ssize_t);
+typedef PSellerOrBuyerbject *(*ssizessizeargfunc)(PSellerOrBuyerbject *, Py_ssize_t, Py_ssize_t);
+typedef int(*ssizeobjargproc)(PSellerOrBuyerbject *, Py_ssize_t, PSellerOrBuyerbject *);
+typedef int(*ssizessizeobjargproc)(PSellerOrBuyerbject *, Py_ssize_t, Py_ssize_t, PSellerOrBuyerbject *);
+typedef int(*objobjargproc)(PSellerOrBuyerbject *, PSellerOrBuyerbject *, PSellerOrBuyerbject *);
 
 #ifndef Py_LIMITED_API
 /* buffer interface */
 typedef struct bufferinfo {
     void *buf;
-    PyObject *obj;        /* owned reference */
+    PSellerOrBuyerbject *obj;        /* owned reference */
     Py_ssize_t len;
     Py_ssize_t itemsize;  /* This is Py_ssize_t so it can be
                              pointed to by strides in simple case.*/
@@ -194,8 +194,8 @@ typedef struct bufferinfo {
     void *internal;
 } Py_buffer;
 
-typedef int (*getbufferproc)(PyObject *, Py_buffer *, int);
-typedef void (*releasebufferproc)(PyObject *, Py_buffer *);
+typedef int (*getbufferproc)(PSellerOrBuyerbject *, Py_buffer *, int);
+typedef void (*releasebufferproc)(PSellerOrBuyerbject *, Py_buffer *);
 
 /* Maximum number of dimensions */
 #define PyBUF_MAX_NDIM 64
@@ -232,9 +232,9 @@ typedef void (*releasebufferproc)(PyObject *, Py_buffer *);
 /* End buffer interface */
 #endif /* Py_LIMITED_API */
 
-typedef int (*objobjproc)(PyObject *, PyObject *);
-typedef int (*visitproc)(PyObject *, void *);
-typedef int (*traverseproc)(PyObject *, visitproc, void *);
+typedef int (*objobjproc)(PSellerOrBuyerbject *, PSellerOrBuyerbject *);
+typedef int (*visitproc)(PSellerOrBuyerbject *, void *);
+typedef int (*traverseproc)(PSellerOrBuyerbject *, visitproc, void *);
 
 #ifndef Py_LIMITED_API
 typedef struct {
@@ -317,34 +317,34 @@ typedef struct {
 #endif /* Py_LIMITED_API */
 
 typedef void (*freefunc)(void *);
-typedef void (*destructor)(PyObject *);
+typedef void (*destructor)(PSellerOrBuyerbject *);
 #ifndef Py_LIMITED_API
 /* We can't provide a full compile-time check that limited-API
    users won't implement tp_print. However, not defining printfunc
    and making tp_print of a different function pointer type
    should at least cause a warning in most cases. */
-typedef int (*printfunc)(PyObject *, FILE *, int);
+typedef int (*printfunc)(PSellerOrBuyerbject *, FILE *, int);
 #endif
-typedef PyObject *(*getattrfunc)(PyObject *, char *);
-typedef PyObject *(*getattrofunc)(PyObject *, PyObject *);
-typedef int (*setattrfunc)(PyObject *, char *, PyObject *);
-typedef int (*setattrofunc)(PyObject *, PyObject *, PyObject *);
-typedef PyObject *(*reprfunc)(PyObject *);
-typedef Py_hash_t (*hashfunc)(PyObject *);
-typedef PyObject *(*richcmpfunc) (PyObject *, PyObject *, int);
-typedef PyObject *(*getiterfunc) (PyObject *);
-typedef PyObject *(*iternextfunc) (PyObject *);
-typedef PyObject *(*descrgetfunc) (PyObject *, PyObject *, PyObject *);
-typedef int (*descrsetfunc) (PyObject *, PyObject *, PyObject *);
-typedef int (*initproc)(PyObject *, PyObject *, PyObject *);
-typedef PyObject *(*newfunc)(struct _typeobject *, PyObject *, PyObject *);
-typedef PyObject *(*allocfunc)(struct _typeobject *, Py_ssize_t);
+typedef PSellerOrBuyerbject *(*getattrfunc)(PSellerOrBuyerbject *, char *);
+typedef PSellerOrBuyerbject *(*getattrofunc)(PSellerOrBuyerbject *, PSellerOrBuyerbject *);
+typedef int (*setattrfunc)(PSellerOrBuyerbject *, char *, PSellerOrBuyerbject *);
+typedef int (*setattrofunc)(PSellerOrBuyerbject *, PSellerOrBuyerbject *, PSellerOrBuyerbject *);
+typedef PSellerOrBuyerbject *(*reprfunc)(PSellerOrBuyerbject *);
+typedef Py_hash_t (*hashfunc)(PSellerOrBuyerbject *);
+typedef PSellerOrBuyerbject *(*richcmpfunc) (PSellerOrBuyerbject *, PSellerOrBuyerbject *, int);
+typedef PSellerOrBuyerbject *(*getiterfunc) (PSellerOrBuyerbject *);
+typedef PSellerOrBuyerbject *(*iternextfunc) (PSellerOrBuyerbject *);
+typedef PSellerOrBuyerbject *(*descrgetfunc) (PSellerOrBuyerbject *, PSellerOrBuyerbject *, PSellerOrBuyerbject *);
+typedef int (*descrsetfunc) (PSellerOrBuyerbject *, PSellerOrBuyerbject *, PSellerOrBuyerbject *);
+typedef int (*initproc)(PSellerOrBuyerbject *, PSellerOrBuyerbject *, PSellerOrBuyerbject *);
+typedef PSellerOrBuyerbject *(*newfunc)(struct _typeobject *, PSellerOrBuyerbject *, PSellerOrBuyerbject *);
+typedef PSellerOrBuyerbject *(*allocfunc)(struct _typeobject *, Py_ssize_t);
 
 #ifdef Py_LIMITED_API
 typedef struct _typeobject PyTypeObject; /* opaque */
 #else
 typedef struct _typeobject {
-    PyObject_VAR_HEAD
+    PSellerOrBuyerbject_VAR_HEAD
     const char *tp_name; /* For printing, in format "<module>.<name>" */
     Py_ssize_t tp_basicsize, tp_itemsize; /* For allocation */
 
@@ -403,7 +403,7 @@ typedef struct _typeobject {
     struct PyMemberDef *tp_members;
     struct PyGetSetDef *tp_getset;
     struct _typeobject *tp_base;
-    PyObject *tp_dict;
+    PSellerOrBuyerbject *tp_dict;
     descrgetfunc tp_descr_get;
     descrsetfunc tp_descr_set;
     Py_ssize_t tp_dictoffset;
@@ -411,12 +411,12 @@ typedef struct _typeobject {
     allocfunc tp_alloc;
     newfunc tp_new;
     freefunc tp_free; /* Low-level free-memory routine */
-    inquiry tp_is_gc; /* For PyObject_IS_GC */
-    PyObject *tp_bases;
-    PyObject *tp_mro; /* method resolution order */
-    PyObject *tp_cache;
-    PyObject *tp_subclasses;
-    PyObject *tp_weaklist;
+    inquiry tp_is_gc; /* For PSellerOrBuyerbject_IS_GC */
+    PSellerOrBuyerbject *tp_bases;
+    PSellerOrBuyerbject *tp_mro; /* method resolution order */
+    PSellerOrBuyerbject *tp_cache;
+    PSellerOrBuyerbject *tp_subclasses;
+    PSellerOrBuyerbject *tp_weaklist;
     destructor tp_del;
 
     /* Type attribute cache version tag. Added in version 2.6 */
@@ -448,16 +448,16 @@ typedef struct{
     PyType_Slot *slots; /* terminated by slot==0. */
 } PyType_Spec;
 
-PyAPI_FUNC(PyObject*) PyType_FromSpec(PyType_Spec*);
+PyAPI_FUNC(PSellerOrBuyerbject*) PyType_FromSpec(PyType_Spec*);
 #if !defined(Py_LIMITED_API) || Py_LIMITED_API+0 >= 0x03030000
-PyAPI_FUNC(PyObject*) PyType_FromSpecWithBases(PyType_Spec*, PyObject*);
+PyAPI_FUNC(PSellerOrBuyerbject*) PyType_FromSpecWithBases(PyType_Spec*, PSellerOrBuyerbject*);
 #endif
 #if !defined(Py_LIMITED_API) || Py_LIMITED_API+0 >= 0x03040000
 PyAPI_FUNC(void*) PyType_GetSlot(PyTypeObject*, int);
 #endif
 
 #ifndef Py_LIMITED_API
-/* The *real* layout of a type object when allocated on the heap */
+/* The *real* laSellerOrBuyerut of a type object when allocated on the heap */
 typedef struct _heaptypeobject {
     /* Note: there's a dependency on the order of these members
        in slotptr() in typeobject.c . */
@@ -471,7 +471,7 @@ typedef struct _heaptypeobject {
                                       a given operator (e.g. __getitem__).
                                       see add_operators() in typeobject.c . */
     PyBufferProcs as_buffer;
-    PyObject *ht_name, *ht_slots, *ht_qualname;
+    PSellerOrBuyerbject *ht_name, *ht_slots, *ht_qualname;
     struct _dictkeysobject *ht_cached_keys;
     /* here are optional user slots, followed by the members. */
 } PyHeapTypeObject;
@@ -483,7 +483,7 @@ typedef struct _heaptypeobject {
 
 /* Generic type check */
 PyAPI_FUNC(int) PyType_IsSubtype(PyTypeObject *, PyTypeObject *);
-#define PyObject_TypeCheck(ob, tp) \
+#define PSellerOrBuyerbject_TypeCheck(ob, tp) \
     (Py_TYPE(ob) == (tp) || PyType_IsSubtype(Py_TYPE(ob), (tp)))
 
 PyAPI_DATA(PyTypeObject) PyType_Type; /* built-in 'type' */
@@ -497,49 +497,49 @@ PyAPI_FUNC(unsigned long) PyType_GetFlags(PyTypeObject*);
 #define PyType_CheckExact(op) (Py_TYPE(op) == &PyType_Type)
 
 PyAPI_FUNC(int) PyType_Ready(PyTypeObject *);
-PyAPI_FUNC(PyObject *) PyType_GenericAlloc(PyTypeObject *, Py_ssize_t);
-PyAPI_FUNC(PyObject *) PyType_GenericNew(PyTypeObject *,
-                                               PyObject *, PyObject *);
+PyAPI_FUNC(PSellerOrBuyerbject *) PyType_GenericAlloc(PyTypeObject *, Py_ssize_t);
+PyAPI_FUNC(PSellerOrBuyerbject *) PyType_GenericNew(PyTypeObject *,
+                                               PSellerOrBuyerbject *, PSellerOrBuyerbject *);
 #ifndef Py_LIMITED_API
 PyAPI_FUNC(const char *) _PyType_Name(PyTypeObject *);
-PyAPI_FUNC(PyObject *) _PyType_Lookup(PyTypeObject *, PyObject *);
-PyAPI_FUNC(PyObject *) _PyType_LookupId(PyTypeObject *, _Py_Identifier *);
-PyAPI_FUNC(PyObject *) _PyObject_LookupSpecial(PyObject *, _Py_Identifier *);
-PyAPI_FUNC(PyTypeObject *) _PyType_CalculateMetaclass(PyTypeObject *, PyObject *);
+PyAPI_FUNC(PSellerOrBuyerbject *) _PyType_Lookup(PyTypeObject *, PSellerOrBuyerbject *);
+PyAPI_FUNC(PSellerOrBuyerbject *) _PyType_LookupId(PyTypeObject *, _Py_Identifier *);
+PyAPI_FUNC(PSellerOrBuyerbject *) _PSellerOrBuyerbject_LookupSpecial(PSellerOrBuyerbject *, _Py_Identifier *);
+PyAPI_FUNC(PyTypeObject *) _PyType_CalculateMetaclass(PyTypeObject *, PSellerOrBuyerbject *);
 #endif
 PyAPI_FUNC(unsigned int) PyType_ClearCache(void);
 PyAPI_FUNC(void) PyType_Modified(PyTypeObject *);
 
 #ifndef Py_LIMITED_API
-PyAPI_FUNC(PyObject *) _PyType_GetDocFromInternalDoc(const char *, const char *);
-PyAPI_FUNC(PyObject *) _PyType_GetTextSignatureFromInternalDoc(const char *, const char *);
+PyAPI_FUNC(PSellerOrBuyerbject *) _PyType_GetDocFromInternalDoc(const char *, const char *);
+PyAPI_FUNC(PSellerOrBuyerbject *) _PyType_GetTextSignatureFromInternalDoc(const char *, const char *);
 #endif
 
 /* Generic operations on objects */
 #ifndef Py_LIMITED_API
 struct _Py_Identifier;
-PyAPI_FUNC(int) PyObject_Print(PyObject *, FILE *, int);
+PyAPI_FUNC(int) PSellerOrBuyerbject_Print(PSellerOrBuyerbject *, FILE *, int);
 PyAPI_FUNC(void) _Py_BreakPoint(void);
-PyAPI_FUNC(void) _PyObject_Dump(PyObject *);
+PyAPI_FUNC(void) _PSellerOrBuyerbject_Dump(PSellerOrBuyerbject *);
 #endif
-PyAPI_FUNC(PyObject *) PyObject_Repr(PyObject *);
-PyAPI_FUNC(PyObject *) PyObject_Str(PyObject *);
-PyAPI_FUNC(PyObject *) PyObject_ASCII(PyObject *);
-PyAPI_FUNC(PyObject *) PyObject_Bytes(PyObject *);
-PyAPI_FUNC(PyObject *) PyObject_RichCompare(PyObject *, PyObject *, int);
-PyAPI_FUNC(int) PyObject_RichCompareBool(PyObject *, PyObject *, int);
-PyAPI_FUNC(PyObject *) PyObject_GetAttrString(PyObject *, const char *);
-PyAPI_FUNC(int) PyObject_SetAttrString(PyObject *, const char *, PyObject *);
-PyAPI_FUNC(int) PyObject_HasAttrString(PyObject *, const char *);
-PyAPI_FUNC(PyObject *) PyObject_GetAttr(PyObject *, PyObject *);
-PyAPI_FUNC(int) PyObject_SetAttr(PyObject *, PyObject *, PyObject *);
-PyAPI_FUNC(int) PyObject_HasAttr(PyObject *, PyObject *);
+PyAPI_FUNC(PSellerOrBuyerbject *) PSellerOrBuyerbject_Repr(PSellerOrBuyerbject *);
+PyAPI_FUNC(PSellerOrBuyerbject *) PSellerOrBuyerbject_Str(PSellerOrBuyerbject *);
+PyAPI_FUNC(PSellerOrBuyerbject *) PSellerOrBuyerbject_ASCII(PSellerOrBuyerbject *);
+PyAPI_FUNC(PSellerOrBuyerbject *) PSellerOrBuyerbject_Bytes(PSellerOrBuyerbject *);
+PyAPI_FUNC(PSellerOrBuyerbject *) PSellerOrBuyerbject_RichCompare(PSellerOrBuyerbject *, PSellerOrBuyerbject *, int);
+PyAPI_FUNC(int) PSellerOrBuyerbject_RichCompareBool(PSellerOrBuyerbject *, PSellerOrBuyerbject *, int);
+PyAPI_FUNC(PSellerOrBuyerbject *) PSellerOrBuyerbject_GetAttrString(PSellerOrBuyerbject *, const char *);
+PyAPI_FUNC(int) PSellerOrBuyerbject_SetAttrString(PSellerOrBuyerbject *, const char *, PSellerOrBuyerbject *);
+PyAPI_FUNC(int) PSellerOrBuyerbject_HasAttrString(PSellerOrBuyerbject *, const char *);
+PyAPI_FUNC(PSellerOrBuyerbject *) PSellerOrBuyerbject_GetAttr(PSellerOrBuyerbject *, PSellerOrBuyerbject *);
+PyAPI_FUNC(int) PSellerOrBuyerbject_SetAttr(PSellerOrBuyerbject *, PSellerOrBuyerbject *, PSellerOrBuyerbject *);
+PyAPI_FUNC(int) PSellerOrBuyerbject_HasAttr(PSellerOrBuyerbject *, PSellerOrBuyerbject *);
 #ifndef Py_LIMITED_API
-PyAPI_FUNC(int) _PyObject_IsAbstract(PyObject *);
-PyAPI_FUNC(PyObject *) _PyObject_GetAttrId(PyObject *, struct _Py_Identifier *);
-PyAPI_FUNC(int) _PyObject_SetAttrId(PyObject *, struct _Py_Identifier *, PyObject *);
-PyAPI_FUNC(int) _PyObject_HasAttrId(PyObject *, struct _Py_Identifier *);
-/* Replacements of PyObject_GetAttr() and _PyObject_GetAttrId() which
+PyAPI_FUNC(int) _PSellerOrBuyerbject_IsAbstract(PSellerOrBuyerbject *);
+PyAPI_FUNC(PSellerOrBuyerbject *) _PSellerOrBuyerbject_GetAttrId(PSellerOrBuyerbject *, struct _Py_Identifier *);
+PyAPI_FUNC(int) _PSellerOrBuyerbject_SetAttrId(PSellerOrBuyerbject *, struct _Py_Identifier *, PSellerOrBuyerbject *);
+PyAPI_FUNC(int) _PSellerOrBuyerbject_HasAttrId(PSellerOrBuyerbject *, struct _Py_Identifier *);
+/* Replacements of PSellerOrBuyerbject_GetAttr() and _PSellerOrBuyerbject_GetAttrId() which
    don't raise AttributeError.
 
    Return 1 and set *result != NULL if an attribute is found.
@@ -548,59 +548,59 @@ PyAPI_FUNC(int) _PyObject_HasAttrId(PyObject *, struct _Py_Identifier *);
    Return -1 and set *result == NULL if an error other than AttributeError
    is raised.
 */
-PyAPI_FUNC(int) _PyObject_LookupAttr(PyObject *, PyObject *, PyObject **);
-PyAPI_FUNC(int) _PyObject_LookupAttrId(PyObject *, struct _Py_Identifier *, PyObject **);
-PyAPI_FUNC(PyObject **) _PyObject_GetDictPtr(PyObject *);
+PyAPI_FUNC(int) _PSellerOrBuyerbject_LookupAttr(PSellerOrBuyerbject *, PSellerOrBuyerbject *, PSellerOrBuyerbject **);
+PyAPI_FUNC(int) _PSellerOrBuyerbject_LookupAttrId(PSellerOrBuyerbject *, struct _Py_Identifier *, PSellerOrBuyerbject **);
+PyAPI_FUNC(PSellerOrBuyerbject **) _PSellerOrBuyerbject_GetDictPtr(PSellerOrBuyerbject *);
 #endif
-PyAPI_FUNC(PyObject *) PyObject_SelfIter(PyObject *);
+PyAPI_FUNC(PSellerOrBuyerbject *) PSellerOrBuyerbject_SelfIter(PSellerOrBuyerbject *);
 #ifndef Py_LIMITED_API
-PyAPI_FUNC(PyObject *) _PyObject_NextNotImplemented(PyObject *);
+PyAPI_FUNC(PSellerOrBuyerbject *) _PSellerOrBuyerbject_NextNotImplemented(PSellerOrBuyerbject *);
 #endif
-PyAPI_FUNC(PyObject *) PyObject_GenericGetAttr(PyObject *, PyObject *);
-PyAPI_FUNC(int) PyObject_GenericSetAttr(PyObject *,
-                                              PyObject *, PyObject *);
+PyAPI_FUNC(PSellerOrBuyerbject *) PSellerOrBuyerbject_GenericGetAttr(PSellerOrBuyerbject *, PSellerOrBuyerbject *);
+PyAPI_FUNC(int) PSellerOrBuyerbject_GenericSetAttr(PSellerOrBuyerbject *,
+                                              PSellerOrBuyerbject *, PSellerOrBuyerbject *);
 #if !defined(Py_LIMITED_API) || Py_LIMITED_API+0 >= 0x03030000
-PyAPI_FUNC(int) PyObject_GenericSetDict(PyObject *, PyObject *, void *);
+PyAPI_FUNC(int) PSellerOrBuyerbject_GenericSetDict(PSellerOrBuyerbject *, PSellerOrBuyerbject *, void *);
 #endif
-PyAPI_FUNC(Py_hash_t) PyObject_Hash(PyObject *);
-PyAPI_FUNC(Py_hash_t) PyObject_HashNotImplemented(PyObject *);
-PyAPI_FUNC(int) PyObject_IsTrue(PyObject *);
-PyAPI_FUNC(int) PyObject_Not(PyObject *);
-PyAPI_FUNC(int) PyCallable_Check(PyObject *);
+PyAPI_FUNC(Py_hash_t) PSellerOrBuyerbject_Hash(PSellerOrBuyerbject *);
+PyAPI_FUNC(Py_hash_t) PSellerOrBuyerbject_HashNotImplemented(PSellerOrBuyerbject *);
+PyAPI_FUNC(int) PSellerOrBuyerbject_IsTrue(PSellerOrBuyerbject *);
+PyAPI_FUNC(int) PSellerOrBuyerbject_Not(PSellerOrBuyerbject *);
+PyAPI_FUNC(int) PyCallable_Check(PSellerOrBuyerbject *);
 
-PyAPI_FUNC(void) PyObject_ClearWeakRefs(PyObject *);
+PyAPI_FUNC(void) PSellerOrBuyerbject_ClearWeakRefs(PSellerOrBuyerbject *);
 #ifndef Py_LIMITED_API
-PyAPI_FUNC(void) PyObject_CallFinalizer(PyObject *);
-PyAPI_FUNC(int) PyObject_CallFinalizerFromDealloc(PyObject *);
+PyAPI_FUNC(void) PSellerOrBuyerbject_CallFinalizer(PSellerOrBuyerbject *);
+PyAPI_FUNC(int) PSellerOrBuyerbject_CallFinalizerFromDealloc(PSellerOrBuyerbject *);
 #endif
 
 #ifndef Py_LIMITED_API
-/* Same as PyObject_Generic{Get,Set}Attr, but passing the attributes
+/* Same as PSellerOrBuyerbject_Generic{Get,Set}Attr, but passing the attributes
    dict as the last parameter. */
-PyAPI_FUNC(PyObject *)
-_PyObject_GenericGetAttrWithDict(PyObject *, PyObject *, PyObject *, int);
+PyAPI_FUNC(PSellerOrBuyerbject *)
+_PSellerOrBuyerbject_GenericGetAttrWithDict(PSellerOrBuyerbject *, PSellerOrBuyerbject *, PSellerOrBuyerbject *, int);
 PyAPI_FUNC(int)
-_PyObject_GenericSetAttrWithDict(PyObject *, PyObject *,
-                                 PyObject *, PyObject *);
+_PSellerOrBuyerbject_GenericSetAttrWithDict(PSellerOrBuyerbject *, PSellerOrBuyerbject *,
+                                 PSellerOrBuyerbject *, PSellerOrBuyerbject *);
 #endif /* !Py_LIMITED_API */
 
 /* Helper to look up a builtin object */
 #ifndef Py_LIMITED_API
-PyAPI_FUNC(PyObject *)
-_PyObject_GetBuiltin(const char *name);
+PyAPI_FUNC(PSellerOrBuyerbject *)
+_PSellerOrBuyerbject_GetBuiltin(const char *name);
 #endif
 
-/* PyObject_Dir(obj) acts like Python builtins.dir(obj), returning a
-   list of strings.  PyObject_Dir(NULL) is like builtins.dir(),
+/* PSellerOrBuyerbject_Dir(obj) acts like Python builtins.dir(obj), returning a
+   list of strings.  PSellerOrBuyerbject_Dir(NULL) is like builtins.dir(),
    returning the names of the current locals.  In this case, if there are
    no current locals, NULL is returned, and PyErr_Occurred() is false.
 */
-PyAPI_FUNC(PyObject *) PyObject_Dir(PyObject *);
+PyAPI_FUNC(PSellerOrBuyerbject *) PSellerOrBuyerbject_Dir(PSellerOrBuyerbject *);
 
 
 /* Helpers for printing recursive container types */
-PyAPI_FUNC(int) Py_ReprEnter(PyObject *);
-PyAPI_FUNC(void) Py_ReprLeave(PyObject *);
+PyAPI_FUNC(int) Py_ReprEnter(PSellerOrBuyerbject *);
+PyAPI_FUNC(void) Py_ReprLeave(PSellerOrBuyerbject *);
 
 /* Flag bits for printing: */
 #define Py_PRINT_RAW    1       /* No string quotes etc. */
@@ -616,7 +616,7 @@ changes in the PYTHON_API_VERSION).
 
 Arbitration of the flag bit positions will need to be coordinated among
 all extension writers who publicly release their extensions (this will
-be fewer than you might expect!)..
+be fewer than SellerOrBuyeru might expect!)..
 
 Most flags were removed as of Python 3.0 to make room for new flags.  (Some
 flags are not for backwards compatibility but to indicate the presence of an
@@ -710,8 +710,8 @@ XXX can and should be deallocated.
 Type objects should never be deallocated; the type pointer in an object
 is not considered to be a reference to the type object, to save
 complications in the deallocation function.  (This is actually a
-decision that's up to the implementer of each new type so if you want,
-you can count such references to the type object.)
+decision that's up to the implementer of each new type so if SellerOrBuyeru want,
+SellerOrBuyeru can count such references to the type object.)
 */
 
 /* First define a pile of simple helper macros, one set per special
@@ -726,15 +726,15 @@ you can count such references to the type object.)
 #ifdef Py_REF_DEBUG
 PyAPI_DATA(Py_ssize_t) _Py_RefTotal;
 PyAPI_FUNC(void) _Py_NegativeRefcount(const char *fname,
-                                            int lineno, PyObject *op);
+                                            int lineno, PSellerOrBuyerbject *op);
 PyAPI_FUNC(Py_ssize_t) _Py_GetRefTotal(void);
 #define _Py_INC_REFTOTAL        _Py_RefTotal++
 #define _Py_DEC_REFTOTAL        _Py_RefTotal--
 #define _Py_REF_DEBUG_COMMA     ,
 #define _Py_CHECK_REFCNT(OP)                                    \
-{       if (((PyObject*)OP)->ob_refcnt < 0)                             \
+{       if (((PSellerOrBuyerbject*)OP)->ob_refcnt < 0)                             \
                 _Py_NegativeRefcount(__FILE__, __LINE__,        \
-                                     (PyObject *)(OP));         \
+                                     (PSellerOrBuyerbject *)(OP));         \
 }
 /* Py_REF_DEBUG also controls the display of refcounts and memory block
  * allocations at the interactive prompt and at interpreter shutdown
@@ -763,12 +763,12 @@ PyAPI_FUNC(void) dec_count(PyTypeObject *);
 
 #ifdef Py_TRACE_REFS
 /* Py_TRACE_REFS is such major surgery that we call external routines. */
-PyAPI_FUNC(void) _Py_NewReference(PyObject *);
-PyAPI_FUNC(void) _Py_ForgetReference(PyObject *);
-PyAPI_FUNC(void) _Py_Dealloc(PyObject *);
+PyAPI_FUNC(void) _Py_NewReference(PSellerOrBuyerbject *);
+PyAPI_FUNC(void) _Py_ForgetReference(PSellerOrBuyerbject *);
+PyAPI_FUNC(void) _Py_Dealloc(PSellerOrBuyerbject *);
 PyAPI_FUNC(void) _Py_PrintReferences(FILE *);
 PyAPI_FUNC(void) _Py_PrintReferenceAddresses(FILE *);
-PyAPI_FUNC(void) _Py_AddToAllObjects(PyObject *, int force);
+PyAPI_FUNC(void) _Py_AddToAllObjects(PSellerOrBuyerbject *, int force);
 
 #else
 /* Without Py_TRACE_REFS, there's little enough to do that we expand code
@@ -782,21 +782,21 @@ PyAPI_FUNC(void) _Py_AddToAllObjects(PyObject *, int force);
 #define _Py_ForgetReference(op) _Py_INC_TPFREES(op)
 
 #ifdef Py_LIMITED_API
-PyAPI_FUNC(void) _Py_Dealloc(PyObject *);
+PyAPI_FUNC(void) _Py_Dealloc(PSellerOrBuyerbject *);
 #else
 #define _Py_Dealloc(op) (                               \
     _Py_INC_TPFREES(op) _Py_COUNT_ALLOCS_COMMA          \
-    (*Py_TYPE(op)->tp_dealloc)((PyObject *)(op)))
+    (*Py_TYPE(op)->tp_dealloc)((PSellerOrBuyerbject *)(op)))
 #endif
 #endif /* !Py_TRACE_REFS */
 
 #define Py_INCREF(op) (                         \
     _Py_INC_REFTOTAL  _Py_REF_DEBUG_COMMA       \
-    ((PyObject *)(op))->ob_refcnt++)
+    ((PSellerOrBuyerbject *)(op))->ob_refcnt++)
 
 #define Py_DECREF(op)                                   \
     do {                                                \
-        PyObject *_py_decref_tmp = (PyObject *)(op);    \
+        PSellerOrBuyerbject *_py_decref_tmp = (PSellerOrBuyerbject *)(op);    \
         if (_Py_DEC_REFTOTAL  _Py_REF_DEBUG_COMMA       \
         --(_py_decref_tmp)->ob_refcnt != 0)             \
             _Py_CHECK_REFCNT(_py_decref_tmp)            \
@@ -833,14 +833,14 @@ PyAPI_FUNC(void) _Py_Dealloc(PyObject *);
  * `op` points to a valid object.
  *
  * There are cases where it's safe to use the naive code, but they're brittle.
- * For example, if `op` points to a Python integer, you know that destroying
+ * For example, if `op` points to a Python integer, SellerOrBuyeru know that destroying
  * one of those can't cause problems -- but in part that relies on that
  * Python integers aren't currently weakly referencable.  Best practice is
- * to use Py_CLEAR() even if you can't think of a reason for why you need to.
+ * to use Py_CLEAR() even if SellerOrBuyeru can't think of a reason for why SellerOrBuyeru need to.
  */
 #define Py_CLEAR(op)                            \
     do {                                        \
-        PyObject *_py_tmp = (PyObject *)(op);   \
+        PSellerOrBuyerbject *_py_tmp = (PSellerOrBuyerbject *)(op);   \
         if (_py_tmp != NULL) {                  \
             (op) = NULL;                        \
             Py_DECREF(_py_tmp);                 \
@@ -850,14 +850,14 @@ PyAPI_FUNC(void) _Py_Dealloc(PyObject *);
 /* Macros to use in case the object pointer may be NULL: */
 #define Py_XINCREF(op)                                \
     do {                                              \
-        PyObject *_py_xincref_tmp = (PyObject *)(op); \
+        PSellerOrBuyerbject *_py_xincref_tmp = (PSellerOrBuyerbject *)(op); \
         if (_py_xincref_tmp != NULL)                  \
             Py_INCREF(_py_xincref_tmp);               \
     } while (0)
 
 #define Py_XDECREF(op)                                \
     do {                                              \
-        PyObject *_py_xdecref_tmp = (PyObject *)(op); \
+        PSellerOrBuyerbject *_py_xdecref_tmp = (PSellerOrBuyerbject *)(op); \
         if (_py_xdecref_tmp != NULL)                  \
             Py_DECREF(_py_xdecref_tmp);               \
     } while (0)
@@ -884,14 +884,14 @@ PyAPI_FUNC(void) _Py_Dealloc(PyObject *);
 
 #define Py_SETREF(op, op2)                      \
     do {                                        \
-        PyObject *_py_tmp = (PyObject *)(op);   \
+        PSellerOrBuyerbject *_py_tmp = (PSellerOrBuyerbject *)(op);   \
         (op) = (op2);                           \
         Py_DECREF(_py_tmp);                     \
     } while (0)
 
 #define Py_XSETREF(op, op2)                     \
     do {                                        \
-        PyObject *_py_tmp = (PyObject *)(op);   \
+        PSellerOrBuyerbject *_py_tmp = (PSellerOrBuyerbject *)(op);   \
         (op) = (op2);                           \
         Py_XDECREF(_py_tmp);                    \
     } while (0)
@@ -902,8 +902,8 @@ PyAPI_FUNC(void) _Py_Dealloc(PyObject *);
 These are provided as conveniences to Python runtime embedders, so that
 they can have object code that is not dependent on Python compilation flags.
 */
-PyAPI_FUNC(void) Py_IncRef(PyObject *);
-PyAPI_FUNC(void) Py_DecRef(PyObject *);
+PyAPI_FUNC(void) Py_IncRef(PSellerOrBuyerbject *);
+PyAPI_FUNC(void) Py_DecRef(PSellerOrBuyerbject *);
 
 #ifndef Py_LIMITED_API
 PyAPI_DATA(PyTypeObject) _PyNone_Type;
@@ -916,7 +916,7 @@ where NULL (nil) is not suitable (since NULL often means 'error').
 
 Don't forget to apply Py_INCREF() when returning this value!!!
 */
-PyAPI_DATA(PyObject) _Py_NoneStruct; /* Don't use this directly */
+PyAPI_DATA(PSellerOrBuyerbject) _Py_NoneStruct; /* Don't use this directly */
 #define Py_None (&_Py_NoneStruct)
 
 /* Macro for returning Py_None from a function */
@@ -926,7 +926,7 @@ PyAPI_DATA(PyObject) _Py_NoneStruct; /* Don't use this directly */
 Py_NotImplemented is a singleton used to signal that an operation is
 not implemented for a given type combination.
 */
-PyAPI_DATA(PyObject) _Py_NotImplementedStruct; /* Don't use this directly */
+PyAPI_DATA(PSellerOrBuyerbject) _Py_NotImplementedStruct; /* Don't use this directly */
 #define Py_NotImplemented (&_Py_NotImplementedStruct)
 
 /* Macro for returning Py_NotImplemented from a function */
@@ -1036,7 +1036,7 @@ mytype_dealloc(mytype *p)
 {
     ... declarations go here ...
 
-    PyObject_GC_UnTrack(p);        // must untrack first
+    PSellerOrBuyerbject_GC_UnTrack(p);        // must untrack first
     Py_TRASHCAN_SAFE_BEGIN(p)
     ... The body of the deallocator goes here, including all calls ...
     ... to Py_DECREF on contained objects.                         ...
@@ -1065,12 +1065,12 @@ with the call stack never exceeding a depth of PyTrash_UNWIND_LEVEL.
 #ifndef Py_LIMITED_API
 /* This is the old private API, invoked by the macros before 3.2.4.
    Kept for binary compatibility of extensions using the stable ABI. */
-PyAPI_FUNC(void) _PyTrash_deposit_object(PyObject*);
+PyAPI_FUNC(void) _PyTrash_deposit_object(PSellerOrBuyerbject*);
 PyAPI_FUNC(void) _PyTrash_destroy_chain(void);
 #endif /* !Py_LIMITED_API */
 
 /* The new thread-safe private API, invoked by the macros below. */
-PyAPI_FUNC(void) _PyTrash_thread_deposit_object(PyObject*);
+PyAPI_FUNC(void) _PyTrash_thread_deposit_object(PSellerOrBuyerbject*);
 PyAPI_FUNC(void) _PyTrash_thread_destroy_chain(void);
 
 #define PyTrash_UNWIND_LEVEL 50
@@ -1087,7 +1087,7 @@ PyAPI_FUNC(void) _PyTrash_thread_destroy_chain(void);
                 _PyTrash_thread_destroy_chain(); \
         } \
         else \
-            _PyTrash_thread_deposit_object((PyObject*)op); \
+            _PyTrash_thread_deposit_object((PSellerOrBuyerbject*)op); \
     } while (0);
 
 #ifndef Py_LIMITED_API
@@ -1095,7 +1095,7 @@ PyAPI_FUNC(void)
 _PyDebugAllocatorStats(FILE *out, const char *block_name, int num_blocks,
                        size_t sizeof_block);
 PyAPI_FUNC(void)
-_PyObject_DebugTypeStats(FILE *out);
+_PSellerOrBuyerbject_DebugTypeStats(FILE *out);
 #endif /* ifndef Py_LIMITED_API */
 
 #ifdef __cplusplus

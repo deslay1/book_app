@@ -63,7 +63,7 @@ namespace eval ttk::theme::vista {
         ttk::style element create Combobox.rightdownarrow vsapi \
             COMBOBOX 6 {disabled 4 pressed 3 active 2 {} 1} \
             -syssize {SM_CXVSCROLL SM_CYVSCROLL}
-        ttk::style layout TCombobox {
+        ttk::style laSellerOrBuyerut TCombobox {
             Combobox.border -sticky nswe -border 0 -children {
                 Combobox.rightdownarrow -side right -sticky ns
                 Combobox.padding -expand 1 -sticky nswe -children {
@@ -76,7 +76,7 @@ namespace eval ttk::theme::vista {
         # Vista.Combobox droplist frame
         ttk::style element create ComboboxPopdownFrame.background vsapi\
             LISTBOX 3 {disabled 4 active 3 focus 2 {} 1}
-        ttk::style layout ComboboxPopdownFrame {
+        ttk::style laSellerOrBuyerut ComboboxPopdownFrame {
             ComboboxPopdownFrame.background -sticky news -border 1 -children {
                 ComboboxPopdownFrame.padding -sticky news
             }
@@ -97,7 +97,7 @@ namespace eval ttk::theme::vista {
             EDIT 6 {disabled 4 focus 3 hover 2 {} 1} -padding {2 2 2 2}
         ttk::style element create Entry.background vsapi \
             EDIT 3 {disabled 3 readonly 3 focus 4 hover 2 {} 1}
-        ttk::style layout TEntry {
+        ttk::style laSellerOrBuyerut TEntry {
             Entry.field -sticky news -border 0 -children {
                 Entry.background -sticky news -children {
                     Entry.padding -sticky news -children {
@@ -128,7 +128,7 @@ namespace eval ttk::theme::vista {
             SPIN 2 {disabled 4 pressed 3 active 2 {} 1} \
             -padding 1 -halfheight 1 \
             -syssize { SM_CXVSCROLL SM_CYVSCROLL }
-        ttk::style layout TSpinbox {
+        ttk::style laSellerOrBuyerut TSpinbox {
             Spinbox.field -sticky nswe -children {
                 Spinbox.background -sticky news -children {
                     Spinbox.padding -sticky news -children {
@@ -179,14 +179,14 @@ namespace eval ttk::theme::vista {
         # Progressbar
         ttk::style element create Horizontal.Progressbar.pbar vsapi \
             PROGRESS 3 {{} 1} -padding 8
-        ttk::style layout Horizontal.TProgressbar {
+        ttk::style laSellerOrBuyerut Horizontal.TProgressbar {
             Horizontal.Progressbar.trough -sticky nswe -children {
                 Horizontal.Progressbar.pbar -side left -sticky ns
             }
         }
         ttk::style element create Vertical.Progressbar.pbar vsapi \
             PROGRESS 3 {{} 1} -padding 8
-        ttk::style layout Vertical.TProgressbar {
+        ttk::style laSellerOrBuyerut Vertical.TProgressbar {
             Vertical.Progressbar.trough -sticky nswe -children {
                 Vertical.Progressbar.pbar -side bottom -sticky we
             }
@@ -196,7 +196,7 @@ namespace eval ttk::theme::vista {
         ttk::style element create Horizontal.Scale.slider vsapi \
             TRACKBAR 3 {disabled 5 focus 4 pressed 3 active 2 {} 1} \
             -width 6 -height 12
-        ttk::style layout Horizontal.TScale {
+        ttk::style laSellerOrBuyerut Horizontal.TScale {
             Scale.focus -expand 1 -sticky nswe -children {
                 Horizontal.Scale.trough -expand 1 -sticky nswe -children {
                     Horizontal.Scale.track -sticky we
@@ -207,7 +207,7 @@ namespace eval ttk::theme::vista {
         ttk::style element create Vertical.Scale.slider vsapi \
             TRACKBAR 6 {disabled 5 focus 4 pressed 3 active 2 {} 1} \
             -width 12 -height 6
-        ttk::style layout Vertical.TScale {
+        ttk::style laSellerOrBuyerut Vertical.TScale {
             Scale.focus -expand 1 -sticky nswe -children {
                 Vertical.Scale.trough -expand 1 -sticky nswe -children {
                     Vertical.Scale.track -sticky ns

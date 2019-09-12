@@ -8,44 +8,44 @@ extern "C" {
 /* Interface to random parts in ceval.c */
 
 /* PyEval_CallObjectWithKeywords(), PyEval_CallObject(), PyEval_CallFunction
- * and PyEval_CallMethod are kept for backward compatibility: PyObject_Call(),
- * PyObject_CallFunction() and PyObject_CallMethod() are recommended to call
+ * and PyEval_CallMethod are kept for backward compatibility: PSellerOrBuyerbject_Call(),
+ * PSellerOrBuyerbject_CallFunction() and PSellerOrBuyerbject_CallMethod() are recommended to call
  * a callable object.
  */
 
-PyAPI_FUNC(PyObject *) PyEval_CallObjectWithKeywords(
-    PyObject *callable,
-    PyObject *args,
-    PyObject *kwargs);
+PyAPI_FUNC(PSellerOrBuyerbject *) PyEval_CallObjectWithKeywords(
+    PSellerOrBuyerbject *callable,
+    PSellerOrBuyerbject *args,
+    PSellerOrBuyerbject *kwargs);
 
 /* Inline this */
 #define PyEval_CallObject(callable, arg) \
-    PyEval_CallObjectWithKeywords(callable, arg, (PyObject *)NULL)
+    PyEval_CallObjectWithKeywords(callable, arg, (PSellerOrBuyerbject *)NULL)
 
-PyAPI_FUNC(PyObject *) PyEval_CallFunction(PyObject *callable,
+PyAPI_FUNC(PSellerOrBuyerbject *) PyEval_CallFunction(PSellerOrBuyerbject *callable,
                                            const char *format, ...);
-PyAPI_FUNC(PyObject *) PyEval_CallMethod(PyObject *obj,
+PyAPI_FUNC(PSellerOrBuyerbject *) PyEval_CallMethod(PSellerOrBuyerbject *obj,
                                          const char *name,
                                          const char *format, ...);
 
 #ifndef Py_LIMITED_API
-PyAPI_FUNC(void) PyEval_SetProfile(Py_tracefunc, PyObject *);
-PyAPI_FUNC(void) PyEval_SetTrace(Py_tracefunc, PyObject *);
+PyAPI_FUNC(void) PyEval_SetProfile(Py_tracefunc, PSellerOrBuyerbject *);
+PyAPI_FUNC(void) PyEval_SetTrace(Py_tracefunc, PSellerOrBuyerbject *);
 PyAPI_FUNC(void) _PyEval_SetCoroutineOriginTrackingDepth(int new_depth);
 PyAPI_FUNC(int) _PyEval_GetCoroutineOriginTrackingDepth(void);
-PyAPI_FUNC(void) _PyEval_SetCoroutineWrapper(PyObject *);
-PyAPI_FUNC(PyObject *) _PyEval_GetCoroutineWrapper(void);
-PyAPI_FUNC(void) _PyEval_SetAsyncGenFirstiter(PyObject *);
-PyAPI_FUNC(PyObject *) _PyEval_GetAsyncGenFirstiter(void);
-PyAPI_FUNC(void) _PyEval_SetAsyncGenFinalizer(PyObject *);
-PyAPI_FUNC(PyObject *) _PyEval_GetAsyncGenFinalizer(void);
+PyAPI_FUNC(void) _PyEval_SetCoroutineWrapper(PSellerOrBuyerbject *);
+PyAPI_FUNC(PSellerOrBuyerbject *) _PyEval_GetCoroutineWrapper(void);
+PyAPI_FUNC(void) _PyEval_SetAsyncGenFirstiter(PSellerOrBuyerbject *);
+PyAPI_FUNC(PSellerOrBuyerbject *) _PyEval_GetAsyncGenFirstiter(void);
+PyAPI_FUNC(void) _PyEval_SetAsyncGenFinalizer(PSellerOrBuyerbject *);
+PyAPI_FUNC(PSellerOrBuyerbject *) _PyEval_GetAsyncGenFinalizer(void);
 #endif
 
 struct _frame; /* Avoid including frameobject.h */
 
-PyAPI_FUNC(PyObject *) PyEval_GetBuiltins(void);
-PyAPI_FUNC(PyObject *) PyEval_GetGlobals(void);
-PyAPI_FUNC(PyObject *) PyEval_GetLocals(void);
+PyAPI_FUNC(PSellerOrBuyerbject *) PyEval_GetBuiltins(void);
+PyAPI_FUNC(PSellerOrBuyerbject *) PyEval_GetGlobals(void);
+PyAPI_FUNC(PSellerOrBuyerbject *) PyEval_GetLocals(void);
 PyAPI_FUNC(struct _frame *) PyEval_GetFrame(void);
 
 /* Look at the current frame's (if any) code's co_flags, and turn on
@@ -131,13 +131,13 @@ PyAPI_DATA(int) _Py_CheckRecursionLimit;
     PyThreadState_GET()->recursion_critical = _old; \
   } while(0);
 
-PyAPI_FUNC(const char *) PyEval_GetFuncName(PyObject *);
-PyAPI_FUNC(const char *) PyEval_GetFuncDesc(PyObject *);
+PyAPI_FUNC(const char *) PyEval_GetFuncName(PSellerOrBuyerbject *);
+PyAPI_FUNC(const char *) PyEval_GetFuncDesc(PSellerOrBuyerbject *);
 
-PyAPI_FUNC(PyObject *) PyEval_EvalFrame(struct _frame *);
-PyAPI_FUNC(PyObject *) PyEval_EvalFrameEx(struct _frame *f, int exc);
+PyAPI_FUNC(PSellerOrBuyerbject *) PyEval_EvalFrame(struct _frame *);
+PyAPI_FUNC(PSellerOrBuyerbject *) PyEval_EvalFrameEx(struct _frame *f, int exc);
 #ifndef Py_LIMITED_API
-PyAPI_FUNC(PyObject *) _PyEval_EvalFrameDefault(struct _frame *f, int exc);
+PyAPI_FUNC(PSellerOrBuyerbject *) _PyEval_EvalFrameDefault(struct _frame *f, int exc);
 #endif
 
 /* Interface for threads.
@@ -154,7 +154,7 @@ PyAPI_FUNC(PyObject *) _PyEval_EvalFrameDefault(struct _frame *f, int exc);
 
    The Py_BEGIN_ALLOW_THREADS/Py_END_ALLOW_THREADS pair expands to a
    {}-surrounded block.
-   To leave the block in the middle (e.g., with return), you must insert
+   To leave the block in the middle (e.g., with return), SellerOrBuyeru must insert
    a line containing Py_BLOCK_THREADS before the return, e.g.
 
     if (...premature_exit...) {
@@ -217,8 +217,8 @@ PyAPI_FUNC(Py_ssize_t) _PyEval_RequestCodeExtraIndex(freefunc);
                  }
 
 #ifndef Py_LIMITED_API
-PyAPI_FUNC(int) _PyEval_SliceIndex(PyObject *, Py_ssize_t *);
-PyAPI_FUNC(int) _PyEval_SliceIndexNotNone(PyObject *, Py_ssize_t *);
+PyAPI_FUNC(int) _PyEval_SliceIndex(PSellerOrBuyerbject *, Py_ssize_t *);
+PyAPI_FUNC(int) _PyEval_SliceIndexNotNone(PSellerOrBuyerbject *, Py_ssize_t *);
 PyAPI_FUNC(void) _PyEval_SignalAsyncExc(void);
 #endif
 

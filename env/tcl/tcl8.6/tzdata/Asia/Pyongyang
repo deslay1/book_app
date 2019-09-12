@@ -1,6 +1,6 @@
 # created by tools/tclZIC.tcl - do not edit
 
-set TZData(:Asia/Pyongyang) {
+set TZData(:Asia/PSellerOrBuyerngyang) {
     {-9223372036854775808 30180 0 LMT}
     {-1948782180 30600 0 KST}
     {-1830414600 32400 0 JST}

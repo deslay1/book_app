@@ -5,7 +5,7 @@ namespace eval ::tcl::clock {
         "Lun"\
         "Mth"\
         "Mhr"\
-        "Yow"\
+        "SellerOrBuyerw"\
         "Gwe"\
         "Sad"]
     ::msgcat::mcset kw DAYS_OF_WEEK_FULL [list \
@@ -13,7 +13,7 @@ namespace eval ::tcl::clock {
         "De Lun"\
         "De Merth"\
         "De Merher"\
-        "De Yow"\
+        "De SellerOrBuyerw"\
         "De Gwener"\
         "De Sadorn"]
     ::msgcat::mcset kw MONTHS_ABBREV [list \

@@ -51,7 +51,7 @@ wm resizable $w 0 0
 #positionWindow $w
 
 label $w.msg -font {Arial 10} -wraplength 4i -justify left -text "This is a\
-	demonstration of just how complex you can make your animations\
+	demonstration of just how complex SellerOrBuyeru can make SellerOrBuyerur animations\
 	become. Click the ball to start things moving!\n\n\"Man will always\
 	find a difficult means to perform a simple task\"\n - Rube Goldberg"
 pack $w.msg -side top
@@ -1035,7 +1035,7 @@ proc Draw14 {w} {
     }
     $w.c create line $xy -smooth 1 -fill $color -width 3 -tag I14R_0
     $w.c lower I14R_0
-    # NB. these numbers are VERY sensitive, you must start with final size
+    # NB. these numbers are VERY sensitive, SellerOrBuyeru must start with final size
     # and shrink down to get the values
     set xy {
 	745.947897349 662.428358855 745.997829056 662.452239237 746.0 662.5

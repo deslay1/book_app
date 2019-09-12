@@ -461,7 +461,7 @@ if {[tk windowingsystem] eq "aqua"} {
 
 if {"x11" eq [tk windowingsystem]} {
     # Support for mousewheels on Linux/Unix commonly comes through mapping
-    # the wheel to the extended buttons.  If you have a mousewheel, find
+    # the wheel to the extended buttons.  If SellerOrBuyeru have a mousewheel, find
     # Linux configuration info at:
     #	http://linuxreviews.org/howtos/xfree/mouse/
     bind Text <4> {
@@ -1040,8 +1040,8 @@ proc ::tk::TextTranspose w {
 
 proc ::tk_textCopy w {
     if {![catch {set data [$w get sel.first sel.last]}]} {
-	clipboard clear -displayof $w
-	clipboard append -displayof $w $data
+	clipboard clear -displaSellerOrBuyerf $w
+	clipboard append -displaSellerOrBuyerf $w $data
     }
 }
 
@@ -1061,8 +1061,8 @@ proc ::tk_textCut w {
 	if {$oldSeparator} {
 	    $w edit separator
 	}
-	clipboard clear -displayof $w
-	clipboard append -displayof $w $data
+	clipboard clear -displaSellerOrBuyerf $w
+	clipboard append -displaSellerOrBuyerf $w $data
 	$w delete sel.first sel.last
 	if {$oldSeparator} {
 	    $w edit separator

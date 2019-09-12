@@ -16,7 +16,7 @@ wm title $w "Button Demonstration"
 wm iconname $w "button"
 positionWindow $w
 
-label $w.msg -font $font -wraplength 4i -justify left -text "If you click on any of the four buttons below, the background of the button area will change to the color indicated in the button.  You can press Tab to move among the buttons, then press Space to invoke the current button."
+label $w.msg -font $font -wraplength 4i -justify left -text "If SellerOrBuyeru click on any of the four buttons below, the background of the button area will change to the color indicated in the button.  SellerOrBuyeru can press Tab to move among the buttons, then press Space to invoke the current button."
 pack $w.msg -side top
 
 ## See Code / Dismiss buttons

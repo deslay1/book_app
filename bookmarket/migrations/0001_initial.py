@@ -36,6 +36,7 @@ class Migration(migrations.Migration):
                 ('image3', models.ImageField(blank=True, upload_to='post_pics', verbose_name='Additional image 2 (optional)')),
                 ('price', models.DecimalField(decimal_places=2, default='0.0', max_digits=5)),
                 ('date_posted', models.DateTimeField(default=django.utils.timezone.now)),
+                ('SellerOrBuyer', models.CharField(choices=[('Buyer', 'Buyer'), ('Seller', 'Seller')], default=('Buyer', 'Buyer'), max_length=50)),
                 ('author', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
         ),

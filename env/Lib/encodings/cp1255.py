@@ -258,8 +258,8 @@ decoding_table = (
     '\u05c2'   #  0xD2 -> HEBREW POINT SIN DOT
     '\u05c3'   #  0xD3 -> HEBREW PUNCTUATION SOF PASUQ
     '\u05f0'   #  0xD4 -> HEBREW LIGATURE YIDDISH DOUBLE VAV
-    '\u05f1'   #  0xD5 -> HEBREW LIGATURE YIDDISH VAV YOD
-    '\u05f2'   #  0xD6 -> HEBREW LIGATURE YIDDISH DOUBLE YOD
+    '\u05f1'   #  0xD5 -> HEBREW LIGATURE YIDDISH VAV SellerOrBuyerD
+    '\u05f2'   #  0xD6 -> HEBREW LIGATURE YIDDISH DOUBLE SellerOrBuyerD
     '\u05f3'   #  0xD7 -> HEBREW PUNCTUATION GERESH
     '\u05f4'   #  0xD8 -> HEBREW PUNCTUATION GERSHAYIM
     '\ufffe'   #  0xD9 -> UNDEFINED
@@ -278,7 +278,7 @@ decoding_table = (
     '\u05d6'   #  0xE6 -> HEBREW LETTER ZAYIN
     '\u05d7'   #  0xE7 -> HEBREW LETTER HET
     '\u05d8'   #  0xE8 -> HEBREW LETTER TET
-    '\u05d9'   #  0xE9 -> HEBREW LETTER YOD
+    '\u05d9'   #  0xE9 -> HEBREW LETTER SellerOrBuyerD
     '\u05da'   #  0xEA -> HEBREW LETTER FINAL KAF
     '\u05db'   #  0xEB -> HEBREW LETTER KAF
     '\u05dc'   #  0xEC -> HEBREW LETTER LAMED

@@ -21,9 +21,9 @@ extern "C" {
 
 #ifndef Py_LIMITED_API
 typedef struct {
-    PyObject_VAR_HEAD
+    PSellerOrBuyerbject_VAR_HEAD
     /* Vector of pointers to list elements.  list[0] is ob_item[0], etc. */
-    PyObject **ob_item;
+    PSellerOrBuyerbject **ob_item;
 
     /* ob_item contains space for 'allocated' elements.  The number
      * currently in use is ob_size.
@@ -49,19 +49,19 @@ PyAPI_DATA(PyTypeObject) PySortWrapper_Type;
     PyType_FastSubclass(Py_TYPE(op), Py_TPFLAGS_LIST_SUBCLASS)
 #define PyList_CheckExact(op) (Py_TYPE(op) == &PyList_Type)
 
-PyAPI_FUNC(PyObject *) PyList_New(Py_ssize_t size);
-PyAPI_FUNC(Py_ssize_t) PyList_Size(PyObject *);
-PyAPI_FUNC(PyObject *) PyList_GetItem(PyObject *, Py_ssize_t);
-PyAPI_FUNC(int) PyList_SetItem(PyObject *, Py_ssize_t, PyObject *);
-PyAPI_FUNC(int) PyList_Insert(PyObject *, Py_ssize_t, PyObject *);
-PyAPI_FUNC(int) PyList_Append(PyObject *, PyObject *);
-PyAPI_FUNC(PyObject *) PyList_GetSlice(PyObject *, Py_ssize_t, Py_ssize_t);
-PyAPI_FUNC(int) PyList_SetSlice(PyObject *, Py_ssize_t, Py_ssize_t, PyObject *);
-PyAPI_FUNC(int) PyList_Sort(PyObject *);
-PyAPI_FUNC(int) PyList_Reverse(PyObject *);
-PyAPI_FUNC(PyObject *) PyList_AsTuple(PyObject *);
+PyAPI_FUNC(PSellerOrBuyerbject *) PyList_New(Py_ssize_t size);
+PyAPI_FUNC(Py_ssize_t) PyList_Size(PSellerOrBuyerbject *);
+PyAPI_FUNC(PSellerOrBuyerbject *) PyList_GetItem(PSellerOrBuyerbject *, Py_ssize_t);
+PyAPI_FUNC(int) PyList_SetItem(PSellerOrBuyerbject *, Py_ssize_t, PSellerOrBuyerbject *);
+PyAPI_FUNC(int) PyList_Insert(PSellerOrBuyerbject *, Py_ssize_t, PSellerOrBuyerbject *);
+PyAPI_FUNC(int) PyList_Append(PSellerOrBuyerbject *, PSellerOrBuyerbject *);
+PyAPI_FUNC(PSellerOrBuyerbject *) PyList_GetSlice(PSellerOrBuyerbject *, Py_ssize_t, Py_ssize_t);
+PyAPI_FUNC(int) PyList_SetSlice(PSellerOrBuyerbject *, Py_ssize_t, Py_ssize_t, PSellerOrBuyerbject *);
+PyAPI_FUNC(int) PyList_Sort(PSellerOrBuyerbject *);
+PyAPI_FUNC(int) PyList_Reverse(PSellerOrBuyerbject *);
+PyAPI_FUNC(PSellerOrBuyerbject *) PyList_AsTuple(PSellerOrBuyerbject *);
 #ifndef Py_LIMITED_API
-PyAPI_FUNC(PyObject *) _PyList_Extend(PyListObject *, PyObject *);
+PyAPI_FUNC(PSellerOrBuyerbject *) _PyList_Extend(PyListObject *, PSellerOrBuyerbject *);
 
 PyAPI_FUNC(int) PyList_ClearFreeList(void);
 PyAPI_FUNC(void) _PyList_DebugMallocStats(FILE *out);

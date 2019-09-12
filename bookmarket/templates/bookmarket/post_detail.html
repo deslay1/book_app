@@ -9,6 +9,7 @@
         <a class="mr-2" href="profile/">{{ object.author }}</a>
         {% else %}
         <a class="mr-2" href="{% url 'post-user' object.id %}">{{ object.author }}</a>
+        {% endif %}
         <small class="text-muted">{{ object.date_posted|date:"F d, Y H:i" }}</small>
         <div class="post-button">
           <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' post.id %}">Update</a>

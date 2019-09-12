@@ -23,18 +23,18 @@
 ::msgcat::mcset nl "Tk Widget Demonstrations" "Demonstratie van Tk widgets"
 ::msgcat::mcset nl "This application provides a front end for several short scripts" \
     "Dit programma is een schil rond enkele korte scripts waarmee"
-::msgcat::mcset nl "that demonstrate what you can do with Tk widgets.  Each of the" \
+::msgcat::mcset nl "that demonstrate what SellerOrBuyeru can do with Tk widgets.  Each of the" \
     "gedemonstreerd wordt wat je kunt doen met Tk widgets.  Elk van de"
-::msgcat::mcset nl "numbered lines below describes a demonstration;  you can click on" \
+::msgcat::mcset nl "numbered lines below describes a demonstration;  SellerOrBuyeru can click on" \
     "genummerde regels hieronder omschrijft een demonstratie;  je kunt de"
 ::msgcat::mcset nl "it to invoke the demonstration.  Once the demonstration window" \
     "demonstratie starten door op de regel te klikken."
-::msgcat::mcset nl "appears, you can click the" \
+::msgcat::mcset nl "appears, SellerOrBuyeru can click the" \
     "Zodra het nieuwe venster verschijnt, kun je op de knop"
 ::msgcat::mcset nl "See Code"  "Bekijk Code"	;# This is also button text!
 ::msgcat::mcset nl "button to see the Tcl/Tk code that created the demonstration.  If" \
     "drukken om de achterliggende Tcl/Tk code te zien.  Als je dat wilt,"
-::msgcat::mcset nl "you wish, you can edit the code and click the" \
+::msgcat::mcset nl "SellerOrBuyeru wish, SellerOrBuyeru can edit the code and click the" \
     "kun je de code wijzigen en op de knop"
 ::msgcat::mcset nl "Rerun Demo" "Herstart Demo"	;# This is also button text!
 ::msgcat::mcset nl "button in the code window to reinvoke the demonstration with the" \

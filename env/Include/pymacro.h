@@ -26,7 +26,7 @@
 
 /* Assert a build-time dependency, as an expression.
 
-   Your compile will fail if the condition isn't true, or can't be evaluated
+   SellerOrBuyerur compile will fail if the condition isn't true, or can't be evaluated
    by the compiler. This can be used in an expression: its value is 0.
 
    Example:

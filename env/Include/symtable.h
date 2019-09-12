@@ -16,18 +16,18 @@ typedef enum _block_type { FunctionBlock, ClassBlock, ModuleBlock }
 struct _symtable_entry;
 
 struct symtable {
-    PyObject *st_filename;          /* name of file being compiled,
+    PSellerOrBuyerbject *st_filename;          /* name of file being compiled,
                                        decoded from the filesystem encoding */
     struct _symtable_entry *st_cur; /* current symbol table entry */
     struct _symtable_entry *st_top; /* symbol table entry for module */
-    PyObject *st_blocks;            /* dict: map AST node addresses
+    PSellerOrBuyerbject *st_blocks;            /* dict: map AST node addresses
                                      *       to symbol table entries */
-    PyObject *st_stack;             /* list: stack of namespace info */
-    PyObject *st_global;            /* borrowed ref to st_top->ste_symbols */
+    PSellerOrBuyerbject *st_stack;             /* list: stack of namespace info */
+    PSellerOrBuyerbject *st_global;            /* borrowed ref to st_top->ste_symbols */
     int st_nblocks;                 /* number of blocks used. kept for
                                        consistency with the corresponding
                                        compiler structure */
-    PyObject *st_private;           /* name of current class or NULL */
+    PSellerOrBuyerbject *st_private;           /* name of current class or NULL */
     PyFutureFeatures *st_future;    /* module's future features that affect
                                        the symbol table */
     int recursion_depth;            /* current recursion depth */
@@ -35,13 +35,13 @@ struct symtable {
 };
 
 typedef struct _symtable_entry {
-    PyObject_HEAD
-    PyObject *ste_id;        /* int: key in ste_table->st_blocks */
-    PyObject *ste_symbols;   /* dict: variable names to flags */
-    PyObject *ste_name;      /* string: name of current block */
-    PyObject *ste_varnames;  /* list of function parameters */
-    PyObject *ste_children;  /* list of child blocks */
-    PyObject *ste_directives;/* locations of global and nonlocal statements */
+    PSellerOrBuyerbject_HEAD
+    PSellerOrBuyerbject *ste_id;        /* int: key in ste_table->st_blocks */
+    PSellerOrBuyerbject *ste_symbols;   /* dict: variable names to flags */
+    PSellerOrBuyerbject *ste_name;      /* string: name of current block */
+    PSellerOrBuyerbject *ste_varnames;  /* list of function parameters */
+    PSellerOrBuyerbject *ste_children;  /* list of child blocks */
+    PSellerOrBuyerbject *ste_directives;/* locations of global and nonlocal statements */
     _Py_block_ty ste_type;   /* module, class, or function */
     int ste_nested;      /* true if block is nested */
     unsigned ste_free : 1;        /* true if block has free variables */
@@ -61,13 +61,13 @@ typedef struct _symtable_entry {
     int ste_opt_lineno;      /* lineno of last exec or import * */
     int ste_opt_col_offset;  /* offset of last exec or import * */
     struct symtable *ste_table;
-} PySTEntryObject;
+} PySTEntrSellerOrBuyerbject;
 
 PyAPI_DATA(PyTypeObject) PySTEntry_Type;
 
 #define PySTEntry_Check(op) (Py_TYPE(op) == &PySTEntry_Type)
 
-PyAPI_FUNC(int) PyST_GetScope(PySTEntryObject *, PyObject *);
+PyAPI_FUNC(int) PyST_GetScope(PySTEntrSellerOrBuyerbject *, PSellerOrBuyerbject *);
 
 PyAPI_FUNC(struct symtable *) PySymtable_Build(
     mod_ty mod,
@@ -75,9 +75,9 @@ PyAPI_FUNC(struct symtable *) PySymtable_Build(
     PyFutureFeatures *future);
 PyAPI_FUNC(struct symtable *) PySymtable_BuildObject(
     mod_ty mod,
-    PyObject *filename,
+    PSellerOrBuyerbject *filename,
     PyFutureFeatures *future);
-PyAPI_FUNC(PySTEntryObject *) PySymtable_Lookup(struct symtable *, void *);
+PyAPI_FUNC(PySTEntrSellerOrBuyerbject *) PySymtable_Lookup(struct symtable *, void *);
 
 PyAPI_FUNC(void) PySymtable_Free(struct symtable *);
 

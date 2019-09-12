@@ -81,7 +81,7 @@ PyAPI_FUNC(size_t) PyThread_get_stacksize(void);
 PyAPI_FUNC(int) PyThread_set_stacksize(size_t);
 
 #if !defined(Py_LIMITED_API) || Py_LIMITED_API+0 >= 0x03030000
-PyAPI_FUNC(PyObject*) PyThread_GetInfo(void);
+PyAPI_FUNC(PSellerOrBuyerbject*) PyThread_GetInfo(void);
 #endif
 
 
@@ -122,9 +122,9 @@ typedef struct _Py_tss_t Py_tss_t;  /* opaque */
 #   error "Require native threads. See https://bugs.python.org/issue31370"
 #endif
 
-/* When Py_LIMITED_API is not defined, the type layout of Py_tss_t is
+/* When Py_LIMITED_API is not defined, the type laSellerOrBuyerut of Py_tss_t is
    exposed to allow static allocation in the API clients.  Even in this case,
-   you must handle TSS keys through API functions due to compatibility.
+   SellerOrBuyeru must handle TSS keys through API functions due to compatibility.
 */
 struct _Py_tss_t {
     int _is_initialized;
@@ -133,7 +133,7 @@ struct _Py_tss_t {
 
 #undef NATIVE_TSS_KEY_T
 
-/* When static allocation, you must initialize with Py_tss_NEEDS_INIT. */
+/* When static allocation, SellerOrBuyeru must initialize with Py_tss_NEEDS_INIT. */
 #define Py_tss_NEEDS_INIT   {0}
 #endif  /* !Py_LIMITED_API */
 

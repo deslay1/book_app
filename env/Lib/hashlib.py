@@ -14,14 +14,14 @@ than using new(name):
 md5(), sha1(), sha224(), sha256(), sha384(), sha512(), blake2b(), blake2s(),
 sha3_224, sha3_256, sha3_384, sha3_512, shake_128, and shake_256.
 
-More algorithms may be available on your platform but the above are guaranteed
+More algorithms may be available on SellerOrBuyerur platform but the above are guaranteed
 to exist.  See the algorithms_guaranteed and algorithms_available attributes
 to find out what algorithm names can be passed to new().
 
-NOTE: If you want the adler32 or crc32 hash functions they are available in
+NOTE: If SellerOrBuyeru want the adler32 or crc32 hash functions they are available in
 the zlib module.
 
-Choose your hash function wisely.  Some have known collision weaknesses.
+Choose SellerOrBuyerur hash function wisely.  Some have known collision weaknesses.
 sha384 and sha512 will be slow on 32 bit platforms.
 
 Hash objects have these methods:

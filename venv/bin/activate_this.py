@@ -2,7 +2,7 @@
 
 Use exec(open(this_file).read(), {'__file__': this_file}).
 
-This can be used when you must use an existing Python interpreter, not the virtualenv bin/python.
+This can be used when SellerOrBuyeru must use an existing Python interpreter, not the virtualenv bin/python.
 """
 import os
 import site
@@ -11,7 +11,7 @@ import sys
 try:
     __file__
 except NameError:
-    raise AssertionError("You must use exec(open(this_file).read(), {'__file__': this_file}))")
+    raise AssertionError("SellerOrBuyeru must use exec(open(this_file).read(), {'__file__': this_file}))")
 
 # prepend bin to PATH (this file is inside the bin directory)
 bin_dir = os.path.dirname(os.path.abspath(__file__))

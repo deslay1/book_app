@@ -4,7 +4,7 @@ exec wish "$0" ${1+"$@"}
 
 # rmt --
 # This script implements a simple remote-control mechanism for
-# Tk applications.  It allows you to select an application and
+# Tk applications.  It allows SellerOrBuyeru to select an application and
 # then type commands to that application.
 
 package require Tk

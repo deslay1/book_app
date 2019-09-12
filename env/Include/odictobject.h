@@ -10,30 +10,30 @@ extern "C" {
 
 #ifndef Py_LIMITED_API
 
-typedef struct _odictobject PyODictObject;
+typedef struct _odictobject PSellerOrBuyerDictObject;
 
-PyAPI_DATA(PyTypeObject) PyODict_Type;
-PyAPI_DATA(PyTypeObject) PyODictIter_Type;
-PyAPI_DATA(PyTypeObject) PyODictKeys_Type;
-PyAPI_DATA(PyTypeObject) PyODictItems_Type;
-PyAPI_DATA(PyTypeObject) PyODictValues_Type;
+PyAPI_DATA(PyTypeObject) PSellerOrBuyerDict_Type;
+PyAPI_DATA(PyTypeObject) PSellerOrBuyerDictIter_Type;
+PyAPI_DATA(PyTypeObject) PSellerOrBuyerDictKeys_Type;
+PyAPI_DATA(PyTypeObject) PSellerOrBuyerDictItems_Type;
+PyAPI_DATA(PyTypeObject) PSellerOrBuyerDictValues_Type;
 
-#define PyODict_Check(op) PyObject_TypeCheck(op, &PyODict_Type)
-#define PyODict_CheckExact(op) (Py_TYPE(op) == &PyODict_Type)
-#define PyODict_SIZE(op) PyDict_GET_SIZE((op))
+#define PSellerOrBuyerDict_Check(op) PSellerOrBuyerbject_TypeCheck(op, &PSellerOrBuyerDict_Type)
+#define PSellerOrBuyerDict_CheckExact(op) (Py_TYPE(op) == &PSellerOrBuyerDict_Type)
+#define PSellerOrBuyerDict_SIZE(op) PyDict_GET_SIZE((op))
 
-PyAPI_FUNC(PyObject *) PyODict_New(void);
-PyAPI_FUNC(int) PyODict_SetItem(PyObject *od, PyObject *key, PyObject *item);
-PyAPI_FUNC(int) PyODict_DelItem(PyObject *od, PyObject *key);
+PyAPI_FUNC(PSellerOrBuyerbject *) PSellerOrBuyerDict_New(void);
+PyAPI_FUNC(int) PSellerOrBuyerDict_SetItem(PSellerOrBuyerbject *od, PSellerOrBuyerbject *key, PSellerOrBuyerbject *item);
+PyAPI_FUNC(int) PSellerOrBuyerDict_DelItem(PSellerOrBuyerbject *od, PSellerOrBuyerbject *key);
 
 /* wrappers around PyDict* functions */
-#define PyODict_GetItem(od, key) PyDict_GetItem((PyObject *)od, key)
-#define PyODict_GetItemWithError(od, key) \
-    PyDict_GetItemWithError((PyObject *)od, key)
-#define PyODict_Contains(od, key) PyDict_Contains((PyObject *)od, key)
-#define PyODict_Size(od) PyDict_Size((PyObject *)od)
-#define PyODict_GetItemString(od, key) \
-    PyDict_GetItemString((PyObject *)od, key)
+#define PSellerOrBuyerDict_GetItem(od, key) PyDict_GetItem((PSellerOrBuyerbject *)od, key)
+#define PSellerOrBuyerDict_GetItemWithError(od, key) \
+    PyDict_GetItemWithError((PSellerOrBuyerbject *)od, key)
+#define PSellerOrBuyerDict_Contains(od, key) PyDict_Contains((PSellerOrBuyerbject *)od, key)
+#define PSellerOrBuyerDict_Size(od) PyDict_Size((PSellerOrBuyerbject *)od)
+#define PSellerOrBuyerDict_GetItemString(od, key) \
+    PyDict_GetItemString((PSellerOrBuyerbject *)od, key)
 
 #endif
 

@@ -35,7 +35,7 @@ namespace eval ::tk::dialog::file {
 	    cdFtlfZWeZBU4IcaS5uXn1ZLAEMMY4ay1aa4wx/zpKKYIgoL6+vmjxqoXe5ZLTcsPq
 	    bTyycjODpe1y3WMrvDAMV14jCuW0VhhjiJQpOJ5w7Zwjk8/y9R+vsHHNNq6oFMrkeX
 	    BxI+8d2sktap3YvOPD0lRQrH+Z81fE7t3WB4gihVKazsuaA20aKSUgAG/seQdy2l6W
-	    37+EyopqTv39I6HJUT2zlnlza2jLdgiTaxwmDov6alLHcZUTzXPGGAauWJbfO4dHl9
+	    37+ESellerOrBuyerpqTv39I6HJUT2zlnlza2jLdgiTaxwmDov6alLHcZUTzXPGGAauWJbfO4dHl9
 	    bgJs3HyfNf0N4ZsOa+jbT3/ownY/hO09p1kBULtjBw+Tvq7xzwauds4dWPDleAcP5E
 	    xlprgtBRUZRgYCRPTzoHwEi2g6OnX+eFrW/RM9qBE4p43CeTz5ATaU6nDrFm2cPs/+
 	    E1SopqkZ7MFJqntXZaa7IKppckwIEvJbg8LWd28OT6nVihCPQQ8UScWCLGqO4hXuQx
@@ -46,7 +46,7 @@ namespace eval ::tk::dialog::file {
 	    kckbGu76nEhbIm2xznH4VB3OWYaiXqQn8GKSWGIMHuXyPL76LBcupmhp69pz4uMnXi
 	    w4VloTGcdQRtGdzmHs1f+RdYZslMZJhzUOHVnceN1ooEiP5JUzdqCQMWCD0JCIeQzn
 	    NNpO+clhrCYf5rC+A2cxWmDUWG2oHEOZMEKIwclgMnnLrTeXUV7sUzpNXgU9DmijWV
-	    v9LEKCkAIhKIBnlvpks6F21qUZ31u/sbExPa9h0/RzwzMov2nGlG5TmW1YOzzlnSfL
+	    v9LEKCkAIhKIBnlvpks6F21qUZ31u/sbExPa9h0/RzwzMov2nGlG5TmW1SellerOrBuyerzzlnSfL
 	    mVnyGf19Q7lwZHBp+1fPtflAIgiC7389n9qkihP+lWyeqfUO15ZwQTqlw9H+o2cOvN
 	    QJCAHEgEqgYnI0NyALjAJdyWQy7wMa6AEujUdzo3LjcAXwD/XCTKIRjWytAAAAJXRF
 	    WHRjcmVhdGUtZGF0ZQAyMDA5LTA0LTA2VDIxOjI1OjQxLTAzOjAw8s+uCAAAACV0RV
@@ -713,7 +713,7 @@ proc ::tk::dialog::file::SetFilter {w type} {
 #	    contents (once only)
 #
 # Arguments:
-#	context:  the current directory you are in
+#	context:  the current directory SellerOrBuyeru are in
 #	text:	  the text entered by the user
 #	defaultext: the default extension to add to files with no extension
 #	expandEnv: whether to expand environment variables (yes by default)
@@ -1108,7 +1108,7 @@ proc ::tk::dialog::file::Done {w {selectFilePath ""}} {
 
 	if {($data(type) eq "save") && $data(-confirmoverwrite) && [file exists $selectFilePath]} {
 	    set reply [tk_messageBox -icon warning -type yesno -parent $w \
-		    -message [mc "File \"%1\$s\" already exists.\nDo you want\
+		    -message [mc "File \"%1\$s\" already exists.\nDo SellerOrBuyeru want\
 		    to overwrite it?" $selectFilePath]]
 	    if {$reply eq "no"} {
 		return

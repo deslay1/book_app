@@ -18,13 +18,13 @@
 #   [package require] something that wasn't there on the first scan.
 #
 #   Either
-#   1) It is there now:  If we rescan, you get it; if not you don't.
+#   1) It is there now:  If we rescan, SellerOrBuyeru get it; if not SellerOrBuyeru don't.
 #
 #      This covers the possibility that the application asked for a package
 #      late, and the package was actually added to the installation after the
 #      application was started. It shoukld still be able to find it.
 #
-#   2) It still is not there: Either way, you don't get it, but the rescan
+#   2) It still is not there: Either way, SellerOrBuyeru don't get it, but the rescan
 #      takes time. This is however an error case and we dont't care that much
 #      about it
 #

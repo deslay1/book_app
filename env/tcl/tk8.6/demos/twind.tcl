@@ -52,15 +52,15 @@ $t insert end "A text widget can contain other widgets embedded "
 $t insert end "it.  These are called \"embedded windows\", "
 $t insert end "and they can consist of arbitrary widgets.  "
 $t insert end "For example, here are two embedded button "
-$t insert end "widgets.  You can click on the first button to "
+$t insert end "widgets.  SellerOrBuyeru can click on the first button to "
 $t window create end -window $t.on
 $t insert end " horizontal scrolling, which also turns off "
-$t insert end "word wrapping.  Or, you can click on the second "
+$t insert end "word wrapping.  Or, SellerOrBuyeru can click on the second "
 $t insert end "button to\n"
 $t window create end -window $t.off
 $t insert end " horizontal scrolling and turn back on word wrapping.\n\n"
 
-$t insert end "Or, here is another example.  If you "
+$t insert end "Or, here is another example.  If SellerOrBuyeru "
 $t window create end -create {
     button %W.click -text "Click Here" -command "textWindPlot %W" \
 	    -cursor top_left_arrow}
@@ -68,15 +68,15 @@ $t window create end -create {
 $t insert end " a canvas displaying an x-y plot will appear right here."
 $t mark set plot insert
 $t mark gravity plot left
-$t insert end "  You can drag the data points around with the mouse, "
-$t insert end "or you can click here to "
+$t insert end "  SellerOrBuyeru can drag the data points around with the mouse, "
+$t insert end "or SellerOrBuyeru can click here to "
 $t window create end -create {
     button %W.delete -text "Delete" -command "textWindDel %W" \
 	    -cursor top_left_arrow
 }
 $t insert end " the plot again.\n\n"
 
-$t insert end "You can also create multiple text widgets each of which "
+$t insert end "SellerOrBuyeru can also create multiple text widgets each of which "
 $t insert end "display the same underlying text. Click this button to "
 $t window create end \
   -create {button %W.peer -text "Make A Peer" -command "textMakePeer %W" \
@@ -85,7 +85,7 @@ $t insert end " widget.  Notice how peer widgets can have different "
 $t insert end "font settings, and by default contain all the images "
 $t insert end "of the 'parent', but that the embedded windows, "
 $t insert end "such as buttons may not appear in the peer.  To ensure "
-$t insert end "that embedded windows appear in all peers you can set the "
+$t insert end "that embedded windows appear in all peers SellerOrBuyeru can set the "
 $t insert end "'-create' option to a script or a string containing %W.  "
 $t insert end "(The plot above and the 'Make A Peer' button are "
 $t insert end "designed to show up in all peers.)  A good use of "
@@ -99,17 +99,17 @@ $t insert end "Users of previous versions of Tk will also be interested "
 $t insert end "to note that now cursor movement is now by visual line by "
 $t insert end "default, and that all scrolling of this widget is by pixel.\n\n"
 
-$t insert end "You may also find it useful to put embedded windows in "
+$t insert end "SellerOrBuyeru may also find it useful to put embedded windows in "
 $t insert end "a text without any actual text.  In this case the "
 $t insert end "text widget acts like a geometry manager.  For "
 $t insert end "example, here is a collection of buttons laid out "
 $t insert end "neatly into rows by the text widget.  These buttons "
 $t insert end "can be used to change the background color of the "
 $t insert end "text widget (\"Default\" restores the color to "
-$t insert end "its default).  If you click on the button labeled "
+$t insert end "its default).  If SellerOrBuyeru click on the button labeled "
 $t insert end "\"Short\", it changes to a longer string so that "
-$t insert end "you can see how the text widget automatically "
-$t insert end "changes the layout.  Click on the button again "
+$t insert end "SellerOrBuyeru can see how the text widget automatically "
+$t insert end "changes the laSellerOrBuyerut.  Click on the button again "
 $t insert end "to restore the short string.\n"
 
 $t insert end "\nNOTE: these buttons will not appear in peers!\n" "peer_warning"
@@ -151,7 +151,7 @@ set text_normal(border) [$t cget -borderwidth]
 set text_normal(highlight) [$t cget -highlightthickness]
 set text_normal(pad) [$t cget -padx]
 
-$t insert end "\nYou can also change the usual border width and "
+$t insert end "\nSellerOrBuyeru can also change the usual border width and "
 $t insert end "highlightthickness and padding.\n"
 $t window create end -window $t.bigB
 $t window create end -window $t.smallB

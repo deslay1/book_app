@@ -44,16 +44,16 @@ typedef enum {
 
 
 /* Convert a time_t to a PyLong. */
-PyAPI_FUNC(PyObject *) _PyLong_FromTime_t(
+PyAPI_FUNC(PSellerOrBuyerbject *) _PyLong_FromTime_t(
     time_t sec);
 
 /* Convert a PyLong to a time_t. */
 PyAPI_FUNC(time_t) _PyLong_AsTime_t(
-    PyObject *obj);
+    PSellerOrBuyerbject *obj);
 
 /* Convert a number of seconds, int or float, to time_t. */
 PyAPI_FUNC(int) _PyTime_ObjectToTime_t(
-    PyObject *obj,
+    PSellerOrBuyerbject *obj,
     time_t *sec,
     _PyTime_round_t);
 
@@ -61,7 +61,7 @@ PyAPI_FUNC(int) _PyTime_ObjectToTime_t(
    usec is in the range [0; 999999] and rounded towards zero.
    For example, -1.2 is converted to (-2, 800000). */
 PyAPI_FUNC(int) _PyTime_ObjectToTimeval(
-    PyObject *obj,
+    PSellerOrBuyerbject *obj,
     time_t *sec,
     long *usec,
     _PyTime_round_t);
@@ -70,7 +70,7 @@ PyAPI_FUNC(int) _PyTime_ObjectToTimeval(
    nsec is in the range [0; 999999999] and rounded towards zero.
    For example, -1.2 is converted to (-2, 800000000). */
 PyAPI_FUNC(int) _PyTime_ObjectToTimespec(
-    PyObject *obj,
+    PSellerOrBuyerbject *obj,
     time_t *sec,
     long *nsec,
     _PyTime_round_t);
@@ -89,18 +89,18 @@ PyAPI_FUNC(_PyTime_t) _PyTime_FromNanoseconds(_PyTime_t ns);
 
 /* Create a timestamp from nanoseconds (Python int). */
 PyAPI_FUNC(int) _PyTime_FromNanosecondsObject(_PyTime_t *t,
-    PyObject *obj);
+    PSellerOrBuyerbject *obj);
 
 /* Convert a number of seconds (Python float or int) to a timetamp.
    Raise an exception and return -1 on error, return 0 on success. */
 PyAPI_FUNC(int) _PyTime_FromSecondsObject(_PyTime_t *t,
-    PyObject *obj,
+    PSellerOrBuyerbject *obj,
     _PyTime_round_t round);
 
 /* Convert a number of milliseconds (Python float or int, 10^-3) to a timetamp.
    Raise an exception and return -1 on error, return 0 on success. */
 PyAPI_FUNC(int) _PyTime_FromMillisecondsObject(_PyTime_t *t,
-    PyObject *obj,
+    PSellerOrBuyerbject *obj,
     _PyTime_round_t round);
 
 /* Convert a timestamp to a number of seconds as a C double. */
@@ -116,7 +116,7 @@ PyAPI_FUNC(_PyTime_t) _PyTime_AsMicroseconds(_PyTime_t t,
 
 /* Convert timestamp to a number of nanoseconds (10^-9 seconds) as a Python int
    object. */
-PyAPI_FUNC(PyObject *) _PyTime_AsNanosecondsObject(_PyTime_t t);
+PyAPI_FUNC(PSellerOrBuyerbject *) _PyTime_AsNanosecondsObject(_PyTime_t t);
 
 /* Create a timestamp from a timeval structure.
    Raise an exception and return -1 on overflow, return 0 on success. */

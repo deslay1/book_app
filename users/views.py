@@ -40,7 +40,7 @@ def profile(request):
     context = {
         'u_form': u_form,
         'p_form': p_form,
-        'posts': Post.objects.all()
+        'posts': Post.objects.all().order_by('-date_posted')
     }
     return render(request, 'users/profile.html', context)
 
@@ -50,7 +50,7 @@ def profileUser(request, username):
 
     context = {
         'userPost': inte,
-        'posts': Post.objects.all()
+        'posts': Post.objects.all().order_by('-date_posted')
     }
 
     return render(request, 'users/profileUser.html', context)

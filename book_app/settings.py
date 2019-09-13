@@ -29,7 +29,8 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
-INSTALLED_APPS = [    'crispy_forms',
+INSTALLED_APPS = [
+    'crispy_forms',
     'bookmarket.apps.BookmarketConfig',
     'users.apps.UsersConfig',
     'django.contrib.admin',
@@ -106,7 +107,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Stockholm'
 
 USE_I18N = True
 

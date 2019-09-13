@@ -12,20 +12,29 @@ from django.views.generic import (
     UpdateView,
     DeleteView
 )
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse, HttpResponseRedirect
+from django.db.models import Q
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
+
+
+
 
 def register(request):
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
     
-
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
-            messages.success(request, f'Your account has been created! SellerOrBuyeru are now able to log in')
+            messages.success(request, f'Your account has been created! SellerOrBuyer are now able to log in')
             return redirect('login')
     else:
         form = UserRegisterForm()
     return render(request, 'users/register.html', {'form': form})
+
+
 
 
 @login_required
@@ -40,37 +49,62 @@ def profile(request):
             p_form.save()
             messages.success(request, f'Your account has been updated!')
             return redirect('profile')
-
     else:
         u_form = UserUpdateForm(instance=request.user)
         p_form = ProfileUpdateForm(instance=request.user.profile)
 
+    posts = Post.objects.filter(Q(author=request.user)).distinct().order_by('-date_posted')
+    paginator = Paginator(posts, 2) 
+
+    page = request.GET.get('page')
+    try:
+        post_List = paginator.page(page)
+    except PageNotAnInteger:
+        post_List = paginator.page(1)
+    except EmptyPage:
+        post_List = paginator.page(paginator.num_pages)
+
     context = {
         'u_form': u_form,
         'p_form': p_form,
-        'posts': Post.objects.all()
+        'post_List': post_List
     }
-
     return render(request, 'users/profile.html', context)
 
 
 def profileUser(request, username):
     inte = int(username, 10)
+    posts = Post.objects.all()
 
+
+    for post in posts:
+        if post.id == inte:
+            posts = Post.objects.filter(Q(author=post.author)).distinct().order_by('-date_posted')
+
+    paginator = Paginator(posts, 2)
+
+
+    page = request.GET.get('page')
+    try:
+        post_List = paginator.page(page)
+    except PageNotAnInteger:
+        post_List = paginator.page(1)
+    except EmptyPage:
+        post_List = paginator.page(paginator.num_pages)
     context = {
         'userPost': inte,
-        'posts': Post.objects.all()
+        'posts': posts,
+        'post_List': post_List
+
     }
 
     return render(request, 'users/profileUser.html', context)
 
 
 def base(request):
-
     profile = Profile.objects.all().filter(user=request.user)
 
     context = {
         'profile': profile
     }
     return render(request, 'bookmarket/base.html', context)
-

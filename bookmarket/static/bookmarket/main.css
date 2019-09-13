@@ -38,7 +38,8 @@ ul {
 
 .bg-red {
     background-color: #a33003;
-    background: linear-gradient(to right, rgb(207, 75, 75), rgb(192, 57, 3), rgb(207, 75, 75));
+    /* background: linear-gradient(to right, rgb(207, 75, 75), rgb(192, 57, 3), rgb(207, 75, 75)); */
+    background: linear-gradient(to right, rgb(192, 57, 3), rgb(207, 75, 75), rgb(192, 57, 3));
 }
 
 .site-header .navbar-nav .nav-link {
@@ -216,4 +217,8 @@ a.article-title:hover {
     to {
         opacity: 1;
     }
+}
+
+.carousel {
+    background-color: black;
 }

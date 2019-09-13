@@ -5,7 +5,13 @@ from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
 from bookmarket.models import Post
 from .models import Profile
 from django.http import HttpResponse
-
+from django.views.generic import (
+    ListView,
+    DetailView,
+    CreateView,
+    UpdateView,
+    DeleteView
+)
 
 def register(request):
     if request.method == 'POST':
@@ -53,7 +59,6 @@ def profileUser(request, username):
 
     context = {
         'userPost': inte,
-      
         'posts': Post.objects.all()
     }
 
@@ -68,3 +73,4 @@ def base(request):
         'profile': profile
     }
     return render(request, 'bookmarket/base.html', context)
+

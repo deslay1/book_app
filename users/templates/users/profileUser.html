@@ -5,7 +5,7 @@
 <div class="content-section">
   {% for poste in posts %}
 
-  {% if poste.id == userPost %}
+  {% if poste.author is not user %}
 
 
   <div class="content-section">

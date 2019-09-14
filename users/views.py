@@ -5,6 +5,8 @@ from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
 from bookmarket.models import Post
 from .models import Profile
 from django.http import HttpResponse
+from django.db.models import Q
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 def register(request):
@@ -27,8 +29,8 @@ def profile(request):
         
         u_form = UserUpdateForm(request.POST, instance=request.user)
         p_form = ProfileUpdateForm(request.POST,request.FILES,instance=request.user.profile)
+        
         if u_form.is_valid() and p_form.is_valid():
-            
             u_form.save()
             p_form.save()
             messages.success(request, f'Your account has been updated!')
@@ -37,20 +39,44 @@ def profile(request):
         u_form = UserUpdateForm(instance=request.user)
         p_form = ProfileUpdateForm(instance=request.user.profile)
 
+    posts = Post.objects.filter(Q(author=request.user)).distinct().order_by('-date_posted')
+    paginator = Paginator(posts, 2)
+    page = request.GET.get('page')
+    try:
+        post_List = paginator.page(page)
+    except PageNotAnInteger:
+        post_List = paginator.page(1)
+    except EmptyPage:
+        post_List = paginator.page(paginator.num_pages)
+
     context = {
         'u_form': u_form,
         'p_form': p_form,
-        'posts': Post.objects.all().order_by('-date_posted')
+        'post_List': post_List
     }
     return render(request, 'users/profile.html', context)
 
 
 def profileUser(request, username):
     inte = int(username, 10)
+    posts = Post.objects.all()
+
+    for post in posts:
+        posts = Post.objects.filter(Q(author=post.author)).distinct().order_by('-date_posted')
+
+    paginator = Paginator(posts, 2)
+    page = request.GET.get('page')
+    try:
+        post_List = paginator.page(page)
+    except PageNotAnInteger:
+        post_List = paginator.page(1)
+    except EmptyPage:
+        post_List = paginator.page(paginator.num_pages)
 
     context = {
         'userPost': inte,
-        'posts': Post.objects.all().order_by('-date_posted')
+        'posts': posts,
+        'post_List': post_List
     }
 
     return render(request, 'users/profileUser.html', context)

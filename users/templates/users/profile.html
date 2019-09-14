@@ -31,7 +31,12 @@
           <div class="post-admin">
             <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}" />
             {% if post.author == user %}
+            {% if post.author.last_name %}
             <a class="mr-2" href="/profile/">{{ post.author.last_name }}</a>
+            {% else %}
+            <a class="mr-2" href="/profile/">{{ post.author }}</a>
+            {% endif %}
+            <h2 class="article-title">{{ post.SellerOrBuyer }}</h2>
             <small class="text-muted">{{ post.date_posted|date:"F d, Y H:i" }}</small>
           </div>
           <div class="post-button">
@@ -61,6 +66,9 @@
             <h4 class="post-price">{{ post.price }} kr</h4>
           </div>
           <p class="article-content">{{ post.content }}</p>
+          {% if post.image.url == "/media/default.jpg" %}
+          <h5 id="no-images">User has no images to display</h5>
+          {% else %}
           <div class="carousel">
             <div id="carousel-post-images" class="carousel slide" data-ride="carousel">
               <ol class="carousel-indicators">
@@ -102,6 +110,7 @@
               {% endif %}
             </div>
           </div>
+          {% endif %}
           <a href="{% url 'post-detail' post.id %}">Comments: {{ post.comments.count }}</a>
         </div>
     </article>

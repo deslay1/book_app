@@ -19,6 +19,8 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 
+from django.db.models import Q
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 def register(request):
@@ -43,8 +45,8 @@ def profile(request):
         
         u_form = UserUpdateForm(request.POST, instance=request.user)
         p_form = ProfileUpdateForm(request.POST,request.FILES,instance=request.user.profile)
+        
         if u_form.is_valid() and p_form.is_valid():
-            
             u_form.save()
             p_form.save()
             messages.success(request, f'Your account has been updated!')
@@ -54,8 +56,7 @@ def profile(request):
         p_form = ProfileUpdateForm(instance=request.user.profile)
 
     posts = Post.objects.filter(Q(author=request.user)).distinct().order_by('-date_posted')
-    paginator = Paginator(posts, 2) 
-
+    paginator = Paginator(posts, 2)
     page = request.GET.get('page')
     try:
         post_List = paginator.page(page)
@@ -95,7 +96,6 @@ def profileUser(request, username):
         'userPost': inte,
         'posts': posts,
         'post_List': post_List
-
     }
 
     return render(request, 'users/profileUser.html', context)

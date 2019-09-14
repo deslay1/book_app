@@ -19,10 +19,14 @@
         {% endif %}
         {% endif %}
         <small class="text-muted">{{ object.date_posted|date:"F d, Y H:i" }}</small>
+        {% if post.author == user %}
+
         <div class="post-button">
           <a class="btn btn-primary active btn-sm mt-1 mb-1" href="{% url 'post-update' post.id %}">Update</a>
           <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-delete' post.id %}">Delete</a>
         </div>
+        {% endif%}
+
       </div>
     </div>
     <div class="post-information">

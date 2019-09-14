@@ -62,7 +62,7 @@
           {% endif %}
         </div> -->
         <div class="carousel">
-          <div id="carousel-post-images" class="carousel slide" data-ride="carousel">
+          <div id="carousel-{{post.id}}" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">
               {% if post.image and post.image2 %}
               <li data-target="#carousel-post-images" data-slide-to="0" class="active"></li>
@@ -91,11 +91,11 @@
               {% endif %}
             </div>
             {% if post.image2 or post.image3 %}
-            <a class="carousel-control-prev" href="#carousel-post-images" role="button" data-slide="prev">
+            <a class="carousel-control-prev" href="#carousel-{{post.id}}" role="button" data-slide="prev">
               <span class="carousel-control-prev-icon" aria-hidden="true"></span>
               <span class="sr-only">Previous</span>
             </a>
-            <a class="carousel-control-next" href="#carousel-post-images" role="button" data-slide="next">
+            <a class="carousel-control-next" href="#carousel-{{post.id}}" role="button" data-slide="next">
               <span class="carousel-control-next-icon" aria-hidden="true"></span>
               <span class="sr-only">Next</span>
             </a>
@@ -164,19 +164,10 @@
           <h4 class="post-price">{{ post.price }} kr</h4>
         </div>
         <p class="article-content">{{ post.content }}</p>
-        <!-- <div class="post-image">
-            {% if post.image %}
-            <img src="{{ post.image.url }}" width="200" height="200" alt="Post image" class="center" />
-            {% endif %}
-            {% if post.image2 %}
-            <img src="{{ post.image2.url }}" width="200" height="200" alt="Post image" class="center" />
-            {% endif %}
-            {% if post.image3 %}
-            <img src="{{ post.image3.url }}" width="200" height="200" alt="Post image" class="center" />
-            {% endif %}
-          </div> -->
+
+
         <div class="carousel">
-          <div id="carousel-post-images" class="carousel slide" data-ride="carousel">
+          <div id="carousel-{{post.id}}" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">
               {% if post.image and post.image2 %}
               <li data-target="#carousel-post-images" data-slide-to="0" class="active"></li>
@@ -187,6 +178,7 @@
               {% endif %}
             </ol>
             <div class="carousel-inner">
+
               {% if post.image %}
               <div class="carousel-item active">
                 <img class="d-block w-100" src="{{ post.image.url }}" width="200" height="400" alt="First slide"
@@ -205,17 +197,18 @@
               {% endif %}
             </div>
             {% if post.image2 or post.image3 %}
-            <a class="carousel-control-prev" href="#carousel-post-images" role="button" data-slide="prev">
+            <a class="carousel-control-prev" href="#carousel-{{post.id}}" role="button" data-slide="prev">
               <span class="carousel-control-prev-icon" aria-hidden="true"></span>
               <span class="sr-only">Previous</span>
             </a>
-            <a class="carousel-control-next" href="#carousel-post-images" role="button" data-slide="next">
+            <a class="carousel-control-next" href="#carousel-{{post.id}}" {{post.id}} role="button" data-slide="next">
               <span class="carousel-control-next-icon" aria-hidden="true"></span>
               <span class="sr-only">Next</span>
             </a>
             {% endif %}
           </div>
         </div>
+
 
         <a href="{% url 'post-detail' post.id %}">Comments: {{ post.comments.count }}</a>
       </div>

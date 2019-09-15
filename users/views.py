@@ -7,6 +7,7 @@ from .models import Profile
 from django.http import HttpResponse
 from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core.mail import send_mail
 
 
 def register(request):
@@ -89,3 +90,13 @@ def base(request):
         'profile': profile
     }
     return render(request, 'bookmarket/base.html', context)
+
+
+def index(request):
+    send_mail('Hello from me',
+    'Hello there. this is an automated message.',
+    'book.market.bm@gmail.com',
+    ['book.market.bm@gmail.com'],
+    fail_silently=False)
+    return render(request, 'users/index.html')
+

@@ -3,7 +3,7 @@ from django.views.generic import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.decorators import login_required
 from .forms import PostForm, CommentForm, MessageForm
-from .models import Post
+from .models import Post, Message
 from django.http import HttpResponse, HttpResponseRedirect
 from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -87,13 +87,23 @@ def home(request):
 
 
 def show_message(request):
+    posts = Message.objects.all().filter(
+        Q(comuser=request.user)).order_by('-date_posted')
 
+    paginator = Paginator(posts, 5)
+
+    page = request.GET.get('page')
+    try:
+        post_List = paginator.page(page)
+    except PageNotAnInteger:
+        post_List = paginator.page(1)
+    except EmptyPage:
+        post_List = paginator.page(paginator.num_pages)
     context = {
-        'posts': Post.objects.all().filter(
-            Q(author=request.user)).order_by('-date_posted')
-        # 'posts': get_queryset(query),
-        # 'query': str(query)
+
+        'post_List': post_List
     }
+
     return render(request, 'bookmarket/show_messages.html', context)
 
 

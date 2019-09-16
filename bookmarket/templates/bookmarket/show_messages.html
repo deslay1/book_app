@@ -1,13 +1,17 @@
 {% extends "bookmarket/base.html" %}
 {% block content %}
-<div>
-    {% for post in posts %}
-    {% for message in post.messages.all %}
+<article class="media content-section">
+    <div class="media-body">
 
-    <div class="col-sm-12">
-        <div class="card bg-light">
-            <div class="card-header">
 
+
+
+
+        {% for message in post_List %}
+        <article class="media content-section">
+
+
+            <div>
                 {% if message.comuser %}
                 Message from <a href="/profile/"> {{ message.comuser.first_name }}
                     {{ message.comuser.last_name }}</a> regarding
@@ -16,16 +20,54 @@
 
                 {% else %}
                 {% endif %}
-                <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-detail' post.id %}">This post</a>
+                <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-detail' message.post.id %}">This
+                    post</a>
                 {% endif %}
                 <small>{{ message.date_posted|date:"M d, H:i" }}</small>
+                <br>
+
+                <div class="new">
+                    <h2 class="account-heading">{{message.content }}</h2>
+                </div>
             </div>
-            <div class="card-body">
-                <p>{{ message.content }}</p>
-            </div>
-        </div>
+
+
+
+
+
+
+        </article>
+
+        {%endfor%}
+
+
+
+
+        {% if post_List %}
+        {% if post_List.has_previous %}
+        <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
+        <a class="btn btn-outline-info mb-4" href="?page={{ post_List.previous_page_number }}">Previous</a>
+        {% endif %}
+        {% for num in post_List.paginator.page_range %}
+        {% if post_List.number == num %}
+        <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+        {% elif num > post_List.number|add:'-3' and num < post_List.number|add:'3' %}
+        <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+        {% endif %}
+        {% endfor %}
+        {% if post_List.has_next %}
+        <a class="btn btn-outline-info mb-4" href="?page={{ post_List.next_page_number }}">Next</a>
+        <a class="btn btn-outline-info mb-4" href="?page={{ post_List.paginator.num_pages }}">Last</a>
+        {% endif %}
+        {% endif %}
+
+
+
+
+
+
     </div>
-    {% endfor %}
-    {%endfor%}
-</div>
+</article>
+
+
 {% endblock content %}

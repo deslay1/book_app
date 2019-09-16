@@ -3,11 +3,13 @@
 {% block content %}
 <div class="content-section">
   <div class="media">
-    <img class="rounded-circle account-img" src="{{ user.profile.image.url }}">
+    {% if user.profile.image.url == "/media/default.jpg" %}
+    <h5 id="no-images">You dont <br> have a profile <br> picture yet</h5>
+
+
+    {% else %} <img class="rounded-circle account-img" src="{{ user.profile.image.url }}">
+    {% endif %}
     <div class="media-body">
-      <h2 class="account-heading">{{ user.last_name }}</h2>
-      <p class="text-secondary">{{ user.first_name }}</p>
-      <p class="text-secondary">{{ user.profile }}</p>
     </div>
   </div>
   <form method="POST" enctype="multipart/form-data">
@@ -29,6 +31,8 @@
       <div class="media-body">
         <div class="article-metadata">
           <div class="post-admin">
+            <a class="btn btn-secondary btn-sm mt-1 mb-1">{{post.message.content}}</a>
+
             <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}" />
             {% if post.author == user %}
             {% if post.author.last_name %}
@@ -61,6 +65,8 @@
             <div id="container">
               <p style="float: right;box-shadow: skyblue;">{{ post.SellerOrBuyer }}</p>
             </div>
+            <h2 class="account-heading">{{ post.messages.content }}</h2>
+
             <h2 class="article-title">{{ post.title }}</h2>
             <h4 class="post-price">{{ post.price }} kr</h4>
           </div>

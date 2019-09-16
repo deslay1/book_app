@@ -99,6 +99,7 @@
       {% endif %}
       <a id="add-comment-button" class="btn btn-primary active" href="{% url 'add-comment-to-post' post.id %}">Add
         comment</a>
+
     </div>
     {% endif %}
     {% for comment in post.comments.all %}
@@ -107,8 +108,8 @@
         <div class="card-header">
           {% if comment.comuser %}
           <img class="rounded-circle article-img" src="{{ comment.comuser.profile.image.url }}">
-          {% if comment.comuser.last_name %}
-          <a href="/profile/">{{ comment.comuser.last_name }}</a>
+          {% if comment.comuser.first_name %}
+          <a href="/profile/">{{ comment.comuser.last_name }} {{ comment.comuser.last_name }}</a>
           {% else %}
           <a href="/profile/">{{ comment.comuser }}</a>
           {% endif %}

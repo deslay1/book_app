@@ -12,11 +12,12 @@ from django.views.generic import (
     UpdateView,
     DeleteView
 )
+from django.shortcuts import render, get_object_or_404, redirect
+
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
 from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-
 
 
 from django.db.models import Q
@@ -26,26 +27,26 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 def register(request):
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
-    
+
         if form.is_valid():
             form.save()
-            username = form.cleaned_data.get('username')
-            messages.success(request, f'Your account has been created! SellerOrBuyer are now able to log in')
+            username = form.cleaned_data.get('email')
+            messages.success(
+                request, f'Your account has been created! SellerOrBuyer are now able to log in')
             return redirect('login')
     else:
         form = UserRegisterForm()
     return render(request, 'users/register.html', {'form': form})
 
 
-
-
 @login_required
 def profile(request):
     if request.method == 'POST':
-        
+
         u_form = UserUpdateForm(request.POST, instance=request.user)
-        p_form = ProfileUpdateForm(request.POST,request.FILES,instance=request.user.profile)
-        
+        p_form = ProfileUpdateForm(
+            request.POST, request.FILES, instance=request.user.profile)
+
         if u_form.is_valid() and p_form.is_valid():
             u_form.save()
             p_form.save()
@@ -55,7 +56,8 @@ def profile(request):
         u_form = UserUpdateForm(instance=request.user)
         p_form = ProfileUpdateForm(instance=request.user.profile)
 
-    posts = Post.objects.filter(Q(author=request.user)).distinct().order_by('-date_posted')
+    posts = Post.objects.filter(
+        Q(author=request.user)).distinct().order_by('-date_posted')
     paginator = Paginator(posts, 2)
     page = request.GET.get('page')
     try:
@@ -76,14 +78,15 @@ def profile(request):
 def profileUser(request, username):
     inte = int(username, 10)
     posts = Post.objects.all()
-
+    authors = "hey"
 
     for post in posts:
         if post.id == inte:
-            posts = Post.objects.filter(Q(author=post.author)).distinct().order_by('-date_posted')
+            posts = Post.objects.filter(
+                Q(author=post.author)).distinct().order_by('-date_posted')
+            authors = post.author
 
     paginator = Paginator(posts, 2)
-
 
     page = request.GET.get('page')
     try:
@@ -95,6 +98,7 @@ def profileUser(request, username):
     context = {
         'userPost': inte,
         'posts': posts,
+        'authors': authors,
         'post_List': post_List
     }
 

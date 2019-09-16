@@ -25,7 +25,14 @@
         <div class="post-admin">
           <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}" />
           {% if post.author == user %}
-          <a class="mr-2" href="/profile/">{{ post.author.last_name }}</a>
+          {% if post.first_name %}
+          <a class="mr-2" href="/profile/">{{ post.author.first_name }} {{ post.author.last_name }}</a>
+
+
+          {% else %}
+          <a class="mr-2" href="/profile/">{{ post.author}} </a>
+
+          {% endif %}
           <small class="text-muted">{{ post.date_posted|date:"F d, Y H:i" }}</small>
         </div>
         <div class="post-button">
@@ -36,7 +43,14 @@
 
         {% else %}
         <div>
-          <a class="mr-2" href="profileUser/{{post.id}}">{{ post.author.last_name }}</a>
+          {% if post.first_name %}
+          <a class="mr-2" href="profileUser/{{post.id}}">{{ post.author.first_name }} {{ post.author.last_name }}</a>
+
+          {% else %}
+          <a class="mr-2" href="profileUser/{{post.id}}">{{ post.author }}</a>
+
+          {% endif %}
+
           <small class="text-muted">{{ post.date_posted|date:"F d, Y H:i" }}</small>
           <div class="post-button">
             <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-detail' post.id %}">View post</a>
@@ -139,7 +153,13 @@
         <div class="post-admin">
           <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}" />
           {% if post.author == user %}
-          <a class="mr-2" href="/profile/">{{ post.author.last_name }}</a>
+          {% if post.author.first_name %}
+          <a class="mr-2" href="/profile/">{{ post.author.first_name }} {{ post.author.last_name }}</a>
+          {% else %}
+          <a class="mr-2" href="/profile/">{{ post.author }}</a>
+
+          {% endif %}
+
           <small class="text-muted">{{ post.date_posted|date:"F d, Y H:i" }}</small>
         </div>
         <div class="post-button">
@@ -150,7 +170,11 @@
 
         {% else %}
         <div>
-          <a class="mr-2" href="profileUser/{{post.id}}">{{ post.author.last_name }}</a>
+          {% if post.author.first_name %}
+          <a class="mr-2" href="profileUser/{{post.id}}">{{ post.author.first_name }} {{ post.author.last_name }}</a>
+          {% else %}
+          <a class="mr-2" href="profileUser/{{post.id}}">{{ post.author }}</a>
+          {% endif %}
           <small class="text-muted">{{ post.date_posted|date:"F d, Y H:i" }}</small>
           <div class="post-button">
             <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-detail' post.id %}">View post</a>
@@ -164,7 +188,9 @@
           <h4 class="post-price">{{ post.price }} kr</h4>
         </div>
         <p class="article-content">{{ post.content }}</p>
-
+        {% if post.image.url == "/media/default.jpg" %}
+        <h5 id="no-images">User has no images to display</h5>
+        {% else %}
 
         <div class="carousel">
           <div id="carousel-{{post.id}}" class="carousel slide" data-ride="carousel">
@@ -208,9 +234,10 @@
             {% endif %}
           </div>
         </div>
-
-
+        {% endif %}
         <a href="{% url 'post-detail' post.id %}">Comments: {{ post.comments.count }}</a>
+        <div> <a href="{% url 'send_message_to_user' post.id %}">Send message</a>
+        </div>
       </div>
       {% endif %}
   </article>

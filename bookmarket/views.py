@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.decorators import login_required
-from .forms import PostForm, CommentForm
+from .forms import PostForm, CommentForm, MessageForm
 from .models import Post
 from django.http import HttpResponse, HttpResponseRedirect
 from django.db.models import Q
@@ -56,6 +56,24 @@ def add_comment_to_post(request, pk):
         form = CommentForm()
     return render(request, 'bookmarket/add_comment.html', {'form': form})
 
+
+@login_required(login_url='login')
+def add_message_to_post(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    if request.method == "POST":
+        form = MessageForm(request.POST)
+        if form.is_valid():
+            message = form.save(commit=False)
+            message.post = post
+            message.comuser = request.user
+            message.save()
+
+            return redirect('post-detail', pk=post.pk)
+    else:
+        form = MessageForm()
+    return render(request, 'bookmarket/add_message.html', {'form': form, 'userAu': post.author})
+
+
 def home(request):
     query = request.GET['q']
 
@@ -68,26 +86,36 @@ def home(request):
     return render(request, 'bookmarket/home.html', context)
 
 
+def show_message(request):
+
+    context = {
+        'posts': Post.objects.all().filter(
+            Q(author=request.user)).order_by('-date_posted')
+        # 'posts': get_queryset(query),
+        # 'query': str(query)
+    }
+    return render(request, 'bookmarket/show_messages.html', context)
+
+
 class PostListView(ListView):
     model = Post
     template_name = 'bookmarket/home.html'  # <app>/<model>_<viewtype>.html
     context_object_name = 'posts'
     ordering = ['-date_posted']
-    paginate_by = 3
-    
-    
+    paginate_by = 2
 
     # Detta är för paginator och sökfältet
+
     def get_context_data(self, **kwargs):
         context = super(PostListView, self).get_context_data(**kwargs)
 
         object_list1 = self.model.objects.filter(
-                    Q(SellerOrBuyer__icontains="Sell")
-                ).distinct().order_by('-date_posted')
-       
+            Q(SellerOrBuyer__icontains="Sell")
+        ).distinct().order_by('-date_posted')
+
         object_list2 = self.model.objects.filter(
-                    Q(SellerOrBuyer__icontains="Buy")
-                ).distinct().order_by('-date_posted')
+            Q(SellerOrBuyer__icontains="Buy")
+        ).distinct().order_by('-date_posted')
 
         query = self.request.GET.get('q')
         if query:
@@ -105,7 +133,7 @@ class PostListView(ListView):
 
         paginator = Paginator(object_list1, self.paginate_by)
         page = self.request.GET.get('page')
-        
+
         try:
             object_list1 = paginator.page(page)
         except PageNotAnInteger:
@@ -128,6 +156,63 @@ class PostListView(ListView):
         return context
 
 
+class PostListView(ListView):
+    model = Post
+    template_name = 'bookmarket/home.html'  # <app>/<model>_<viewtype>.html
+    context_object_name = 'posts'
+    ordering = ['-date_posted']
+    paginate_by = 2
+
+    # Detta är för paginator och sökfältet
+
+    def get_context_data(self, **kwargs):
+        context = super(PostListView, self).get_context_data(**kwargs)
+
+        object_list1 = self.model.objects.filter(
+            Q(SellerOrBuyer__icontains="Sell")
+        ).distinct().order_by('-date_posted')
+
+        object_list2 = self.model.objects.filter(
+            Q(SellerOrBuyer__icontains="Buy")
+        ).distinct().order_by('-date_posted')
+
+        query = self.request.GET.get('q')
+        if query:
+            queries = query.split(" ")
+            for q in queries:
+                object_list1 = object_list1.filter(
+                    Q(title__icontains=q) |
+                    Q(content__icontains=q)
+                ).distinct().order_by('-date_posted')
+
+                object_list2 = object_list2.filter(
+                    Q(title__icontains=q) |
+                    Q(content__icontains=q)
+                ).distinct().order_by('-date_posted')
+
+        paginator = Paginator(object_list1, self.paginate_by)
+        page = self.request.GET.get('page')
+
+        try:
+            object_list1 = paginator.page(page)
+        except PageNotAnInteger:
+            object_list1 = paginator.page(1)
+        except EmptyPage:
+            object_list1 = paginator.page(paginator.num_pages)
+
+        paginator = Paginator(object_list2, self.paginate_by)
+        page = self.request.GET.get('page2')
+
+        try:
+            object_list2 = paginator.page(page)
+        except PageNotAnInteger:
+            object_list2 = paginator.page(1)
+        except EmptyPage:
+            object_list2 = paginator.page(paginator.num_pages)
+
+        context = {'buyers': object_list2, 'sellers': object_list1}
+        # Add any other variables to the context here
+        return context
 
 
 class PostDetailView(DetailView):
@@ -136,17 +221,18 @@ class PostDetailView(DetailView):
 
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
-    fields = ['title', 'content', 'image', 'image2', 'image3', 'price', 'SellerOrBuyer']
+    fields = ['title', 'content', 'image', 'image2',
+              'image3', 'price', 'SellerOrBuyer']
 
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
 
 
-
 class PostUpdateView(LoginRequiredMixin, UpdateView, UserPassesTestMixin):
     model = Post
-    fields = ['title', 'content', 'image', 'image2', 'image3', 'price', 'SellerOrBuyer']
+    fields = ['title', 'content', 'image', 'image2',
+              'image3', 'price', 'SellerOrBuyer']
 
     def form_valid(self, form):
         form.instance.author = self.request.user

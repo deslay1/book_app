@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from PIL import Image
 from django.db import models
+from phonenumber_field.modelfields import PhoneNumberField
+from django.utils import timezone
 
 
 class Profile(models.Model):

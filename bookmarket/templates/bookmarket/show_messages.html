@@ -1,0 +1,31 @@
+{% extends "bookmarket/base.html" %}
+{% block content %}
+<div>
+    {% for post in posts %}
+    {% for message in post.messages.all %}
+
+    <div class="col-sm-12">
+        <div class="card bg-light">
+            <div class="card-header">
+
+                {% if message.comuser %}
+                Message from <a href="/profile/"> {{ message.comuser.first_name }}
+                    {{ message.comuser.last_name }}</a> regarding
+                <img class="rounded-circle article-img" src="{{ message.comuser.profile.image.url }}">
+                {% if message.comuser.first_name %}
+
+                {% else %}
+                {% endif %}
+                <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-detail' post.id %}">This post</a>
+                {% endif %}
+                <small>{{ message.date_posted|date:"M d, H:i" }}</small>
+            </div>
+            <div class="card-body">
+                <p>{{ message.content }}</p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    {%endfor%}
+</div>
+{% endblock content %}

@@ -2,24 +2,27 @@
 {% load crispy_forms_tags %}
 {% block content %}
 <div class="content-section">
-  {% for poste in posts %}
 
-  {% if poste.author is not user %}
+
 
 
   <div class="content-section">
     <div class="media">
-      <img class="rounded-circle account-img" src="{{  poste.author.profile.image.url }}">
+      <img class="rounded-circle account-img" src="{{ authors.profile.image.url }}">
       <div class="media-body">
-        <h2 class="account-heading">{{ poste.author.last_name  }}</h2>
-        <p class="text-secondary"> {{ poste.author.first_name }}</p>
-        <p class="text-secondary"> {{ poste.author.profile }}</p>
+        {% if authors.first_name %}
+        <h2 class="account-heading">{{ authors.first_name }} {{ authors.last_name  }}</h2>
+        {% else %}
+        <h2 class="account-heading">{{ authors }}</h2>
+
+        {% endif %}
+        <p class="text-secondary"> {{ authors.email }}</p>
       </div>
     </div>
   </div>
   <div>
     {% for post in post_List %}
-    {% if post.author == poste.author %}
+
     <article class="media content-section">
       <div class="media-body">
         <div class="article-metadata">
@@ -32,6 +35,10 @@
         </div>
         <h2><a class="article-title">{{ post.title }}</a></h2>
         <p class="article-content">{{ post.content }}</p>
+
+        {% if post.image.url == "/media/default.jpg" %}
+        <h5 id="no-images">User has no images to display</h5>
+        {% else %}
         <div class="carousel">
           <div id="carousel-{{post.id}}" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">
@@ -73,12 +80,12 @@
             {% endif %}
           </div>
         </div>
+        {% endif %}
+
         <a href="{% url 'post-detail' post.id %}">Comments: {{ post.comments.count }}</a>
       </div>
     </article>
-    {% endif %}
-    {% endfor %}
-    {% endif %}
+
     {% endfor %}
 
     {% if post_List %}

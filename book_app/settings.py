@@ -25,18 +25,20 @@ SECRET_KEY = '@i3uvea7r3#cvp$r6mfmxcw33nlecg9c6x&wd#4a8%t)4dux6o'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ASGI_APPLICATION = 'book_app.routing.application'
 # Application definition
 
 INSTALLED_APPS = [
     'crispy_forms',
     'bookmarket.apps.BookmarketConfig',
+    'django.contrib.sessions',
+
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+
     'users.apps.UsersConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.staticfiles',
     'django.contrib.sites',
     'django_use_email_as_username.apps.DjangoUseEmailAsUsernameConfig',
     'allauth',
@@ -151,5 +153,10 @@ LOGIN_REDIRECT_URL = 'app-home'
 LOGIN_URL = 'login'
 LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'
-
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'bookseller12349@gmail.com'
+EMAIL_HOST_PASSWORD = 'tobias97123'
 SITE_ID = 1

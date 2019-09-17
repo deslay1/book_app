@@ -3,7 +3,7 @@ from django.views.generic import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.decorators import login_required
 from .forms import PostForm, CommentForm, MessageForm
-from .models import Post, Message
+from .models import Post, Message, Comment
 from django.http import HttpResponse, HttpResponseRedirect
 from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -14,6 +14,8 @@ from django.views.generic import (
     UpdateView,
     DeleteView
 )
+from django.core.mail import send_mail
+from django.conf import settings
 
 
 def post_create(request):
@@ -51,15 +53,45 @@ def add_comment_to_post(request, pk):
             comment.post = post
             comment.comuser = request.user
             comment.save()
+            subject = 'Comment recieved in Bookmarket'
+            message = (
+                'You just got a comment on one of your posts, check it out!' "\n" 'http://localhost:8000/post/'+str(post.id)+'/')
+            email_from = settings.EMAIL_HOST_USER
+            recipient_list = [post.author.email, ]
+            send_mail(subject, message, email_from, recipient_list)
             return redirect('post-detail', pk=post.pk)
     else:
         form = CommentForm()
     return render(request, 'bookmarket/add_comment.html', {'form': form})
 
 
+def post_detail(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    posts = Comment.objects.all().filter(
+        Q(comuser=request.user)).order_by('-date_posted')
+
+    paginator = Paginator(posts, 5)
+
+    page = request.GET.get('page')
+    try:
+        post_List = paginator.page(page)
+    except PageNotAnInteger:
+        post_List = paginator.page(1)
+    except EmptyPage:
+        post_List = paginator.page(paginator.num_pages)
+    context = {
+
+        'post_List': post_List
+    }
+
+    return render(request, 'bookmarket/post_detail.html', {'comments': post_List,
+                                                           'post': post})
+
+
 @login_required(login_url='login')
 def add_message_to_post(request, pk):
     post = get_object_or_404(Post, pk=pk)
+
     if request.method == "POST":
         form = MessageForm(request.POST)
         if form.is_valid():
@@ -67,7 +99,12 @@ def add_message_to_post(request, pk):
             message.post = post
             message.comuser = request.user
             message.save()
-
+            subject = 'Message recieved in Bookmarket'
+            message = (
+                'You just got a message regarding one of your posts, check it out!' "\n" 'http://localhost:8000/show_message/')
+            email_from = settings.EMAIL_HOST_USER
+            recipient_list = [post.author.email, ]
+            send_mail(subject, message, email_from, recipient_list)
             return redirect('post-detail', pk=post.pk)
     else:
         form = MessageForm()
@@ -86,6 +123,7 @@ def home(request):
     return render(request, 'bookmarket/home.html', context)
 
 
+@login_required(login_url='login')
 def show_message(request):
     posts = Message.objects.all().filter(
         Q(comuser=request.user)).order_by('-date_posted')
@@ -166,67 +204,31 @@ class PostListView(ListView):
         return context
 
 
-class PostListView(ListView):
+class PostDetailView(DetailView):
     model = Post
-    template_name = 'bookmarket/home.html'  # <app>/<model>_<viewtype>.html
+    template_name = 'bookmarket/post_detail.html'  # <app>/<model>_<viewtype>.html
     context_object_name = 'posts'
     ordering = ['-date_posted']
     paginate_by = 2
 
-    # Detta är för paginator och sökfältet
-
     def get_context_data(self, **kwargs):
-        context = super(PostListView, self).get_context_data(**kwargs)
+        context = super(PostDetailView, self).get_context_data(**kwargs)
+        posts = Comment.objects.all().filter(
+            Q(comuser=self.request.user)).order_by('-date_posted')
 
-        object_list1 = self.model.objects.filter(
-            Q(SellerOrBuyer__icontains="Sell")
-        ).distinct().order_by('-date_posted')
-
-        object_list2 = self.model.objects.filter(
-            Q(SellerOrBuyer__icontains="Buy")
-        ).distinct().order_by('-date_posted')
-
-        query = self.request.GET.get('q')
-        if query:
-            queries = query.split(" ")
-            for q in queries:
-                object_list1 = object_list1.filter(
-                    Q(title__icontains=q) |
-                    Q(content__icontains=q)
-                ).distinct().order_by('-date_posted')
-
-                object_list2 = object_list2.filter(
-                    Q(title__icontains=q) |
-                    Q(content__icontains=q)
-                ).distinct().order_by('-date_posted')
-
-        paginator = Paginator(object_list1, self.paginate_by)
+        paginator = Paginator(posts, self.paginate_by)
         page = self.request.GET.get('page')
 
         try:
-            object_list1 = paginator.page(page)
+            posts = paginator.page(page)
         except PageNotAnInteger:
-            object_list1 = paginator.page(1)
+            posts = paginator.page(1)
         except EmptyPage:
-            object_list1 = paginator.page(paginator.num_pages)
+            posts = paginator.page(paginator.num_pages)
 
-        paginator = Paginator(object_list2, self.paginate_by)
-        page = self.request.GET.get('page2')
-
-        try:
-            object_list2 = paginator.page(page)
-        except PageNotAnInteger:
-            object_list2 = paginator.page(1)
-        except EmptyPage:
-            object_list2 = paginator.page(paginator.num_pages)
-
-        context = {'buyers': object_list2, 'sellers': object_list1}
+        context = {'comments': posts, 'post': post}
         # Add any other variables to the context here
         return context
-
-
-class PostDetailView(DetailView):
-    model = Post
 
 
 class PostCreateView(LoginRequiredMixin, CreateView):

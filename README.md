@@ -52,3 +52,14 @@ Commiting and pushing to remote repo:
 - git merge "branch"
 ```
 **Solve eventual conflicts by opening important unstaged files (files that are not associated with the database or end with .pyc)**
+
+## Going back to a commit
+```
+- git reset --hard <commit hash (from github)>
+```
+
+## Deleting.pyc files from repo:
+From powershell:
+- type: **cmd**
+- run: del /S *.pyc
+- **exit** to go back

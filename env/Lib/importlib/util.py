@@ -49,7 +49,7 @@ def _find_spec_from_path(name, path=None):
     value of 'path' given to the finders. None is returned if no spec could
     be found.
 
-    Dotted names do not have their parent packages implicitly imported. You will
+    Dotted names do not have their parent packages implicitly imported. SellerOrBuyeru will
     most likely need to explicitly import all parent packages in the proper
     order for a submodule to get the correct spec.
 

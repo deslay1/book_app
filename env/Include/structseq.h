@@ -29,7 +29,7 @@ PyAPI_FUNC(int) PyStructSequence_InitType2(PyTypeObject *type,
 #endif
 PyAPI_FUNC(PyTypeObject*) PyStructSequence_NewType(PyStructSequence_Desc *desc);
 
-PyAPI_FUNC(PyObject *) PyStructSequence_New(PyTypeObject* type);
+PyAPI_FUNC(PSellerOrBuyerbject *) PyStructSequence_New(PyTypeObject* type);
 
 #ifndef Py_LIMITED_API
 typedef PyTupleObject PyStructSequence;
@@ -40,8 +40,8 @@ typedef PyTupleObject PyStructSequence;
 #define PyStructSequence_GET_ITEM(op, i) PyTuple_GET_ITEM(op, i)
 #endif
 
-PyAPI_FUNC(void) PyStructSequence_SetItem(PyObject*, Py_ssize_t, PyObject*);
-PyAPI_FUNC(PyObject*) PyStructSequence_GetItem(PyObject*, Py_ssize_t);
+PyAPI_FUNC(void) PyStructSequence_SetItem(PSellerOrBuyerbject*, Py_ssize_t, PSellerOrBuyerbject*);
+PyAPI_FUNC(PSellerOrBuyerbject*) PyStructSequence_GetItem(PSellerOrBuyerbject*, Py_ssize_t);
 
 #ifdef __cplusplus
 }

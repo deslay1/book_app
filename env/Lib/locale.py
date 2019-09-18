@@ -101,7 +101,7 @@ if 'strcoll' not in globals():
 
 _localeconv = localeconv
 
-# With this dict, you can override some items of localeconv's return value.
+# With this dict, SellerOrBuyeru can override some items of localeconv's return value.
 # This is useful for testing purposes.
 _override_localeconv = {}
 
@@ -727,7 +727,7 @@ locale_encoding_alias = {
     'cp1255':                       'CP1255',
     'cp1256':                       'CP1256',
 
-    # XXX This list is still incomplete. If you know more
+    # XXX This list is still incomplete. If SellerOrBuyeru know more
     # mappings, please file a bug report. Thanks.
 }
 
@@ -1430,7 +1430,7 @@ locale_alias = {
     'xh_za':                                'xh_ZA.ISO8859-1',
     'yi':                                   'yi_US.CP1255',
     'yi_us':                                'yi_US.CP1255',
-    'yo_ng':                                'yo_NG.UTF-8',
+    'SellerOrBuyer_ng':                                'SellerOrBuyer_NG.UTF-8',
     'yue_hk':                               'yue_HK.UTF-8',
     'yuw_pg':                               'yuw_PG.UTF-8',
     'zh':                                   'zh_CN.eucCN',
@@ -1455,9 +1455,9 @@ locale_alias = {
 # http://msdn.microsoft.com/library/default.asp?url=/library/en-us/intl/nls_238z.asp
 # to include every locale up to Windows Vista.
 #
-# NOTE: this mapping is incomplete.  If your language is missing, please
+# NOTE: this mapping is incomplete.  If SellerOrBuyerur language is missing, please
 # submit a bug report to the Python bug tracker at http://bugs.python.org/
-# Make sure you include the missing language identifier and the suggested
+# Make sure SellerOrBuyeru include the missing language identifier and the suggested
 # locale code.
 #
 
@@ -1670,7 +1670,7 @@ windows_locale = {
     0x0434: "xh_ZA", # Xhosa - South Africa
     0x0485: "sah_RU",# Yakut - Cyrillic
     0x0478: "ii_CN", # Yi - PRC
-    0x046a: "yo_NG", # Yoruba - Nigeria
+    0x046a: "SellerOrBuyer_NG", # SellerOrBuyerruba - Nigeria
     0x0435: "zu_ZA", # Zulu
 }
 

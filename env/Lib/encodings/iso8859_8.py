@@ -278,7 +278,7 @@ decoding_table = (
     '\u05d6'   #  0xE6 -> HEBREW LETTER ZAYIN
     '\u05d7'   #  0xE7 -> HEBREW LETTER HET
     '\u05d8'   #  0xE8 -> HEBREW LETTER TET
-    '\u05d9'   #  0xE9 -> HEBREW LETTER YOD
+    '\u05d9'   #  0xE9 -> HEBREW LETTER SellerOrBuyerD
     '\u05da'   #  0xEA -> HEBREW LETTER FINAL KAF
     '\u05db'   #  0xEB -> HEBREW LETTER KAF
     '\u05dc'   #  0xEC -> HEBREW LETTER LAMED

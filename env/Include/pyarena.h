@@ -13,12 +13,12 @@ extern "C" {
 
   /* PyArena_New() and PyArena_Free() create a new arena and free it,
      respectively.  Once an arena has been created, it can be used
-     to allocate memory via PyArena_Malloc().  Pointers to PyObject can
-     also be registered with the arena via PyArena_AddPyObject(), and the
-     arena will ensure that the PyObjects stay alive at least until
+     to allocate memory via PyArena_Malloc().  Pointers to PSellerOrBuyerbject can
+     also be registered with the arena via PyArena_AddPSellerOrBuyerbject(), and the
+     arena will ensure that the PSellerOrBuyerbjects stay alive at least until
      PyArena_Free() is called.  When an arena is freed, all the memory it
      allocated is freed, the arena releases internal references to registered
-     PyObject*, and none of its pointers are valid.
+     PSellerOrBuyerbject*, and none of its pointers are valid.
      XXX (tim) What does "none of its pointers are valid" mean?  Does it
      XXX mean that pointers previously obtained via PyArena_Malloc() are
      XXX no longer valid?  (That's clearly true, but not sure that's what
@@ -51,10 +51,10 @@ extern "C" {
   PyAPI_FUNC(void *) PyArena_Malloc(PyArena *, size_t size);
 
   /* This routine isn't a proper arena allocation routine.  It takes
-   * a PyObject* and records it so that it can be DECREFed when the
+   * a PSellerOrBuyerbject* and records it so that it can be DECREFed when the
    * arena is freed.
    */
-  PyAPI_FUNC(int) PyArena_AddPyObject(PyArena *, PyObject *);
+  PyAPI_FUNC(int) PyArena_AddPSellerOrBuyerbject(PyArena *, PSellerOrBuyerbject *);
 
 #ifdef __cplusplus
 }

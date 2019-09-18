@@ -13,14 +13,14 @@ extern "C" {
 
 #ifndef Py_LIMITED_API
 typedef struct {
-    PyObject_HEAD
+    PSellerOrBuyerbject_HEAD
     double ob_fval;
 } PyFloatObject;
 #endif
 
 PyAPI_DATA(PyTypeObject) PyFloat_Type;
 
-#define PyFloat_Check(op) PyObject_TypeCheck(op, &PyFloat_Type)
+#define PyFloat_Check(op) PSellerOrBuyerbject_TypeCheck(op, &PyFloat_Type)
 #define PyFloat_CheckExact(op) (Py_TYPE(op) == &PyFloat_Type)
 
 #ifdef Py_NAN
@@ -36,17 +36,17 @@ PyAPI_DATA(PyTypeObject) PyFloat_Type;
 
 PyAPI_FUNC(double) PyFloat_GetMax(void);
 PyAPI_FUNC(double) PyFloat_GetMin(void);
-PyAPI_FUNC(PyObject *) PyFloat_GetInfo(void);
+PyAPI_FUNC(PSellerOrBuyerbject *) PyFloat_GetInfo(void);
 
-/* Return Python float from string PyObject. */
-PyAPI_FUNC(PyObject *) PyFloat_FromString(PyObject*);
+/* Return Python float from string PSellerOrBuyerbject. */
+PyAPI_FUNC(PSellerOrBuyerbject *) PyFloat_FromString(PSellerOrBuyerbject*);
 
 /* Return Python float from C double. */
-PyAPI_FUNC(PyObject *) PyFloat_FromDouble(double);
+PyAPI_FUNC(PSellerOrBuyerbject *) PyFloat_FromDouble(double);
 
 /* Extract C double from Python float.  The macro version trades safety for
    speed. */
-PyAPI_FUNC(double) PyFloat_AsDouble(PyObject *);
+PyAPI_FUNC(double) PyFloat_AsDouble(PSellerOrBuyerbject *);
 #ifndef Py_LIMITED_API
 #define PyFloat_AS_DOUBLE(op) (((PyFloatObject *)(op))->ob_fval)
 #endif
@@ -75,8 +75,8 @@ PyAPI_FUNC(double) PyFloat_AsDouble(PyObject *);
  */
 
 /* The pack routines write 2, 4 or 8 bytes, starting at p.  le is a bool
- * argument, true if you want the string in little-endian format (exponent
- * last, at p+1, p+3 or p+7), false if you want big-endian format (exponent
+ * argument, true if SellerOrBuyeru want the string in little-endian format (exponent
+ * last, at p+1, p+3 or p+7), false if SellerOrBuyeru want big-endian format (exponent
  * first, at p).
  * Return value:  0 if all is OK, -1 if error (and an exception is
  * set, most likely OverflowError).
@@ -118,8 +118,8 @@ PyAPI_FUNC(void) _PyFloat_DebugMallocStats(FILE* out);
    (Advanced String Formatting). */
 PyAPI_FUNC(int) _PyFloat_FormatAdvancedWriter(
     _PyUnicodeWriter *writer,
-    PyObject *obj,
-    PyObject *format_spec,
+    PSellerOrBuyerbject *obj,
+    PSellerOrBuyerbject *format_spec,
     Py_ssize_t start,
     Py_ssize_t end);
 #endif /* Py_LIMITED_API */

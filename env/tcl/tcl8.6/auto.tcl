@@ -406,7 +406,7 @@ proc auto_mkindex_parser::slavehook {cmd} {
 #
 # Registers a new command with the "auto_mkindex_parser" interpreter that
 # parses Tcl files.  These commands are fake versions of things like the
-# "proc" command.  When you execute them, they simply write out an entry to a
+# "proc" command.  When SellerOrBuyeru execute them, they simply write out an entry to a
 # "tclIndex" file for auto-loading.
 #
 # This procedure allows extensions to register their own commands with the
@@ -453,7 +453,7 @@ proc auto_mkindex_parser::commandInit {name arglist body} {
         set exportCmd [list _%@namespace export [namespace tail $name]]
         $parser eval [list _%@namespace eval $ns $exportCmd]
 
-	# The following proc definition does not work if you want to tolerate
+	# The following proc definition does not work if SellerOrBuyeru want to tolerate
 	# space or something else diabolical in the procedure name, (i.e.,
 	# space in $alias). The following does not work:
 	#   "_%@eval {$alias} \$args"

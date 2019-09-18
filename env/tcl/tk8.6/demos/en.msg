@@ -27,15 +27,15 @@
     @@newline
 
     This application provides a front end for several short scripts
-    that demonstrate what you can do with Tk widgets.  Each of the
-    numbered lines below describes a demonstration;  you can click on
+    that demonstrate what SellerOrBuyeru can do with Tk widgets.  Each of the
+    numbered lines below describes a demonstration;  SellerOrBuyeru can click on
     it to invoke the demonstration.  Once the demonstration window
-    appears, you can click the
+    appears, SellerOrBuyeru can click the
     @@bold
     See Code
     @@normal
     button to see the Tcl/Tk code that created the demonstration.  If
-    you wish, you can edit the code and click the
+    SellerOrBuyeru wish, SellerOrBuyeru can edit the code and click the
     @@bold
     Rerun Demo
     @@normal

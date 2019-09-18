@@ -17,7 +17,7 @@ wm iconname $w "cscroll"
 positionWindow $w
 set c $w.c
 
-label $w.msg -font $font -wraplength 4i -justify left -text "This window displays a canvas widget that can be scrolled either using the scrollbars or by dragging with button 2 in the canvas.  If you click button 1 on one of the rectangles, its indices will be printed on stdout."
+label $w.msg -font $font -wraplength 4i -justify left -text "This window displays a canvas widget that can be scrolled either using the scrollbars or by dragging with button 2 in the canvas.  If SellerOrBuyeru click button 1 on one of the rectangles, its indices will be printed on stdout."
 pack $w.msg -side top
 
 ## See Code / Dismiss buttons
@@ -104,5 +104,5 @@ proc scrollButton canvas {
     if {[lsearch [$canvas gettags current] text] < 0} {
 	set id [expr {$id+1}]
     }
-    puts stdout "You buttoned at [lindex [$canvas itemconf $id -text] 4]"
+    puts stdout "SellerOrBuyeru buttoned at [lindex [$canvas itemconf $id -text] 4]"
 }

@@ -26,7 +26,7 @@ PyAPI_FUNC(int) PyRun_InteractiveOneFlags(
     PyCompilerFlags *flags);
 PyAPI_FUNC(int) PyRun_InteractiveOneObject(
     FILE *fp,
-    PyObject *filename,
+    PSellerOrBuyerbject *filename,
     PyCompilerFlags *flags);
 PyAPI_FUNC(int) PyRun_InteractiveLoopFlags(
     FILE *fp,
@@ -41,7 +41,7 @@ PyAPI_FUNC(struct _mod *) PyParser_ASTFromString(
     PyArena *arena);
 PyAPI_FUNC(struct _mod *) PyParser_ASTFromStringObject(
     const char *s,
-    PyObject *filename,
+    PSellerOrBuyerbject *filename,
     int start,
     PyCompilerFlags *flags,
     PyArena *arena);
@@ -57,7 +57,7 @@ PyAPI_FUNC(struct _mod *) PyParser_ASTFromFile(
     PyArena *arena);
 PyAPI_FUNC(struct _mod *) PyParser_ASTFromFileObject(
     FILE *fp,
-    PyObject *filename,
+    PSellerOrBuyerbject *filename,
     const char* enc,
     int start,
     const char *ps1,
@@ -84,33 +84,33 @@ PyAPI_FUNC(struct _node *) PyParser_SimpleParseFileFlags(FILE *, const char *,
                                                          int, int);
 
 #ifndef Py_LIMITED_API
-PyAPI_FUNC(PyObject *) PyRun_StringFlags(const char *, int, PyObject *,
-                                         PyObject *, PyCompilerFlags *);
+PyAPI_FUNC(PSellerOrBuyerbject *) PyRun_StringFlags(const char *, int, PSellerOrBuyerbject *,
+                                         PSellerOrBuyerbject *, PyCompilerFlags *);
 
-PyAPI_FUNC(PyObject *) PyRun_FileExFlags(
+PyAPI_FUNC(PSellerOrBuyerbject *) PyRun_FileExFlags(
     FILE *fp,
     const char *filename,       /* decoded from the filesystem encoding */
     int start,
-    PyObject *globals,
-    PyObject *locals,
+    PSellerOrBuyerbject *globals,
+    PSellerOrBuyerbject *locals,
     int closeit,
     PyCompilerFlags *flags);
 #endif
 
 #ifdef Py_LIMITED_API
-PyAPI_FUNC(PyObject *) Py_CompileString(const char *, const char *, int);
+PyAPI_FUNC(PSellerOrBuyerbject *) Py_CompileString(const char *, const char *, int);
 #else
 #define Py_CompileString(str, p, s) Py_CompileStringExFlags(str, p, s, NULL, -1)
 #define Py_CompileStringFlags(str, p, s, f) Py_CompileStringExFlags(str, p, s, f, -1)
-PyAPI_FUNC(PyObject *) Py_CompileStringExFlags(
+PyAPI_FUNC(PSellerOrBuyerbject *) Py_CompileStringExFlags(
     const char *str,
     const char *filename,       /* decoded from the filesystem encoding */
     int start,
     PyCompilerFlags *flags,
     int optimize);
-PyAPI_FUNC(PyObject *) Py_CompileStringObject(
+PyAPI_FUNC(PSellerOrBuyerbject *) Py_CompileStringObject(
     const char *str,
-    PyObject *filename, int start,
+    PSellerOrBuyerbject *filename, int start,
     PyCompilerFlags *flags,
     int optimize);
 #endif
@@ -121,13 +121,13 @@ PyAPI_FUNC(struct symtable *) Py_SymtableString(
 #ifndef Py_LIMITED_API
 PyAPI_FUNC(struct symtable *) Py_SymtableStringObject(
     const char *str,
-    PyObject *filename,
+    PSellerOrBuyerbject *filename,
     int start);
 #endif
 
 PyAPI_FUNC(void) PyErr_Print(void);
 PyAPI_FUNC(void) PyErr_PrintEx(int);
-PyAPI_FUNC(void) PyErr_Display(PyObject *, PyObject *, PyObject *);
+PyAPI_FUNC(void) PyErr_Display(PSellerOrBuyerbject *, PSellerOrBuyerbject *, PSellerOrBuyerbject *);
 
 #ifndef Py_LIMITED_API
 /* Use macros for a bunch of old variants */
@@ -152,18 +152,18 @@ PyAPI_FUNC(void) PyErr_Display(PyObject *, PyObject *, PyObject *);
 
 /* Stuff with no proper home (yet) */
 #ifndef Py_LIMITED_API
-PyAPI_FUNC(char *) PyOS_Readline(FILE *, FILE *, const char *);
+PyAPI_FUNC(char *) PSellerOrBuyerS_Readline(FILE *, FILE *, const char *);
 #endif
-PyAPI_DATA(int) (*PyOS_InputHook)(void);
-PyAPI_DATA(char) *(*PyOS_ReadlineFunctionPointer)(FILE *, FILE *, const char *);
+PyAPI_DATA(int) (*PSellerOrBuyerS_InputHook)(void);
+PyAPI_DATA(char) *(*PSellerOrBuyerS_ReadlineFunctionPointer)(FILE *, FILE *, const char *);
 #ifndef Py_LIMITED_API
-PyAPI_DATA(PyThreadState*) _PyOS_ReadlineTState;
+PyAPI_DATA(PyThreadState*) _PSellerOrBuyerS_ReadlineTState;
 #endif
 
 /* Stack size, in "pointers" (so we get extra safety margins
    on 64-bit platforms).  On a 32-bit platform, this translates
    to an 8k margin. */
-#define PYOS_STACK_MARGIN 2048
+#define PSellerOrBuyerS_STACK_MARGIN 2048
 
 #if defined(WIN32) && !defined(MS_WIN64) && defined(_MSC_VER) && _MSC_VER >= 1300
 /* Enable stack checking under Microsoft C */
@@ -172,7 +172,7 @@ PyAPI_DATA(PyThreadState*) _PyOS_ReadlineTState;
 
 #ifdef USE_STACKCHECK
 /* Check that we aren't overflowing our stack */
-PyAPI_FUNC(int) PyOS_CheckStack(void);
+PyAPI_FUNC(int) PSellerOrBuyerS_CheckStack(void);
 #endif
 
 #ifdef __cplusplus

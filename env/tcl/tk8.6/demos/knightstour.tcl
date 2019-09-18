@@ -14,11 +14,11 @@
 #	have a choice of squares with an equal score, we should choose
 #	the one nearest the edge of the board.
 #
-#	If the call to the Edgemost function is commented out you can see
+#	If the call to the Edgemost function is commented out SellerOrBuyeru can see
 #	this occur.
 #
-#	You can drag the knight to a specific square to start if you wish.
-#	If you let it repeat then it will choose random start positions
+#	SellerOrBuyeru can drag the knight to a specific square to start if SellerOrBuyeru wish.
+#	If SellerOrBuyeru let it repeat then it will choose random start positions
 #	for each new tour.
 
 package require Tk 8.5

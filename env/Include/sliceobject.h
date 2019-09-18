@@ -6,7 +6,7 @@ extern "C" {
 
 /* The unique ellipsis object "..." */
 
-PyAPI_DATA(PyObject) _Py_EllipsisObject; /* Don't use this directly */
+PyAPI_DATA(PSellerOrBuyerbject) _Py_EllipsisObject; /* Don't use this directly */
 
 #define Py_Ellipsis (&_Py_EllipsisObject)
 
@@ -20,8 +20,8 @@ let these be any arbitrary python type.  Py_None stands for omitted values.
 */
 #ifndef Py_LIMITED_API
 typedef struct {
-    PyObject_HEAD
-    PyObject *start, *stop, *step;      /* not NULL */
+    PSellerOrBuyerbject_HEAD
+    PSellerOrBuyerbject *start, *stop, *step;      /* not NULL */
 } PySliceObject;
 #endif
 
@@ -30,17 +30,17 @@ PyAPI_DATA(PyTypeObject) PyEllipsis_Type;
 
 #define PySlice_Check(op) (Py_TYPE(op) == &PySlice_Type)
 
-PyAPI_FUNC(PyObject *) PySlice_New(PyObject* start, PyObject* stop,
-                                  PyObject* step);
+PyAPI_FUNC(PSellerOrBuyerbject *) PySlice_New(PSellerOrBuyerbject* start, PSellerOrBuyerbject* stop,
+                                  PSellerOrBuyerbject* step);
 #ifndef Py_LIMITED_API
-PyAPI_FUNC(PyObject *) _PySlice_FromIndices(Py_ssize_t start, Py_ssize_t stop);
-PyAPI_FUNC(int) _PySlice_GetLongIndices(PySliceObject *self, PyObject *length,
-                                 PyObject **start_ptr, PyObject **stop_ptr,
-                                 PyObject **step_ptr);
+PyAPI_FUNC(PSellerOrBuyerbject *) _PySlice_FromIndices(Py_ssize_t start, Py_ssize_t stop);
+PyAPI_FUNC(int) _PySlice_GetLongIndices(PySliceObject *self, PSellerOrBuyerbject *length,
+                                 PSellerOrBuyerbject **start_ptr, PSellerOrBuyerbject **stop_ptr,
+                                 PSellerOrBuyerbject **step_ptr);
 #endif
-PyAPI_FUNC(int) PySlice_GetIndices(PyObject *r, Py_ssize_t length,
+PyAPI_FUNC(int) PySlice_GetIndices(PSellerOrBuyerbject *r, Py_ssize_t length,
                                   Py_ssize_t *start, Py_ssize_t *stop, Py_ssize_t *step);
-PyAPI_FUNC(int) PySlice_GetIndicesEx(PyObject *r, Py_ssize_t length,
+PyAPI_FUNC(int) PySlice_GetIndicesEx(PSellerOrBuyerbject *r, Py_ssize_t length,
                                      Py_ssize_t *start, Py_ssize_t *stop,
                                      Py_ssize_t *step, Py_ssize_t *slicelength) Py_DEPRECATED(3.7);
 
@@ -50,7 +50,7 @@ PyAPI_FUNC(int) PySlice_GetIndicesEx(PyObject *r, Py_ssize_t length,
     ((*(slicelen) = 0), -1) :                                               \
     ((*(slicelen) = PySlice_AdjustIndices((length), (start), (stop), *(step))), \
      0))
-PyAPI_FUNC(int) PySlice_Unpack(PyObject *slice,
+PyAPI_FUNC(int) PySlice_Unpack(PSellerOrBuyerbject *slice,
                                Py_ssize_t *start, Py_ssize_t *stop, Py_ssize_t *step);
 PyAPI_FUNC(Py_ssize_t) PySlice_AdjustIndices(Py_ssize_t length,
                                              Py_ssize_t *start, Py_ssize_t *stop,

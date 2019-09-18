@@ -14,16 +14,16 @@ typedef struct _PyWeakReference PyWeakReference;
  */
 #ifndef Py_LIMITED_API
 struct _PyWeakReference {
-    PyObject_HEAD
+    PSellerOrBuyerbject_HEAD
 
     /* The object to which this is a weak reference, or Py_None if none.
      * Note that this is a stealth reference:  wr_object's refcount is
      * not incremented to reflect this pointer.
      */
-    PyObject *wr_object;
+    PSellerOrBuyerbject *wr_object;
 
     /* A callable to invoke when wr_object dies, or NULL if none. */
-    PyObject *wr_callback;
+    PSellerOrBuyerbject *wr_callback;
 
     /* A cache for wr_object's hash code.  As usual for hashes, this is -1
      * if the hash code isn't known yet.
@@ -44,7 +44,7 @@ PyAPI_DATA(PyTypeObject) _PyWeakref_RefType;
 PyAPI_DATA(PyTypeObject) _PyWeakref_ProxyType;
 PyAPI_DATA(PyTypeObject) _PyWeakref_CallableProxyType;
 
-#define PyWeakref_CheckRef(op) PyObject_TypeCheck(op, &_PyWeakref_RefType)
+#define PyWeakref_CheckRef(op) PSellerOrBuyerbject_TypeCheck(op, &_PyWeakref_RefType)
 #define PyWeakref_CheckRefExact(op) \
         (Py_TYPE(op) == &_PyWeakref_RefType)
 #define PyWeakref_CheckProxy(op) \
@@ -55,11 +55,11 @@ PyAPI_DATA(PyTypeObject) _PyWeakref_CallableProxyType;
         (PyWeakref_CheckRef(op) || PyWeakref_CheckProxy(op))
 
 
-PyAPI_FUNC(PyObject *) PyWeakref_NewRef(PyObject *ob,
-                                              PyObject *callback);
-PyAPI_FUNC(PyObject *) PyWeakref_NewProxy(PyObject *ob,
-                                                PyObject *callback);
-PyAPI_FUNC(PyObject *) PyWeakref_GetObject(PyObject *ref);
+PyAPI_FUNC(PSellerOrBuyerbject *) PyWeakref_NewRef(PSellerOrBuyerbject *ob,
+                                              PSellerOrBuyerbject *callback);
+PyAPI_FUNC(PSellerOrBuyerbject *) PyWeakref_NewProxy(PSellerOrBuyerbject *ob,
+                                                PSellerOrBuyerbject *callback);
+PyAPI_FUNC(PSellerOrBuyerbject *) PyWeakref_GetObject(PSellerOrBuyerbject *ref);
 
 #ifndef Py_LIMITED_API
 PyAPI_FUNC(Py_ssize_t) _PyWeakref_GetWeakrefCount(PyWeakReference *head);

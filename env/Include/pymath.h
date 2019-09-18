@@ -9,7 +9,7 @@ functions and constants
 **************************************************************************/
 
 /* Python provides implementations for copysign, round and hypot in
- * Python/pymath.c just in case your math library doesn't provide the
+ * Python/pymath.c just in case SellerOrBuyerur math library doesn't provide the
  * functions.
  *
  *Note: PC/pyconfig.h defines copysign as _copysign
@@ -90,7 +90,7 @@ PyAPI_FUNC(void) _Py_set_387controlword(unsigned short);
  * Caution:
  *     X is evaluated more than once.
  *     This may not work on all platforms.  Each platform has *some*
- *     way to spell this, though -- override in pyconfig.h if you have
+ *     way to spell this, though -- override in pyconfig.h if SellerOrBuyeru have
  *     a platform where it doesn't work.
  * Note: PC/pyconfig.h defines Py_IS_NAN as _isnan
  */
@@ -108,7 +108,7 @@ PyAPI_FUNC(void) _Py_set_387controlword(unsigned short);
  *    X is evaluated more than once.
  *    This implementation may set the underflow flag if |X| is very small;
  *    it really can't be implemented correctly (& easily) before C99.
- *    Override in pyconfig.h if you have a better spelling on your platform.
+ *    Override in pyconfig.h if SellerOrBuyeru have a better spelling on SellerOrBuyerur platform.
  *  Py_FORCE_DOUBLE is used to avoid getting false negatives from a
  *    non-infinite value v sitting in an 80-bit x87 register such that
  *    v becomes infinite when spilled from the register to 64-bit memory.
@@ -142,9 +142,9 @@ PyAPI_FUNC(void) _Py_set_387controlword(unsigned short);
 /* HUGE_VAL is supposed to expand to a positive double infinity.  Python
  * uses Py_HUGE_VAL instead because some platforms are broken in this
  * respect.  We used to embed code in pyport.h to try to worm around that,
- * but different platforms are broken in conflicting ways.  If you're on
- * a platform where HUGE_VAL is defined incorrectly, fiddle your Python
- * config to #define Py_HUGE_VAL to something that works on your platform.
+ * but different platforms are broken in conflicting ways.  If SellerOrBuyeru're on
+ * a platform where HUGE_VAL is defined incorrectly, fiddle SellerOrBuyerur Python
+ * config to #define Py_HUGE_VAL to something that works on SellerOrBuyerur platform.
  */
 #ifndef Py_HUGE_VAL
 #define Py_HUGE_VAL HUGE_VAL
@@ -152,7 +152,7 @@ PyAPI_FUNC(void) _Py_set_387controlword(unsigned short);
 
 /* Py_NAN
  * A value that evaluates to a NaN. On IEEE 754 platforms INF*0 or
- * INF/INF works. Define Py_NO_NAN in pyconfig.h if your platform
+ * INF/INF works. Define Py_NO_NAN in pyconfig.h if SellerOrBuyerur platform
  * doesn't support NaNs.
  */
 #if !defined(Py_NAN) && !defined(Py_NO_NAN)

@@ -57,6 +57,6 @@ proc showMessageBox {w} {
 	-title Message -parent $w\
 	-message "This is a \"$msgboxType\" type messagebox with the \"$msgboxIcon\" icon"]
 
-    tk_messageBox -icon info -message "You have selected \"$button\"" -type ok\
+    tk_messageBox -icon info -message "SellerOrBuyeru have selected \"$button\"" -type ok\
 	-parent $w
 }

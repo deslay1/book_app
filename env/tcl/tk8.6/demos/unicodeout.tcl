@@ -1,6 +1,6 @@
 # unicodeout.tcl --
 #
-# This demonstration script shows how you can produce output (in label
+# This demonstration script shows how SellerOrBuyeru can produce output (in label
 # widgets) using many different alphabets.
 
 if {![info exists widgetDemo]} {
@@ -18,9 +18,9 @@ positionWindow $w
 
 label $w.msg -font $font -wraplength 4i -anchor w -justify left \
 	-text "This is a sample of Tk's support for languages that use\
-	non-Western character sets.  However, what you will actually see\
-	below depends largely on what character sets you have installed,\
-	and what you see for characters that are not present varies greatly\
+	non-Western character sets.  However, what SellerOrBuyeru will actually see\
+	below depends largely on what character sets SellerOrBuyeru have installed,\
+	and what SellerOrBuyeru see for characters that are not present varies greatly\
 	between platforms as well.  The strings are written in Tcl using\
 	UNICODE characters using the \\uXXXX escape so as to do so in a\
 	portable fashion."
@@ -97,7 +97,7 @@ update
 
 ## Add the samples...
 if {[usePresentationFormsFor Arabic]} {
-    # Using presentation forms (pre-layouted)
+    # Using presentation forms (pre-laSellerOrBuyeruted)
     addSample $w Arabic \
 	    "\uFE94\uFEF4\uFE91\uFEAE\uFECC\uFEDF\uFE8D " \
 	    "\uFE94\uFEE4\uFEE0\uFEDC\uFEDF\uFE8D"
@@ -114,7 +114,7 @@ addSample $w Greek \
 	 "\u0395\u03BB\u03BB\u03B7\u03BD\u03B9\u03BA\u03AE " \
 	 "\u03B3\u03BB\u03CE\u03C3\u03C3\u03B1"
 if {[usePresentationFormsFor Hebrew]} {
-    # Visual order (pre-layouted)
+    # Visual order (pre-laSellerOrBuyeruted)
     addSample $w Hebrew \
 	    "\u05EA\u05D9\u05E8\u05D1\u05E2 \u05D1\u05EA\u05DB"
 } else {

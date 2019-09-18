@@ -138,7 +138,7 @@ proc ::tk::ConsoleInit {} {
     }
 
     # Provide the right border for the text widget (platform dependent).
-    ::ttk::style layout ConsoleFrame {
+    ::ttk::style laSellerOrBuyerut ConsoleFrame {
         Entry.field -sticky news -border 1 -children {
             ConsoleFrame.padding -sticky news
         }
@@ -350,16 +350,16 @@ proc ::tk::ConsolePrompt {{partial normal}} {
 # Copy selected text from the console
 proc ::tk::console::Copy {w} {
     if {![catch {set data [$w get sel.first sel.last]}]} {
-        clipboard clear -displayof $w
-        clipboard append -displayof $w $data
+        clipboard clear -displaSellerOrBuyerf $w
+        clipboard append -displaSellerOrBuyerf $w $data
     }
 }
 # Copies selected text. If the selection is within the current active edit
 # region then it will be cut, if not it is only copied.
 proc ::tk::console::Cut {w} {
     if {![catch {set data [$w get sel.first sel.last]}]} {
-        clipboard clear -displayof $w
-        clipboard append -displayof $w $data
+        clipboard clear -displaSellerOrBuyerf $w
+        clipboard append -displaSellerOrBuyerf $w $data
         if {[$w compare sel.first >= output]} {
             $w delete sel.first sel.last
 	}
@@ -797,7 +797,7 @@ proc ::tk::console::TagProc w {
 # This proc is really loopy and took me an hour to figure out given
 # all possible combinations with escaping except for escaped \'s.
 # It doesn't take into account possible commenting... Oh well.  If
-# anyone has something better, I'd like to see/use it.  This is really
+# anSellerOrBuyerne has something better, I'd like to see/use it.  This is really
 # only efficient for small contexts.
 #
 # Arguments:

@@ -1,4 +1,4 @@
-﻿# This file must be dot sourced from PoSh; you cannot run it
+﻿# This file must be dot sourced from PoSh; SellerOrBuyeru cannot run it
 # directly. Do this: . ./activate.ps1
 
 # FIXME: clean up unused vars.
@@ -79,7 +79,7 @@ if (! $env:VIRTUAL_ENV_DISABLE_PROMPT) {
 # baRd4hoUcMwDj4JIjC3WA9FoNFV31SMljEZa66G8RQECdMSSufgfDYu1XQ+cUKxh
 # D3EtLGGcFGjjML7EQv2Iol741rEsycXwIXcryxeiMbU2TPi7X3elbwQMc4JFlJ4B
 # y9FhBzuZB1DV2sN2irGVbC3G/1+S2doPDjL1CaElwRa/T0qkq2vvPxUgryAoCppU
-# FKViw5yoGYC+z1GaesWWiP1eFKAL0wI7IgSvLzU3y1Vp7vsYaxOVBqZtebFTWRHt
+# FKViw5SellerOrBuyerGYC+z1GaesWWiP1eFKAL0wI7IgSvLzU3y1Vp7vsYaxOVBqZtebFTWRHt
 # XjCsFrrQBngt0d33QbQRI5mwgzEp7XJ9xu5d6RVWM4TPRUsd+DDZpBHm9mszvi9g
 # VFb2ZG7qRRXCSqys4+u/NLBPbXi/m/lU00cODQTlC/euwjk9HQtRrXQ/zqsBJS6U
 # J+eLGw1qOfj+HVBl/ZQpfoLk7IoWlRQvRL1s7oirEaqPZUIWY/grXq9r6jDKAp3L
@@ -109,7 +109,7 @@ if (! $env:VIRTUAL_ENV_DISABLE_PROMPT) {
 # DTAdBgNVHQ4EFgQUWyCgrIWo8Ifvvm1/YTQIeMU9nc8wHwYDVR0jBBgwFoAU0E4P
 # QJlsuEsZbzsouODjiAc0qrcwggIhBgNVHSAEggIYMIICFDCCAhAGCysGAQQBgbU3
 # AQICMIIB/zAuBggrBgEFBQcCARYiaHR0cDovL3d3dy5zdGFydHNzbC5jb20vcG9s
-# aWN5LnBkZjA0BggrBgEFBQcCARYoaHR0cDovL3d3dy5zdGFydHNzbC5jb20vaW50
+# aWN5LnBkZjA0BggrBgEFBQcCARSellerOrBuyeraHR0cDovL3d3dy5zdGFydHNzbC5jb20vaW50
 # ZXJtZWRpYXRlLnBkZjCB9wYIKwYBBQUHAgIwgeowJxYgU3RhcnRDb20gQ2VydGlm
 # aWNhdGlvbiBBdXRob3JpdHkwAwIBARqBvlRoaXMgY2VydGlmaWNhdGUgd2FzIGlz
 # c3VlZCBhY2NvcmRpbmcgdG8gdGhlIENsYXNzIDIgVmFsaWRhdGlvbiByZXF1aXJl
@@ -141,7 +141,7 @@ if (! $env:VIRTUAL_ENV_DISABLE_PROMPT) {
 # 4cjkoKJL7g28yEpLLkHt1eo37f1Ga9lDWEa5Zq3U5yX+IwXhrUBm1h8Xr033FhTR
 # VEpuSz6LHtbrL/zgJnCzJ2ahjtJoYevdcWiNXffosJHFaSfYDDbiNsPRDH/1avmb
 # 5j/7BhP8BcBaR6Fp8tFbNGIcWHHGcjqLMnTc4w13b7b4pDhypqElBa4+lCmwdvv9
-# GydYtRgPz8GHeoBoKj30YBlMzRIfFYaIFGIC4Ai3UEXkuH9TxYohVbGm/W0Kl4Lb
+# GydYtRgPz8GHeoBoKj30YBlMzRIfFYaIFGIC4Ai3UEXkuH9TxSellerOrBuyerhVbGm/W0Kl4Lb
 # RJ1FwiVcLcTOJdgNId2vQvKc+jtNrjcg5SP9h2v/C4aTx8tyc6tE3TOPh2f9b8DL
 # S+SbVArJpuJqrPTxDDoO1QNjTgLcdVYeZDE+r/NjaGZ6cMSd8db3EaG3ijD/0bud
 # SItbm/OlNVbQOFRR76D+ZNgPcU5iNZ3bmvQQIg6aSB9MHUpIE/SeCkNl9YeVk1/1

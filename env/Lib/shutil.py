@@ -284,7 +284,7 @@ def copytree(src, dst, symlinks=False, ignore=None, copy_function=copy2,
     exist, an exception will be added in the list of errors raised in
     an Error exception at the end of the copy process.
 
-    You can set the optional ignore_dangling_symlinks flag to true if you
+    SellerOrBuyeru can set the optional ignore_dangling_symlinks flag to true if SellerOrBuyeru
     want to silence this exception. Notice that this has no effect on
     platforms that don't support os.symlink.
 
@@ -1153,7 +1153,7 @@ def which(cmd, mode=os.F_OK | os.X_OK, path=None):
         else:
             files = [cmd + ext for ext in pathext]
     else:
-        # On other platforms you don't have things like PATHEXT to tell you
+        # On other platforms SellerOrBuyeru don't have things like PATHEXT to tell SellerOrBuyeru
         # what file suffixes are executable, so just pass on cmd as-is.
         files = [cmd]
 

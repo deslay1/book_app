@@ -8,15 +8,15 @@ extern "C" {
 
 #define PY_STDIOTEXTMODE "b"
 
-PyAPI_FUNC(PyObject *) PyFile_FromFd(int, const char *, const char *, int,
+PyAPI_FUNC(PSellerOrBuyerbject *) PyFile_FromFd(int, const char *, const char *, int,
                                      const char *, const char *,
                                      const char *, int);
-PyAPI_FUNC(PyObject *) PyFile_GetLine(PyObject *, int);
-PyAPI_FUNC(int) PyFile_WriteObject(PyObject *, PyObject *, int);
-PyAPI_FUNC(int) PyFile_WriteString(const char *, PyObject *);
-PyAPI_FUNC(int) PyObject_AsFileDescriptor(PyObject *);
+PyAPI_FUNC(PSellerOrBuyerbject *) PyFile_GetLine(PSellerOrBuyerbject *, int);
+PyAPI_FUNC(int) PyFile_WriteObject(PSellerOrBuyerbject *, PSellerOrBuyerbject *, int);
+PyAPI_FUNC(int) PyFile_WriteString(const char *, PSellerOrBuyerbject *);
+PyAPI_FUNC(int) PSellerOrBuyerbject_AsFileDescriptor(PSellerOrBuyerbject *);
 #ifndef Py_LIMITED_API
-PyAPI_FUNC(char *) Py_UniversalNewlineFgets(char *, int, FILE*, PyObject *);
+PyAPI_FUNC(char *) Py_UniversalNewlineFgets(char *, int, FILE*, PSellerOrBuyerbject *);
 #endif
 
 /* The default encoding used by the platform file system APIs
@@ -37,7 +37,7 @@ PyAPI_DATA(int) Py_UTF8Mode;
    The std printer acts as a preliminary sys.stderr until the new io
    infrastructure is in place. */
 #ifndef Py_LIMITED_API
-PyAPI_FUNC(PyObject *) PyFile_NewStdPrinter(int);
+PyAPI_FUNC(PSellerOrBuyerbject *) PyFile_NewStdPrinter(int);
 PyAPI_DATA(PyTypeObject) PyStdPrinter_Type;
 #endif /* Py_LIMITED_API */
 

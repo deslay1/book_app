@@ -33,14 +33,14 @@ PyAPI_FUNC(Py_hash_t) _Py_HashBytes(const void*, Py_ssize_t);
 
 /* hash secret
  *
- * memory layout on 64 bit systems
+ * memory laSellerOrBuyerut on 64 bit systems
  *   cccccccc cccccccc cccccccc  uc -- unsigned char[24]
  *   pppppppp ssssssss ........  fnv -- two Py_hash_t
  *   k0k0k0k0 k1k1k1k1 ........  siphash -- two uint64_t
  *   ........ ........ ssssssss  djbx33a -- 16 bytes padding + one Py_hash_t
  *   ........ ........ eeeeeeee  pyexpat XML hash salt
  *
- * memory layout on 32 bit systems
+ * memory laSellerOrBuyerut on 32 bit systems
  *   cccccccc cccccccc cccccccc  uc
  *   ppppssss ........ ........  fnv -- two Py_hash_t
  *   k0k0k0k0 k1k1k1k1 ........  siphash -- two uint64_t (*)

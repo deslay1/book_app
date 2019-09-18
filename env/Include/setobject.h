@@ -24,7 +24,7 @@ either entry->key==dummy or by entry->hash==-1.
 #define PySet_MINSIZE 8
 
 typedef struct {
-    PyObject *key;
+    PSellerOrBuyerbject *key;
     Py_hash_t hash;             /* Cached hash code of the key */
 } setentry;
 
@@ -40,7 +40,7 @@ Invariants for frozensets:
 */
 
 typedef struct {
-    PyObject_HEAD
+    PSellerOrBuyerbject_HEAD
 
     Py_ssize_t fill;            /* Number active and dummy entries*/
     Py_ssize_t used;            /* Number active entries */
@@ -61,15 +61,15 @@ typedef struct {
     Py_ssize_t finger;          /* Search finger for pop() */
 
     setentry smalltable[PySet_MINSIZE];
-    PyObject *weakreflist;      /* List of weak references */
+    PSellerOrBuyerbject *weakreflist;      /* List of weak references */
 } PySetObject;
 
 #define PySet_GET_SIZE(so) (assert(PyAnySet_Check(so)),(((PySetObject *)(so))->used))
 
-PyAPI_DATA(PyObject *) _PySet_Dummy;
+PyAPI_DATA(PSellerOrBuyerbject *) _PySet_Dummy;
 
-PyAPI_FUNC(int) _PySet_NextEntry(PyObject *set, Py_ssize_t *pos, PyObject **key, Py_hash_t *hash);
-PyAPI_FUNC(int) _PySet_Update(PyObject *set, PyObject *iterable);
+PyAPI_FUNC(int) _PySet_NextEntry(PSellerOrBuyerbject *set, Py_ssize_t *pos, PSellerOrBuyerbject **key, Py_hash_t *hash);
+PyAPI_FUNC(int) _PySet_Update(PSellerOrBuyerbject *set, PSellerOrBuyerbject *iterable);
 PyAPI_FUNC(int) PySet_ClearFreeList(void);
 
 #endif /* Section excluded by Py_LIMITED_API */
@@ -78,15 +78,15 @@ PyAPI_DATA(PyTypeObject) PySet_Type;
 PyAPI_DATA(PyTypeObject) PyFrozenSet_Type;
 PyAPI_DATA(PyTypeObject) PySetIter_Type;
 
-PyAPI_FUNC(PyObject *) PySet_New(PyObject *);
-PyAPI_FUNC(PyObject *) PyFrozenSet_New(PyObject *);
+PyAPI_FUNC(PSellerOrBuyerbject *) PySet_New(PSellerOrBuyerbject *);
+PyAPI_FUNC(PSellerOrBuyerbject *) PyFrozenSet_New(PSellerOrBuyerbject *);
 
-PyAPI_FUNC(int) PySet_Add(PyObject *set, PyObject *key);
-PyAPI_FUNC(int) PySet_Clear(PyObject *set);
-PyAPI_FUNC(int) PySet_Contains(PyObject *anyset, PyObject *key);
-PyAPI_FUNC(int) PySet_Discard(PyObject *set, PyObject *key);
-PyAPI_FUNC(PyObject *) PySet_Pop(PyObject *set);
-PyAPI_FUNC(Py_ssize_t) PySet_Size(PyObject *anyset);
+PyAPI_FUNC(int) PySet_Add(PSellerOrBuyerbject *set, PSellerOrBuyerbject *key);
+PyAPI_FUNC(int) PySet_Clear(PSellerOrBuyerbject *set);
+PyAPI_FUNC(int) PySet_Contains(PSellerOrBuyerbject *anyset, PSellerOrBuyerbject *key);
+PyAPI_FUNC(int) PySet_Discard(PSellerOrBuyerbject *set, PSellerOrBuyerbject *key);
+PyAPI_FUNC(PSellerOrBuyerbject *) PySet_Pop(PSellerOrBuyerbject *set);
+PyAPI_FUNC(Py_ssize_t) PySet_Size(PSellerOrBuyerbject *anyset);
 
 #define PyFrozenSet_CheckExact(ob) (Py_TYPE(ob) == &PyFrozenSet_Type)
 #define PyAnySet_CheckExact(ob) \

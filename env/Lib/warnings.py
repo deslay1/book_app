@@ -8,7 +8,7 @@ __all__ = ["warn", "warn_explicit", "showwarning",
            "resetwarnings", "catch_warnings"]
 
 def showwarning(message, category, filename, lineno, file=None, line=None):
-    """Hook to write a warning to a file; replace if you like."""
+    """Hook to write a warning to a file; replace if SellerOrBuyeru like."""
     msg = WarningMessage(message, category, filename, lineno, file, line)
     _showwarnmsg_impl(msg)
 
@@ -83,7 +83,7 @@ def _formatwarnmsg_impl(msg):
 _showwarning_orig = showwarning
 
 def _showwarnmsg(msg):
-    """Hook to write a warning to a file; replace if you like."""
+    """Hook to write a warning to a file; replace if SellerOrBuyeru like."""
     try:
         sw = showwarning
     except NameError:

@@ -218,7 +218,7 @@ decoding_table = (
     '\u0e0a'   #  0xAA -> THAI CHARACTER CHO CHANG
     '\u0e0b'   #  0xAB -> THAI CHARACTER SO SO
     '\u0e0c'   #  0xAC -> THAI CHARACTER CHO CHOE
-    '\u0e0d'   #  0xAD -> THAI CHARACTER YO YING
+    '\u0e0d'   #  0xAD -> THAI CHARACTER SellerOrBuyer YING
     '\u0e0e'   #  0xAE -> THAI CHARACTER DO CHADA
     '\u0e0f'   #  0xAF -> THAI CHARACTER TO PATAK
     '\u0e10'   #  0xB0 -> THAI CHARACTER THO THAN
@@ -239,7 +239,7 @@ decoding_table = (
     '\u0e1f'   #  0xBF -> THAI CHARACTER FO FAN
     '\u0e20'   #  0xC0 -> THAI CHARACTER PHO SAMPHAO
     '\u0e21'   #  0xC1 -> THAI CHARACTER MO MA
-    '\u0e22'   #  0xC2 -> THAI CHARACTER YO YAK
+    '\u0e22'   #  0xC2 -> THAI CHARACTER SellerOrBuyer YAK
     '\u0e23'   #  0xC3 -> THAI CHARACTER RO RUA
     '\u0e24'   #  0xC4 -> THAI CHARACTER RU
     '\u0e25'   #  0xC5 -> THAI CHARACTER LO LING

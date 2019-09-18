@@ -15,7 +15,7 @@ wm title $w "Vertical Scale Demonstration"
 wm iconname $w "vscale"
 positionWindow $w
 
-label $w.msg -font $font -wraplength 3.5i -justify left -text "An arrow and a vertical scale are displayed below.  If you click or drag mouse button 1 in the scale, you can change the size of the arrow."
+label $w.msg -font $font -wraplength 3.5i -justify left -text "An arrow and a vertical scale are displayed below.  If SellerOrBuyeru click or drag mouse button 1 in the scale, SellerOrBuyeru can change the size of the arrow."
 pack $w.msg -side top -padx .5c
 
 ## See Code / Dismiss buttons

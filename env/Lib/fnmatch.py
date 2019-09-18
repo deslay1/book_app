@@ -29,7 +29,7 @@ def fnmatch(name, pat):
     An initial period in FILENAME is not special.
     Both FILENAME and PATTERN are first case-normalized
     if the operating system requires it.
-    If you don't want this, use fnmatchcase(FILENAME, PATTERN).
+    If SellerOrBuyeru don't want this, use fnmatchcase(FILENAME, PATTERN).
     """
     name = os.path.normcase(name)
     pat = os.path.normcase(pat)

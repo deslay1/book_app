@@ -1,5 +1,5 @@
 /* The PyMem_ family:  low-level memory allocation interfaces.
-   See objimpl.h for the PyObject_ memory family.
+   See objimpl.h for the PSellerOrBuyerbject_ memory family.
 */
 
 #ifndef Py_PYMEM_H
@@ -52,7 +52,7 @@ PyAPI_FUNC(int) PyTraceMalloc_Untrack(
    is not tracked by tracemalloc.
 
    Raise an exception and return NULL on error. */
-PyAPI_FUNC(PyObject*) _PyTraceMalloc_GetTraceback(
+PyAPI_FUNC(PSellerOrBuyerbject*) _PyTraceMalloc_GetTraceback(
     unsigned int domain,
     uintptr_t ptr);
 #endif   /* !Py_LIMITED_API */
@@ -63,16 +63,16 @@ PyAPI_FUNC(PyObject*) _PyTraceMalloc_GetTraceback(
    Each interface exports both functions and macros.  Extension modules should
    use the functions, to ensure binary compatibility across Python versions.
    Because the Python implementation is free to change internal details, and
-   the macros may (or may not) expose details for speed, if you do use the
-   macros you must recompile your extensions with each Python release.
+   the macros may (or may not) expose details for speed, if SellerOrBuyeru do use the
+   macros SellerOrBuyeru must recompile SellerOrBuyerur extensions with each Python release.
 
    Never mix calls to PyMem_ with calls to the platform malloc/realloc/
    calloc/free.  For example, on Windows different DLLs may end up using
-   different heaps, and if you use PyMem_Malloc you'll get the memory from the
-   heap used by the Python DLL; it could be a disaster if you free()'ed that
-   directly in your own extension.  Using PyMem_Free instead ensures Python
+   different heaps, and if SellerOrBuyeru use PyMem_Malloc SellerOrBuyeru'll get the memory from the
+   heap used by the Python DLL; it could be a disaster if SellerOrBuyeru free()'ed that
+   directly in SellerOrBuyerur own extension.  Using PyMem_Free instead ensures Python
    can return the memory to the proper heap.  As another example, in
-   PYMALLOC_DEBUG mode, Python wraps all calls to all PyMem_ and PyObject_
+   PYMALLOC_DEBUG mode, Python wraps all calls to all PyMem_ and PSellerOrBuyerbject_
    memory functions in special debugging wrappers that add additional
    debugging info to dynamic memory blocks.  The system routines have no idea
    what to do with that stuff, and the Python wrappers have no idea what to do
@@ -132,7 +132,7 @@ PyAPI_FUNC(wchar_t*) _PyMem_RawWcsdup(const wchar_t *str);
  *
  * Allocate memory for n objects of the given type.  Returns a new pointer
  * or NULL if the request was too large or memory allocation failed.  Use
- * these macros rather than doing the multiplication yourself so that proper
+ * these macros rather than doing the multiplication SellerOrBuyerurself so that proper
  * overflow checking is always done.
  */
 
@@ -170,7 +170,7 @@ typedef enum {
     /* PyMem_Malloc(), PyMem_Realloc() and PyMem_Free() */
     PYMEM_DOMAIN_MEM,
 
-    /* PyObject_Malloc(), PyObject_Realloc() and PyObject_Free() */
+    /* PSellerOrBuyerbject_Malloc(), PSellerOrBuyerbject_Realloc() and PSellerOrBuyerbject_Free() */
     PYMEM_DOMAIN_OBJ
 } PyMemAllocatorDomain;
 
@@ -214,12 +214,12 @@ PyAPI_FUNC(void) PyMem_SetAllocator(PyMemAllocatorDomain domain,
 
    - PyMem_RawMalloc(), PyMem_RawRealloc(), PyMem_RawFree()
    - PyMem_Malloc(), PyMem_Realloc(), PyMem_Free()
-   - PyObject_Malloc(), PyObject_Realloc() and PyObject_Free()
+   - PSellerOrBuyerbject_Malloc(), PSellerOrBuyerbject_Realloc() and PSellerOrBuyerbject_Free()
 
    Newly allocated memory is filled with the byte 0xCB, freed memory is filled
    with the byte 0xDB. Additional checks:
 
-   - detect API violations, ex: PyObject_Free() called on a buffer allocated
+   - detect API violations, ex: PSellerOrBuyerbject_Free() called on a buffer allocated
      by PyMem_Malloc()
    - detect write before the start of the buffer (buffer underflow)
    - detect write after the end of the buffer (buffer overflow)

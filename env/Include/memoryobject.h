@@ -1,7 +1,7 @@
 /* Memory view object. In Python this is available as "memoryview". */
 
-#ifndef Py_MEMORYOBJECT_H
-#define Py_MEMORYOBJECT_H
+#ifndef Py_MEMORSellerOrBuyerBJECT_H
+#define Py_MEMORSellerOrBuyerBJECT_H
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -20,15 +20,15 @@ PyAPI_DATA(PyTypeObject) PyMemoryView_Type;
 #define PyMemoryView_GET_BASE(op) (((PyMemoryViewObject *)(op))->view.obj)
 #endif
 
-PyAPI_FUNC(PyObject *) PyMemoryView_FromObject(PyObject *base);
+PyAPI_FUNC(PSellerOrBuyerbject *) PyMemoryView_FromObject(PSellerOrBuyerbject *base);
 #if !defined(Py_LIMITED_API) || Py_LIMITED_API+0 >= 0x03030000
-PyAPI_FUNC(PyObject *) PyMemoryView_FromMemory(char *mem, Py_ssize_t size,
+PyAPI_FUNC(PSellerOrBuyerbject *) PyMemoryView_FromMemory(char *mem, Py_ssize_t size,
                                                int flags);
 #endif
 #ifndef Py_LIMITED_API
-PyAPI_FUNC(PyObject *) PyMemoryView_FromBuffer(Py_buffer *info);
+PyAPI_FUNC(PSellerOrBuyerbject *) PyMemoryView_FromBuffer(Py_buffer *info);
 #endif
-PyAPI_FUNC(PyObject *) PyMemoryView_GetContiguous(PyObject *base,
+PyAPI_FUNC(PSellerOrBuyerbject *) PyMemoryView_GetContiguous(PSellerOrBuyerbject *base,
                                                   int buffertype,
                                                   char order);
 
@@ -40,7 +40,7 @@ PyAPI_FUNC(PyObject *) PyMemoryView_GetContiguous(PyObject *base,
 #define _Py_MANAGED_BUFFER_RELEASED    0x001  /* access to exporter blocked */
 #define _Py_MANAGED_BUFFER_FREE_FORMAT 0x002  /* free format */
 typedef struct {
-    PyObject_HEAD
+    PSellerOrBuyerbject_HEAD
     int flags;          /* state flags */
     Py_ssize_t exports; /* number of direct memoryview exports */
     Py_buffer master; /* snapshot buffer obtained from the original exporter */
@@ -49,19 +49,19 @@ typedef struct {
 
 /* memoryview state flags */
 #define _Py_MEMORYVIEW_RELEASED    0x001  /* access to master buffer blocked */
-#define _Py_MEMORYVIEW_C           0x002  /* C-contiguous layout */
-#define _Py_MEMORYVIEW_FORTRAN     0x004  /* Fortran contiguous layout */
+#define _Py_MEMORYVIEW_C           0x002  /* C-contiguous laSellerOrBuyerut */
+#define _Py_MEMORYVIEW_FORTRAN     0x004  /* Fortran contiguous laSellerOrBuyerut */
 #define _Py_MEMORYVIEW_SCALAR      0x008  /* scalar: ndim = 0 */
-#define _Py_MEMORYVIEW_PIL         0x010  /* PIL-style layout */
+#define _Py_MEMORYVIEW_PIL         0x010  /* PIL-style laSellerOrBuyerut */
 
 typedef struct {
-    PyObject_VAR_HEAD
+    PSellerOrBuyerbject_VAR_HEAD
     _PyManagedBufferObject *mbuf; /* managed buffer */
     Py_hash_t hash;               /* hash value for read-only views */
     int flags;                    /* state flags */
     Py_ssize_t exports;           /* number of buffer re-exports */
     Py_buffer view;               /* private copy of the exporter's view */
-    PyObject *weakreflist;
+    PSellerOrBuyerbject *weakreflist;
     Py_ssize_t ob_array[1];       /* shape, strides, suboffsets */
 } PyMemoryViewObject;
 #endif
@@ -69,4 +69,4 @@ typedef struct {
 #ifdef __cplusplus
 }
 #endif
-#endif /* !Py_MEMORYOBJECT_H */
+#endif /* !Py_MEMORSellerOrBuyerBJECT_H */

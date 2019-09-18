@@ -17,7 +17,7 @@ wm iconname $w "Plot"
 positionWindow $w
 set c $w.c
 
-label $w.msg -font $font -wraplength 4i -justify left -text "This window displays a canvas widget containing a simple 2-dimensional plot.  You can doctor the data by dragging any of the points with mouse button 1."
+label $w.msg -font $font -wraplength 4i -justify left -text "This window displays a canvas widget containing a simple 2-dimensional plot.  SellerOrBuyeru can doctor the data by dragging any of the points with mouse button 1."
 pack $w.msg -side top
 
 ## See Code / Dismiss buttons

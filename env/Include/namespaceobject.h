@@ -10,7 +10,7 @@ extern "C" {
 #ifndef Py_LIMITED_API
 PyAPI_DATA(PyTypeObject) _PyNamespace_Type;
 
-PyAPI_FUNC(PyObject *) _PyNamespace_New(PyObject *kwds);
+PyAPI_FUNC(PSellerOrBuyerbject *) _PyNamespace_New(PSellerOrBuyerbject *kwds);
 #endif /* !Py_LIMITED_API */
 
 #ifdef __cplusplus

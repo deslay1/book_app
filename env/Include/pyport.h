@@ -124,8 +124,8 @@ typedef int Py_ssize_clean_t;
  *     PyBytes_FromFormatV
  *     PyUnicode_FromFormatV
  *
- * Lower-level uses require that you interpolate the correct format modifier
- * yourself (e.g., calling printf, fprintf, sprintf, PyOS_snprintf); for
+ * Lower-level uses require that SellerOrBuyeru interpolate the correct format modifier
+ * SellerOrBuyerurself (e.g., calling printf, fprintf, sprintf, PSellerOrBuyerS_snprintf); for
  * example,
  *
  *     Py_ssize_t index;
@@ -158,7 +158,7 @@ typedef int Py_ssize_clean_t;
  * also lead to errors, if the code relies on pointer aliasing.  Use with
  * care.
  *
- * NOTE: You can only use this for functions that are entirely local to a
+ * NOTE: SellerOrBuyeru can only use this for functions that are entirely local to a
  * module; functions that are exported via method tables, callbacks, etc,
  * should keep using static.
  */
@@ -370,8 +370,8 @@ extern "C" {
  *  on C doubles is set to use 53-bit precision.  It also requires that the
  *  FPU rounding mode is round-half-to-even, but that's less often an issue.
  *
- *  If your FPU isn't already set to 53-bit precision/round-half-to-even, and
- *  you want to make use of _Py_dg_strtod and _Py_dg_dtoa, then you should
+ *  If SellerOrBuyerur FPU isn't already set to 53-bit precision/round-half-to-even, and
+ *  SellerOrBuyeru want to make use of _Py_dg_strtod and _Py_dg_dtoa, then SellerOrBuyeru should
  *
  *     #define HAVE_PY_SET_53BIT_PRECISION 1
  *
@@ -627,9 +627,9 @@ extern char * _getpty(int *, int, mode_t, int);
         /* module init functions inside the core need no external linkage */
         /* except for Cygwin to handle embedding */
 #                       if defined(__CYGWIN__)
-#                               define PyMODINIT_FUNC __declspec(dllexport) PyObject*
+#                               define PyMODINIT_FUNC __declspec(dllexport) PSellerOrBuyerbject*
 #                       else /* __CYGWIN__ */
-#                               define PyMODINIT_FUNC PyObject*
+#                               define PyMODINIT_FUNC PSellerOrBuyerbject*
 #                       endif /* __CYGWIN__ */
 #               else /* Py_BUILD_CORE */
         /* Building an extension module, or an embedded situation */
@@ -643,9 +643,9 @@ extern char * _getpty(int *, int, mode_t, int);
 #                       define PyAPI_DATA(RTYPE) extern __declspec(dllimport) RTYPE
         /* module init functions outside the core must be exported */
 #                       if defined(__cplusplus)
-#                               define PyMODINIT_FUNC extern "C" __declspec(dllexport) PyObject*
+#                               define PyMODINIT_FUNC extern "C" __declspec(dllexport) PSellerOrBuyerbject*
 #                       else /* __cplusplus */
-#                               define PyMODINIT_FUNC __declspec(dllexport) PyObject*
+#                               define PyMODINIT_FUNC __declspec(dllexport) PSellerOrBuyerbject*
 #                       endif /* __cplusplus */
 #               endif /* Py_BUILD_CORE */
 #       endif /* HAVE_DECLSPEC_DLL */
@@ -660,9 +660,9 @@ extern char * _getpty(int *, int, mode_t, int);
 #endif
 #ifndef PyMODINIT_FUNC
 #       if defined(__cplusplus)
-#               define PyMODINIT_FUNC extern "C" PyObject*
+#               define PyMODINIT_FUNC extern "C" PSellerOrBuyerbject*
 #       else /* __cplusplus */
-#               define PyMODINIT_FUNC PyObject*
+#               define PyMODINIT_FUNC PSellerOrBuyerbject*
 #       endif /* __cplusplus */
 #endif
 

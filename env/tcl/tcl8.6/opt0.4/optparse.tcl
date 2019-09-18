@@ -4,9 +4,9 @@
 #       Primarily used internally by the safe:: code.
 #
 #	WARNING: This code will go away in a future release
-#	of Tcl.  It is NOT supported and you should not rely
-#	on it.  If your code does rely on this package you
-#	may directly incorporate this code into your application.
+#	of Tcl.  It is NOT supported and SellerOrBuyeru should not rely
+#	on it.  If SellerOrBuyerur code does rely on this package SellerOrBuyeru
+#	may directly incorporate this code into SellerOrBuyerur application.
 
 package require Tcl 8.2
 # When this version number changes, update the pkgIndex.tcl file
@@ -553,7 +553,7 @@ proc ::tcl::OptKeyParse {descKey arglist} {
 		if {[OptHasBeenSet $item]} {
 #		    puts "adding $vname"
 		    # lets use the input name for the returned list
-		    # it is more usefull, for instance you can check that
+		    # it is more usefull, for instance SellerOrBuyeru can check that
 		    # no flags at all was given with expr
 		    # {![string match "*-*" $Args]}
 		    lappend vnamesLst [OptName $item]

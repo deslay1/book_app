@@ -10,20 +10,20 @@ extern "C" {
 #endif
 
 typedef struct {
-    PyObject_HEAD
-    PyObject *im_func;   /* The callable object implementing the method */
-    PyObject *im_self;   /* The instance it is bound to */
-    PyObject *im_weakreflist; /* List of weak references */
+    PSellerOrBuyerbject_HEAD
+    PSellerOrBuyerbject *im_func;   /* The callable object implementing the method */
+    PSellerOrBuyerbject *im_self;   /* The instance it is bound to */
+    PSellerOrBuyerbject *im_weakreflist; /* List of weak references */
 } PyMethodObject;
 
 PyAPI_DATA(PyTypeObject) PyMethod_Type;
 
 #define PyMethod_Check(op) ((op)->ob_type == &PyMethod_Type)
 
-PyAPI_FUNC(PyObject *) PyMethod_New(PyObject *, PyObject *);
+PyAPI_FUNC(PSellerOrBuyerbject *) PyMethod_New(PSellerOrBuyerbject *, PSellerOrBuyerbject *);
 
-PyAPI_FUNC(PyObject *) PyMethod_Function(PyObject *);
-PyAPI_FUNC(PyObject *) PyMethod_Self(PyObject *);
+PyAPI_FUNC(PSellerOrBuyerbject *) PyMethod_Function(PSellerOrBuyerbject *);
+PyAPI_FUNC(PSellerOrBuyerbject *) PyMethod_Self(PSellerOrBuyerbject *);
 
 /* Macros for direct access to these values. Type checks are *not*
    done, so use with care. */
@@ -35,16 +35,16 @@ PyAPI_FUNC(PyObject *) PyMethod_Self(PyObject *);
 PyAPI_FUNC(int) PyMethod_ClearFreeList(void);
 
 typedef struct {
-    PyObject_HEAD
-    PyObject *func;
+    PSellerOrBuyerbject_HEAD
+    PSellerOrBuyerbject *func;
 } PyInstanceMethodObject;
 
 PyAPI_DATA(PyTypeObject) PyInstanceMethod_Type;
 
 #define PyInstanceMethod_Check(op) ((op)->ob_type == &PyInstanceMethod_Type)
 
-PyAPI_FUNC(PyObject *) PyInstanceMethod_New(PyObject *);
-PyAPI_FUNC(PyObject *) PyInstanceMethod_Function(PyObject *);
+PyAPI_FUNC(PSellerOrBuyerbject *) PyInstanceMethod_New(PSellerOrBuyerbject *);
+PyAPI_FUNC(PSellerOrBuyerbject *) PyInstanceMethod_Function(PSellerOrBuyerbject *);
 
 /* Macros for direct access to these values. Type checks are *not*
    done, so use with care. */

@@ -17,10 +17,10 @@ wm iconname $w "Text"
 positionWindow $w
 set c $w.c
 
-label $w.msg -font $font -wraplength 5i -justify left -text "This window displays a string of text to demonstrate the text facilities of canvas widgets.  You can click in the boxes to adjust the position of the text relative to its positioning point or change its justification, and on a pie slice to change its angle.  The text also supports the following simple bindings for editing:
-  1. You can point, click, and type.
-  2. You can also select with button 1.
-  3. You can copy the selection to the mouse position with button 2.
+label $w.msg -font $font -wraplength 5i -justify left -text "This window displays a string of text to demonstrate the text facilities of canvas widgets.  SellerOrBuyeru can click in the boxes to adjust the position of the text relative to its positioning point or change its justification, and on a pie slice to change its angle.  The text also supports the following simple bindings for editing:
+  1. SellerOrBuyeru can point, click, and type.
+  2. SellerOrBuyeru can also select with button 1.
+  3. SellerOrBuyeru can copy the selection to the mouse position with button 2.
   4. Backspace and Control+h delete the selection if there is one;
      otherwise they delete the character just before the insertion cursor.
   5. Delete deletes the selection if there is one; otherwise it deletes

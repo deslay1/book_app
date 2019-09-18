@@ -281,7 +281,7 @@ proc ::safe::InterpCreate {
 #    Sets up slave virtual auto_path and corresponding structure within
 #    the master. Also sets the tcl_library in the slave to be the first
 #    directory in the path.
-#    NB: If you change the path after the slave has been initialized you
+#    NB: If SellerOrBuyeru change the path after the slave has been initialized SellerOrBuyeru
 #    probably need to call "auto_reset" in the slave in order that it gets
 #    the right auto_index() array values.
 
@@ -429,7 +429,7 @@ proc ::safe::interpAddToAccessPath {slave path} {
 }
 
 # This procedure applies the initializations to an already existing
-# interpreter. It is useful when you want to install the safe base aliases
+# interpreter. It is useful when SellerOrBuyeru want to install the safe base aliases
 # into a preexisting safe interpreter.
 proc ::safe::InterpInit {
 			 slave

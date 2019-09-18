@@ -1,6 +1,6 @@
 {
     "python.formatting.provider": "autopep8",
-    "python.pythonPath": "D:\\Programs\\Anaconda\\python.exe",
+    "python.pythonPath": "venv/bin/python",
     "python.linting.pylintEnabled": false,
     "python.linting.pep8Enabled": true,
     "python.linting.enabled": true

@@ -1,0 +1,27 @@
+{% extends 'bookmarket/base.html' %}
+
+{% block content %}
+<div class="card bg-light mb-12">
+    <div id="add-comment-header" class="card-header">
+        <h3>New message</h3>
+    </div>
+    {% if userAu.first_name %}
+    <h3>Feel free to add contact information below so you and {{userAu.first_name}} {{userAu.last_name}} can get in
+        touch. Also
+        add any questions you may have.</h3>
+    {%else%}
+    <h3>Feel free to add contact information below so you and {{userAu}} can get in touch. Also
+        add any questions you may have.</h3>
+    {%endif%}
+    <form method="POST" class="post-form">{% csrf_token %}
+        <div class="card-body">
+            <div class="add-comment-form">
+                {{ form.as_p }}
+            </div>
+        </div>
+        <div class="add-comment-button">
+            <button type="submit" class="btn btn-primary active">Send message</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

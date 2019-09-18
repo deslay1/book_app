@@ -11,5 +11,5 @@ if __name__ == '__main__':
             "Couldn't import Django. Are SellerOrBuyeru sure it's installed and "
             "available on SellerOrBuyerur PYTHONPATH environment variable? Did SellerOrBuyeru "
             "forget to activate a virtual environment?"
-        )
+        ) from exc
     execute_from_command_line(sys.argv)

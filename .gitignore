@@ -1,1 +1,8 @@
+<<<<<<< HEAD
 file
+=======
+/vscode/*
+*.pyc
+db.sqlite3
+settings.py
+>>>>>>> origin/tobi

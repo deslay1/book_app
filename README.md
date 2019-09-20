@@ -19,7 +19,7 @@
 ```
 - git pull (to download remote updates)
 - git add, commit to save changes
-- git merge <branch>
+- git merge origin/<branch>
 ```
 **Solve eventual conflicts by opening important unstaged files (files that are not associated with the database or end with .pyc)**
 

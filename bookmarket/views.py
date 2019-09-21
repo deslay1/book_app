@@ -65,11 +65,25 @@ def add_comment_to_post(request, pk):
     return render(request, 'bookmarket/add_comment.html', {'form': form})
 
 
+@login_required(login_url='login')
+def update_comment(request, pk, id):
+    post = get_object_or_404(Post, pk=pk)
+    post_comment = get_object_or_404(Comment, id=id)
+    if request.method == "POST":
+        form = CommentForm(request.POST, instance=post_comment, initial={
+                           'content': "hello"})
+        if form.is_valid():
+            form.save()
+            return redirect('post-detail', pk=post.pk)
+    else:
+        form = CommentForm()
+    return render(request, 'bookmarket/update_comment.html', {'form': form})
+
+
+@login_required(login_url='login')
 def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
-    posts = Comment.objects.all().filter(
-        Q(comuser=request.user)).order_by('-date_posted')
-
+    posts = post.comments.all().order_by('-date_posted')
     paginator = Paginator(posts, 5)
 
     page = request.GET.get('page')
@@ -79,13 +93,13 @@ def post_detail(request, pk):
         post_List = paginator.page(1)
     except EmptyPage:
         post_List = paginator.page(paginator.num_pages)
-    context = {
 
-        'post_List': post_List
+    context = {
+        'comments': post_List,
+        'post': post
     }
 
-    return render(request, 'bookmarket/post_detail.html', {'comments': post_List,
-                                                           'post': post})
+    return render(request, 'bookmarket/post_detail.html', context)
 
 
 @login_required(login_url='login')
@@ -113,7 +127,6 @@ def add_message_to_post(request, pk):
 
 def home(request):
     query = request.GET['q']
-
     context = {
         'posts': Post.objects.all(),
         # 'posts': get_queryset(query),

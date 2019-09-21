@@ -19,20 +19,20 @@
         {% endif %}
         {% endif %}
         <small class="text-muted">{{ post.date_posted|date:"F d, Y H:i" }}</small>
-        {% if post.author == user %}
-
         <div class="post-button">
           <a class="btn btn-primary active btn-sm mt-1 mb-1" href="{% url 'post-update' post.id %}">Update</a>
           <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-delete' post.id %}">Delete</a>
         </div>
-        {% endif%}
-
       </div>
     </div>
     <div class="post-information">
       <div class="post-bar">
         <h2 class="article-title">{{ post.title }}</h2>
-        <h4 class="post-price">{{ post.price }} kr</h4>
+        {% if post.price == 0.00 %}
+        <h4 class="post-price">Free</h4>
+        {% else %}
+        <h4 class="post-price">{{ post.price|floatformat:"-2" }} kr</h4>
+        {% endif %}
       </div>
       <p class="article-content">{{ post.content }}</p>
       {% if post.image.url == "/media/default.jpg" %}
@@ -41,7 +41,7 @@
       </div>
       {% else %}
       <div class="carousel">
-        <div id="carousel-post-images" class="carousel slide" data-ride="carousel">
+        <div id="carousel-{{post.id}}" class="carousel slide" data-ride="carousel">
           <ol class="carousel-indicators">
             {% if post.image and post.image2 %}
             <li data-target="#carousel-post-images" data-slide-to="0" class="active"></li>
@@ -92,67 +92,58 @@
   <div class="media-body">
     {% if user.is_authenticated %}
     <div class="comment-top">
-      {% if post.comments.all %}
+      {% if comments %}
       <h4 id="comment-section-header"><u>Comments: {{ post.comments.count}}</u></h4>
       {% else %}
       <h4 id="comment-section-header"><u>No comments have been posted</u></h4>
       {% endif %}
       <a id="add-comment-button" class="btn btn-primary active" href="{% url 'add-comment-to-post' post.id %}">Add
         comment</a>
-
     </div>
     {% endif %}
-
     {% for comment in comments %}
-    <article class="media content-section">
-
-
-      <div>
-        {% if comment.comuser %}
-        Comment from <a href="/profile/"> {{ comment.comuser.first_name }}
-          {{ comment.comuser.last_name }}</a> regarding
-        <img class="rounded-circle article-img" src="{{ comment.comuser.profile.image.url }}">
-        {% if comment.comuser.first_name %}
-
-        {% else %}
-        {% endif %}
-        <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-detail' comment.post.id %}">This
-          post</a>
-        {% endif %}
-        <small>{{ comment.date_posted|date:"M d, H:i" }}</small>
-        <br>
-
-        <div class="new">
-          <h2 class="account-heading">{{comment.content }}</h2>
+    <div class="col-sm-12">
+      <div class="card bg-light">
+        <div class="card-header">
+          {% if comment.comuser %}
+          <img class="rounded-circle article-img" src="{{ comment.comuser.profile.image.url }}">
+          {% if comment.comuser.last_name %}
+          <a href="/profile/">{{ comment.comuser.last_name }}</a>
+          {% else %}
+          <a href="/profile/">{{ comment.comuser }}</a>
+          {% endif %}
+          {% endif %}
+          <small>{{ comment.date_posted|date:"M d, H:i" }}</small>
+          {% if user == comment.comuser %}
+          <a id="update-comment-button" class="btn btn-primary active btn-sm"
+            href="{% url 'update-comment' post.id comment.id %}">Update
+            comment</a>
+          {% endif %}
+        </div>
+        <div class="card-body">
+          <p>{{ comment.content }}</p>
         </div>
       </div>
+    </div>
+    {% endfor %}
 
-
-
-
-
-
-    </article>
-
-    {%endfor%}
     {% if comments %}
     {% if comments.has_previous %}
-    <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
-    <a class="btn btn-outline-info mb-4" href="?page={{ comments.previous_page_number }}">Previous</a>
+    <a class="btn btn-primary active mb-4" href="?page=1">First</a>
+    <a class="btn btn-primary active mb-4" href="?page={{ comments.previous_page_number }}">Previous</a>
     {% endif %}
     {% for num in comments.paginator.page_range %}
     {% if comments.number == num %}
     <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
     {% elif num > comments.number|add:'-3' and num < comments.number|add:'3' %}
-    <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+    <a class="btn btn-primary active mb-4" href="?page={{ num }}">{{ num }}</a>
     {% endif %}
     {% endfor %}
     {% if comments.has_next %}
-    <a class="btn btn-outline-info mb-4" href="?page={{ comments.next_page_number }}">Next</a>
-    <a class="btn btn-outline-info mb-4" href="?page={{ comments.paginator.num_pages }}">Last</a>
+    <a class="btn btn-primary active mb-4" href="?page={{ comments.next_page_number }}">Next</a>
+    <a class="btn btn-primary active mb-4" href="?page={{ comments.paginator.num_pages }}">Last</a>
     {% endif %}
     {% endif %}
-
   </div>
 </div>
 {% endblock content %}

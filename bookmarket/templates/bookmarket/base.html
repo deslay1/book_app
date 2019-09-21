@@ -12,6 +12,7 @@
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <link rel="stylesheet" type="text/css" href="{% static 'bookmarket/main.css' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
     {% if title %}
     <title>App - {{ title }}</title>
@@ -21,53 +22,75 @@
 </head>
 
 <body>
-    <header class="site-header">
-        <nav class="navbar navbar-expand-md navbar-dark bg-red  fixed-top">
-            <div class="container">
-                <a class="navbar-brand mr-4" href="{% url 'app-home' %}">Bookmarket</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle"
-                    aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarToggle">
-                    <div class="navbar-nav mr-auto">
-                        <a class="nav-item nav-link" href="/about">About</a>
-                        {% if user.is_superuser %}
-                        <a class="nav-item nav-link" href="/admin">Admin</a>
-                        {% endif %}
-                    </div>
-                    <!-- Navbar Right Side -->
-                    <div class="navbar-nav">
-                        <a class="nav-item nav-link" href="/show_message">Messages</a>
+    <div class="body-body">
+        <header class="site-header">
+            <nav class="navbar navbar-expand-md navbar-dark bg-red  fixed-top">
+                <div class="container">
+                    <a class="navbar-brand mr-4" href="{% url 'app-home' %}"><i id="logo-icon"
+                            class="material-icons">bookmarks</i> Bookmarket</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle"
+                        aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarToggle">
+                        <div class="navbar-nav mr-auto">
+                            <div class="dropdown">
+                                <button class="btn btn-danger dropdown-toggle" id="dropdown-left" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">Links</button>
+                                <div class="dropdown-menu dropdown-primary">
+                                    <a class="dropdown-item" href="/about"><i id="nav-icon-links"
+                                            class="material-icons">description</i> About</a>
+                                    <a class="dropdown-item" href="//github.com/deslay1/book_app"><i id="nav-icon-links"
+                                            class="material-icons">backup</i> Github</a>
+                                </div>
+                            </div>
+                            {% if user.is_superuser %}
+                            <a class="nav-item nav-link" href="/admin">Admin</a>
+                            {% endif %}
+                        </div>
+                        <!-- Navbar Right Side -->
+                        <div class="navbar-nav">
 
-                        {% if user.is_authenticated %}
-                        <a class="nav-item nav-link" href="/profile">Profile</a>
-                        <a class="nav-item nav-link" href="/logout">Logout</a>
+                            <div class="dropdown">
+                                <button class="btn btn-danger dropdown-toggle" id="dropdown-right"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span
+                                        class="glyphicon glyphicon-search" aria-hidden="true"></span> Account</button>
+                                <div class="dropdown-menu dropdown-primary">
+                                    <a class="dropdown-item" href="/show_message"><i id="nav-icon-links"
+                                            class="material-icons">message</i>
+                                        Messages</a>
+                                    {% if user.is_authenticated %}
+                                    <a class="dropdown-item" href="/profile"><i id="nav-icon-links"
+                                            class="material-icons">account_circle</i>
+                                        Profile</a>
+                                </div>
+                            </div>
+                            <a class="nav-item nav-link" href="/logout">Logout</a>
 
-                        {% else %}
-                        <a class="nav-item nav-link" href="/login">Login</a>
-                        <a class="nav-item nav-link" href="/register">Register</a>
+                            {% else %}
+                            <a class="nav-item nav-link" href="/login">Login</a>
+                            <a class="nav-item nav-link" href="/register">Register</a>
 
 
-                        {% endif %}
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
-            </div>
-        </nav>
-    </header>
-    <main role="main" class="container">
-        <div class="row justify-content-md-center">
-            <div class="col-md-8">
-                {% if messages %}
-                {% for message in messages%}
-                <div class="alert alert-{{message.tags}}">
-                    Login succeeded. Have a pleasant stay!
+            </nav>
+        </header>
+        <main role="main" class="container">
+            <div class="row justify-content-md-center">
+                <div class="col-md-8">
+                    {% if messages %}
+                    {% for message in messages%}
+                    <div class="alert alert-{{message.tags}}">
+                        Login succeeded. Have a pleasant stay!
+                    </div>
+                    {%endfor%}
+                    {% endif %}
+                    {% block content %}{% endblock %}
                 </div>
-                {%endfor%}
-                {% endif %}
-                {% block content %}{% endblock %}
-            </div>
-            <!-- <div class="col-md-4">
+                <!-- <div class="col-md-4">
                 <div class="content-section">
                     <h3>Our Sidebar</h3>
                     <p class='text-muted'>You can put any information here you'd like.
@@ -80,8 +103,42 @@
                     </p>
                 </div>
             </div> -->
+            </div>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="page-footer font-small stylish-color-dark pt-4">
+        <div class="container text-center text-md-left">
+            <div class="row">
+                <div class="col-md-4 mx-auto">
+                    <h5 id="footer-header" class="font-weight-bold mt-1 mb-2"><i id="logo-icon"
+                            class="material-icons">bookmarks</i> Bookmarket</h5>
+                    <p>Developed using the Django web framework built on python.</p>
+                </div>
+                <hr class="clearfix w-100 d-md-none">
+                <div class="col-md-2 mx-auto">
+                    <h5 id="footer-header" class="font-weight-bold mt-1 mb-4">Links</h5>
+                    <ul class="list-unstyled">
+                        <li>
+                            <a class="btn btn-primary btn-sm active" href="/about">About</a> || <a
+                                class="btn btn-primary btn-sm active" href="//github.com/deslay1/book_app">Github</a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
         </div>
-    </main>
+        <hr>
+        <ul class="list-unstyled list-inline text-center py-3">
+            <li class="list-inline-item">
+                Main page: <a class="btn btn-primary btn-sm active" href=""> Bookmarket.com</a> &ensp;||
+            </li>
+            <li class="list-inline-item">
+                <a href="/register" class="btn btn-primary btn-sm active btn-rounded">Click here to sign up!</a>
+            </li>
+        </ul>
+    </footer>
 
     <script src="{% static 'bookmarket/scripts.js' %}"></script>
 
@@ -97,6 +154,5 @@
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
     </script>
 </body>
-
 
 </html>

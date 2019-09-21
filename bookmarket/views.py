@@ -94,12 +94,31 @@ def post_detail(request, pk):
     except EmptyPage:
         post_List = paginator.page(paginator.num_pages)
 
+    is_liked = False
+    if post.likes.filter(id=request.user.id).exists():
+        is_liked = True
+
     context = {
         'comments': post_List,
-        'post': post
+        'post': post,
+        'is_liked': is_liked,
+        'total_likes': post.total_likes()
     }
 
     return render(request, 'bookmarket/post_detail.html', context)
+
+
+@login_required(login_url='login')
+def like_post(request):
+    post = get_object_or_404(Post, id=request.POST.get('post_id'))
+    is_liked = False
+    if post.likes.filter(id=request.user.id).exists():
+        post.likes.remove(request.user)
+        is_liked = False
+    else:
+        post.likes.add(request.user)
+        is_liked = True
+    return HttpResponseRedirect(post.get_absolute_url())
 
 
 @login_required(login_url='login')

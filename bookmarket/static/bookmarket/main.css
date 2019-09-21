@@ -227,7 +227,15 @@ a.article-title:hover {
 }
 
 .post-footer {
-    margin-top: 1rem;
+    margin-top: 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.like-section {
+    display: flex;
+    align-items: center;
 }
 
 #post-type {
@@ -287,7 +295,6 @@ textarea {
 .add-comment-button {
     text-align: center;
     padding-bottom: 1.25rem;
-    background-color: darkblue;
 }
 
 #update-comment-button {

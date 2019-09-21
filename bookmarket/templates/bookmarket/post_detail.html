@@ -83,6 +83,18 @@
       </div>
       {% endif %}
       <div class="post-footer">
+        <div class="like-section">
+          <form action="{% url 'like_post' %}" method="POST">
+            {% csrf_token %}
+            {% if is_liked %}
+            <button type="submit" name="post_id" value="{{ post.id }}" class="btn btn-danger btn-sm">Dislike</button>
+            {% else %}
+            <button type="submit" name="post_id" value="{{ post.id }}"
+              class="btn btn-primary active btn-sm">Like</button>
+            {% endif %}
+          </form>
+          <h6 id="like-info">&ensp;|&ensp;{{ total_likes }} Like{{ total_likes|pluralize }}</h6>
+        </div>
         <h6 id="post-type">{{ post.SellerOrBuyer }}</h6>
       </div>
     </div>
@@ -126,24 +138,25 @@
       </div>
     </div>
     {% endfor %}
-
-    {% if comments %}
-    {% if comments.has_previous %}
-    <a class="btn btn-primary active mb-4" href="?page=1">First</a>
-    <a class="btn btn-primary active mb-4" href="?page={{ comments.previous_page_number }}">Previous</a>
-    {% endif %}
-    {% for num in comments.paginator.page_range %}
-    {% if comments.number == num %}
-    <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
-    {% elif num > comments.number|add:'-3' and num < comments.number|add:'3' %}
-    <a class="btn btn-primary active mb-4" href="?page={{ num }}">{{ num }}</a>
-    {% endif %}
-    {% endfor %}
-    {% if comments.has_next %}
-    <a class="btn btn-primary active mb-4" href="?page={{ comments.next_page_number }}">Next</a>
-    <a class="btn btn-primary active mb-4" href="?page={{ comments.paginator.num_pages }}">Last</a>
-    {% endif %}
-    {% endif %}
   </div>
 </div>
+
+{% if comments %}
+{% if comments.has_previous %}
+<a class="btn btn-primary active mb-4" href="?page=1">First</a>
+<a class="btn btn-primary active mb-4" href="?page={{ comments.previous_page_number }}">Previous</a>
+{% endif %}
+{% for num in comments.paginator.page_range %}
+{% if comments.number == num %}
+<a class="btn btn-primary active mb-4" href="?page={{ num }}">{{ num }}</a>
+{% elif num > comments.number|add:'-3' and num < comments.number|add:'3' %}
+<a class="btn btn-primary active mb-4" href="?page={{ num }}">{{ num }}</a>
+{% endif %}
+{% endfor %}
+{% if comments.has_next %}
+<a class="btn btn-primary active mb-4" href="?page={{ comments.next_page_number }}">Next</a>
+<a class="btn btn-primary active mb-4" href="?page={{ comments.paginator.num_pages }}">Last</a>
+{% endif %}
+{% endif %}
+
 {% endblock content %}

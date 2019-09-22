@@ -28,6 +28,8 @@ DEBUG = True
 # Application definition
 
 INSTALLED_APPS = [
+    'django_filters',
+    'bootstrapform',
     'crispy_forms',
     'bookmarket.apps.BookmarketConfig',
     'django.contrib.sessions',

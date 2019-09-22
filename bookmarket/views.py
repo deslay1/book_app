@@ -16,6 +16,7 @@ from django.views.generic import (
 )
 from django.core.mail import send_mail
 from django.conf import settings
+from .filters import PostFilter
 
 
 def post_create(request):
@@ -231,7 +232,8 @@ class PostListView(ListView):
         except EmptyPage:
             object_list2 = paginator.page(paginator.num_pages)
 
-        context = {'buyers': object_list2, 'sellers': object_list1}
+        context = {'buyers': object_list2, 'sellers': object_list1, 'filter': PostFilter(
+            self.request.GET, queryset=self.get_queryset())}
         # Add any other variables to the context here
         return context
 

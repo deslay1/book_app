@@ -1,4 +1,4 @@
-/vscode/*
+/.vscode/*
 *.pyc
 db.sqlite3
 settings.py

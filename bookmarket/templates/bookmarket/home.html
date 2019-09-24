@@ -67,6 +67,15 @@
           <h4 class="post-price">{{ post.price|floatformat:"-2" }} kr</h4>
           {% endif %}
         </div>
+        {% if post.Condition %}
+        <h6 class="post-condition">
+          <span class="badge badge-pill badge-success">{{ post.Condition }}</span>
+        </h6>
+        {% else %}
+        <h6 class="post-condition">
+          <span class="badge badge-pill badge-success">Unspecified</span>
+        </h6>
+        {% endif %}
         <p class="article-content">{{ post.content }}</p>
         <!-- <div class="post-image">
           {% if post.image %}
@@ -128,6 +137,7 @@
         {% endif %}
         <div class="post-footer">
           <a href="{% url 'post-detail' post.id %}"> View comments ({{ post.comments.count }})</a>
+          <h6 id="like-info">{{ post.likes.count }} Like{{ post.likes.count|pluralize }}</h6>
           <h6 id="post-type">{{ post.SellerOrBuyer }}</h6>
         </div>
       </div>
@@ -167,7 +177,6 @@
 </div>
 <div id="Buy" class="tabcontent">
   {% for post in buyers %}
-  {% if post.SellerOrBuyer == "Buyer" %}
   <article class="media content-section">
     <div class="media-body">
       <div class="article-metadata">
@@ -259,11 +268,11 @@
         {% endif %}
         <div class="post-footer">
           <a href="{% url 'post-detail' post.id %}"> View comments ({{ post.comments.count }})</a>
+          <h6 id="like-info">{{ post.likes.count }} Like{{ post.likes.count|pluralize }}</h6>
           <h6 id="post-type">{{ post.SellerOrBuyer }}</h6>
         </div>
       </div>
   </article>
-  {% endif %}
 
   {% empty %}
   <div class="content-section">

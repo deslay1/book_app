@@ -1,4 +1,5 @@
 from django import forms
+from django.forms import RadioSelect
 
 from .models import Post, Comment, Message
 
@@ -14,7 +15,11 @@ class PostForm(forms.ModelForm):
             "image3",
             "price",
             "SellerOrBuyer",
+            'Condition'
         ]
+        widgets = {
+            'Condition': forms.RadioSelect,
+        }
 
 
 class CommentForm(forms.ModelForm):

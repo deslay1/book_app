@@ -50,7 +50,7 @@
                         </div>
                         <!-- Navbar Right Side -->
                         <div class="navbar-nav">
-
+                            {% if user.is_authenticated %}
                             <div class="dropdown">
                                 <button class="btn btn-danger dropdown-toggle" id="dropdown-right"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span
@@ -59,7 +59,6 @@
                                     <a class="dropdown-item" href="/show_message"><i id="nav-icon-links"
                                             class="material-icons">message</i>
                                         Messages</a>
-                                    {% if user.is_authenticated %}
                                     <a class="dropdown-item" href="/profile"><i id="nav-icon-links"
                                             class="material-icons">account_circle</i>
                                         Profile</a>
@@ -108,7 +107,7 @@
     </div>
 
     <!-- Footer -->
-    <footer class="page-footer font-small stylish-color-dark pt-4">
+    <footer class="page-footer font-small stylish-color-dark pt-4 ">
         <div class="container text-center text-md-left">
             <div class="row">
                 <div class="col-md-4 mx-auto">
@@ -139,6 +138,23 @@
             </li>
         </ul>
     </footer>
+    <!--     <footer class="page-footer font-small stylish-color-dark mt-2 ">
+        <ul class="list-unstyled list-inline text-center py-3">
+            <li class="list-inline-item">
+                <h5 id="footer-header" class="font-weight-bold mt-1 mb-2"><i id="logo-icon"
+                        class="material-icons">bookmarks</i> Bookmarket</h5>
+                <small>
+                    <p>Developed using the Django web framework built on python.</p>
+                </small>
+            </li>
+            <li class="list-inline-item">
+                <h5 id="footer-header" class="mt-1 mb-2">Main page: <a class="btn btn-primary btn-sm active" href="">
+                        Bookmarket.com</a></h5>
+                <h5 id="footer-header" class="mt-1 mb-2">Sign Up: <a href="/register"
+                        class="btn btn-primary btn-sm active btn-rounded">Click here to sign up!</a></h5>
+            </li>
+        </ul>
+    </footer> -->
 
     <script src="{% static 'bookmarket/scripts.js' %}"></script>
 

@@ -6,6 +6,7 @@ body {
     background-image: url(../bookmarket/images/background_home2.jpg);
     color: #333333;
     padding-top: 5rem;
+    min-height: 100%;
 }
 
 #container p {
@@ -330,7 +331,27 @@ footer {
     color: white;
 }
 
+/* .list-unstyled {
+    display: flex;
+    justify-content: space-around;
+} */
+
 .bs {
     padding: 10rem;
     text-align: center;
+}
+
+#like-info {
+    color: gray;
+    margin-right: 5rem;
+}
+
+.post-condition {
+    margin-left: 5rem;
+    float: right;
+}
+
+.badge-success {
+    padding: 0.5rem;
+    background-color: rgb(10, 143, 10);
 }

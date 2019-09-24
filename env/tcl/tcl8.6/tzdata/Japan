@@ -1,5 +1,0 @@
-# created by tools/tclZIC.tcl - do not edit
-if {![info exists TZData(Asia/TokSellerOrBuyer)]} {
-    LoadTimeZoneFile Asia/TokSellerOrBuyer
-}
-set TZData(:Japan) $TZData(:Asia/TokSellerOrBuyer)

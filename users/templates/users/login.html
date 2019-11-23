@@ -1,21 +1,39 @@
 {% extends "bookmarket/base.html" %}
 {% load crispy_forms_tags %}
+{% load socialaccount %}
+{% providers_media_js %}
 {% block content %}
-<div class="content-section">
-    <form method="POST">
-        {% csrf_token %}
-        <fieldset class="form-group">
-            <legend class="bordor-bottom mb-4">Log In</legend>
-            {{ form|crispy }}
-        </fieldset>
-        <div class="form-group">
-            <button class="btn btn-outline-info" type="submit">Login</button>
+
+
+<main role="main" class="container">
+    <div class="row justify-content-md-center">
+        <div class="col-md-10">
+            {% if messages %}
+            {% for message in messages%}
+            <div class="alert alert-{{message.tags}}">
+                {{message}}
+            </div>
+            {%endfor%}
+            {% endif %}
+            <div class="content-section">
+                <form method="POST">
+                    {% csrf_token %}
+                    <fieldset class="form-group">
+                        <legend class="bordor-bottom mb-4">Log In</legend>
+                        {{ form|crispy }}
+                    </fieldset>
+                    <div class="form-group">
+                        <button class="btn btn-outline-info" type="submit">Login</button>
+                    </div>
+                </form>
+                <div class="border-top pt-3">
+                    <small class="text-muted">
+                        Need an account? <a class="ml-2" href="{% url 'register' %}">Sign Up Now</a>
+                        or <a href="{% provider_login_url "facebook" method="js_sdk" %}">Connect via Facebook</a>
+                    </small>
+                </div>
+            </div>
         </div>
-    </form>
-    <div class="border-top pt-3">
-        <small class="text-muted">
-            Need an account <a class="ml-2" href="{% url 'register' %}">Sign Up Now</a>
-        </small>
     </div>
-</div>
-{% endblock content %}
+</main>
+{% endblock %}

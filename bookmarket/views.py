@@ -2,10 +2,11 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.decorators import login_required
-from .forms import PostForm, CommentForm
-from .models import Post
+from .forms import PostForm, CommentForm, MessageForm
+from .models import Post, Message, Comment
 from django.http import HttpResponse, HttpResponseRedirect
 from django.db.models import Q
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.generic import (
     ListView,
     DetailView,
@@ -13,6 +14,9 @@ from django.views.generic import (
     UpdateView,
     DeleteView
 )
+from django.core.mail import send_mail
+from django.conf import settings
+from .filters import PostFilter
 
 
 def post_create(request):
@@ -22,7 +26,7 @@ def post_create(request):
         instance.save()
         return HttpResponseRedirect(instance.get_absolute_url())
     context = {
-     "form": form,
+        "form": form,
     }
     return render(request, "home.html", context)
 
@@ -35,7 +39,7 @@ def post_update(request, id=None):
         instance.save()
         return HttpResponseRedirect(instance.get_absolute_url())
     context = {
-     "form": form,
+        "form": form,
     }
     return render(request, "home.html", context)
 
@@ -50,15 +54,99 @@ def add_comment_to_post(request, pk):
             comment.post = post
             comment.comuser = request.user
             comment.save()
+            subject = 'Comment recieved in Bookmarket'
+            message = (
+                'You just got a comment on one of your posts, check it out!' "\n" 'http://localhost:8000/post/'+str(post.id)+'/')
+            email_from = settings.EMAIL_HOST_USER
+            recipient_list = [post.author.email, ]
+            send_mail(subject, message, email_from, recipient_list)
             return redirect('post-detail', pk=post.pk)
     else:
         form = CommentForm()
     return render(request, 'bookmarket/add_comment.html', {'form': form})
 
 
+@login_required(login_url='login')
+def update_comment(request, pk, id):
+    post = get_object_or_404(Post, pk=pk)
+    post_comment = get_object_or_404(Comment, id=id)
+    if request.method == "POST":
+        form = CommentForm(request.POST, instance=post_comment, initial={
+                           'content': "hello"})
+        if form.is_valid():
+            form.save()
+            return redirect('post-detail', pk=post.pk)
+    else:
+        form = CommentForm()
+    return render(request, 'bookmarket/update_comment.html', {'form': form})
+
+
+@login_required(login_url='login')
+def post_detail(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    posts = post.comments.all().order_by('-date_posted')
+    paginator = Paginator(posts, 5)
+
+    page = request.GET.get('page')
+    try:
+        post_List = paginator.page(page)
+    except PageNotAnInteger:
+        post_List = paginator.page(1)
+    except EmptyPage:
+        post_List = paginator.page(paginator.num_pages)
+
+    is_liked = False
+    if post.likes.filter(id=request.user.id).exists():
+        is_liked = True
+
+    context = {
+        'comments': post_List,
+        'post': post,
+        'is_liked': is_liked,
+        'total_likes': post.total_likes()
+    }
+
+    return render(request, 'bookmarket/post_detail.html', context)
+
+
+@login_required(login_url='login')
+def like_post(request):
+    post = get_object_or_404(Post, id=request.POST.get('post_id'))
+    is_liked = False
+    if post.likes.filter(id=request.user.id).exists():
+        post.likes.remove(request.user)
+        is_liked = False
+    else:
+        post.likes.add(request.user)
+        is_liked = True
+    return HttpResponseRedirect(post.get_absolute_url())
+
+
+@login_required(login_url='login')
+def add_message_to_post(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+
+    if request.method == "POST":
+        form = MessageForm(request.POST)
+        if form.is_valid():
+            message = form.save(commit=False)
+            message.post = post
+            message.comuser = request.user
+            message.save()
+            subject = 'Message recieved in Bookmarket'
+            message = (
+                'You just got a message regarding one of your posts, check it out!' "\n" 'http://localhost:8000/show_message/')
+            email_from = settings.EMAIL_HOST_USER
+            recipient_list = [post.author.email, ]
+            send_mail(subject, message, email_from, recipient_list)
+            return redirect('post-detail', pk=post.pk)
+    else:
+        form = MessageForm()
+    return render(request, 'bookmarket/add_message.html', {'form': form, 'userAu': post.author})
+
+
 def home(request):
     query = request.GET['q']
-
     context = {
         'posts': Post.objects.all(),
         # 'posts': get_queryset(query),
@@ -66,55 +154,141 @@ def home(request):
         'query': str(query)
     }
     return render(request, 'bookmarket/home.html', context)
-    
+
+
+@login_required(login_url='login')
+def show_message(request):
+    posts = Message.objects.all().filter(
+        Q(comuser=request.user)).order_by('-date_posted')
+
+    paginator = Paginator(posts, 5)
+
+    page = request.GET.get('page')
+    try:
+        post_List = paginator.page(page)
+    except PageNotAnInteger:
+        post_List = paginator.page(1)
+    except EmptyPage:
+        post_List = paginator.page(paginator.num_pages)
+    context = {
+
+        'post_List': post_List
+    }
+
+    return render(request, 'bookmarket/show_messages.html', context)
+
 
 class PostListView(ListView):
     model = Post
     template_name = 'bookmarket/home.html'  # <app>/<model>_<viewtype>.html
     context_object_name = 'posts'
     ordering = ['-date_posted']
-    paginate_by = 5
-    
-    def get_queryset(self):
-            
+    paginate_by = 2
+
+    # Detta är för paginator och sökfältet
+
+    def get_context_data(self, **kwargs):
+        context = super(PostListView, self).get_context_data(**kwargs)
+
+        object_list1 = self.model.objects.filter(
+            Q(SellerOrBuyer__icontains="Sell")
+        ).distinct().order_by('-date_posted')
+
+        object_list2 = self.model.objects.filter(
+            Q(SellerOrBuyer__icontains="Buy")
+        ).distinct().order_by('-date_posted')
+
         query = self.request.GET.get('q')
         if query:
             queries = query.split(" ")
             for q in queries:
-                object_list = self.model.objects.filter(
+                object_list1 = object_list1.filter(
                     Q(title__icontains=q) |
                     Q(content__icontains=q)
                 ).distinct().order_by('-date_posted')
-        else:
-            object_list = self.model.objects.all().order_by('-date_posted')
-        return object_list
+
+                object_list2 = object_list2.filter(
+                    Q(title__icontains=q) |
+                    Q(content__icontains=q)
+                ).distinct().order_by('-date_posted')
+
+        paginator = Paginator(object_list1, self.paginate_by)
+        page = self.request.GET.get('page')
+
+        try:
+            object_list1 = paginator.page(page)
+        except PageNotAnInteger:
+            object_list1 = paginator.page(1)
+        except EmptyPage:
+            object_list1 = paginator.page(paginator.num_pages)
+
+        paginator = Paginator(object_list2, self.paginate_by)
+        page = self.request.GET.get('page2')
+
+        try:
+            object_list2 = paginator.page(page)
+        except PageNotAnInteger:
+            object_list2 = paginator.page(1)
+        except EmptyPage:
+            object_list2 = paginator.page(paginator.num_pages)
+
+        context = {'buyers': object_list2, 'sellers': object_list1, 'filter': PostFilter(
+            self.request.GET, queryset=self.get_queryset())}
+        # Add any other variables to the context here
+        return context
 
 
 class PostDetailView(DetailView):
     model = Post
+    template_name = 'bookmarket/post_detail.html'  # <app>/<model>_<viewtype>.html
+    context_object_name = 'posts'
+    ordering = ['-date_posted']
+    paginate_by = 2
+
+    def get_context_data(self, **kwargs):
+        context = super(PostDetailView, self).get_context_data(**kwargs)
+        posts = Comment.objects.all().filter(
+            Q(comuser=self.request.user)).order_by('-date_posted')
+
+        paginator = Paginator(posts, self.paginate_by)
+        page = self.request.GET.get('page')
+
+        try:
+            posts = paginator.page(page)
+        except PageNotAnInteger:
+            posts = paginator.page(1)
+        except EmptyPage:
+            posts = paginator.page(paginator.num_pages)
+
+        context = {'comments': posts, 'post': post}
+        # Add any other variables to the context here
+        return context
 
 
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
-    fields = ['title', 'content', 'image', 'price']
+    fields = ['title', 'content', 'image', 'image2',
+              'image3', 'price', 'SellerOrBuyer', 'Condition']
 
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
 
+
 class PostUpdateView(LoginRequiredMixin, UpdateView, UserPassesTestMixin):
     model = Post
-    fields = ['title', 'content', 'image']
+    fields = ['title', 'content', 'image', 'image2',
+              'image3', 'price', 'SellerOrBuyer']
 
     def form_valid(self, form):
         form.instance.author = self.request.user
-        return super().form_valid(form)        
+        return super().form_valid(form)
 
     def test_func(self):
         post = self.get_object()
         if self.request.user == post.author:
             return True
-        return False        
+        return False
 
 
 class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):

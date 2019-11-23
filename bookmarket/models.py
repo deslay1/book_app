@@ -32,7 +32,7 @@ class Post(models.Model):
         upload_to='post_pics', blank=True, verbose_name="Additional image 1 (optional) ")
     image3 = models.ImageField(
         upload_to='post_pics', blank=True, verbose_name="Additional image 2 (optional) ")
-    price = models.DecimalField(max_digits=5, decimal_places=2, default="0.0")
+    price = models.DecimalField(max_digits=6, decimal_places=2, default="0.0")
     likes = models.ManyToManyField(User, related_name="post_likes", blank=True)
     date_posted = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)

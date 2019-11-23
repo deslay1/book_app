@@ -246,12 +246,13 @@ a.article-title:hover {
 }
 
 .btn-primary:active {
-    background-color: #0d4b8e !important;
+    background-color: #0d4b8e;
 }
 
 .btn-primary {
     background-color: #328def;
 }
+
 
 .comment-section {
     background: #ffffff;
@@ -300,6 +301,11 @@ textarea {
 
 #update-comment-button {
     float: right;
+}
+
+.comment-photo {
+    height: 2rem;
+    width: 2rem;
 }
 
 #dropdown-right {

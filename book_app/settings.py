@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.facebook',
+    'storages'
 ]
 
 MIDDLEWARE = [
@@ -160,3 +161,15 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'bookseller12349@gmail.com'
 EMAIL_HOST_PASSWORD = 'tobias97123'
 SITE_ID = 1
+
+AWS_S3_REGION_NAME = "eu-west-3"
+
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
+
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL = None
+# AWS_S3_SIGNATURE_VERSION = "s3v4"
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'

@@ -1,3 +1,7 @@
+
+Live through Heroku: https://djangobookmarket.herokuapp.com/
+Note: Currently there is a problem with loading any images on the site. The images are uploaded to an AWS-S3 bucket, which works fine, but the images do not load due to a signature-related problem that hopefully will be fixed asap.
+
 # Git commands!
 
 Begin developing by cloning this repository:

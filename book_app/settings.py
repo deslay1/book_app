@@ -20,10 +20,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '@i3uvea7r3#cvp$r6mfmxcw33nlecg9c6x&wd#4a8%t)4dux6o'
+# SECRET_KEY = '@i3uvea7r3#cvp$r6mfmxcw33nlecg9c6x&wd#4a8%t)4dux6o'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+
+ALLOWED_HOSTS = ['djangobookmarket.herokuapp.com']
 
 # Application definition
 
@@ -161,8 +164,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'bookseller12349@gmail.com'
-EMAIL_HOST_PASSWORD = 'tobias97123'
+EMAIL_HOST_USER = os.environ.get('EMAIL_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASS')
 SITE_ID = 1
 
 AWS_S3_REGION_NAME = "eu-west-3"

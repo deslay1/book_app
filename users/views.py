@@ -33,7 +33,8 @@ def register(request):
             form.save()
             username = form.cleaned_data.get('email')
             messages.success(
-                request, f'Your account has been created! SellerOrBuyer are now able to log in')
+                request, f'Your account has been created! SellerOrBuyer are now able to log in'
+                )
             return redirect('login')
     else:
         form = UserRegisterForm()

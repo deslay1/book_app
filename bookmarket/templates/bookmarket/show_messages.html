@@ -2,15 +2,8 @@
 {% block content %}
 <article class="media content-section">
     <div class="media-body">
-
-
-
-
-
         {% for message in post_List %}
         <article class="media content-section">
-
-
             <div>
                 {% if message.comuser %}
                 Message from <a href="/profile/"> {{ message.comuser.first_name }}
@@ -25,23 +18,18 @@
                 {% endif %}
                 <small>{{ message.date_posted|date:"M d, H:i" }}</small>
                 <br>
-
                 <div class="new">
                     <h2 class="account-heading">{{message.content }}</h2>
                 </div>
             </div>
-
-
-
-
-
-
         </article>
 
+        {% empty %}
+        <div class="bs">
+            <h2>You have no messages!</h2>
+        </div>
+
         {%endfor%}
-
-
-
 
         {% if post_List %}
         {% if post_List.has_previous %}
@@ -61,13 +49,7 @@
         {% endif %}
         {% endif %}
 
-
-
-
-
-
     </div>
 </article>
-
 
 {% endblock content %}

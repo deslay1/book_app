@@ -1,7 +1,6 @@
 /.vscode/*
 *.pyc
 db.sqlite3
-settings.py
 *.log
 local_settings.py
 db.sqlite3-journal

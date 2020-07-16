@@ -33,7 +33,12 @@ def register(request):
             form.save()
             username = form.cleaned_data.get('email')
             messages.success(
+<<<<<<< HEAD
                 request, f'Your account has been created! SellerOrBuyer are now able to log in'
+=======
+                request
+                 , f'Your account has been created! SellerOrBuyer are now able to log in'
+>>>>>>> undefined
                 )
             return redirect('login')
     else:
@@ -109,9 +114,8 @@ def profileUser(request, username):
 
 def base(request):
     profile = Profile.objects.all().filter(user=request.user)
-
     context = {
-        'profile': profile
+        'profile': profile,
     }
     return render(request, 'bookmarket/base.html', context)
 

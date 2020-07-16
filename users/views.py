@@ -110,9 +110,8 @@ def profileUser(request, username):
 
 def base(request):
     profile = Profile.objects.all().filter(user=request.user)
-
     context = {
-        'profile': profile
+        'profile': profile,
     }
     return render(request, 'bookmarket/base.html', context)
 

@@ -57,7 +57,6 @@ def add_comment_to_post(request, pk):
             subject = 'Comment recieved in Bookmarket'
             message = (
                 'You just got a comment on one of your posts, check it out!' "\n" 'http://djangobookmarket.herokuapp.com/post/'+str(post.id)+'/')
-            print(settings.EMAIL_HOST_USER)
             email_from = settings.EMAIL_HOST_USER
             recipient_list = [post.author.email, ]
             send_mail(subject, message, email_from, recipient_list)
@@ -84,7 +83,6 @@ def update_comment(request, pk, id):
 
 @login_required(login_url='login')
 def post_detail(request, pk):
-    print(settings.EMAIL_HOST_USER)
     post = get_object_or_404(Post, pk=pk)
     posts = post.comments.all().order_by('-date_posted')
     paginator = Paginator(posts, 5)

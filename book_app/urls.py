@@ -42,6 +42,7 @@ urlpatterns = [
     path('', include('bookmarket.urls')),
     path('accounts/', include('allauth.urls')),
     path('user/', include('users.urls'))
+
 ]
 
 if settings.DEBUG:

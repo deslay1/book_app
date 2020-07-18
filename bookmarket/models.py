@@ -45,7 +45,7 @@ class Post(models.Model):
         verbose_name="Condition of book(s) <small> <br /> If you have multiple books of varying conditions, choose \"mixed\" </small>")
 
     def __str__(self):
-        return self.title
+        return self.author.username
 
     def total_likes(self):
         return self.likes.count()
@@ -75,6 +75,7 @@ class Message(models.Model):
     post = models.ForeignKey(
         'bookmarket.Post', on_delete=models.CASCADE, related_name='messages')
     comuser = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    models.ForeignObject
     content = models.TextField()
     date_posted = models.DateTimeField(default=timezone.now)
     approved_comment = models.BooleanField(default=False)

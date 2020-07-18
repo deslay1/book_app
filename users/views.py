@@ -33,9 +33,8 @@ def register(request):
             form.save()
             username = form.cleaned_data.get('email')
             messages.success(
-                request
-                 , f'Your account has been created! Please log in.'
-                )
+                request, f'Your account has been created! Please log in.'
+            )
             return redirect('login')
     else:
         form = UserRegisterForm()
@@ -118,9 +117,8 @@ def base(request):
 
 def index(request):
     send_mail('Hello from me',
-    'Hello there. this is an automated message.',
-    'book.market.bm@gmail.com',
-    ['book.market.bm@gmail.com'],
-    fail_silently=False)
+              'Hello there. this is an automated message.',
+              'book.market.bm@gmail.com',
+              ['book.market.bm@gmail.com'],
+              fail_silently=False)
     return render(request, 'users/index.html')
-

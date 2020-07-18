@@ -208,7 +208,7 @@ class PostListView(ListView):
 
         condition = self.request.GET.get("condition")
 
-        object_list = self.model.objects.distinct()
+        object_list = self.model.objects.distinct().order_by('-date_posted')
         tab = "Sell"
         if buy is not None:
             PostListView.tab = "Buy"
@@ -218,11 +218,11 @@ class PostListView(ListView):
         if condition is not None:
             object_list = object_list.filter(
                 Q(Condition__icontains=condition)
-            ).distinct().order_by('-date_posted')
+            )
 
         object_list = object_list.filter(
             Q(SellerOrBuyer__icontains=PostListView.tab)
-        ).distinct().order_by('-date_posted')
+        )
 
         query = self.request.GET.get('q')
         if query:
@@ -231,7 +231,7 @@ class PostListView(ListView):
                 object_list = object_list.filter(
                     Q(title__icontains=q) |
                     Q(content__icontains=q)
-                ).distinct().order_by('-date_posted')
+                )
 
         paginator = Paginator(object_list, self.paginate_by)
         page = self.request.GET.get('page')

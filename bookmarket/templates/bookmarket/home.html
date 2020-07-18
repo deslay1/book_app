@@ -84,16 +84,17 @@
               {% endif %}
               {% endif %}
             </div>
-            <h6 id="post-type">{{ post.SellerOrBuyer }}</h6>
-          </div>
-          <div class="col-14 justify-content-between post-button-container">
-            <a class="btn btn-primary btn-sm" href="{% url 'post-detail' post.id %}">View
-              post</a>
-            {% if post.author == user %}
             <div>
               <a class="post-button" href="{% url 'post-update' post.id %}">Update</a>
               <a class="post-button" style="color: red;" href="{% url 'post-delete' post.id %}">Delete</a>
             </div>
+            <!-- <h6 id="post-type">{{ post.SellerOrBuyer }}</h6> -->
+          </div>
+          <div class="col-14 justify-content-between post-button-container">
+            <!-- <a class="btn btn-primary btn-sm" href="{% url 'post-detail' post.id %}">View
+              post</a> -->
+            <h6 id="post-type">{{ post.SellerOrBuyer }}</h6>
+            {% if post.author == user %}
             {% endif %}
           </div>
         </div>
@@ -119,24 +120,9 @@
             </div>
           </div>
           <p class="article-content">{{ post.content }}</p>
-          <!-- <div class="post-image">
           {% if post.image %}
-          <img src="{{ post.image.url }}" width="200" height="200" alt="Post image" class="center" />
-          {% endif %}
-          {% if post.image2 %}
-          <img src="{{ post.image2.url }}" width="200" height="200" alt="Post image" class="center" />
-          {% endif %}
-          {% if post.image3 %}
-          <img src="{{ post.image3.url }}" width="200" height="200" alt="Post image" class="center" />
-          {% endif %}
-        </div> -->
-          {% if post.image == "default.jpg" %}
-          <div class="no-images">
-            <span id="no-images">User has no images to display</span>
-          </div>
-          {% else %}
           <div class="carousel">
-            <div id="carousel-{{post.id}}" class="carousel slide" data-ride="carousel">
+            <div id="carousel-{{post.id}}" class="carousel w-50 mx-auto slide" data-ride="carousel">
               <ol class="carousel-indicators">
                 {% if post.image and post.image2 %}
                 <li data-target="#carousel-{{post.id}}" data-slide-to="0" class="active"></li>
@@ -148,19 +134,27 @@
               </ol>
               <div class="carousel-inner">
                 {% if post.image %}
-                <div class="carousel-item active">
-                  <img class="d-block w-100" src="{{ post.image.url }}" width="200" height="400" alt="First slide"
-                    class="center" />
+                <div class="carousel-image-container carousel-item active">
+                  <img class="carousel-image rounded img-fluid d-block mx-auto" src="{{ post.image.url }}" width="200"
+                    height="400" alt="First slide" />
+                  <a class="carousel-image-caption btn btn-primary" href="{% url 'post-detail' post.id %}">View
+                    post</a>
                 </div>
                 {% endif %}
                 {% if post.image2 %}
-                <div class="carousel-item ">
-                  <img class="d-block w-100" src="{{ post.image2.url }}" width="200" height="400" alt="Second slide">
+                <div class="carousel-image-container carousel-item ">
+                  <img class="carousel-image rounded img-fluid d-block mx-auto" src="{{ post.image2.url }}" width="200"
+                    height="400" alt="Second slide">
+                  <a class="carousel-image-caption btn btn-primary" href="{% url 'post-detail' post.id %}">View
+                    post</a>
                 </div>
                 {% endif %}
                 {% if post.image3 %}
-                <div class="carousel-item">
-                  <img class="d-block w-100" src="{{ post.image3.url }}" width="200" height="400" alt="Third slide">
+                <div class="carousel-image-container carousel-item">
+                  <img class="carousel-image rounded img-fluid d-block mx-auto" src="{{ post.image3.url }}" width="200"
+                    height="400" alt="Third slide">
+                  <a class="carousel-image-caption btn btn-primary" href="{% url 'post-detail' post.id %}">View
+                    post</a>
                 </div>
                 {% endif %}
               </div>

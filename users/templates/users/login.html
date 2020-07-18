@@ -6,7 +6,7 @@
 {% providers_media_js %}
 {% block content %}
 
-<main role="main" class="container">
+<main role="main" class="col-6 offset-3 container">
     <div class="row justify-content-md-center">
         <div class="col-md-10">
             {% if messages %}
@@ -30,7 +30,7 @@
                 <div class="border-top pt-3">
                     <small class="text-muted">
                         Need an account? <a class="ml-2" href="{% url 'register' %}">Sign Up Now</a>
-                        or <a href="{% provider_login_url "facebook" method="js_sdk" %}">Connect via Facebook</a>
+                        or <a href="{% provider_login_url "facebook" method="oauth2" %}">Connect via Facebook</a>
                     </small>
                 </div>
             </div>

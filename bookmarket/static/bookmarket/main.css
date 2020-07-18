@@ -191,15 +191,15 @@ a.article-title:hover {
 }
 
 /* Style the tab content */
-.tabcontent {
+/* .tabcontent {
     display: none;
     border-top: none;
     -webkit-animation: fadeEffect 1s;
     animation: fadeEffect 1s;
-}
+} */
 
 /* Fade in tabs */
-@-webkit-keyframes fadeEffect {
+/* @-webkit-keyframes fadeEffect {
     from {
         opacity: 0.5;
     }
@@ -217,10 +217,34 @@ a.article-title:hover {
     to {
         opacity: 1;
     }
-}
+} */
 
 .carousel {
-    background-color: black;
+    background-color: grey;
+}
+
+.carousel-image-container {
+    position: relative;
+}
+
+/* .carousel-image {} */
+
+.carousel-image-caption {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: black;
+    font-weight: bold;
+    opacity: 0;
+    visibility: hidden;
+    /* transition effect. not necessary */
+}
+
+.carousel-image-container:hover .carousel-image-caption {
+    visibility: visible;
+    opacity: 1;
 }
 
 .no-images {
@@ -380,8 +404,7 @@ footer {
 .post-form-left {
     display: flex;
     flex-direction: row;
-    align-items: center;
-    justify-content: center;
+    align-items: flex-end;
     margin-bottom: 0rem;
 }
 

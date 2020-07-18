@@ -3,102 +3,81 @@
 
 {% load crispy_forms_tags %}
 {% block content %}
-<div class="content-section">
-  <div class="media">
-    {% if user.profile.image.url == "/media/default.jpg" %}
-    <h5 id="no-images">You dont <br> have a profile <br> picture yet</h5>
-
-
-    {% else %} <img class="rounded-circle account-img" src="{{ user.profile.image.url }}">
-    {% endif %}
-    <div class="media-body">
-    </div>
-  </div>
-  <form method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-    <fieldset class="form-group">
-      <legend class="bordor-bottom mb-4">Profile Info</legend>
-      {{ u_form|crispy }}
-      {{ p_form|crispy }}
-    </fieldset>
-    <div class="form-group">
-      <button class="btn btn-outline-info" type="submit">Update</button>
-    </div>
-  </form>
-</div>
-<div>
-  <div class="content-section">
-    {% for post in post_List %}
-    <article class="media content-section">
+<div class="row">
+  <div class="col-5 h-100 w-100 content-section">
+    <div class="media">
+      {% if user.profile.image == "default.jpg" %}
+      <h5 id="no-images">You dont <br> have a profile <br> picture yet</h5>
+      {% else %}
+      <img class="rounded-circle account-img" src="{{ user.profile.image.url }}">
+      {% endif %}
       <div class="media-body">
-        <div class="article-metadata">
-          <div class="post-admin">
-            <!-- <a class="btn btn-secondary btn-sm mt-1 mb-1">{{post.message.content}}</a> -->
+      </div>
+    </div>
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      <fieldset class="form-group">
+        <legend class="bordor-bottom mb-4">Profile Info</legend>
+        {{ u_form|crispy }}
+        {{ p_form|crispy }}
+      </fieldset>
+      <div class="form-group">
+        <button class="btn btn-outline-info" type="submit">Update</button>
+      </div>
+    </form>
+  </div>
+  <div class="col-md-7 w-100">
+    <div>
+      {% for post in post_List %}
+      <article class="content-section">
+        <div class="media-body">
+          <div class="article-metadata">
+            <div class="post-admin justify-content-between">
+              <div>
+                <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}" />
+                {% if post.author.first_name and post.author.last_name %}
+                <div style="display:flex;flex-direction: column;">
+                  <a class="mr-2" href="/profile/">{{ post.author.first_name }} {{ post.author.last_name }}</a>
+                  <small class="text-muted">{{ post.date_posted|date:"F d, Y H:i" }}</small>
+                </div>
+                {% else %}
+                <a class="mr-2" href="/profile/">{{ post.author }}</a>
+                {% endif %}
+              </div>
+              <div>
+                <a class="post-button" href="{% url 'post-update' post.id %}">Update</a>
+                <a class="post-button" style="color: red;" href="{% url 'post-delete' post.id %}">Delete</a>
+              </div>
 
-            <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}" />
-            {% if post.author == user %}
-            {% if post.author.last_name %}
-            <a class="mr-2" href="/profile/">{{ post.author.last_name }}</a>
-            {% else %}
-            <a class="mr-2" href="/profile/">{{ post.author }}</a>
-            {% endif %}
-            <small class="text-muted">{{ post.date_posted|date:"F d, Y H:i" }}</small>
-          </div>
-          <div class="post-button">
-            <a class="btn btn-primary active btn-sm mt-1 mb-1" href="{% url 'post-update' post.id %}">Update</a>
-            <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-delete' post.id %}">Delete</a>
-            <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-detail' post.id %}">View post</a>
-          </div>
-          {% else %}
-          <div>
-            <a class="mr-2" href="profileUser/">{{ post.author }}</a>
-            <small class="text-muted">{{ post.date_posted|date:"F d, Y H:i" }}</small>
-            <div class="post-button">
-              <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-detail' post.id %}">View post</a>
             </div>
-            <!-- <div id="container">
-              <p style="float: right;box-shadow: skyblue;">{{ post.SellerOrBuyer }}</p>
-            </div> -->
-            </di v>
-            {% endif %}
+            <div class="col-14 justify-content-between post-button-container">
+              <h6 id="post-type">{{ post.SellerOrBuyer }}</h6>
+            </div>
           </div>
-          <div class="post-information">
-            <div class="post-bar">
-              <h2 class="article-title">{{ post.title }}</h2>
-              {% if post.price == 0.00 %}
-              <h4 class="post-price">Free</h4>
-              {% else %}
-              <h4 class="post-price">{{ post.price|floatformat:"-2" }} kr</h4>
-              {% endif %}
+          <div class="col-14 post-information">
+            <div class="col-12 row justify-content-between">
+              <h4 class="article-title">{{ post.title }}</h4>
+
+              <div class="row justify-content-center align-items-center">
+                {% if post.price == 0.00 %}
+                <h5 class="post-price">Free</h5>
+                {% else %}
+                <h5 class="post-price">{{ post.price|floatformat:"-2" }} kr</h5>
+                {% endif %}
+                {% if post.Condition %}
+                <h6 class="post-condition">
+                  <span class="badge badge-pill badge-success">{{ post.Condition }}</span>
+                </h6>
+                {% else %}
+                <h6 class="post-condition">
+                  <span class="badge badge-pill badge-success">Unspecified</span>
+                </h6>
+                {% endif %}
+              </div>
             </div>
-            {% if post.Condition %}
-            <h6 class="post-condition">
-              <span class="badge badge-pill badge-success">{{ post.Condition }}</span>
-            </h6>
-            {% else %}
-            <h6 class="post-condition">
-              <span class="badge badge-pill badge-success">Unspecified</span>
-            </h6>
-            {% endif %}
-            <p class="article-content">{{ post.content }}</p>
-            <!-- <div class="post-image">
-              {% if post.image %}
-              <img src="{{ post.image.url }}" width="200" height="200" alt="Post image" class="center" />
-              {% endif %}
-              {% if post.image2 %}
-              <img src="{{ post.image2.url }}" width="200" height="200" alt="Post image" class="center" />
-              {% endif %}
-              {% if post.image3 %}
-              <img src="{{ post.image3.url }}" width="200" height="200" alt="Post image" class="center" />
-              {% endif %}
-            </div> -->
-            {% if post.image.url == "/media/default.jpg" %}
-            <div class="no-images">
-              <span id="no-images">User has no images to display</span>
-            </div>
-            {% else %}
+            {% if post.image %}
             <div class="carousel">
-              <div id="carousel-{{post.id}}" class="carousel slide" data-ride="carousel">
+              <div id="carousel-{{post.id}}" class="carousel w-50 mx-auto slide" data-ride="carousel">
                 <ol class="carousel-indicators">
                   {% if post.image and post.image2 %}
                   <li data-target="#carousel-{{post.id}}" data-slide-to="0" class="active"></li>
@@ -110,19 +89,27 @@
                 </ol>
                 <div class="carousel-inner">
                   {% if post.image %}
-                  <div class="carousel-item active">
-                    <img class="d-block w-100" src="{{ post.image.url }}" width="200" height="400" alt="First slide"
-                      class="center" />
+                  <div class="carousel-image-container carousel-item active">
+                    <img class="carousel-image rounded img-fluid d-block mx-auto" src="{{ post.image.url }}" width="200"
+                      height="400" alt="First slide" />
+                    <a class="carousel-image-caption btn btn-primary" href="{% url 'post-detail' post.id %}">View
+                      post</a>
                   </div>
                   {% endif %}
                   {% if post.image2 %}
-                  <div class="carousel-item ">
-                    <img class="d-block w-100" src="{{ post.image2.url }}" width="200" height="400" alt="Second slide">
+                  <div class="carousel-image-container carousel-item ">
+                    <img class="carousel-image rounded img-fluid d-block mx-auto" src="{{ post.image2.url }}"
+                      width="200" height="400" alt="Second slide">
+                    <a class="carousel-image-caption btn btn-primary" href="{% url 'post-detail' post.id %}">View
+                      post</a>
                   </div>
                   {% endif %}
                   {% if post.image3 %}
-                  <div class="carousel-item">
-                    <img class="d-block w-100" src="{{ post.image3.url }}" width="200" height="400" alt="Third slide">
+                  <div class="carousel-image-container carousel-item">
+                    <img class="carousel-image rounded img-fluid d-block mx-auto" src="{{ post.image3.url }}"
+                      width="200" height="400" alt="Third slide">
+                    <a class="carousel-image-caption btn btn-primary" href="{% url 'post-detail' post.id %}">View
+                      post</a>
                   </div>
                   {% endif %}
                 </div>
@@ -139,31 +126,35 @@
               </div>
             </div>
             {% endif %}
-            <div class="post-footer">
-              <a href="{% url 'post-detail' post.id %}"> View comments ({{ post.comments.count }})</a>
-              <h6 id="like-info">{{ post.likes.count }} Like{{ post.likes.count|pluralize }}</h6>
-              <h6 id="post-type">{{ post.SellerOrBuyer }}</h6>
+            <div class="row justify-content-between post-footer">
+              <h6 class="col-4" id="like-info">{{ post.likes.count }} Like{{ post.likes.count|pluralize }}</h6>
+              <div class="col-8">
+                <a class="float-right" href=" {% url 'post-detail' post.id %}"> View
+                  comments
+                  ({{ post.comments.count }})</a>
+              </div>
             </div>
           </div>
-    </article>
-    {% endfor %}
-    {% if post_List %}
-    {% if post_List.has_previous %}
-    <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
-    <a class="btn btn-outline-info mb-4" href="?page={{ post_List.previous_page_number }}">Previous</a>
-    {% endif %}
-    {% for num in post_List.paginator.page_range %}
-    {% if post_List.number == num %}
-    <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
-    {% elif num > post_List.number|add:'-3' and num < post_List.number|add:'3' %}
-    <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
-    {% endif %}
-    {% endfor %}
-    {% if post_List.has_next %}
-    <a class="btn btn-outline-info mb-4" href="?page={{ post_List.next_page_number }}">Next</a>
-    <a class="btn btn-outline-info mb-4" href="?page={{ post_List.paginator.num_pages }}">Last</a>
-    {% endif %}
-    {% endif %}
+      </article>
+      {% endfor %}
+      {% if post_List %}
+      {% if post_List.has_previous %}
+      <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
+      <a class="btn btn-outline-info mb-4" href="?page={{ post_List.previous_page_number }}">Previous</a>
+      {% endif %}
+      {% for num in post_List.paginator.page_range %}
+      {% if post_List.number == num %}
+      <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+      {% elif num > post_List.number|add:'-3' and num < post_List.number|add:'3' %}
+      <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+      {% endif %}
+      {% endfor %}
+      {% if post_List.has_next %}
+      <a class="btn btn-outline-info mb-4" href="?page={{ post_List.next_page_number }}">Next</a>
+      <a class="btn btn-outline-info mb-4" href="?page={{ post_List.paginator.num_pages }}">Last</a>
+      {% endif %}
+      {% endif %}
+    </div>
   </div>
 </div>
 {% endblock content %}

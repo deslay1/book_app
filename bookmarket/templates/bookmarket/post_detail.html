@@ -99,10 +99,10 @@
           <form class="post-form-left" action="{% url 'like_post' %}" method="POST">
             {% csrf_token %}
             {% if is_liked %}
-            <button class="btn bg-transparent" style="color: red; display: table-cell;" type="submit" name="post_id"
-              value="{{ post.id }}"><i id="logo-icon" class="material-icons">thumb_down</i></button>
+            <button class="btn bg-transparent" style="color: red;" type="submit" name="post_id" value="{{ post.id }}"><i
+                id="logo-icon" class="material-icons">thumb_down</i></button>
             {% else %}
-            <button class="btn bg-transparent" style="color: blue;display: table-cell" type="submit" name="post_id"
+            <button class="btn bg-transparent" style="color: blue;" type="submit" name="post_id"
               value="{{ post.id }}"><i id="logo-icon" class="material-icons">thumb_up</i></button>
             {% endif %}
             <h6 class="align-items-center" id="like-info">{{ post.likes.count }} Like{{ post.likes.count|pluralize }}

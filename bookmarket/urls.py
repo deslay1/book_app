@@ -15,6 +15,8 @@ urlpatterns = [
          name='add-comment-to-post'),
     path('post/<int:pk>/comment/<int:id>/', views.update_comment,
          name='update-comment'),
+    path('post/<int:pk>/comment/<int:id>/delete', views.delete_comment,
+         name='delete-comment'),
     path('post/<int:pk>/message/', views.add_message_to_post,
          name='send_message_to_user'),
     path('show_message/', views.show_message, name='show_message'),

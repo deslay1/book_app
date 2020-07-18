@@ -2,14 +2,14 @@
 {% block title %} Update Comment {% endblock %}
 
 {% block content %}
-<div class="card bg-light mb-12">
+<div class="col-md-6 offset-md-3 card bg-light mb-12">
     <div id="add-comment-header" class="card-header">
         <h3>Update Comment</h3>
     </div>
     <form method="POST" class="post-form">{% csrf_token %}
         <div class="card-body">
             <div class="add-comment-form">
-                {{ form.as_p }}
+                {{ form.content }}
             </div>
         </div>
         <div class="add-comment-button">

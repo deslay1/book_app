@@ -1,5 +1,6 @@
 body {
     /* background-color: darkred; */
+    min-height: 100%
 }
 
 .body-body {
@@ -50,14 +51,19 @@ ul {
     font-weight: 500;
 }
 
+
 .content-section {
-    background: #ffffff;
+    background: #fff;
     padding: 10px 20px;
     border: 1px solid #dddddd;
     border-radius: 3px;
-    margin-bottom: 1rem;
-    padding: 20px;
+    margin-bottom: 2rem;
+    padding: 1rem;
     box-shadow: inset 0 0 10px #000000;
+}
+
+.menu-bar {
+    font-size: 14;
 }
 
 .article-title {
@@ -117,18 +123,26 @@ a.article-title:hover {
 }
 
 .post-admin {
-    display: inline;
-    vertical-align: top;
+    display: flex;
+    flex-direction: row;
+    margin-right: 0.5rem
+}
+
+.post-button-container {
+    display: flex;
+    align-items: center;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    /*     margin-left: 0.5rem; */
 }
 
 .post-button {
-    float: right;
+    margin-right: 0.1rem
 }
 
 .post-information {
-    margin-left: 2rem;
-    margin-right: 2rem;
-    margin-top: 2rem;
+    margin-bottom: 0.5rem;
+    margin-top: 1rem;
 }
 
 .post-bar {
@@ -136,9 +150,7 @@ a.article-title:hover {
     justify-content: space-between;
 }
 
-.post-price {
-    margin-top: 1rem;
-}
+.post-price {}
 
 .post-SellerOrBuyer {
     margin-top: 1rem;
@@ -150,7 +162,7 @@ a.article-title:hover {
     justify-content: center;
     border: 1px solid #ccc;
     margin-bottom: 1rem;
-    border-radius: 2rem;
+    border-radius: 1rem;
     /*
   /* background-color: #f1f1f1; */
     background-color: #c63f2a;
@@ -161,7 +173,7 @@ a.article-title:hover {
     color: white;
     font-weight: 500;
     background-color: inherit;
-    border-radius: 20px;
+    border-radius: 1rem;
     /* border-radius: 10% / 50%; */
     float: left;
     border: none;
@@ -176,12 +188,6 @@ a.article-title:hover {
 .tab button:hover {
     color: black;
     background-color: #ddd;
-}
-
-/* Create an active/current tablink class */
-.tab button.active {
-    color: black;
-    background-color: white;
 }
 
 /* Style the tab content */
@@ -228,15 +234,16 @@ a.article-title:hover {
 }
 
 .post-footer {
-    margin-top: 4rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.like-section {
     display: flex;
     align-items: center;
+    margin-top: 0.5rem;
+    margin-right: 0.1rem;
+    margin-left: 0.1rem;
+    vertical-align: middle;
+    /*     display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between; */
 }
 
 #post-type {
@@ -275,7 +282,12 @@ a.article-title:hover {
 
 .card {
     background-color: #d3d1d1;
-    margin: 1rem 1rem 0 1rem;
+    margin-top: 1rem;
+    /*margin: 1rem 0rem 0 0rem;*/
+}
+
+.card-body {
+    padding: 1rem 0rem 0rem 0rem !important;
 }
 
 #add-comment-header {
@@ -295,12 +307,17 @@ textarea {
 }
 
 .add-comment-button {
-    text-align: center;
-    padding-bottom: 1.25rem;
+    /*text-align: center;
+    padding-bottom: 1.25rem;*/
+}
+
+#delete-comment-button {
+    padding-right: 0.5rem;
 }
 
 #update-comment-button {
-    float: right;
+    /*float: right;*/
+    padding-right: 0.5rem;
 }
 
 .comment-photo {
@@ -309,13 +326,11 @@ textarea {
 }
 
 #dropdown-right {
-    background-color: #a12921;
-    border-color: #a12921;
+    border-color: transparent !important
 }
 
 #dropdown-left {
-    background-color: #a62a22;
-    border-color: #a62a22;
+    border-color: transparent !important
 }
 
 #logo-icon,
@@ -349,11 +364,29 @@ footer {
 
 #like-info {
     color: gray;
-    margin-right: 5rem;
+    padding-top: 1rem;
+    vertical-align: middle;
+    /*     font-size: 12;
+ */
+}
+
+.post-form {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.post-form-left {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0rem;
 }
 
 .post-condition {
-    margin-left: 5rem;
+    margin-left: 0.5rem;
     float: right;
 }
 

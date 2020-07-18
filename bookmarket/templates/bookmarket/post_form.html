@@ -6,7 +6,7 @@
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <fieldset class="form-group">
-            <legend class="border-bottom mb-4"> Blog Post
+            <legend class="border-bottom mb-4"> Add a post
             </legend>
             {{ form|crispy}}
         </fieldset>

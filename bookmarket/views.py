@@ -14,6 +14,7 @@ from django.views.generic import (
     UpdateView,
     DeleteView
 )
+#from django.forms.models import model_to_dict
 from django.core.mail import send_mail
 from django.conf import settings
 from .filters import PostFilter
@@ -33,7 +34,8 @@ def post_create(request):
 
 def post_update(request, id=None):
     instance = get_object_or_404(Post, id=id)
-    form = PostForm(request.POST or None, request.FILES or None)
+    form = PostForm(request.POST or None,
+                    request.FILES or None, instance=instance)
     if form.is_valid():
         instance = form.save(commit=False)
         instance.save()
@@ -71,14 +73,23 @@ def update_comment(request, pk, id):
     post = get_object_or_404(Post, pk=pk)
     post_comment = get_object_or_404(Comment, id=id)
     if request.method == "POST":
-        form = CommentForm(request.POST, instance=post_comment, initial={
-                           'content': "hello"})
+        form = CommentForm(request.POST, instance=post_comment)
         if form.is_valid():
             form.save()
             return redirect('post-detail', pk=post.pk)
     else:
-        form = CommentForm()
+        form = CommentForm(instance=post_comment)
     return render(request, 'bookmarket/update_comment.html', {'form': form})
+
+
+@login_required(login_url='login')
+def delete_comment(request, pk, id):
+    post = get_object_or_404(Post, pk=pk)
+    post_comment = get_object_or_404(Comment, id=id)
+    post_comment.delete()
+    return redirect('post-detail', pk=post.pk)
+    # Useful....
+    # return redirect(request.META['HTTP_REFERER'])
 
 
 @login_required(login_url='login')
@@ -119,6 +130,7 @@ def like_post(request):
     else:
         post.likes.add(request.user)
         is_liked = True
+    # Another redirections method...
     return HttpResponseRedirect(post.get_absolute_url())
 
 
@@ -184,55 +196,54 @@ class PostListView(ListView):
     context_object_name = 'posts'
     ordering = ['-date_posted']
     paginate_by = 2
-
+    tab = "Sell"
     # Detta är för paginator och sökfältet
 
     def get_context_data(self, **kwargs):
+        global tab
         context = super(PostListView, self).get_context_data(**kwargs)
 
-        object_list1 = self.model.objects.filter(
-            Q(SellerOrBuyer__icontains="Sell")
-        ).distinct().order_by('-date_posted')
+        buy = self.request.GET.get("buy")
+        sell = self.request.GET.get("sell")
 
-        object_list2 = self.model.objects.filter(
-            Q(SellerOrBuyer__icontains="Buy")
+        condition = self.request.GET.get("condition")
+
+        object_list = self.model.objects.distinct()
+        tab = "Sell"
+        if buy is not None:
+            PostListView.tab = "Buy"
+        if sell is not None:
+            PostListView.tab = "Sell"
+
+        if condition is not None:
+            object_list = object_list.filter(
+                Q(Condition__icontains=condition)
+            ).distinct().order_by('-date_posted')
+
+        object_list = object_list.filter(
+            Q(SellerOrBuyer__icontains=PostListView.tab)
         ).distinct().order_by('-date_posted')
 
         query = self.request.GET.get('q')
         if query:
             queries = query.split(" ")
             for q in queries:
-                object_list1 = object_list1.filter(
+                object_list = object_list.filter(
                     Q(title__icontains=q) |
                     Q(content__icontains=q)
                 ).distinct().order_by('-date_posted')
 
-                object_list2 = object_list2.filter(
-                    Q(title__icontains=q) |
-                    Q(content__icontains=q)
-                ).distinct().order_by('-date_posted')
-
-        paginator = Paginator(object_list1, self.paginate_by)
+        paginator = Paginator(object_list, self.paginate_by)
         page = self.request.GET.get('page')
 
         try:
-            object_list1 = paginator.page(page)
+            object_list = paginator.page(page)
         except PageNotAnInteger:
-            object_list1 = paginator.page(1)
+            object_list = paginator.page(1)
         except EmptyPage:
-            object_list1 = paginator.page(paginator.num_pages)
+            object_list = paginator.page(paginator.num_pages)
 
-        paginator = Paginator(object_list2, self.paginate_by)
-        page = self.request.GET.get('page2')
-
-        try:
-            object_list2 = paginator.page(page)
-        except PageNotAnInteger:
-            object_list2 = paginator.page(1)
-        except EmptyPage:
-            object_list2 = paginator.page(paginator.num_pages)
-
-        context = {'buyers': object_list2, 'sellers': object_list1, 'filter': PostFilter(
+        context = {'posts': object_list, 'filter': PostFilter(
             self.request.GET, queryset=self.get_queryset())}
         # Add any other variables to the context here
         return context

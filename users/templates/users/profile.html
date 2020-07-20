@@ -3,22 +3,23 @@
 
 {% load crispy_forms_tags %}
 {% block content %}
-<div class="row">
-  <div class="col-5 h-100 w-100 content-section">
-    <div class="media">
+<div class="container row">
+  <div class="col-md-5 h-100 content-section">
+    <div class="align-items-center">
+      <img class="d-block w-25 h-auto" src="{{ user.profile.image.url }}">
       {% if user.profile.image == "default.jpg" %}
-      <h5 id="no-images">You dont <br> have a profile <br> picture yet</h5>
-      {% else %}
-      <img class="rounded-circle account-img" src="{{ user.profile.image.url }}">
+      <h6 id="no-images">You don't have a profile picture yet.</h6>
       {% endif %}
-      <div class="media-body">
-      </div>
     </div>
     <form method="POST" enctype="multipart/form-data">
       {% csrf_token %}
       <fieldset class="form-group">
         <legend class="bordor-bottom mb-4">Profile Info</legend>
-        {{ u_form|crispy }}
+        <div class="row col-md-14 justify-content-around">
+          {{ u_form.first_name|as_crispy_field }}
+          {{ u_form.last_name|as_crispy_field }}
+        </div>
+        {{ u_form.email|as_crispy_field }}
         {{ p_form|crispy }}
       </fieldset>
       <div class="form-group">

@@ -29,10 +29,11 @@ class Post(models.Model):
     image = models.ImageField(
         upload_to='post_pics', default='default.jpg', verbose_name="Image ")
     image2 = models.ImageField(
-        upload_to='post_pics', blank=True, verbose_name="Additional image 1 (optional) ")
+        upload_to='post_pics', blank=True, verbose_name="Image 2 (optional) ")
     image3 = models.ImageField(
-        upload_to='post_pics', blank=True, verbose_name="Additional image 2 (optional) ")
-    price = models.DecimalField(max_digits=6, decimal_places=2, default="0.0")
+        upload_to='post_pics', blank=True, verbose_name="Image 3 (optional) ")
+    price = models.DecimalField(
+        max_digits=6, decimal_places=0, default="0.0", verbose_name="Price (kr)")
     likes = models.ManyToManyField(User, related_name="post_likes", blank=True)
     date_posted = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -42,7 +43,7 @@ class Post(models.Model):
         max_length=50,
         blank=True,
         choices=conditions,
-        verbose_name="Condition of book(s) <small> <br /> If you have multiple books of varying conditions, choose \"mixed\" </small>")
+        verbose_name="Condition of book(s) (optional)")
 
     def __str__(self):
         return self.title

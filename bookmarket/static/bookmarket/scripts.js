@@ -44,3 +44,30 @@ function viewComments(name) {
     }
   }
 }
+
+// Clear filters in home
+function clearFilters() {
+  $("input[name=condition]").attr("checked", false);
+  $("input[name=price_order]").attr("checked", false);
+  location.href = "/";
+}
+
+// jQuery in post_form
+
+//For updating the post
+if (document.getElementById("id_image") && document.getElementById("id_image").value == "") {
+  console.log("hi");
+  $("#image2").removeClass("image-hide");
+  if (document.getElementById("id_image2").value != "") {
+    $("#image3").removeClass("image-hide");
+  }
+}
+// General conditions
+$("#id_image").change(function () {
+  console.log("hi");
+  $("#image2").removeClass("image-hide");
+});
+
+$("#id_image2").change(function () {
+  $("#image3").removeClass("image-hide");
+});

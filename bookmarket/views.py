@@ -247,7 +247,7 @@ class PostListView(ListView):
             object_list = paginator.page(paginator.num_pages)
 
         context = {'posts': object_list, 'filter': PostFilter(
-            self.request.GET, queryset=self.get_queryset())}
+            self.request.GET, queryset=self.get_queryset()), 'condition': condition, 'price_order': price_order}
         # Add any other variables to the context here
         return context
 
@@ -292,7 +292,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 class PostUpdateView(LoginRequiredMixin, UpdateView, UserPassesTestMixin):
     model = Post
     fields = ['title', 'content', 'image', 'image2',
-              'image3', 'price', 'SellerOrBuyer']
+              'image3', 'price', 'SellerOrBuyer', 'Condition']
 
     def form_valid(self, form):
         form.instance.author = self.request.user

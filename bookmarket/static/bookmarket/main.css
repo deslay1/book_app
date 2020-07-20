@@ -53,7 +53,6 @@ ul {
 
 .content-section {
   background: #fff;
-  padding: 10px 20px;
   border: 1px solid #dddddd;
   border-radius: 3px;
   margin-bottom: 2rem;
@@ -61,8 +60,21 @@ ul {
   box-shadow: inset 0 0 10px #000000;
 }
 
+.menu-section {
+  background: #fff;
+  border: 1px solid #dddddd;
+  border-radius: 3px;
+  margin-bottom: 2rem;
+  padding: 0.5rem;
+  box-shadow: inset 0 0 10px #000000;
+}
+
 .menu-bar {
   font-size: 14;
+}
+
+.profile-container {
+  min-width: 25vw;
 }
 
 .article-title {
@@ -281,6 +293,7 @@ ol {
   background-color: rgba(214, 211, 211, 0.877);
   box-shadow: inset 0 0 2px #000000;
   padding: 0.3rem;
+  font-size: 12;
 }
 
 .post-footer {
@@ -314,17 +327,16 @@ ol {
 
 .comment-section {
   background: #ffffff;
-  padding: 10px 20px;
   border: 1px solid #dddddd;
   border-radius: 3px;
   margin-bottom: 1rem;
-  padding: 20px;
+  padding: 1rem;
 }
 
 .comment-top {
   text-align: right;
-  margin-left: 1rem;
-  margin-top: 1rem;
+  margin-left: 0.5rem;
+  margin-top: 0.5rem;
 }
 
 #comment-section-header {
@@ -347,9 +359,10 @@ ol {
 
 .filter-bar-header {
   border-bottom: 0.1rem solid black;
+  border-radius: 0.2rem;
   padding: 0.2rem 0.5rem;
   margin-bottom: 0;
-  background-color: rgba(0, 0, 0, 0.03);
+  background-color: rgba(0, 0, 0, 0.103);
 }
 
 .filter-bar-body {
@@ -357,7 +370,7 @@ ol {
 }
 
 label {
-  font-size: 1.3rem;
+  font-size: 1rem;
 }
 
 textarea {
@@ -437,7 +450,7 @@ footer {
  */
 }
 
-.post-form {
+.post-detail-form {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -447,7 +460,7 @@ footer {
   padding-top: 1rem;
 }
 
-.post-form-left {
+.post-detail-form-left {
   display: flex;
   flex-direction: row;
   align-items: flex-end;
@@ -462,4 +475,30 @@ footer {
 .badge-success {
   padding: 0.5rem;
   background-color: rgb(10, 143, 10);
+}
+
+/* label[for="id_image"] {
+  background-color: red;
+  color: white;
+  padding: 0.2rem;
+  border-radius: 0.2rem;
+  text-align: center;
+  cursor: pointer;
+} */
+
+/* input[type="file"] {
+  display: none;
+} */
+
+.post-form-row {
+  display: flex;
+  flex-direction: column;
+}
+
+.post-form-group {
+  margin-bottom: 1rem;
+}
+
+.image-hide {
+  display: none;
 }

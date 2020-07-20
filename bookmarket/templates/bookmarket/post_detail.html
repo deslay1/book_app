@@ -122,8 +122,8 @@
           </div>
           <h6 class="col-md-2 offset-md-4" id="post-type">{{ post.SellerOrBuyer }}</h6>
         </div> -->
-        <div class="justify-content-between post-form">
-          <form class="post-form-left" action="{% url 'like_post' %}" method="POST">
+        <div class="justify-content-between post-detail-form">
+          <form class="post-detail-form-left" action="{% url 'like_post' %}" method="POST">
             {% csrf_token %}
             {% if is_liked %}
             <button class="btn bg-transparent" style="color: red;" type="submit" name="post_id" value="{{ post.id }}"><i
@@ -173,15 +173,15 @@
                 <small>{{ comment.date_posted|date:"M d, H:i" }}</small>
               </div>
             </div>
-            {% if user == comment.comuser %}
             <div class="col-md-4 card-header">
+              {% if user == comment.comuser %}
               <div class="offset-md-4">
                 <a id="update-comment-button" href="{% url 'update-comment' post.id comment.id %}">Update</a>
                 <a id="delete-comment-button" style="color:red"
                   href="{% url 'delete-comment' post.id comment.id %}">Delete</a>
               </div>
+              {% endif %}
             </div>
-            {% endif %}
           </div>
           <div class="col-md-12 card-body">
             <p>{{ comment.content }}</p>

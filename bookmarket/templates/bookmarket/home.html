@@ -6,12 +6,14 @@
 
 <div class="col-md-7 offset-md-4">
   <form method="GET" action="">
-    <div class="form-row">
-      <div class="col">
-        <input class="form-control" type="text" name="q" placeholder="Search posts" value="{{ request.GET.q }}" />
-      </div>
-      <div class="col">
-        <button class="btn btn-primary active my-2 my-sm-0" type="submit">Search</button>
+    <div class="row justify-content-between">
+      <div class="row col-8 align-items-center search-form">
+        <div class="col-8">
+          <input class="form-control" type="text" name="q" placeholder="Search posts" value="{{ request.GET.q }}" />
+        </div>
+        <div class="col-2">
+          <button class="btn btn-primary active my-2 my-sm-0" type="submit">Search</button>
+        </div>
       </div>
       <a class="btn btn-primary active my-2 my-sm-0" href="{% url 'post-create' %}">Add new post</a>
     </div>
@@ -41,24 +43,30 @@
 <div class="row">
 
   {% csrf_token %}
-  <article class="col-md-3 offset-md-1 h-100 w-100 content-section">
+  <article class="col-md-3 offset-md-1 h-100 w-100 menu-section">
     <h4 class="filter-bar-header">Filters</h4>
     <form class="filter-bar-body" action="" method="GET">
-      <h5>By condition:</h5>
-      <input type="radio" id="male" name="condition" value="As New">
-      <label class="menu-bar" for="male">As New</label><br>
-      <input type="radio" id="female" name="condition" value="Very Good">
-      <label class="menu-bar" for="female">Very Good</label><br>
-      <input type="radio" id="other" name="condition" value="Acceptable">
-      <label class="menu-bar" for="other">Acceptable</label><br>
-      <input type="radio" id="other" name="condition" value="Mixed">
-      <label class="menu-bar" for="other">Mixed</label><br>
       <h5>By price:</h5>
-      <input type="radio" id="price" name="price_order" value="price">
+      <input type="radio" id="price-low" name="price_order" value="price" {% if price_order == "price" %} checked
+        {% endif %}>
       <label class="menu-bar" for="price">Lowest first</label><br>
-      <input type="radio" id="price" name="price_order" value="-price">
+      <input type="radio" id="price-high" name="price_order" value="-price" {% if price_order == "-price" %} checked
+        {% endif %}>
       <label class="menu-bar" for="price">Highest first</label><br>
+      <h5>By condition:</h5>
+      <input type="radio" id="As New" name="condition" value="As New" {% if condition == "As New" %} checked
+        {% endif %}>
+      <label class="menu-bar" for="male">As New</label><br>
+      <input type="radio" id="Very Good" name="condition" value="Very Good" {% if condition == "Very Good" %} checked
+        {% endif %}>
+      <label class="menu-bar" for="female">Very Good</label><br>
+      <input type="radio" id="Acceptable" name="condition" value="Acceptable" {% if condition == "Acceptable" %} checked
+        {% endif %}>
+      <label class="menu-bar" for="other">Acceptable</label><br>
+      <input type="radio" id="Mixed" name="condition" value="Mixed" {% if condition == "Mixed" %} checked {% endif %}>
+      <label class="menu-bar" for="other">Mixed</label><br>
       <input type="submit" value="Filterino">
+      <input type="reset" onclick="clearFilters()" value="Clear">
     </form>
   </article>
 

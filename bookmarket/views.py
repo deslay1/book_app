@@ -207,6 +207,7 @@ class PostListView(ListView):
         sell = self.request.GET.get("sell")
 
         condition = self.request.GET.get("condition")
+        price_order = self.request.GET.get("price_order")
 
         object_list = self.model.objects.distinct().order_by('-date_posted')
         tab = "Sell"
@@ -219,6 +220,8 @@ class PostListView(ListView):
             object_list = object_list.filter(
                 Q(Condition__icontains=condition)
             )
+        if price_order is not None:
+            object_list = object_list.order_by(price_order)
 
         object_list = object_list.filter(
             Q(SellerOrBuyer__icontains=PostListView.tab)

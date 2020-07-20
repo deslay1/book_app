@@ -35,14 +35,15 @@
             <div class="post-admin justify-content-between">
               <div>
                 <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}" />
-                {% if post.author.first_name and post.author.last_name %}
                 <div style="display:flex;flex-direction: column;">
+                  {% if post.author.first_name and post.author.last_name %}
                   <a class="mr-2" href="/profile/">{{ post.author.first_name }} {{ post.author.last_name }}</a>
+
+                  {% else %}
+                  <a class="mr-2" href="/profile/">{{ post.author }}</a>
+                  {% endif %}
                   <small class="text-muted">{{ post.date_posted|date:"F d, Y H:i" }}</small>
                 </div>
-                {% else %}
-                <a class="mr-2" href="/profile/">{{ post.author }}</a>
-                {% endif %}
               </div>
               <div>
                 <a class="post-button" href="{% url 'post-update' post.id %}">Update</a>
@@ -64,38 +65,29 @@
                 {% else %}
                 <h5 class="post-price">{{ post.price|floatformat:"-2" }} kr</h5>
                 {% endif %}
-                {% if post.Condition %}
+                {% if post.Condition is not "" %}
                 <h6 class="post-condition">
                   <span class="badge badge-pill badge-success">{{ post.Condition }}</span>
-                </h6>
-                {% else %}
-                <h6 class="post-condition">
-                  <span class="badge badge-pill badge-success">Unspecified</span>
                 </h6>
                 {% endif %}
               </div>
             </div>
-            {% if post.image %}
-            <div class="carousel">
-              <div id="carousel-{{post.id}}" class="carousel w-50 mx-auto slide" data-ride="carousel">
-                <ol class="carousel-indicators">
-                  {% if post.image and post.image2 %}
-                  <li data-target="#carousel-{{post.id}}" data-slide-to="0" class="active"></li>
-                  <li data-target="#carousel-{{post.id}}" data-slide-to="1"></li>
-                  {% endif %}
-                  {% if post.image3 %}
-                  <li data-target="#carousel-{{post.id}}" data-slide-to="2"></li>
-                  {% endif %}
-                </ol>
+            {% if post.image != "default.jpg" %}
+            <div id="carousel-{{post.id}}" class="col-8 carousel-container carousel mx-auto slide" data-ride="carousel">
+              {% if post.image2 or post.image3 %}
+              <a class="carousel-control-prev" href="#carousel-{{post.id}}" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+              </a>
+              {% endif %}
+              <div class="mx-auto">
                 <div class="carousel-inner">
-                  {% if post.image %}
                   <div class="carousel-image-container carousel-item active">
                     <img class="carousel-image rounded img-fluid d-block mx-auto" src="{{ post.image.url }}" width="200"
                       height="400" alt="First slide" />
                     <a class="carousel-image-caption btn btn-primary" href="{% url 'post-detail' post.id %}">View
                       post</a>
                   </div>
-                  {% endif %}
                   {% if post.image2 %}
                   <div class="carousel-image-container carousel-item ">
                     <img class="carousel-image rounded img-fluid d-block mx-auto" src="{{ post.image2.url }}"
@@ -113,23 +105,35 @@
                   </div>
                   {% endif %}
                 </div>
-                {% if post.image2 or post.image3 %}
-                <a class="carousel-control-prev" href="#carousel-{{post.id}}" role="button" data-slide="prev">
-                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                  <span class="sr-only">Previous</span>
-                </a>
-                <a class="carousel-control-next" href="#carousel-{{post.id}}" role="button" data-slide="next">
-                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                  <span class="sr-only">Next</span>
-                </a>
-                {% endif %}
+
+                <ol class="carousel-indicators">
+                  {% if post.image and post.image2 %}
+                  <li data-target="#carousel-{{post.id}}" data-slide-to="0" class="active"></li>
+                  <li data-target="#carousel-{{post.id}}" data-slide-to="1"></li>
+                  {% endif %}
+                  {% if post.image3 %}
+                  <li data-target="#carousel-{{post.id}}" data-slide-to="2"></li>
+                  {% endif %}
+                </ol>
               </div>
+              {% if post.image2 or post.image3 %}
+              <a class="carousel-control-next" href="#carousel-{{post.id}}" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+              </a>
+              {% endif %}
+            </div>
+            {% else %}
+            <div class="col-8 mx-auto no-images">
+              <h6 id="no-images"><a class="btn btn-primary" style="font-size: 12"
+                  href="{% url 'post-detail' post.id %}">View
+                  post</a></h6>
             </div>
             {% endif %}
             <div class="row justify-content-between post-footer">
               <h6 class="col-4" id="like-info">{{ post.likes.count }} Like{{ post.likes.count|pluralize }}</h6>
               <div class="col-8">
-                <a class="float-right" href=" {% url 'post-detail' post.id %}"> View
+                <a class="btn btn-outline-secondary btn-md float-right" href=" {% url 'post-detail' post.id %}"> View
                   comments
                   ({{ post.comments.count }})</a>
               </div>

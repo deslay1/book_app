@@ -45,7 +45,7 @@ class Post(models.Model):
         verbose_name="Condition of book(s) <small> <br /> If you have multiple books of varying conditions, choose \"mixed\" </small>")
 
     def __str__(self):
-        return self.author.username
+        return self.title
 
     def total_likes(self):
         return self.likes.count()

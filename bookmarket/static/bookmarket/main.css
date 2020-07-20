@@ -86,8 +86,7 @@ a.article-title:hover {
 }
 
 .article-metadata {
-  padding-bottom: 1px;
-  margin-bottom: 4px;
+  border-bottom: 0.05rem solid black;
 }
 
 .article-metadata a:hover {
@@ -102,14 +101,18 @@ a.article-title:hover {
 }
 
 .account-img {
-  height: 125px;
-  width: 125px;
-  margin-right: 20px;
-  margin-bottom: 16px;
+  margin-right: 0.2rem;
+  margin-left: 0.2rem;
+  margin-bottom: 0.2rem;
 }
 
 .account-heading {
-  font-size: 2.5rem;
+  font-size: 1.5rem;
+}
+
+.text-secondary {
+  font-size: 1rem;
+  word-wrap: break-word;
 }
 
 .mr-2 {
@@ -154,6 +157,11 @@ a.article-title:hover {
 
 .post-SellerOrBuyer {
   margin-top: 1rem;
+}
+
+.post-delete-buttons {
+  margin-right: 1rem;
+  margin-left: 1rem;
 }
 
 .tab {
@@ -220,7 +228,7 @@ a.article-title:hover {
 } */
 
 .carousel {
-  background-color: grey;
+  background-color: rgba(214, 211, 211, 0.877);
 }
 
 .carousel-image-container {
@@ -233,16 +241,36 @@ a.article-title:hover {
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
-  color: black;
+  color: white;
   font-weight: bold;
   opacity: 0;
   visibility: hidden;
+  font-size: 12;
   /* transition effect. not necessary */
 }
 
 .carousel-image-container:hover .carousel-image-caption {
   visibility: visible;
   opacity: 1;
+}
+
+.carousel-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.carousel-indicators {
+  position: relative;
+}
+
+ol {
+  margin-bottom: 0rem !important;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+  position: relative;
 }
 
 .no-images {
@@ -252,20 +280,18 @@ a.article-title:hover {
 #no-images {
   background-color: rgba(214, 211, 211, 0.877);
   box-shadow: inset 0 0 2px #000000;
-  padding: 0.5rem;
+  padding: 0.3rem;
 }
 
 .post-footer {
   display: flex;
   align-items: center;
-  margin-top: 0.5rem;
+  margin-top: 1rem;
   margin-right: 0.1rem;
   margin-left: 0.1rem;
   vertical-align: middle;
-  /*     display: flex;
-    align-items: center;
-    flex-direction: row;
-    justify-content: space-between; */
+  border-top: 0.05rem solid black;
+  padding-top: 1rem;
 }
 
 #post-type {
@@ -319,6 +345,17 @@ a.article-title:hover {
   text-align: center;
 }
 
+.filter-bar-header {
+  border-bottom: 0.1rem solid black;
+  padding: 0.2rem 0.5rem;
+  margin-bottom: 0;
+  background-color: rgba(0, 0, 0, 0.03);
+}
+
+.filter-bar-body {
+  padding: 1rem 0.5rem 0.5rem 0.5rem;
+}
+
 label {
   font-size: 1.3rem;
 }
@@ -363,6 +400,10 @@ textarea {
   vertical-align: top;
 }
 
+#logo-icon-footer {
+  vertical-align: middle;
+}
+
 #nav-icon-links {
   /*color: rgb(184, 8, 8);*/
   color: #0062cc;
@@ -374,6 +415,7 @@ footer {
 }
 
 #footer-header {
+  vertical-align: middle;
   color: white;
 }
 
@@ -400,6 +442,9 @@ footer {
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  border-top: 0.05rem solid black;
+  margin-top: 1rem;
+  padding-top: 1rem;
 }
 
 .post-form-left {

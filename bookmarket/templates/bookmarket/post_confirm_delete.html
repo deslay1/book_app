@@ -1,16 +1,16 @@
 {% extends "bookmarket/base.html" %}
 {% block title %} Confirm Delete: {{object.title}} {% endblock %}
 {% block content %}
-<div class="content-section">
+<div class="col-6 offset-3 content-section">
     <form method="POST">
         {% csrf_token %}
         <fieldset class="form-group">
-            <legend class="bordor-bottom mb-4">Delete Post</legend>
-            <h3>Delete: "{{ object.title }}" ? </h3>
+            <legend class="bordor-bottom mb-4" style="border-bottom: 0.05rem solid black">Delete Post</legend>
+            <h5>Are you sure you want to delete your post: <b>{{ object.title }}</b> ? </h5>
         </fieldset>
-        <div class="form-group">
-            <button class="btn btn-outline-danger" type="submit">Yes</button>
-            <a class="btn btn-outline-secondary" href="{% url 'post-detail' object.id %}">Cancel</a>
+        <div class="row justify-content-between form-group post-delete-buttons">
+            <button class="col-5 btn btn-outline-danger" type="submit">Yes</button>
+            <a class="col-5 btn btn-outline-secondary" href="{% url 'post-detail' object.id %}">Cancel</a>
         </div>
     </form>
 </div>

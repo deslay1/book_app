@@ -168,6 +168,11 @@ def home(request):
     return render(request, 'bookmarket/home.html', context)
 
 
+def message(request):
+
+    return render(request, 'postman/add_message.html')
+
+
 @login_required(login_url='login')
 def show_message(request):
     posts = Message.objects.all().filter(

@@ -1,6 +1,5 @@
 import os
-import django_heroku
-
+#import django_heroku
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -25,10 +24,8 @@ INSTALLED_APPS = [
     'crispy_forms',
     'bookmarket.apps.BookmarketConfig',
     'django.contrib.sessions',
-
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
     'users.apps.UsersConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -36,10 +33,14 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django_use_email_as_username.apps.DjangoUseEmailAsUsernameConfig',
     'allauth',
+    'dj_pagination',
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.facebook',
-    'storages'
+    'storages',
+    'postman',
+
+
 ]
 
 MIDDLEWARE = [
@@ -70,20 +71,20 @@ TEMPLATES = [
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
+
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-
+                'postman.context_processors.inbox',
                 'social_django.context_processors.backends',
                 'social_django.context_processors.login_redirect',
             ],
         },
     },
 ]
-
+POSTMAN_AUTO_MODERATE_AS = True
 WSGI_APPLICATION = 'book_app.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
@@ -168,7 +169,8 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASS')
-SITE_ID = os.environ.get("SITE_ID")
+SITE_ID = os.environ['SITE_ID']
+
 
 AWS_S3_REGION_NAME = "eu-west-3"
 
@@ -183,4 +185,4 @@ AWS_S3_ADDRESSING_STYLE = "virtual"
 
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
-django_heroku.settings(locals())
+# django_heroku.settings(locals())

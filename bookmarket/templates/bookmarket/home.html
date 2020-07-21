@@ -98,12 +98,28 @@
               </div>
 
             </div>
-            {% if post.author == user %}
-            <div>
+            <div class="dropdown">
+              <!--               <button class="btn btn-danger bg-transparent dropdown-toggle" id="dropdown-left" data-toggle="dropdown"
+                aria-haspopup="true dropdown-toggle" aria-expanded="false">Links</button> -->
+              <i id="post-more-menu" class="material-icons" data-toggle="dropdown" aria-haspopup="true dropdown-toggle"
+                aria-expanded="false">more_vert</i>
+              <div class="dropdown-menu dropdown-primary">
+                {% if post.author == user %}
+                <a class="dropdown-item" href="{% url 'post-update' post.id %}"><i id="nav-icon-links"
+                    class="material-icons">create</i>
+                  Update</a>
+                <a class="dropdown-item" href="{% url 'post-delete' post.id %}"><i id="nav-icon-links"
+                    class="material-icons">delete</i> Delete</a>
+                {% else %}
+                <a class="dropdown-item" href="{% url 'postman:write' post.author %}"><i id="nav-icon-links"
+                    class="material-icons">message</i> Delete</a>
+                {% endif %}
+              </div>
+            </div>
+            <!--     <div>
               <a class="post-button" href="{% url 'post-update' post.id %}">Update</a>
               <a class="post-button" style="color: red;" href="{% url 'post-delete' post.id %}">Delete</a>
-            </div>
-            {% endif %}
+            </div> -->
           </div>
           <div class="col-md-12 align-self-end mb-4 pb-2">
             <!-- <h6 id="post-type">{{ post.SellerOrBuyer }}</h6> -->

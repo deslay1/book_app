@@ -405,8 +405,21 @@ textarea {
   border-color: transparent !important;
 }
 
+.dropdown-menu {
+  min-width: 3rem;
+}
+
 #dropdown-left {
   border-color: transparent !important;
+}
+
+#post-more-menu:hover {
+  cursor: pointer;
+}
+
+.dropdown-item {
+  font-size: 0.8rem;
+  padding: 0.2rem 0.5rem;
 }
 
 #logo-icon,

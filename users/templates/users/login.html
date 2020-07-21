@@ -20,11 +20,11 @@
                 <form method="POST">
                     {% csrf_token %}
                     <fieldset class="form-group">
-                        <legend class="bordor-bottom mb-4">Log In</legend>
+                        <legend style="text-align: center;" class="bordor-bottom mb-4">Log In</legend>
                         {{ form|crispy }}
                     </fieldset>
-                    <div class="form-group">
-                        <button class="btn btn-outline-info" type="submit">Login</button>
+                    <div class="form-group col-md-6 mx-auto">
+                        <button class="col-md-12 btn btn-primary" type="submit">Login</button>
                     </div>
                 </form>
                 <div class="border-top pt-3">

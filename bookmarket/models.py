@@ -24,7 +24,7 @@ class Post(models.Model):
 
     authorName = Profile
 
-    title = models.CharField(max_length=80)
+    title = models.CharField(max_length=50)
     content = models.TextField(verbose_name="Description", max_length=590)
     image = models.ImageField(
         upload_to='post_pics', default='default.jpg', verbose_name="Image ")

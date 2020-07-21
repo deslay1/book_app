@@ -24,14 +24,18 @@ from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.mail import send_mail
 
+from .groups import join_group
+
 
 def register(request):
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
 
         if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get('email')
+            user = form.save(commit=False)
+            user.save()
+            join_group(user)
+            #username = form.cleaned_data.get('email')
             messages.success(
                 request, f'Your account has been created! Please log in.'
             )

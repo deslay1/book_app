@@ -2,10 +2,10 @@
 {% block title %} Logout {% endblock %}
 
 {% block content %}
-<h2 style="color: white">You have been logged out</h2>
-<div class="border-top pt-3">
-    <small class="text-muted">
-        <a href="{% url 'login' %}">Log in again</a>
-    </small>
+<div class="col-md-6 mx-auto content-section">
+    <h4>You have been logged out.</h4>
+    <div class="border-top pt-3">
+        <a style="font-size: 0.9rem;" href="{% url 'login' %}">Log in again</a>
+    </div>
 </div>
 {% endblock content %}

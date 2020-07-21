@@ -77,17 +77,26 @@ ul {
   min-width: 25vw;
 }
 
+.article-title-container {
+  margin-bottom: 0.5rem;
+  word-wrap: break-word;
+}
+
 .article-title {
   color: #444444;
+  font-size: 1.6rem;
+  line-height: 1.8rem;
 }
 
 a.article-title:hover {
   color: #428bca;
   text-decoration: none;
+  cursor: pointer;
 }
 
 .article-content {
   white-space: pre-line;
+  font-size: 1.1rem;
 }
 
 .article-img {
@@ -155,7 +164,6 @@ a.article-title:hover {
 }
 
 .post-information {
-  margin-bottom: 0.5rem;
   margin-top: 1rem;
 }
 
@@ -362,7 +370,7 @@ ol {
   border-radius: 0.2rem;
   padding: 0.2rem 0.5rem;
   margin-bottom: 0;
-  background-color: rgba(0, 0, 0, 0.103);
+  background-color: rgba(0, 0, 0, 0.05);
 }
 
 .filter-bar-body {
@@ -450,21 +458,29 @@ footer {
  */
 }
 
+.post-footer-left-info {
+  color: gray;
+  vertical-align: middle;
+  font-size: 1rem;
+}
+
 .post-detail-form {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
   border-top: 0.05rem solid black;
   margin-top: 1rem;
   padding-top: 1rem;
 }
 
 .post-detail-form-left {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-end;
   margin-bottom: 0rem;
+}
+
+.post-detail-comments-button:hover {
+  color: #428bca;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 .post-condition {

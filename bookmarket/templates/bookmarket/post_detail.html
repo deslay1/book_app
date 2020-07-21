@@ -33,32 +33,23 @@
           </div>
           {% endif %}
         </div>
-        <div class="col-14 justify-content-between post-button-container">
+        <div class="row col-12 justify-content-between post-button-container">
           <h6 id="post-type">{{ post.SellerOrBuyer }}</h6>
-        </div>
-      </div>
-      <div class="col-14 post-information">
-        <div class="col-12 row justify-content-between">
-          <h2 class="article-title">{{ post.title }}</h2>
           <div class="row justify-content-center align-items-center">
             {% if post.price == 0.00 %}
             <h5 class="post-price">Free</h5>
             {% else %}
             <h5 class="post-price">{{ post.price|floatformat:"-2" }} kr</h5>
             {% endif %}
-            {% if post.Condition is not "" %}
-            <h6 class="post-condition">
-              <span class="badge badge-pill badge-success">{{ post.Condition }}</span>
-            </h6>
-            {% endif %}
           </div>
         </div>
-        <p class="article-content">{{ post.content }}</p>
-        <!--         {% if post.image == "default.jpg" %}
-        <div class="no-images">
-          <span id="no-images">User has no images to display</span>
+      </div>
+      <div class="col-14 post-information">
+        <div class="article-title-container">
+          <h4 class="article-title">{{ post.title }}</h4>
         </div>
-        {% else %} -->
+        <p class="article-content">{{ post.content }}</p>
+
         {% if post.image != "default.jpg" %}
         <div id="carousel-{{post.id}}" class="carousel-container carousel mx-auto slide" data-ride="carousel">
           {% if post.image2 or post.image3 %}
@@ -113,17 +104,10 @@
           {% endif %}
         </div>
         {% endif %}
-        {% endif %}
-        <!--         <div class="row post-footer">
-          <div class="col-md-6" style="display: table;">
-            <p class="" style="display: table-cell;
-    vertical-align: middle;" id="like-info">{{ total_likes }}
-              Like{{ total_likes|pluralize }}</p>
-          </div>
-          <h6 class="col-md-2 offset-md-4" id="post-type">{{ post.SellerOrBuyer }}</h6>
-        </div> -->
+
+
         <div class="justify-content-between post-detail-form">
-          <form class="post-detail-form-left" action="{% url 'like_post' %}" method="POST">
+          <form class="row post-detail-form-left" action="{% url 'like_post' %}" method="POST">
             {% csrf_token %}
             {% if is_liked %}
             <button class="btn bg-transparent" style="color: red;" type="submit" name="post_id" value="{{ post.id }}"><i
@@ -135,9 +119,12 @@
             <h6 class="align-items-center" id="like-info">{{ post.likes.count }} Like{{ post.likes.count|pluralize }}
             </h6>
           </form>
-          <button class="btn btn-outline-secondary btn-md float-right" onclick="viewComments('comments')"> View
+          <button class="btn btn-outline-secondary btn-sm ml-4" onclick="viewComments('comments')">View
             comments
             ({{ post.comments.count }})</button>
+          <span class=" btn-sm badge badge-success">Condition: {% if post.Condition %}
+            {{ post.Condition }} {% else %} Not specified {% endif %}</span>
+
         </div>
       </div>
   </article>

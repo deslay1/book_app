@@ -42,26 +42,20 @@
             </div>
 
           </div>
-          <div class="col-14 justify-content-between post-button-container">
+          <div class="row col-12 justify-content-between post-button-container">
             <h6 id="post-type">{{ post.SellerOrBuyer }}</h6>
-          </div>
-        </div>
-        <div class="col-14 post-information">
-          <div class="col-12 row justify-content-between">
-            <h4 class="article-title">{{ post.title }}</h4>
-
             <div class="row justify-content-center align-items-center">
               {% if post.price == 0.00 %}
               <h5 class="post-price">Free</h5>
               {% else %}
-              <h5 class="post-price">{{ post.price|floatformat:"-2" }} kr</h5>
-              {% endif %}
-              {% if post.Condition is not "" %}
-              <h6 class="post-condition">
-                <span class="badge badge-pill badge-success">{{ post.Condition }}</span>
-              </h6>
+              <h5 class=" post-price">{{ post.price|floatformat:"-2" }} kr</h5>
               {% endif %}
             </div>
+          </div>
+        </div>
+        <div class="col-14 post-information">
+          <div class="article-title-container">
+            <a href="{% url 'post-detail' post.id %}" class="article-title">{{ post.title }}</a>
           </div>
           {% if post.image != "default.jpg" %}
           <div id="carousel-{{post.id}}" class="col-8 carousel-container carousel mx-auto slide" data-ride="carousel">
@@ -121,13 +115,18 @@
                 post</a></h6>
           </div>
           {% endif %}
-          <div class="row justify-content-between post-footer">
-            <h6 class="col-4" id="like-info">{{ post.likes.count }} Like{{ post.likes.count|pluralize }}</h6>
-            <div class="col-8">
-              <a class="btn btn-outline-secondary btn-md float-right" href=" {% url 'post-detail' post.id %}"> View
-                comments
-                ({{ post.comments.count }})</a>
+          <div class="row col-sm-12 justify-content-between post-footer">
+            <div class="row align-items-center post-footer-left">
+              <h6 class="post-footer-left-info">{{ post.likes.count }} Like{{ post.likes.count|pluralize }}</h6>
+              <h6 class="post-footer-left-info ml-3">{{ post.comments.count }}
+                Comment{{ post.comments.count|pluralize }}
+              </h6>
             </div>
+            {% if post.Condition %}
+            <h6 class=" post-condition">
+              <span class="badge badge-success">Condition: {{ post.Condition }}</span>
+            </h6>
+            {% endif %}
           </div>
         </div>
     </article>

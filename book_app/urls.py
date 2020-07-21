@@ -41,7 +41,8 @@ urlpatterns = [
     path('profileUser/<username>/', user_views.profileUser, name='profileUser'),
     path('', include('bookmarket.urls')),
     path('accounts/', include('allauth.urls')),
-    path('user/', include('users.urls'))
+    path('user/', include('users.urls')),
+    path('messages/', include('postman.urls', namespace='postman')),
 
 ]
 

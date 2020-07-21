@@ -137,7 +137,7 @@ a.article-title:hover {
 }
 
 .mr-2 {
-  color: rgb(175, 53, 4);
+  color: #0062cc;
 }
 
 .post-image {
@@ -160,6 +160,7 @@ a.article-title:hover {
 }
 
 .post-button {
+  color: #0062cc;
   margin-right: 0.1rem;
 }
 
@@ -170,13 +171,6 @@ a.article-title:hover {
 .post-bar {
   display: flex;
   justify-content: space-between;
-}
-
-.post-price {
-}
-
-.post-SellerOrBuyer {
-  margin-top: 1rem;
 }
 
 .post-delete-buttons {
@@ -316,7 +310,6 @@ ol {
 }
 
 #post-type {
-  color: #ce4946;
   float: right;
   text-shadow: 1px 1px #dbd8d8;
 }
@@ -446,7 +439,6 @@ footer {
 } */
 
 .bs {
-  padding: 10rem;
   text-align: center;
 }
 

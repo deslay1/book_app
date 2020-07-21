@@ -65,7 +65,7 @@
       <label class="menu-bar" for="other">Acceptable</label><br>
       <input type="radio" id="Mixed" name="condition" value="Mixed" {% if condition == "Mixed" %} checked {% endif %}>
       <label class="menu-bar" for="other">Mixed</label><br>
-      <input type="submit" value="Filterino">
+      <input type="submit" value="Filter">
       <input type="reset" onclick="clearFilters()" value="Clear">
     </form>
   </article>
@@ -104,19 +104,14 @@
               <a class="post-button" style="color: red;" href="{% url 'post-delete' post.id %}">Delete</a>
             </div>
             {% endif %}
-            <!-- <h6 id="post-type">{{ post.SellerOrBuyer }}</h6> -->
           </div>
-          <div class="row col-md-12 justify-content-between post-button-container">
-            <!-- <a class="btn btn-primary btn-sm" href="{% url 'post-detail' post.id %}">View
-              post</a> -->
-            <h6 id="post-type">{{ post.SellerOrBuyer }}</h6>
-            <div class="row justify-content-center align-items-center">
-              {% if post.price == 0.00 %}
-              <h5 class="post-price">Free</h5>
-              {% else %}
-              <h5 class="post-price">{{ post.price|floatformat:"-2" }} kr</h5>
-              {% endif %}
-            </div>
+          <div class="col-md-12 align-self-end mb-4 pb-2">
+            <!-- <h6 id="post-type">{{ post.SellerOrBuyer }}</h6> -->
+            {% if post.price == 0.00 %}
+            <h5 class="float-right post-price">Free</h5>
+            {% else %}
+            <h5 class="float-right post-price">{{ post.price|floatformat:"-2" }} kr</h5>
+            {% endif %}
           </div>
         </div>
         <div class="col-14 post-information">
@@ -202,9 +197,9 @@
 
     {% empty %}
     <div class="content-section">
-      <div class="media-body">
-        <div class="bs">
-          <h2>No posts to show!</h2>
+      <div class=" media-body">
+        <div class="bs col-md-10 mx-auto">
+          <h3>No posts to show!</h3>
         </div>
       </div>
     </div>

@@ -6,7 +6,7 @@
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -15,16 +15,13 @@
     <link rel="stylesheet" type="text/css" href="{% static 'bookmarket/main.css' %}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
-    <!-- jQuery CDN -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
     <link rel="shortcut icon" href="{% static 'bookmarket/images/favicon2.ico' type='image/x-icon' %}">
 
     <title>{% block title %}{% endblock %}</title>
 </head>
 
 <body>
-    <div class="body-body">
+    <div class="body-body2">
         <header class="site-header">
             <nav class="navbar navbar-expand-md navbar-dark bg-red  fixed-top">
                 <div class="container">
@@ -109,19 +106,17 @@
     </div>
 
     <!-- Footer -->
-    <footer class="page-footer font-small stylish-color-dark pt-4 pb-3 ">
+    <footer class="page-footer font-small stylish-color-dark pt-4 ">
         <div class="container text-center text-md-left">
-            <div class="row justify-content-between">
-                <div class="col-6 offset-1">
-                    <h6 id="footer-header" class="font-weight-bold"><i id="logo-icon-footer"
-                            class="material-icons">bookmarks</i> Bookmarket</h6>
-                    <p>Developed using the Django framework with python.</p>
+            <div class="row">
+                <div class="col-md-4 mx-auto">
+                    <h5 id="footer-header" class="font-weight-bold mt-1 mb-2"><i id="logo-icon"
+                            class="material-icons">bookmarks</i> Bookmarket</h5>
+                    <p>Developed using the Django web framework built on python.</p>
                 </div>
-                <!-- <hr class="clearfix w-100 d-md-none"> -->
-                <div class="align-items-center col-4">
-                    <h6 id="footer-header" class="font-weight-bold"><i id="logo-icon-footer"
-                            class="material-icons">link</i>
-                        Links</h6>
+                <hr class="clearfix w-100 d-md-none">
+                <div class="col-md-2 mx-auto">
+                    <h5 id="footer-header" class="font-weight-bold mt-1 mb-4">Links</h5>
                     <ul class="list-unstyled">
                         <li>
                             <a class="btn btn-primary btn-sm active" href="/about">About</a> || <a

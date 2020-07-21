@@ -46,9 +46,16 @@
                   <small class="text-muted">{{ post.date_posted|date:"F d, Y H:i" }}</small>
                 </div>
               </div>
-              <div>
-                <a class="post-button" href="{% url 'post-update' post.id %}">Update</a>
-                <a class="post-button" style="color: red;" href="{% url 'post-delete' post.id %}">Delete</a>
+              <div class="dropdown">
+                <i id="post-more-menu" class="material-icons" data-toggle="dropdown"
+                  aria-haspopup="true dropdown-toggle" aria-expanded="false">more_vert</i>
+                <div class="dropdown-menu dropdown-primary">
+                  <a class="dropdown-item dropdown-post-item" href="{% url 'post-update' post.id %}"><i
+                      id="nav-icon-links" class="material-icons">create</i>
+                    Update</a>
+                  <a class="dropdown-item dropdown-post-item" href="{% url 'post-delete' post.id %}"><i
+                      id="nav-icon-links" class="material-icons">delete</i> Delete</a>
+                </div>
               </div>
 
             </div>

@@ -105,14 +105,14 @@
                 aria-expanded="false">more_vert</i>
               <div class="dropdown-menu dropdown-primary">
                 {% if post.author == user %}
-                <a class="dropdown-item" href="{% url 'post-update' post.id %}"><i id="nav-icon-links"
-                    class="material-icons">create</i>
+                <a class="dropdown-item dropdown-post-item" href="{% url 'post-update' post.id %}"><i
+                    id="nav-icon-links" class="material-icons">create</i>
                   Update</a>
-                <a class="dropdown-item" href="{% url 'post-delete' post.id %}"><i id="nav-icon-links"
-                    class="material-icons">delete</i> Delete</a>
+                <a class="dropdown-item dropdown-post-item" href="{% url 'post-delete' post.id %}"><i
+                    id="nav-icon-links" class="material-icons">delete</i> Delete</a>
                 {% else %}
-                <a class="dropdown-item" href="{% url 'postman:write' post.author %}"><i id="nav-icon-links"
-                    class="material-icons">message</i> Delete</a>
+                <a class="dropdown-item dropdown-post-item" href="{% url 'postman:write' post.author %}"><i
+                    id="nav-icon-links" class="material-icons">message</i> Send message</a>
                 {% endif %}
               </div>
             </div>

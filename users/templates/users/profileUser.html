@@ -33,14 +33,20 @@
                 {% if post.author.first_name and post.author.last_name %}
                 <a class="mr-2" href="/profileUser/{{ post.id }}">{{ post.author.first_name }}
                   {{ post.author.last_name }}</a>
-
                 {% else %}
                 <a class="mr-2" href="/profileUser/{{ post.id }}">{{ post.author }}</a>
                 {% endif %}
                 <small class="text-muted">{{ post.date_posted|date:"F d, Y H:i" }}</small>
               </div>
             </div>
-
+            <div class="dropdown">
+              <i id="post-more-menu" class="material-icons" data-toggle="dropdown" aria-haspopup="true dropdown-toggle"
+                aria-expanded="false">more_vert</i>
+              <div class="dropdown-menu dropdown-primary">
+                <a class="dropdown-item dropdown-post-item" href="{% url 'postman:write' post.author %}"><i
+                    id="nav-icon-links" class="material-icons">message</i> Send message</a>
+              </div>
+            </div>
           </div>
           <div class="row col-12 justify-content-between post-button-container">
             <h6 id="post-type">{{ post.SellerOrBuyer }}</h6>

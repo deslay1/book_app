@@ -9,20 +9,23 @@
           <div>
             <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}" />
             <div style="display:flex;flex-direction: column;">
-              {% if post.author.first_name and post.author.last_name %}
-              {% if post.author == user %}
-              <a class="mr-2" href="/profile/">{{ post.author.first_name }} {{ post.author.last_name }}</a>
-              {% else %}
-              <a class="mr-2" href="/profileUser/{{ post.id }}">{{ post.author.first_name }}
-                {{ post.author.last_name }}</a>
-              {% endif %}
-              {% else %}
-              {% if post.author == user %}
-              <a class="mr-2" href="/profile/">{{ post.author }}</a>
-              {% else %}
-              <a class="mr-2" href="/profileUser/{{ post.id }}">{{ post.author }}</a>
-              {% endif %}
-              {% endif %}
+              <div style="display:flex;flex-direction: row; align-items: center">
+                {% if post.author.first_name and post.author.last_name %}
+                {% if post.author == user %}
+                <a class="mr-2" href="/profile/">{{ post.author.first_name }} {{ post.author.last_name }}</a>
+                {% else %}
+                <a class="mr-2" href="/profileUser/{{ post.id }}">{{ post.author.first_name }}
+                  {{ post.author.last_name }}</a>
+                {% endif %}
+                {% else %}
+                {% if post.author == user %}
+                <a class="mr-2" href="/profile/">{{ post.author }}</a>
+                {% else %}
+                <a class="mr-2" href="/profileUser/{{ post.id }}">{{ post.author }}</a>
+                {% endif %}
+                {% endif %}
+                <a class="btn btn-sm btn-outline-dark" href="{% url 'postman:write' post.author %}">Send message</a>
+              </div>
               <small class="text-muted">{{ post.date_posted|date:"F d, Y H:i" }}</small>
             </div>
           </div>

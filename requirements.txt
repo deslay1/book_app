@@ -11,6 +11,7 @@ clyent==1.2.1
 cycler==0.10.0
 defusedxml==0.6.0
 dj-database-url==0.5.0
+dj-pagination==2.5.0
 Django==2.2.13
 django-allauth==0.42.0
 django-bootstrap-form==3.4
@@ -20,6 +21,7 @@ django-filter==2.3.0
 django-heroku==0.3.1
 django-phonenumber-field==4.0.0
 django-phonenumbers==1.0.1
+django-postman==4.0
 django-storages==1.9.1
 django-use-email-as-username==1.1.1
 docutils==0.14
@@ -39,7 +41,7 @@ path.py==11.5.0
 pathlib2==2.3.3
 pep8==1.7.1
 phonenumbers==8.10.18
-#Pillow==7.2.0
+Pillow==7.2.0
 pkginfo==1.5.0.1
 psycopg2==2.8.5
 psycopg2-binary==2.8.5

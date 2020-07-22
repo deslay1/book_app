@@ -6,7 +6,7 @@
     <form method="POST">
         {% csrf_token %}
         <fieldset class="form-group">
-            <legend style="text-align: center;" class="border-bottom pb-2 mb-4">Join Today</legend>
+            <legend style="text-align: center;" class="border-bottom pb-2 mb-4">Register Account</legend>
             <div class="form-row">
                 <div class="form-group col-6 mb-0">
                     {{ form.username|as_crispy_field }}
@@ -34,12 +34,12 @@
             <!-- {{ form|crispy }} -->
         </fieldset>
         <div class="col-md-4 mx-auto form-group">
-            <button class="col-md-12 btn btn-primary" type="submit">Sign Up</button>
+            <button class="col-md-12 btn btn-primary" type="submit">Sign up</button>
         </div>
     </form>
     <div class="border-top pt-3">
         <small class="text-muted">
-            Already Have An Account? <a class="ml-2" href="{% url 'login' %}">Sign In</a>
+            Already Have An Account? <a class="ml-2" href="{% url 'login' %}">Log In</a>
         </small>
     </div>
 </div>

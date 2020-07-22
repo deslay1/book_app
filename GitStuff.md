@@ -5,11 +5,6 @@ Begin developing by cloning this repository:
 - Entered desired directory to clone into, then:
   `git clone <url>`
 
-## Adding important .gitignore file!
-
-- Create file named .gitignore in book_app repo locally
-- Add on seperate lines: **/vscode/\*** and **\*.pyc**
-- Feel free to add more files/directories git should ignore
 
 ## Steps to add/push changes:
 
@@ -29,17 +24,15 @@ Commiting and pushing to remote repo:
 - git push
 ```
 
-## Switching branches:
-
-```
-- git add, commit to save changes
-- git checkout "branch"
-```
-
 ## Creating a new branch:
 
 ```
-- git branch "new_branch"
+- git checkout -b "new branch name"
+```
+
+## Switching branches:
+```
+- git add, commit to save changes
 - git checkout "branch"
 ```
 
@@ -52,6 +45,20 @@ Commiting and pushing to remote repo:
 ```
 
 **Solve eventual conflicts by opening important unstaged files (files that are not associated with the database or end with .pyc)**
+
+## Deleting branch:
+### Deleting locally:
+```
+- git -d " branch name"
+```
+or to force delete if branch has not been commited and pushed:
+```
+- git -D "branch name"
+```
+### Deleting remotely (github):
+```
+- git push origin --delete "branch name"
+```
 
 ## Going back to a commit
 

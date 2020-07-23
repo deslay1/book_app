@@ -30,6 +30,8 @@
           <div>
             <a class="post-button" href="{% url 'post-update' post.id %}">Update</a>
             <a class="post-button" style="color: red;" href="{% url 'post-delete' post.id %}">Delete</a>
+            <a style="font-size:30px;" href=" {% url 'postman:write' post.author %}"><i
+                class="material-icons">message</i> Message</a>
           </div>
           {% endif %}
         </div>

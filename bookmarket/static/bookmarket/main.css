@@ -80,6 +80,17 @@ ul {
     padding: 1rem;
     box-shadow: inset 0 0 10px #000000;
 }
+.add-message-container{
+  bottom: 50%;
+  
+  background: #fff;
+  border: 1px solid #dddddd;
+  border-radius: 3px;
+
+  margin: 20rem 0rem 20rem 0rem;
+
+  box-shadow: inset 0 0 10px #000000;
+}
 
 .menu-section {
     background: #fff;
@@ -227,6 +238,11 @@ a.article-title:hover {
     font-size: 17px;
 }
 
+
+
+
+
+
 /* Change background color of buttons on hover */
 .tab button:hover {
     color: black;
@@ -372,9 +388,27 @@ ol {
     margin-top: 1rem;
     /*margin: 1rem 0rem 0 0rem;*/
 }
+.card2 {
+text-size-adjust: 100px;
+  display: flex;
+  justify-content: center; /* align horizontal */
+  align-items: center; /* align vertical */
+  margin-top: 1rem;
+  /*margin: 1rem 0rem 0 0rem;*/
+}
+
+.add-message-icons {
+  font-size: 100px !important;
+}
 
 .card-body {
     padding: 1rem 0rem 0rem 0rem !important;
+}
+.card2-body {
+  display: flex;
+  justify-content: center; /* align horizontal */
+  align-items: center; /* align vertical */
+  padding: 1rem 0rem 0rem 0rem !important;
 }
 
 #add-comment-header {

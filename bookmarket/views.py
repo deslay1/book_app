@@ -200,12 +200,11 @@ class PostListView(ListView):
     template_name = 'bookmarket/home.html'  # <app>/<model>_<viewtype>.html
     context_object_name = 'posts'
     ordering = ['-date_posted']
-    paginate_by = 2
+    paginate_by = 5
     tab = "Sell"
     # Detta är för paginator och sökfältet
 
     def get_context_data(self, **kwargs):
-        global tab
         context = super(PostListView, self).get_context_data(**kwargs)
 
         buy = self.request.GET.get("buy")
@@ -215,7 +214,6 @@ class PostListView(ListView):
         price_order = self.request.GET.get("price_order")
 
         object_list = self.model.objects.distinct().order_by('-date_posted')
-        tab = "Sell"
         if buy is not None:
             PostListView.tab = "Buy"
         if sell is not None:
@@ -262,7 +260,7 @@ class PostDetailView(DetailView):
     template_name = 'bookmarket/post_detail.html'  # <app>/<model>_<viewtype>.html
     context_object_name = 'posts'
     ordering = ['-date_posted']
-    paginate_by = 2
+    paginate_by = 5
 
     def get_context_data(self, **kwargs):
         context = super(PostDetailView, self).get_context_data(**kwargs)

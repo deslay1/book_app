@@ -45,8 +45,8 @@ def register(request):
             )
             return redirect('login')
     else:
-        form = UserRegisterForm()
-    return render(request, 'users/register.html', {'form': form})
+        u_form = UserRegisterForm()
+    return render(request, 'users/register.html', {'form': u_form})
 
 
 @login_required

@@ -15,7 +15,7 @@ class PostForm(forms.ModelForm):
             "image3",
             "price",
             "SellerOrBuyer",
-            'Condition'
+            'Condition',
         ]
         widgets = {
             'Condition': forms.RadioSelect,

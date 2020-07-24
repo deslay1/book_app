@@ -2,8 +2,8 @@
 {% block title %} Post Form {% endblock %}
 {% load crispy_forms_tags %}
 {% block content %}
-<div class="col-8 offset-2 content-section">
-    <form method="POST" enctype="multipart/form-data">
+<div class="col-md-8 mx-auto content-section">
+    <form class="col-md-12" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <fieldset>
             <legend class="border-bottom mb-4"> Add a post
@@ -11,7 +11,7 @@
             {{ form.title|as_crispy_field}}
             {{ form.content|as_crispy_field}}
             <div class="post-form-row justify-content-between">
-                <div class="post-form-group mb-0">
+                <div class="post-form-group mb-0" id="image">
                     {{ form.image|as_crispy_field}}
                 </div>
                 <div class="post-form-group mb-0 image-hide" id="image2">
@@ -30,6 +30,7 @@
                     {{ form.Condition|as_crispy_field}}
                 </div>
             </div>
+            {{ form.category|as_crispy_field}}
         </fieldset>
         <div class="form-group">
             <button class="btn btn-primary active" type="submit">Post</button>

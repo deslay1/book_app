@@ -3,8 +3,32 @@
 {% load bootstrap %}
 {% block content %}
 
+<div id="groups" class="mx-auto">
+  <div class="home-container">
+    <div class="col-md-10 mx-auto scrollmenu">
+      <form method="GET" action="">
+        {% for group in groups %}
+        <button id="{{group.name}}"
+          class="group-button{% if category == group.name %}-active{% endif %}{% if group.name == user_group_name %}-user{% endif %}"
+          type="submit" onclick="activateGroup(event, '{{group.name}}')" name="group/category" value="All">
+          {% if group.name == user_group_name %}
+          <i style="vertical-align: middle" class=" material-icons">group</i>
+          {% endif %}
+          {{group.name}}</button>
+        {% endfor %}
+      </form>
+    </div>
+    <!--     <form method="GET" action="">
+      <div class="tab">
+        <button id="sell" type="submit" onclick="activateTab(event, 'sell')" name="tab" value="Sell">Sell</button>
+        <button id="buy" type="submit" onclick="activateTab(event, 'buy')" name="tab" value="Buy">Buy</button>
+      </div>
+    </form> -->
+  </div>
+</div>
 
 <div class="col-md-7 offset-md-4">
+
   <form method="GET" action="">
     <div class="row justify-content-between">
       <div class="row col-8 align-items-center search-form">
@@ -33,10 +57,10 @@
     </form> -->
   <form method="GET" action="">
     <div class="tab">
-      <button id="sell" type="submit" onclick="activateTab(event, 'sell')" name="sell"
-        value="{{ request.GET.sell }}">Sell</button>
-      <button id="buy" type="submit" onclick="activateTab(event, 'buy')" name="buy"
-        value="{{ request.GET.buy }}">Buy</button>
+      <button id="Sell" class="tab-button{% if tab == 'Sell' %}-active{% endif %}" type="submit" name="tab"
+        value="Sell">Sell</button>
+      <button id="Buy" class="tab-button{% if tab == 'Buy' %}-active{% endif %}" type="submit" name="tab"
+        value="Buy">Buy</button>
     </div>
   </form>
 </div>
@@ -84,14 +108,14 @@
                 {% if post.author == user %}
                 <a class="mr-2" href="/profile/">{{ post.author.first_name }} {{ post.author.last_name }}</a>
                 {% else %}
-                <a class="mr-2" href="profileUser/{{ post.id }}">{{ post.author.first_name }}
+                <a class="mr-2" href="/profileUser/{{ post.id }}">{{ post.author.first_name }}
                   {{ post.author.last_name }}</a>
                 {% endif %}
                 {% else %}
                 {% if post.author == user %}
                 <a class="mr-2" href="/profile/">{{ post.author }}</a>
                 {% else %}
-                <a class="mr-2" href="profileUser/{{ post.id }}">{{ post.author }}</a>
+                <a class="mr-2" href="/profileUser/{{ post.id }}">{{ post.author }}</a>
                 {% endif %}
                 {% endif %}
                 <small class="text-muted">{{ post.date_posted|date:"F d, Y H:i" }}</small>

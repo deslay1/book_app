@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils import timezone
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from django.urls import reverse
 from django.conf import settings
 from PIL import Image
@@ -22,12 +22,17 @@ class Post(models.Model):
         ('Mixed', 'Mixed'),
     ]
 
-    authorName = Profile
+    #authorName = Profile
+
+    def getGroupNames():
+        groups = Group.objects.order_by(
+            "name").values_list('name', flat=True)
+        return zip(groups, groups)
 
     title = models.CharField(max_length=50)
     content = models.TextField(verbose_name="Description", max_length=590)
     image = models.ImageField(
-        upload_to='post_pics', default='default.jpg', verbose_name="Image ")
+        upload_to='post_pics', default='default.jpg', blank=True, verbose_name="Image ")
     image2 = models.ImageField(
         upload_to='post_pics', blank=True, verbose_name="Image 2 (optional) ")
     image3 = models.ImageField(
@@ -44,6 +49,8 @@ class Post(models.Model):
         blank=True,
         choices=conditions,
         verbose_name="Condition of book(s) (optional)")
+    category = models.CharField(
+        max_length=50, default=list(getGroupNames())[0], choices=getGroupNames(), verbose_name='What group do you want to publish to?')
 
     def __str__(self):
         return self.title

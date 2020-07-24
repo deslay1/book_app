@@ -3,8 +3,8 @@ from django.contrib.contenttypes.models import ContentType
 from .models import Profile
 
 
-def join_group(user):
-    group, created = Group.objects.get_or_create(name='general')
+def join_group(group_name, user):
+    group, created = Group.objects.get_or_create(name=group_name)
 
     content_type = ContentType.objects.get_for_model(Profile)
 

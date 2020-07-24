@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import PostForm, CommentForm, MessageForm
 from .models import Post, Message, Comment
 from django.http import HttpResponse, HttpResponseRedirect
-from django.db.models import Q
+from django.db.models import Q, Case, When
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.generic import (
     ListView,
@@ -14,13 +14,15 @@ from django.views.generic import (
     UpdateView,
     DeleteView
 )
-#from django.forms.models import model_to_dict
+# from django.forms.models import model_to_dict
 from django.core.mail import send_mail
 from django.conf import settings
 from .filters import PostFilter
+from django.forms.models import model_to_dict
+from django.contrib.auth.models import Group
 
 
-def post_create(request):
+""" def post_create(request):
     form = PostForm(request.POST or None, request.FILES or None)
     if form.is_valid():
         instance = form.save(commit=False)
@@ -29,7 +31,7 @@ def post_create(request):
     context = {
         "form": form,
     }
-    return render(request, "home.html", context)
+    return render(request, "home.html", context) """
 
 
 def post_update(request, id=None):
@@ -202,33 +204,46 @@ class PostListView(ListView):
     ordering = ['-date_posted']
     paginate_by = 5
     tab = "Sell"
-    # Detta är för paginator och sökfältet
+    category = "All"
 
     def get_context_data(self, **kwargs):
         context = super(PostListView, self).get_context_data(**kwargs)
 
-        buy = self.request.GET.get("buy")
-        sell = self.request.GET.get("sell")
+        user_groups = self.request.user.groups.values_list('name', flat=True)
+        user_groups_list = list(user_groups)
+        user_group_name = user_groups_list[0]
+
+        # Placing a user's group first in list.
+        groups = Group.objects.distinct().order_by(
+            Case(When(name=user_group_name, then=0), default=1), 'name')
+
+        PostListView.category = user_groups_list[0]
+
+        # To see model structure
+        # print(model_to_dict(groups[0]))
+
+        category = self.request.GET.get("group/category")
+        tab = self.request.GET.get("tab")
+
+        if category is not None:
+            PostListView.category = category
+
+        if tab is not None:
+            PostListView.tab = tab
+
+        object_list = self.model.objects.distinct().order_by(
+            '-date_posted').filter(Q(category__exact=self.category)).filter(
+            Q(SellerOrBuyer__icontains=PostListView.tab)
+        )
 
         condition = self.request.GET.get("condition")
         price_order = self.request.GET.get("price_order")
 
-        object_list = self.model.objects.distinct().order_by('-date_posted')
-        if buy is not None:
-            PostListView.tab = "Buy"
-        if sell is not None:
-            PostListView.tab = "Sell"
-
         if condition is not None:
             object_list = object_list.filter(
-                Q(Condition__icontains=condition)
-            )
+                Q(Condition__exact=condition))
         if price_order is not None:
             object_list = object_list.order_by(price_order)
-
-        object_list = object_list.filter(
-            Q(SellerOrBuyer__icontains=PostListView.tab)
-        )
 
         query = self.request.GET.get('q')
         if query:
@@ -249,8 +264,8 @@ class PostListView(ListView):
         except EmptyPage:
             object_list = paginator.page(paginator.num_pages)
 
-        context = {'posts': object_list, 'filter': PostFilter(
-            self.request.GET, queryset=self.get_queryset()), 'condition': condition, 'price_order': price_order}
+        context = {'posts': object_list, 'groups': groups, 'user_group_name': user_group_name, 'filter': PostFilter(
+            self.request.GET, queryset=self.get_queryset()), 'condition': condition, 'price_order': price_order, "category": PostListView.category, 'tab': PostListView.tab}
         # Add any other variables to the context here
         return context
 
@@ -264,20 +279,20 @@ class PostDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(PostDetailView, self).get_context_data(**kwargs)
-        posts = Comment.objects.all().filter(
+        comments = Comment.objects.all().filter(
             Q(comuser=self.request.user)).order_by('-date_posted')
 
         paginator = Paginator(posts, self.paginate_by)
         page = self.request.GET.get('page')
 
         try:
-            posts = paginator.page(page)
+            comments = paginator.page(page)
         except PageNotAnInteger:
-            posts = paginator.page(1)
+            comments = paginator.page(1)
         except EmptyPage:
-            posts = paginator.page(paginator.num_pages)
+            comments = paginator.page(paginator.num_pages)
 
-        context = {'comments': posts, 'post': post}
+        context = {'comments': comments, 'post': post}
         # Add any other variables to the context here
         return context
 
@@ -285,7 +300,7 @@ class PostDetailView(DetailView):
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
     fields = ['title', 'content', 'image', 'image2',
-              'image3', 'price', 'SellerOrBuyer', 'Condition']
+              'image3', 'price', 'SellerOrBuyer', 'Condition', 'category']
 
     def form_valid(self, form):
         form.instance.author = self.request.user

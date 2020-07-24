@@ -4,7 +4,9 @@ body {
 }
 
 .body-body {
-    background-image: url(../bookmarket/images/background_home2.jpg);
+    /*     background-image: url(../bookmarket/images/background_home2.jpg);
+ */
+    background-color: #000000ce;
     color: #333333;
     padding-top: 5rem;
     min-height: 100%;
@@ -203,15 +205,57 @@ a.article-title:hover {
     overflow: hidden;
     display: flex;
     justify-content: center;
-    border: 1px solid #ccc;
+    /* border: 0.01rem solid #ccc; */
     margin-bottom: 1rem;
     border-radius: 1rem;
-    /*
-  /* background-color: #f1f1f1; */
+    /* background-color: #f1f1f1; */
     background-color: #c63f2a;
 }
 
-/* Style the buttons inside the tab */
+.home-container {
+    /* background-color: #c63f2a; */
+    border-radius: 1rem;
+    /* border: 1px solid #000000ce; */
+    margin-bottom: 0.2rem;
+}
+
+div.scrollmenu {
+    /*     background-color: #333; */
+    overflow: auto;
+    white-space: nowrap;
+}
+
+div.scrollmenu button {
+    background-color: #c63f2a;
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 0.4rem 1rem 0.4rem 1rem;
+    text-decoration: none;
+    /* background-color: transparent; */
+    border-color: transparent;
+    border-radius: 0.8rem;
+    font-weight: 500;
+    font-size: 1rem;
+}
+
+div.scrollmenu button:hover {
+    color: black;
+    background-color: #ddd;
+}
+
+.group-button-active {
+    color: black !important;
+    background-color: white !important;
+}
+
+.group-button-active-user {
+    color: black !important;
+    background-color: white !important;
+    /* 
+    border-color: red !important; */
+}
+
 .tab button {
     color: white;
     font-weight: 500;
@@ -222,45 +266,21 @@ a.article-title:hover {
     border: none;
     outline: none;
     cursor: pointer;
-    padding: 14px 16px;
+    padding: 0.8rem;
     transition: 0.3s;
-    font-size: 17px;
+    font-size: 1rem;
+    /* margin: 0rem 0.5rem 0rem 0.5rem */
 }
 
-/* Change background color of buttons on hover */
 .tab button:hover {
     color: black;
     background-color: #ddd;
 }
 
-/* Style the tab content */
-/* .tabcontent {
-    display: none;
-    border-top: none;
-    -webkit-animation: fadeEffect 1s;
-    animation: fadeEffect 1s;
-} */
-
-/* Fade in tabs */
-/* @-webkit-keyframes fadeEffect {
-    from {
-        opacity: 0.5;
-    }
-
-    to {
-        opacity: 1;
-    }
+.tab-button-active {
+    color: black !important;
+    background-color: white !important;
 }
-
-@keyframes fadeEffect {
-    from {
-        opacity: 0.5;
-    }
-
-    to {
-        opacity: 1;
-    }
-} */
 
 .carousel {
     background-color: rgba(214, 211, 211, 0.877);
@@ -335,14 +355,12 @@ ol {
     text-shadow: 1px 1px #dbd8d8;
 }
 
-.btn-primary:active {
-    background-color: #0d4b8e;
+.btn-primary:hover {
+    background-color: #0d4b8e !important;
 }
 
-.btn-primary:activeNew {}
-
 .btn-primary {
-    background-color: #328def;
+    background-color: #1071da !important;
 }
 
 .comments {
@@ -360,7 +378,6 @@ ol {
 .comment-top {
     text-align: right;
     margin-left: 0.5rem;
-    margin-top: 0.5rem;
 }
 
 #comment-section-header {
@@ -480,6 +497,7 @@ footer {
 
 .bs {
     text-align: center;
+    padding: 1rem 0rem 1rem 0rem;
 }
 
 #like-info {
@@ -494,6 +512,10 @@ footer {
     color: gray;
     vertical-align: middle;
     font-size: 1rem;
+}
+
+.btn-outline-dark:hover {
+    color: white !important
 }
 
 .post-detail-form {

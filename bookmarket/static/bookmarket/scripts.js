@@ -14,6 +14,15 @@
   sessionStorage.setItem("activeTabId", market);
 } */
 
+activateGroup = (evt, name) => {
+  evt.currentTarget.value = name;
+};
+
+/*  if ($(".group-button").hasClass("active")) {
+   $(".group-button").css("background-color", "")
+   document.getElementById("#")
+ } */
+
 // save active tab to storage
 function activateTab(evt, tab) {
   //document.getElementById(tab).style.display = "block";
@@ -55,16 +64,15 @@ function clearFilters() {
 // jQuery in post_form
 
 //For updating the post
-if (document.getElementById("id_image") && document.getElementById("id_image").value == "") {
-  console.log("hi");
+if (document.getElementById("div_id_image") && $("#div_id_image").find("a").length > 0) {
   $("#image2").removeClass("image-hide");
-  if (document.getElementById("id_image2").value != "") {
+  if ($("#div_id_image2").find("a").length > 0) {
     $("#image3").removeClass("image-hide");
   }
 }
+
 // General conditions
 $("#id_image").change(function () {
-  console.log("hi");
   $("#image2").removeClass("image-hide");
 });
 

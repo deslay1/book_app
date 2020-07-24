@@ -19,23 +19,27 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
-
 from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.mail import send_mail
 
+from django.forms.models import model_to_dict
+from django.contrib.auth.models import User
 from .groups import join_group
 
 
 def register(request):
     if request.method == 'POST':
-        form = UserRegisterForm(request.POST)
+        u_form = UserRegisterForm(request.POST)
 
-        if form.is_valid():
-            user = form.save(commit=False)
+        if u_form.is_valid():
+            u_form_with_extra_category = u_form.save(commit=False)
+            user = u_form_with_extra_category['form']
+            chosen_group = u_form_with_extra_category['chosen_group']
+            print(model_to_dict(user))
             user.save()
-            join_group(user)
-            #username = form.cleaned_data.get('email')
+            join_group(chosen_group, user)
+            # username = form.cleaned_data.get('email')
             messages.success(
                 request, f'Your account has been created! Please log in.'
             )
@@ -82,30 +86,26 @@ def profile(request):
 
 
 def profileUser(request, username):
-    inte = int(username, 10)
-    posts = Post.objects.all()
-    authors = "hey"
+    post_id = username
 
-    for post in posts:
-        if post.id == inte:
-            posts = Post.objects.filter(
-                Q(author=post.author)).distinct().order_by('-date_posted')
-            authors = post.author
+    from_post = get_object_or_404(Post, id=post_id)
 
-    paginator = Paginator(posts, 2)
+    user_posts = Post.objects.filter(
+        Q(author=from_post.author)).order_by('-date_posted')
+
+    paginator = Paginator(user_posts, 2)
 
     page = request.GET.get('page')
+
     try:
-        post_List = paginator.page(page)
+        user_posts = paginator.page(page)
     except PageNotAnInteger:
-        post_List = paginator.page(1)
+        user_posts = paginator.page(1)
     except EmptyPage:
-        post_List = paginator.page(paginator.num_pages)
+        user_posts = paginator.page(paginator.num_pages)
     context = {
-        'userPost': inte,
-        'posts': posts,
-        'authors': authors,
-        'post_List': post_List
+        'profile_user': from_post.author,
+        'post_List': user_posts
     }
 
     return render(request, 'users/profileUser.html', context)

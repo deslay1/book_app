@@ -67,7 +67,7 @@ def add_comment_to_post(request, pk):
             return redirect('post-detail', pk=post.pk)
     else:
         form = CommentForm()
-    return render(request, 'bookmarket/add_comment.html', {'form': form})
+    return render(request, 'bookmarket/add_comment.html', {'form': form, 'post': post})
 
 
 @login_required(login_url='login')
@@ -205,19 +205,29 @@ class PostListView(ListView):
     paginate_by = 5
     tab = "Sell"
     category = "All"
+    price_order = "All"
+    condition = "All"
 
     def get_context_data(self, **kwargs):
         context = super(PostListView, self).get_context_data(**kwargs)
 
-        user_groups = self.request.user.groups.values_list('name', flat=True)
-        user_groups_list = list(user_groups)
-        user_group_name = user_groups_list[0]
+        user_groups = self.request.user.groups.values_list(
+            'name', flat=True)
+        groups = Group.objects.distinct().order_by("name")
+        user_group_name = "All"
 
-        # Placing a user's group first in list.
-        groups = Group.objects.distinct().order_by(
-            Case(When(name=user_group_name, then=0), default=1), 'name')
+        # When djang groups are empty this needs to be done
+        # in order not tor return any errors
+        if user_groups:
+            user_groups_list = list(user_groups)
+            user_group_name = user_groups_list[0]
+            # Placing a user's group first in list.
+            groups = Group.objects.distinct().order_by(
+                Case(When(name=user_group_name, then=0), default=1), 'name')
 
-        PostListView.category = user_groups_list[0]
+        # Initial group activation on first render
+            if PostListView.category == "All":
+                PostListView.category = user_groups_list[0]
 
         # To see model structure
         # print(model_to_dict(groups[0]))
@@ -237,13 +247,23 @@ class PostListView(ListView):
         )
 
         condition = self.request.GET.get("condition")
-        price_order = self.request.GET.get("price_order")
-
         if condition is not None:
-            object_list = object_list.filter(
-                Q(Condition__exact=condition))
+            PostListView.condition = condition
+
+        price_order = self.request.GET.get("price_order")
         if price_order is not None:
-            object_list = object_list.order_by(price_order)
+            PostListView.price_order = price_order
+
+        reset = self.request.GET.get("reset")
+        if reset is not None:
+            PostListView.condition = "All"
+            PostListView.price_order = "All"
+
+        if PostListView.condition != "All":
+            object_list = object_list.filter(
+                Q(Condition__exact=PostListView.condition))
+        if PostListView.price_order != "All":
+            object_list = object_list.order_by(PostListView.price_order)
 
         query = self.request.GET.get('q')
         if query:
@@ -265,7 +285,7 @@ class PostListView(ListView):
             object_list = paginator.page(paginator.num_pages)
 
         context = {'posts': object_list, 'groups': groups, 'user_group_name': user_group_name, 'filter': PostFilter(
-            self.request.GET, queryset=self.get_queryset()), 'condition': condition, 'price_order': price_order, "category": PostListView.category, 'tab': PostListView.tab}
+            self.request.GET, queryset=self.get_queryset()), 'condition': PostListView.condition, 'price_order': PostListView.price_order, "category": PostListView.category, 'tab': PostListView.tab}
         # Add any other variables to the context here
         return context
 
@@ -310,7 +330,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 class PostUpdateView(LoginRequiredMixin, UpdateView, UserPassesTestMixin):
     model = Post
     fields = ['title', 'content', 'image', 'image2',
-              'image3', 'price', 'SellerOrBuyer', 'Condition']
+              'image3', 'price', 'SellerOrBuyer', 'Condition', 'category']
 
     def form_valid(self, form):
         form.instance.author = self.request.user

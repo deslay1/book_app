@@ -27,7 +27,10 @@ class Post(models.Model):
     def getGroupNames():
         groups = Group.objects.order_by(
             "name").values_list('name', flat=True)
-        return zip(groups, groups)
+        if groups:
+            return zip(groups, groups)
+        else:
+            return [('All', 'All')]
 
     title = models.CharField(max_length=50)
     content = models.TextField(verbose_name="Description", max_length=590)
@@ -67,7 +70,8 @@ class Comment(models.Model):
         'bookmarket.Post', on_delete=models.CASCADE, related_name='comments')
     #author = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     comuser = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
-    content = models.TextField()
+    content = models.TextField(
+        max_length=300, verbose_name="Type in your comment")
     date_posted = models.DateTimeField(default=timezone.now)
     approved_comment = models.BooleanField(default=False)
 

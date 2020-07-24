@@ -1,9 +1,26 @@
 {% extends 'bookmarket/base.html' %}
 {% block title %} Add Comment {% endblock %}
 {% block content %}
-<div class="card bg-light mb-12">
-    <div id="add-comment-header" class="card-header">
-        <h3>New comment</h3>
+<div class="col-md-8 mx-auto card bg-light mb-12">
+    <div class="card-header">
+        <div id="add-comment-header">
+            <h4 class="">Add a comment to: </h4>
+            <h5 class="ml-2 article-title">
+                {{post.title}}
+            </h5>
+        </div>
+        <!--         <div id="add-comment-sub-header">
+            <h5 class="article-title">
+                {{post.title}}
+
+            </h5>
+            <a class="ml-2">by
+                {% if post.author.first_name and post.author.last_name%}
+                {{post.author.first_name}} {{post.author.last_name}}
+                {% else %}
+                {{post.author}}
+                {% endif %}</a>
+        </div> -->
     </div>
     <form method="POST" class="post-form">{% csrf_token %}
         <div class="card-body">
@@ -11,8 +28,8 @@
                 {{ form.as_p }}
             </div>
         </div>
-        <div class="add-comment-button">
-            <button type="submit" class="btn btn-primary active">Add Comment</button>
+        <div class="col-md-4 mx-auto add-comment-button">
+            <button type="submit" class="col-md-12 btn btn-primary active">Add Comment</button>
         </div>
     </form>
 </div>

@@ -1,0 +1,168 @@
+{% extends "bookmarket/base.html" %}
+{% block title %}About Page{% endblock %}
+{% block content %}
+<div class="row col-md-12 justify-content-between">
+    <div class="col-md-6">
+        <div class="activity-section">
+            <h4 style="text-align: center;">Your comments</h4>
+            {% for comment in comments %}
+            <div class="card bg-light">
+                <div class="card-header">
+                    <div class="justify-content-between row">
+                        <div>
+                            <img class="rounded-circle article-img comment-photo"
+                                src="{{ comment.comuser.profile.image.url }}" />
+                            <div style="display:flex;flex-direction: column;">
+                                {% if comment.comuser.first_name and comment.comuser.last_name %}
+                                <a href="/profile/">{{ comment.comuser.first_name }}
+                                    {{ comment.comuser.last_name }}</a>
+                                {% else %}
+                                <a href="/profile/">{{ comment.comuser }}</a>
+                                {% endif %}
+                                <small>{{ comment.date_posted|date:"M d, H:i" }}</small>
+                            </div>
+                        </div>
+                        <div class="">
+                            <a id="update-comment-button"
+                                href="{% url 'update-comment' comment.post.id comment.id %}">Update</a>
+                            <a id="delete-comment-button" style="color:red"
+                                href="{% url 'delete-comment' comment.post.id comment.id %}">Delete</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="ml-2 card-body">
+                    <p>{{ comment.content }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="activity-section">
+            <h4 style="text-align: center;">Your liked posts</h4>
+            {% for post in liked_posts %}
+            <div class="card p-2 mb-2">
+                <div class="article-metadata">
+                    <div class="post-admin justify-content-between">
+                        <div>
+                            <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}" />
+                            <div style="display:flex;flex-direction: column;">
+                                {% if post.author.first_name and post.author.last_name %}
+                                <a class="mr-2" href="/profileUser/{{ post.id }}">{{ post.author.first_name }}
+                                    {{ post.author.last_name }}</a>
+                                {% else %}
+                                <a class="mr-2" href="/profileUser/{{ post.id }}">{{ post.author }}</a>
+                                {% endif %}
+                                <small class="text-muted">{{ post.date_posted|date:"F d, Y H:i" }}</small>
+                            </div>
+                        </div>
+                        <div class="dropdown">
+                            <i id="post-more-menu" class="material-icons" data-toggle="dropdown"
+                                aria-haspopup="true dropdown-toggle" aria-expanded="false">more_vert</i>
+                            <div class="dropdown-menu dropdown-primary">
+                                <a class="dropdown-item dropdown-post-item"
+                                    href="{% url 'postman:write' post.author %}"><i id="nav-icon-links"
+                                        class="material-icons">message</i> Send message</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row col-12 justify-content-between post-button-container">
+                        <h6 id="post-type">{{ post.SellerOrBuyer }}</h6>
+                        <div class="row justify-content-center align-items-center">
+                            {% if post.price == 0.00 %}
+                            <h5 class="post-price">Free</h5>
+                            {% else %}
+                            <h5 class=" post-price">{{ post.price|floatformat:"-2" }} kr</h5>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-14 post-information">
+                    <div class="article-title-container">
+                        <a href="{% url 'post-detail' post.id %}" class="article-title">{{ post.title }}</a>
+                    </div>
+                    {% if post.image != "default.jpg" %}
+                    <div id="carousel-{{post.id}}" class="col-8 carousel-container carousel mx-auto slide"
+                        data-ride="carousel">
+                        {% if post.image2 or post.image3 %}
+                        <a class="carousel-control-prev" href="#carousel-{{post.id}}" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        {% endif %}
+                        <div class="mx-auto">
+                            <div class="carousel-inner">
+                                <div class="carousel-image-container carousel-item active">
+                                    <img class="carousel-image rounded img-fluid d-block mx-auto"
+                                        src="{{ post.image.url }}" width="200" height="400" alt="First slide" />
+                                    <a class="carousel-image-caption btn btn-primary"
+                                        href="{% url 'post-detail' post.id %}">View
+                                        post</a>
+                                </div>
+                                {% if post.image2 %}
+                                <div class="carousel-image-container carousel-item ">
+                                    <img class="carousel-image rounded img-fluid d-block mx-auto"
+                                        src="{{ post.image2.url }}" width="200" height="400" alt="Second slide">
+                                    <a class="carousel-image-caption btn btn-primary"
+                                        href="{% url 'post-detail' post.id %}">View
+                                        post</a>
+                                </div>
+                                {% endif %}
+                                {% if post.image3 %}
+                                <div class="carousel-image-container carousel-item">
+                                    <img class="carousel-image rounded img-fluid d-block mx-auto"
+                                        src="{{ post.image3.url }}" width="200" height="400" alt="Third slide">
+                                    <a class="carousel-image-caption btn btn-primary"
+                                        href="{% url 'post-detail' post.id %}">View
+                                        post</a>
+                                </div>
+                                {% endif %}
+                            </div>
+
+                            <ol class="carousel-indicators">
+                                {% if post.image and post.image2 %}
+                                <li data-target="#carousel-{{post.id}}" data-slide-to="0" class="active"></li>
+                                <li data-target="#carousel-{{post.id}}" data-slide-to="1"></li>
+                                {% endif %}
+                                {% if post.image3 %}
+                                <li data-target="#carousel-{{post.id}}" data-slide-to="2"></li>
+                                {% endif %}
+                            </ol>
+                        </div>
+                        {% if post.image2 or post.image3 %}
+                        <a class="carousel-control-next" href="#carousel-{{post.id}}" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                        {% endif %}
+                    </div>
+                    {% else %}
+                    <div class="col-8 mx-auto no-images">
+                        <h6 id="no-images"><a class="btn btn-primary" style="font-size: 12"
+                                href="{% url 'post-detail' post.id %}">View
+                                post</a></h6>
+                    </div>
+                    {% endif %}
+                    <div class="row col-sm-12 justify-content-between post-footer">
+                        <div class="row align-items-center post-footer-left">
+                            <h6 class="post-footer-left-info">{{ post.likes.count }}
+                                Like{{ post.likes.count|pluralize }}</h6>
+                            <h6 class="post-footer-left-info ml-3">{{ post.comments.count }}
+                                Comment{{ post.comments.count|pluralize }}
+                            </h6>
+                        </div>
+                        {% if post.Condition %}
+                        <h6 class=" post-condition">
+                            <span class="badge badge-success">Condition: {{ post.Condition }}</span>
+                        </h6>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+
+
+    {% endblock content %}

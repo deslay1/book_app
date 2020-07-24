@@ -46,10 +46,10 @@ if (activeTabId == "sell" && sellTab) {
 function viewComments(name) {
   let commentsDiv = document.getElementById(name);
   if (commentsDiv) {
-    if (commentsDiv.style.visibility == "visible") {
-      commentsDiv.style.visibility = "hidden";
+    if (commentsDiv.style.display == "block") {
+      commentsDiv.style.display = "none";
     } else {
-      commentsDiv.style.visibility = "visible";
+      commentsDiv.style.display = "block";
     }
   }
 }

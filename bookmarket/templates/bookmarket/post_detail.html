@@ -149,38 +149,40 @@
 
         {% for comment in comments %}
         <div class="card bg-light">
-          <div class="justify-content-between row col-md-12 mx-auto card-header">
-            <div>
-              {% if comment.comuser %}
-              <img class="rounded-circle article-img comment-photo" src="{{ comment.comuser.profile.image.url }}" />
-              {% if user == comment.comuser %}
-              <div style="display:flex;flex-direction: column;">
-                {% if comment.comuser.first_name and comment.comuser.last_name %}
-                <a href="/profile/">{{ comment.comuser.first_name }} {{ comment.comuser.last_name }}</a>
+          <div class="card-header">
+            <div class="justify-content-between row">
+              <div>
+                {% if comment.comuser %}
+                <img class="rounded-circle article-img comment-photo" src="{{ comment.comuser.profile.image.url }}" />
+                {% if user == comment.comuser %}
+                <div style="display:flex;flex-direction: column;">
+                  {% if comment.comuser.first_name and comment.comuser.last_name %}
+                  <a href="/profile/">{{ comment.comuser.first_name }} {{ comment.comuser.last_name }}</a>
+                  {% else %}
+                  <a href="/profile/">{{ comment.comuser }}</a>
+                  {% endif %}
+                  <small>{{ comment.date_posted|date:"M d, H:i" }}</small>
+                </div>
                 {% else %}
-                <a href="/profile/">{{ comment.comuser }}</a>
+                <div style="display:flex;flex-direction: column;">
+                  {% if comment.comuser.first_name and comment.comuser.last_name %}
+                  <a href="/profileUser/{{ post.id }}">{{ comment.comuser.first_name }}
+                    {{ comment.comuser.last_name }}</a>
+                  {% else %}
+                  <a href="/profileUser/{{ post.id }}">{{ comment.comuser }}</a>
+                  {% endif %}
+                  <small>{{ comment.date_posted|date:"M d, H:i" }}</small>
+                </div>
+                {% endif%}
                 {% endif %}
-                <small>{{ comment.date_posted|date:"M d, H:i" }}</small>
               </div>
-              {% else %}
-              <div style="display:flex;flex-direction: column;">
-                {% if comment.comuser.first_name and comment.comuser.last_name %}
-                <a href="/profileUser/{{ post.id }}">{{ comment.comuser.first_name }}
-                  {{ comment.comuser.last_name }}</a>
-                {% else %}
-                <a href="/profileUser/{{ post.id }}">{{ comment.comuser }}</a>
+              <div class="">
+                {% if user == comment.comuser %}
+                <a id="update-comment-button" href="{% url 'update-comment' post.id comment.id %}">Update</a>
+                <a id="delete-comment-button" style="color:red"
+                  href="{% url 'delete-comment' post.id comment.id %}">Delete</a>
                 {% endif %}
-                <small>{{ comment.date_posted|date:"M d, H:i" }}</small>
               </div>
-              {% endif%}
-              {% endif %}
-            </div>
-            <div class="">
-              {% if user == comment.comuser %}
-              <a id="update-comment-button" href="{% url 'update-comment' post.id comment.id %}">Update</a>
-              <a id="delete-comment-button" style="color:red"
-                href="{% url 'delete-comment' post.id comment.id %}">Delete</a>
-              {% endif %}
             </div>
           </div>
           <div class="ml-2 card-body">

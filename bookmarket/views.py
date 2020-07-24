@@ -19,7 +19,7 @@ from django.core.mail import send_mail
 from django.conf import settings
 from .filters import PostFilter
 from django.forms.models import model_to_dict
-from django.contrib.auth.models import Group
+from django.contrib.auth.models import User, Group
 
 
 """ def post_create(request):
@@ -171,7 +171,6 @@ def home(request):
 
 
 def message(request):
-
     return render(request, 'postman/add_message.html')
 
 
@@ -355,4 +354,21 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
 
 def about(request):
-    return render(request, 'bookmarket/about.html', {})
+    return render(request, 'bookmarket/about.html', {'test': "test"})
+
+
+class UserActivityView(ListView):
+    context_object_name = 'comments'
+    template_name = 'bookmarket/user_activity.html'
+    queryset = Comment.objects.distinct().order_by('-date_posted')
+
+    def get_context_data(self, **kwargs):
+        context = super(UserActivityView, self).get_context_data(**kwargs)
+
+        user = self.request.user
+        context['comments'] = self.queryset.filter(
+            Q(comuser__exact=user))
+        context['liked_posts'] = Post.objects.filter(
+            likes__id=user.id)
+        # And so on for more models
+        return context

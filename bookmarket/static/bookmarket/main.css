@@ -74,6 +74,12 @@ ul {
     font-weight: 500;
 }
 
+.general-section {
+    background-color: white;
+    padding: 1rem;
+    margin-bottom: 2rem;
+}
+
 .content-section {
     background: #fff;
     border: 1px solid #dddddd;
@@ -81,6 +87,21 @@ ul {
     margin-bottom: 2rem;
     padding: 1rem;
     box-shadow: inset 0 0 10px #000000;
+}
+
+.activity-section {
+    background: #fff;
+    border: 0.1rem solid black;
+    border-radius: 0.7rem;
+    padding: 1rem;
+    max-height: 85vh;
+    overflow: auto;
+    margin-bottom: 1rem;
+}
+
+.activity-post {
+    box-shadow: black;
+    border: 0.01rem solid grey;
 }
 
 .menu-section {
@@ -365,7 +386,7 @@ ol {
 }
 
 .comments {
-    visibility: hidden;
+    display: none;
 }
 
 .comment-section {
@@ -386,7 +407,7 @@ ol {
 }
 
 .card {
-    background-color: #d3d1d1;
+    /* background-color: #d3d1d1; */
     margin-top: 1rem;
     /*margin: 1rem 0rem 0 0rem;*/
 }

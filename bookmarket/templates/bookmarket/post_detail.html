@@ -1,6 +1,7 @@
 {% extends "bookmarket/base.html" %}
 {% block title %} Post: {{post.title}} {% endblock %}
 {% block content %}
+{% load calculate_diff %}
 <div class="col-md-8 offset-md-1">
   <article class="content-section mb-3">
     <div class="media-body">
@@ -112,13 +113,11 @@
         <div class="justify-content-between post-detail-form">
           <form class="row post-detail-form-left" action="{% url 'like_post' %}" method="POST">
             {% csrf_token %}
-            {% if is_liked %}
-            <button class="btn bg-transparent" style="color: red;" type="submit" name="post_id" value="{{ post.id }}"><i
-                id="logo-icon" class="material-icons">thumb_down</i></button>
-            {% else %}
-            <button class="btn bg-transparent" style="color: blue;" type="submit" name="post_id"
-              value="{{ post.id }}"><i id="logo-icon" class="material-icons">thumb_up</i></button>
-            {% endif %}
+
+            <button class="btn ml-2 btn-sm bg-transparent" {% if is_liked %} style="color: blue;" {% else %}
+              style="color: rgb(138,138,138);" {% endif %} type="submit" name="like" value="{{ post.id }}"><i
+                id="logo-icon" class="material-icons">thumb_up</i></button>
+
             <h6 class="align-items-center" id="like-info">{{ post.likes.count }} Like{{ post.likes.count|pluralize }}
             </h6>
           </form>
@@ -132,7 +131,7 @@
       </div>
   </article>
 
-  <div class="comments" id="comments">
+  <div class="comments" id="comments" style="display: block">
     <div class="comment-section">
       <div class="media-body">
         {% if user.is_authenticated %}
@@ -145,48 +144,78 @@
           <a id="add-comment-button" class="btn btn-primary active" href="{% url 'add-comment-to-post' post.id %}">Add
             comment</a>
         </div>
+        {% if messages %}
+        {% for message in messages%}
+        <div class="alert alert-{{message.tags}}">
+          {{message}}
+        </div>
+        {%endfor%}
+        {% endif %}
         {% endif %}
 
         {% for comment in comments %}
-        <div class="card bg-light">
-          <div class="card-header">
-            <div class="justify-content-between row">
-              <div>
-                {% if comment.comuser %}
-                <img class="rounded-circle article-img comment-photo" src="{{ comment.comuser.profile.image.url }}" />
-                {% if user == comment.comuser %}
-                <div style="display:flex;flex-direction: column;">
-                  {% if comment.comuser.first_name and comment.comuser.last_name %}
-                  <a href="/profile/">{{ comment.comuser.first_name }} {{ comment.comuser.last_name }}</a>
-                  {% else %}
-                  <a href="/profile/">{{ comment.comuser }}</a>
-                  {% endif %}
-                  <small>{{ comment.date_posted|date:"M d, H:i" }}</small>
+        <div class="comment-container mt-3">
+          <div class="comment-info-container">
+            <div class="card">
+              <div class="card-header">
+                <div class="justify-content-between row">
+                  <div>
+                    {% if comment.comuser %}
+                    <img class="rounded-circle article-img comment-photo"
+                      src="{{ comment.comuser.profile.image.url }}" />
+                    {% if user == comment.comuser %}
+                    <div style="display:flex;flex-direction: column;">
+                      {% if comment.comuser.first_name and comment.comuser.last_name %}
+                      <a href="/profile/">{{ comment.comuser.first_name }} {{ comment.comuser.last_name }}</a>
+                      {% else %}
+                      <a href="/profile/">{{ comment.comuser }}</a>
+                      {% endif %}
+                      <small>{{ comment.date_posted|date:"M d, H:i" }}</small>
+                    </div>
+                    {% else %}
+                    <div style="display:flex;flex-direction: column;">
+                      {% if comment.comuser.first_name and comment.comuser.last_name %}
+                      <a href="/profileUser/{{ post.id }}">{{ comment.comuser.first_name }}
+                        {{ comment.comuser.last_name }}</a>
+                      {% else %}
+                      <a href="/profileUser/{{ post.id }}">{{ comment.comuser }}</a>
+                      {% endif %}
+                      <small>{{ comment.date_posted|date:"M d, H:i" }}</small>
+                    </div>
+                    {% endif%}
+                    {% endif %}
+                  </div>
+                  <div class="">
+                    {% if user == comment.comuser %}
+                    <a id="update-comment-button" href="{% url 'update-comment' post.id comment.id %}">Update</a>
+                    <a id="delete-comment-button" style="color:red"
+                      href="{% url 'delete-comment' post.id comment.id %}">Delete</a>
+                    {% endif %}
+                  </div>
                 </div>
-                {% else %}
-                <div style="display:flex;flex-direction: column;">
-                  {% if comment.comuser.first_name and comment.comuser.last_name %}
-                  <a href="/profileUser/{{ post.id }}">{{ comment.comuser.first_name }}
-                    {{ comment.comuser.last_name }}</a>
-                  {% else %}
-                  <a href="/profileUser/{{ post.id }}">{{ comment.comuser }}</a>
-                  {% endif %}
-                  <small>{{ comment.date_posted|date:"M d, H:i" }}</small>
-                </div>
-                {% endif%}
-                {% endif %}
               </div>
-              <div class="">
-                {% if user == comment.comuser %}
-                <a id="update-comment-button" href="{% url 'update-comment' post.id comment.id %}">Update</a>
-                <a id="delete-comment-button" style="color:red"
-                  href="{% url 'delete-comment' post.id comment.id %}">Delete</a>
-                {% endif %}
+              <div class="ml-2 card-body">
+                <p>{{ comment.content }}</p>
               </div>
             </div>
           </div>
-          <div class="ml-2 card-body">
-            <p>{{ comment.content }}</p>
+          <div class="comment-like-container">
+            <form class="comment-like-buttons" action="{% url 'update-comment-likes' comment.id %}" method="POST">
+              {% csrf_token %}
+              <button class="btn btn-sm bg-transparent no-padding" type="submit" name="comment-like"
+                value="comment-like" {% if comment in liked_comments %} style="color: blue;" {% else %} style="color:
+                rgb(138,138,138);" {% endif %}><i
+                  class="material-icons comment-like-button">arrow_circle_up</i></button>
+              <button class="btn btn-sm bg-transparent no-padding" type="submit" name="comment-like"
+                value="comment-dislike" {% if comment in disliked_comments %} style="color: red;" {% else %} style="color:
+                rgb(138,138,138);" {% endif %}><i
+                  class="material-icons comment-like-button">arrow_circle_down</i></button>
+              <!--              <i class="material-icons">arrow_circle_up</i>
+              <i class="material-icons">arrow_circle_down</i> -->
+            </form>
+            <div class="comment-like-count">
+              {{comment.likes.count|calculate_diff:comment.dislikes.count}}
+            </div>
           </div>
         </div>
         {% endfor %}

@@ -400,16 +400,62 @@ ol {
 .comment-top {
     text-align: right;
     margin-left: 0.5rem;
+    margin-bottom: 1.2rem;
 }
 
 #comment-section-header {
     float: left;
 }
 
+.comment-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+
+.comment-info-container {
+    flex-grow: 8;
+}
+
+.comment-like-container {
+    margin-left: 0.2rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.comment-like-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.comment-like-button {
+    font-size: 28px !important;
+}
+
+.comment-like-count {
+    font-size: 1rem;
+}
+
+.no-padding {
+    padding: 0
+}
+
+.comment-like-count {
+    margin-bottom: 1em;
+    width: 1rem
+}
+
 .card {
-    /* background-color: #d3d1d1; */
-    margin-top: 1rem;
-    /*margin: 1rem 0rem 0 0rem;*/
+    position: relative;
+    -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3),
+        0 0 40px rgba(0, 0, 0, 0.1) inset;
+    -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3),
+        0 0 40px rgba(0, 0, 0, 0.1) inset;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3),
+        0 0 40px rgba(0, 0, 0, 0.1) inset;
 }
 
 .card-body {

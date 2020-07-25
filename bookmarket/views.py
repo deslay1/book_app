@@ -20,6 +20,7 @@ from django.conf import settings
 from .filters import PostFilter
 from django.forms.models import model_to_dict
 from django.contrib.auth.models import User, Group
+from django.contrib import messages
 
 
 """ def post_create(request):
@@ -97,26 +98,30 @@ def delete_comment(request, pk, id):
 @login_required(login_url='login')
 def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
-    posts = post.comments.all().order_by('-date_posted')
-    paginator = Paginator(posts, 5)
+    comments = post.comments.all().order_by('-date_posted')
+    paginator = Paginator(comments, 5)
 
     page = request.GET.get('page')
     try:
-        post_List = paginator.page(page)
+        comment_list = paginator.page(page)
     except PageNotAnInteger:
-        post_List = paginator.page(1)
+        comment_list = paginator.page(1)
     except EmptyPage:
-        post_List = paginator.page(paginator.num_pages)
+        comment_list = paginator.page(paginator.num_pages)
 
-    is_liked = False
-    if post.likes.filter(id=request.user.id).exists():
-        is_liked = True
+    is_liked = post.likes.filter(id=request.user.id).exists()
+    liked_comments = Comment.objects.filter(
+        likes__id=request.user.id)
+    disliked_comments = Comment.objects.filter(
+        dislikes__id=request.user.id)
 
     context = {
-        'comments': post_List,
+        'comments': comment_list,
         'post': post,
         'is_liked': is_liked,
-        'total_likes': post.total_likes()
+        'total_likes': post.total_likes(),
+        'liked_comments': liked_comments,
+        'disliked_comments': disliked_comments
     }
 
     return render(request, 'bookmarket/post_detail.html', context)
@@ -124,16 +129,50 @@ def post_detail(request, pk):
 
 @login_required(login_url='login')
 def like_post(request):
-    post = get_object_or_404(Post, id=request.POST.get('post_id'))
-    is_liked = False
+    liked_post_id = request.POST.get('like')
+    post = get_object_or_404(Post, id=liked_post_id)
+
     if post.likes.filter(id=request.user.id).exists():
         post.likes.remove(request.user)
-        is_liked = False
     else:
         post.likes.add(request.user)
-        is_liked = True
+
     # Another redirections method...
     return HttpResponseRedirect(post.get_absolute_url())
+
+
+@login_required(login_url='login')
+def update_comment_likes(request, id):
+    comment = get_object_or_404(Comment, id=id)
+
+    if comment.comuser != request.user:
+        likes_or_dislikes = request.POST.get('comment-like')
+
+        liked = comment.likes.filter(id=request.user.id).exists()
+        disliked = comment.dislikes.filter(id=request.user.id).exists()
+
+        if likes_or_dislikes == "comment-like":
+            if liked:
+                comment.likes.remove(request.user)
+            else:
+                comment.likes.add(request.user)
+
+            if disliked:
+                comment.dislikes.remove(request.user)
+        else:
+            if disliked:
+                comment.dislikes.remove(request.user)
+            else:
+                comment.dislikes.add(request.user)
+
+            if liked:
+                comment.likes.remove(request.user)
+    else:
+        messages.info(
+            request, "You can not like or dislike your own comment!")
+
+    # Another redirections method...
+    return HttpResponseRedirect(comment.get_absolute_url())
 
 
 @login_required(login_url='login')
@@ -289,7 +328,7 @@ class PostListView(ListView):
         return context
 
 
-class PostDetailView(DetailView):
+""" class PostDetailView(DetailView):
     model = Post
     template_name = 'bookmarket/post_detail.html'  # <app>/<model>_<viewtype>.html
     context_object_name = 'posts'
@@ -313,7 +352,7 @@ class PostDetailView(DetailView):
 
         context = {'comments': comments, 'post': post}
         # Add any other variables to the context here
-        return context
+        return context """
 
 
 class PostCreateView(LoginRequiredMixin, CreateView):

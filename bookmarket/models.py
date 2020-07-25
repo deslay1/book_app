@@ -71,13 +71,21 @@ class Comment(models.Model):
     #author = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     comuser = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     content = models.TextField(
-        max_length=300, verbose_name="Type in your comment")
+        max_length=300, verbose_name="Enter below:")
     date_posted = models.DateTimeField(default=timezone.now)
     approved_comment = models.BooleanField(default=False)
+    likes = models.ManyToManyField(
+        User, related_name="comment_likes", blank=True)
+    # Not used yet..
+    dislikes = models.ManyToManyField(
+        User, related_name="comment_dislikes", blank=True)
 
     def approve(self):
         self.approved_comment = True
         self.save()
+
+    def get_absolute_url(self):
+        return reverse('post-detail', kwargs={'pk': self.post.pk})
 
     def __str__(self):
         return self.content
@@ -90,11 +98,6 @@ class Message(models.Model):
     models.ForeignObject
     content = models.TextField()
     date_posted = models.DateTimeField(default=timezone.now)
-    approved_comment = models.BooleanField(default=False)
-
-    def approve(self):
-        self.approved_comment = True
-        self.save()
 
     def __str__(self):
         return self.content

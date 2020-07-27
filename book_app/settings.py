@@ -20,7 +20,6 @@ ALLOWED_HOSTS = ['https://bookmarket-app.herokuapp.com/',
 
 INSTALLED_APPS = [
     'postman',
-    'django_filters',
     'bootstrapform',
     'crispy_forms',
     'bookmarket.apps.BookmarketConfig',

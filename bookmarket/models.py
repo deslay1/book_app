@@ -6,6 +6,9 @@ from django.conf import settings
 from PIL import Image
 from django import forms
 from users.models import Profile
+from django.core.exceptions import ValidationError
+from django.utils.translation import ugettext_lazy as _
+from django.template.defaultfilters import filesizeformat
 
 
 class Post(models.Model):
@@ -32,14 +35,19 @@ class Post(models.Model):
         else:
             return [('All', 'All')]
 
+    def validate_image(file):
+        if file.size > settings.MAX_UPLOAD_SIZE:
+            raise ValidationError(_('Filesize can be maximum %s. The file you uploaded was %s') % (
+                filesizeformat(settings.MAX_UPLOAD_SIZE), filesizeformat(file.size)))
+
     title = models.CharField(max_length=50)
     content = models.TextField(verbose_name="Description", max_length=590)
     image = models.ImageField(
-        upload_to='post_pics', default='default.jpg', blank=True, verbose_name="Image ")
+        upload_to='post_pics', default='default.jpg', blank=True, verbose_name="Image ", validators=[validate_image])
     image2 = models.ImageField(
-        upload_to='post_pics', blank=True, verbose_name="Image 2 (optional) ")
+        upload_to='post_pics', blank=True, verbose_name="Image 2 (optional) ", validators=[validate_image])
     image3 = models.ImageField(
-        upload_to='post_pics', blank=True, verbose_name="Image 3 (optional) ")
+        upload_to='post_pics', blank=True, verbose_name="Image 3 (optional) ", validators=[validate_image])
     price = models.DecimalField(
         max_digits=6, decimal_places=0, default="0.0", verbose_name="Price (kr)")
     likes = models.ManyToManyField(User, related_name="post_likes", blank=True)

@@ -17,36 +17,12 @@ from django.views.generic import (
 # from django.forms.models import model_to_dict
 from django.core.mail import send_mail
 from django.conf import settings
-from .filters import PostFilter
 from django.forms.models import model_to_dict
 from django.contrib.auth.models import User, Group
 from django.contrib import messages
-
-
-""" def post_create(request):
-    form = PostForm(request.POST or None, request.FILES or None)
-    if form.is_valid():
-        instance = form.save(commit=False)
-        instance.save()
-        return HttpResponseRedirect(instance.get_absolute_url())
-    context = {
-        "form": form,
-    }
-    return render(request, "home.html", context) """
-
-
-def post_update(request, id=None):
-    instance = get_object_or_404(Post, id=id)
-    form = PostForm(request.POST or None,
-                    request.FILES or None, instance=instance)
-    if form.is_valid():
-        instance = form.save(commit=False)
-        instance.save()
-        return HttpResponseRedirect(instance.get_absolute_url())
-    context = {
-        "form": form,
-    }
-    return render(request, "home.html", context)
+from .session_calc import check_session_item
+from django.template.loader import get_template, render_to_string
+from django.utils.html import strip_tags
 
 
 @login_required(login_url='login')
@@ -59,12 +35,28 @@ def add_comment_to_post(request, pk):
             comment.post = post
             comment.comuser = request.user
             comment.save()
-            subject = 'Comment recieved in Bookmarket'
-            message = (
-                'You just got a comment on one of your posts, check it out!' "\n" 'http://djangobookmarket.herokuapp.com/post/'+str(post.id)+'/')
-            email_from = settings.EMAIL_HOST_USER
-            recipient_list = [post.author.email, ]
-            send_mail(subject, message, email_from, recipient_list)
+
+            if comment.comuser != post.author and post.author.has_perm(
+                    'users.email_on_post_comment'):
+
+                url = f'http://127.0.0.1:8000/post/{post.id}/'
+                if settings.DEBUG == True:
+                    url = f'https://bookmarket-app.herokuapp.com/post/{post.id}/'
+
+                from_email = settings.EMAIL_HOST_USER
+                recipient_list = [post.author.email, ]
+
+                subject = f'Comment recieved in your post: {comment.post.title}'
+                html_message = render_to_string(
+                    'email_templates/receive_comment.html', {'comment': comment, 'post': comment.post, 'url': url})
+                plain_message = strip_tags(html_message)
+
+                send_mail(subject, plain_message, from_email, recipient_list,
+                          fail_silently=True, html_message=html_message)
+
+            # Removed saved active page in session
+            if 'comment_page' in request.session:
+                del request.session['comment_page']
             return redirect('post-detail', pk=post.pk)
     else:
         form = CommentForm()
@@ -98,27 +90,33 @@ def delete_comment(request, pk, id):
 @login_required(login_url='login')
 def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
-    comments = post.comments.all().order_by('-date_posted')
+
+    # User's comments first
+    comments = post.comments.distinct().order_by(
+        Case(When(comuser=request.user, then=0), default=1), '-date_posted')
+
     paginator = Paginator(comments, 5)
 
     page = request.GET.get('page')
-    try:
-        comment_list = paginator.page(page)
-    except PageNotAnInteger:
-        comment_list = paginator.page(1)
-    except EmptyPage:
-        comment_list = paginator.page(paginator.num_pages)
+    page = check_session_item(request, page, 'comment_page')
 
-    is_liked = post.likes.filter(id=request.user.id).exists()
+    try:
+        comments = paginator.page(page)
+    except PageNotAnInteger:
+        comments = paginator.page(1)
+    except EmptyPage:
+        comments = paginator.page(paginator.num_pages)
+
+    post_is_liked = post.likes.filter(id=request.user.id).exists()
     liked_comments = Comment.objects.filter(
         likes__id=request.user.id)
     disliked_comments = Comment.objects.filter(
         dislikes__id=request.user.id)
 
     context = {
-        'comments': comment_list,
+        'comments': comments,
         'post': post,
-        'is_liked': is_liked,
+        'post_is_liked': post_is_liked,
         'total_likes': post.total_likes(),
         'liked_comments': liked_comments,
         'disliked_comments': disliked_comments
@@ -241,10 +239,6 @@ class PostListView(ListView):
     context_object_name = 'posts'
     ordering = ['-date_posted']
     paginate_by = 5
-    tab = "Sell"
-    category = "All"
-    price_order = "All"
-    condition = "All"
 
     def get_context_data(self, **kwargs):
         context = super(PostListView, self).get_context_data(**kwargs)
@@ -262,48 +256,51 @@ class PostListView(ListView):
             # Placing a user's group first in list.
             groups = Group.objects.distinct().order_by(
                 Case(When(name=user_group_name, then=0), default=1), 'name')
-
-        # Initial group activation on first render
-            if PostListView.category == "All":
-                PostListView.category = user_groups_list[0]
+            # Initial group activation on first render
+            if 'category' not in self.request.session:
+                self.request.session['category'] = user_groups_list[0]
+        else:
+            # Initial activation if not logged in
+            if 'category' not in self.request.session:
+                self.request.session['category'] = "All"
 
         # To see model structure
         # print(model_to_dict(groups[0]))
 
         category = self.request.GET.get("group/category")
+        category = check_session_item(self.request, category, "category")
+
+        # Initial tab activation
+        self.request.session['active_tab'] = "Sell"
         tab = self.request.GET.get("tab")
-
-        if category is not None:
-            PostListView.category = category
-
-        if tab is not None:
-            PostListView.tab = tab
+        tab = check_session_item(self.request, tab, "active_tab")
 
         object_list = self.model.objects.distinct().order_by(
-            '-date_posted').filter(Q(category__exact=self.category)).filter(
-            Q(SellerOrBuyer__icontains=PostListView.tab)
+            '-date_posted').filter(Q(category__exact=category)).filter(
+            Q(SellerOrBuyer__icontains=tab)
         )
 
         condition = self.request.GET.get("condition")
-        if condition is not None:
-            PostListView.condition = condition
+        condition = check_session_item(self.request, condition, "condition")
 
         price_order = self.request.GET.get("price_order")
-        if price_order is not None:
-            PostListView.price_order = price_order
+        price_order = check_session_item(
+            self.request, price_order, "price_order")
 
         reset = self.request.GET.get("reset")
         if reset is not None:
-            PostListView.condition = "All"
-            PostListView.price_order = "All"
+            self.request.session['condition'] = "All"
+            self.request.session['price_order'] = "All"
 
-        if PostListView.condition != "All":
+        if self.request.session['condition'] != "All" and condition is not None:
             object_list = object_list.filter(
-                Q(Condition__exact=PostListView.condition))
-        if PostListView.price_order != "All":
-            object_list = object_list.order_by(PostListView.price_order)
+                Q(Condition__exact=condition))
+        if self.request.session['price_order'] != "All" and price_order is not None:
+            object_list = object_list.order_by(price_order)
 
         query = self.request.GET.get('q')
+        query = check_session_item(self.request, query, "search_query")
+
         if query:
             queries = query.split(" ")
             for q in queries:
@@ -314,7 +311,12 @@ class PostListView(ListView):
 
         paginator = Paginator(object_list, self.paginate_by)
         page = self.request.GET.get('page')
-
+        """ if page is None:
+            print(self.request.session['post_page'])
+            if 'post-page' in self.request.session:
+                page = self.request.session['post_page']
+            else:
+                self.request.session['post_page'] = page """
         try:
             object_list = paginator.page(page)
         except PageNotAnInteger:
@@ -322,9 +324,8 @@ class PostListView(ListView):
         except EmptyPage:
             object_list = paginator.page(paginator.num_pages)
 
-        context = {'posts': object_list, 'groups': groups, 'user_group_name': user_group_name, 'filter': PostFilter(
-            self.request.GET, queryset=self.get_queryset()), 'condition': PostListView.condition, 'price_order': PostListView.price_order, "category": PostListView.category, 'tab': PostListView.tab}
-        # Add any other variables to the context here
+        context = {'posts': object_list, 'groups': groups, 'user_group_name': user_group_name, 'query': query, 'condition': condition,
+                   'price_order': price_order, "category": category, 'tab': tab}
         return context
 
 
@@ -356,9 +357,9 @@ class PostListView(ListView):
 
 
 class PostCreateView(LoginRequiredMixin, CreateView):
+    #template_name = "bookmarket/post_form.html"
     model = Post
-    fields = ['title', 'content', 'image', 'image2',
-              'image3', 'price', 'SellerOrBuyer', 'Condition', 'category']
+    form_class = PostForm
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -367,8 +368,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 
 class PostUpdateView(LoginRequiredMixin, UpdateView, UserPassesTestMixin):
     model = Post
-    fields = ['title', 'content', 'image', 'image2',
-              'image3', 'price', 'SellerOrBuyer', 'Condition', 'category']
+    form_class = PostForm
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -407,7 +407,11 @@ class UserActivityView(ListView):
         user = self.request.user
         context['comments'] = self.queryset.filter(
             Q(comuser__exact=user))
-        context['liked_posts'] = Post.objects.filter(
-            likes__id=user.id)
+        # Official way is to have the likes field be a ManytoMany(User, through= "Liker") where Liker is a model
+        # that you can add whatever fields to, such as a created at and updated_field: see
+        # https://stackoverflow.com/questions/31776586/how-to-add-a-timestamp-to-a-manytomany-record
+        # This works for now...
+        context['liked_posts'] = reversed(Post.objects.filter(
+            likes__id=user.id))
         # And so on for more models
         return context

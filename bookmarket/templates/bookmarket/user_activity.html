@@ -4,7 +4,7 @@
 <div class="row col-md-12 justify-content-between">
     <div class="col-md-6">
         <div class="activity-section">
-            <h4 style="text-align: center;">Your comments</h4>
+            <h4 class="mb-3" style="text-align: center;">Your comments</h4>
             {% for comment in comments %}
             <div class="card mb-2 bg-light">
                 <div class="card-header">
@@ -46,13 +46,13 @@
                 </div>
             </div>
             {% empty %}
-            <h6 class="mt-3">You have not commented on any posts yet.</h6>
+            <h6 class="mt-1">You have not commented on any posts yet.</h6>
             {% endfor %}
         </div>
     </div>
     <div class="col-md-6">
         <div class="activity-section">
-            <h4 style="text-align: center;">Your liked posts</h4>
+            <h4 class="mb-3" style="text-align: center;">Your liked posts</h4>
             {% for post in liked_posts %}
             <div class="card p-2 mb-2">
                 <div class="article-metadata">
@@ -183,7 +183,7 @@
                 </div>
             </div>
             {% empty %}
-            <h6 class="mt-3">You have not added any posts yet.</h6>
+            <h6 class="mt-1">You have not added any posts yet.</h6>
             {% endfor %}
         </div>
     </div>

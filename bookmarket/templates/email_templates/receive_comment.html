@@ -1,0 +1,12 @@
+<div>
+    {% if post.author.first_name %}
+    <h3>Hi {{post.author.first_name|capfirst }},</h3>
+    {% else %}
+    <h3>Hi {{post.author}},</h3>
+    {% endif %}
+    <p>You have received a comment by <b>{{comment.comuser}}</b> on your post titled <b>{{post.title}}:</b> </p>
+    <p style="background-color: rgb(247, 247, 247); padding: 1rem; border-radius: 0.6rem;">{{comment.content}}</p>
+    <p>Check out your post via the following link : {{url}}</p>
+    <p>We wish you a nice day,</p>
+    <p>Bookmarket Team,</p>
+</div>

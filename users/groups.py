@@ -20,7 +20,7 @@ def join_group(group_name, user):
         permission = Permission.objects.get(name='Can delete comment')
         group.permissions.add(permission)
     else:
-        print("fix this later")
+        print("fix this later, I am in users/groups.py")
         """ permission = Permission.objects.get(name='Can delete comment') """
 
     user.groups.add(group)

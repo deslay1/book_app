@@ -1,5 +1,8 @@
 from django import forms
 from django.forms import RadioSelect
+from django.template.defaultfilters import filesizeformat
+from django.utils.translation import ugettext_lazy as _
+from django.conf import settings
 
 from .models import Post, Comment, Message
 
@@ -16,9 +19,11 @@ class PostForm(forms.ModelForm):
             "price",
             "SellerOrBuyer",
             'Condition',
+            'category'
         ]
         widgets = {
-            'Condition': forms.RadioSelect,
+            # If we want to make the condition field with radio buttons
+            # 'Condition': forms.RadioSelect,
         }
 
 

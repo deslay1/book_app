@@ -3,29 +3,51 @@
 
 {% load crispy_forms_tags %}
 {% block content %}
-<div class="container row">
-  <div class="col-md-5 h-100 content-section">
-    <div class="align-items-center">
-      <img class="d-block w-25 h-auto" src="{{ user.profile.image.url }}">
-      {% if user.profile.image == "default.jpg" %}
-      <h6 id="no-images">You don't have a profile picture yet.</h6>
-      {% endif %}
-    </div>
-    <form method="POST" enctype="multipart/form-data">
-      {% csrf_token %}
-      <fieldset class="form-group">
-        <legend class="bordor-bottom mb-4">Profile Info</legend>
-        <div class="row col-md-14 justify-content-around">
-          {{ u_form.first_name|as_crispy_field }}
-          {{ u_form.last_name|as_crispy_field }}
+<div class="container w-100 row">
+  <div class="col-md-5">
+    <div class="content-section">
+      <div class="align-items-center">
+        {% if messages %}
+        {% for message in messages%}
+        <div class="alert alert-{{message.tags}}">
+          {{message}}
         </div>
-        {{ u_form.email|as_crispy_field }}
-        {{ p_form|crispy }}
-      </fieldset>
-      <div class="form-group col-md-6 mx-auto">
-        <button class="col-md-12 btn btn-primary" type="submit">Update</button>
+        {%endfor%}
+        {% endif %}
+        <img class="d-block w-25 h-auto" src="{{ user.profile.image.url }}">
+        {% if user.profile.image == "default.jpg" %}
+        <h6 id="no-images">You don't have a profile picture yet.</h6>
+        {% endif %}
       </div>
-    </form>
+      <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <fieldset class="form-group">
+          <legend class="bordor-bottom mb-4">Profile Info</legend>
+          <div class="row col-md-14">
+            <div class="col-md-6">
+              {{ u_form.first_name|as_crispy_field }}
+            </div>
+            <div class="col-md-6">
+              {{ u_form.last_name|as_crispy_field }}
+            </div>
+          </div>
+          <div class="col-md-14 mb-2 pb-1">
+            {{ u_form.email|as_crispy_field }}
+          </div>
+          <div class="form-group mb-4">
+            <h6 class="border-bottom pb-1">{{p_form.image.label}}</h6>
+            {{p_form.image}}
+          </div>
+          <div class="form-group mb-4">
+            <h6 class="border-bottom pb-1">Email preferences:</h6>
+            {{ p_form.permissions|as_crispy_field }}
+          </div>
+        </fieldset>
+        <div class="form-group col-md-6 mx-auto">
+          <button class="col-md-12 btn btn-primary" type="submit">Update</button>
+        </div>
+      </form>
+    </div>
   </div>
   <div class="col-md-7 w-100">
     <div>
@@ -150,19 +172,19 @@
       {% endfor %}
       {% if post_List %}
       {% if post_List.has_previous %}
-      <a class="btn btn-outline-primary mb-4" href="?page=1">First</a>
-      <a class="btn btn-outline-primary mb-4" href="?page={{ post_List.previous_page_number }}">Previous</a>
+      <a class="btn btn-primary mb-4" href="?page=1">First</a>
+      <a class="btn btn-primary mb-4" href="?page={{ post_List.previous_page_number }}">Previous</a>
       {% endif %}
       {% for num in post_List.paginator.page_range %}
       {% if post_List.number == num %}
-      <a class="btn btn-primary mb-4" href="?page={{ num }}">{{ num }}</a>
+      <a class="btn btn-outline-primary active mb-4" href="?page={{ num }}">{{ num }}</a>
       {% elif num > post_List.number|add:'-3' and num < post_List.number|add:'3' %}
-      <a class="btn btn-outline-primary mb-4" href="?page={{ num }}">{{ num }}</a>
+      <a class="btn btn-primary mb-4" href="?page={{ num }}">{{ num }}</a>
       {% endif %}
       {% endfor %}
       {% if post_List.has_next %}
-      <a class="btn btn-outline-primary mb-4" href="?page={{ post_List.next_page_number }}">Next</a>
-      <a class="btn btn-outline-primary mb-4" href="?page={{ post_List.paginator.num_pages }}">Last</a>
+      <a class="btn btn-primary mb-4" href="?page={{ post_List.next_page_number }}">Next</a>
+      <a class="btn btn-primary mb-4" href="?page={{ post_List.paginator.num_pages }}">Last</a>
       {% endif %}
       {% endif %}
     </div>

@@ -6,7 +6,7 @@ body {
 .body-body {
     /*     background-image: url(../bookmarket/images/background_home2.jpg);
  */
-    background-color: #000000ce;
+    background-color: #000000e1;
     color: #333333;
     padding-top: 5rem;
     min-height: 100%;
@@ -87,6 +87,10 @@ ul {
     margin-bottom: 2rem;
     padding: 1rem;
     box-shadow: inset 0 0 10px #000000;
+}
+
+.profile-container {
+    height: 50vw
 }
 
 .activity-section {
@@ -385,22 +389,26 @@ ol {
     background-color: #1071da !important;
 }
 
+.btn-outline-primary {
+    background-color: #249afa !important;
+}
+
 .comments {
-    display: none;
+
+    border-radius: 3px;
+    margin-bottom: 1rem;
 }
 
 .comment-section {
     background: #ffffff;
     border: 1px solid #dddddd;
-    border-radius: 3px;
-    margin-bottom: 1rem;
-    padding: 1rem;
+    padding: 0rem 1rem 1rem 1rem;
 }
 
 .comment-top {
     text-align: right;
+    padding-top: 1rem;
     margin-left: 0.5rem;
-    margin-bottom: 1.2rem;
 }
 
 #comment-section-header {

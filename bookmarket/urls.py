@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import PostListView, PostDetailView, PostCreateView, PostUpdateView, PostDeleteView, message
-from users.views import profileUser
+from users.views import profileUser, profileUserName
 from . import views
 from django.urls import path, include
 
@@ -21,6 +21,8 @@ urlpatterns = [
          name='send_message_to_user'),
     path('show_message/', views.show_message, name='show_message'),
     path('post-user/<username>', profileUser, name='post-user'),
+     path('post-user/<username>', profileUserName, name='post-username'),
+
     path('show_user_post', PostListView.as_view(), name='app-show_post'),
     path('about/', views.about, name='app-about'),
     path('like', views.like_post, name="like_post"),

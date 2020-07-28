@@ -39,6 +39,8 @@ urlpatterns = [
          name='password_reset_confirm'),
     path('profile/', user_views.profile, name='profile'),
     path('profileUser/<username>/', user_views.profileUser, name='profileUser'),
+    path('profileUserName/<username>/<inos>', user_views.profileUserName, name='profileUserName'),
+
     path('', include('bookmarket.urls')),
     path('accounts/', include('allauth.urls')),
     path('user/', include('users.urls')),

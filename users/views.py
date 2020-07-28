@@ -13,6 +13,7 @@ from django.views.generic import (
     DeleteView
 )
 from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.models import User
 
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
@@ -25,6 +26,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.mail import send_mail
 
 from .groups import join_group
+import pathlib
 
 
 def register(request):
@@ -44,6 +46,8 @@ def register(request):
         form = UserRegisterForm()
     return render(request, 'users/register.html', {'form': form})
 
+def search(q, user_id):
+    user = User.objects.get(**{User.USERNAME_FIELD: user_id})
 
 @login_required
 def profile(request):
@@ -84,7 +88,8 @@ def profile(request):
 def profileUser(request, username):
     inte = int(username, 10)
     posts = Post.objects.all()
-    authors = "hey"
+    authors = "hej"
+
 
     for post in posts:
         if post.id == inte:
@@ -109,6 +114,54 @@ def profileUser(request, username):
     }
 
     return render(request, 'users/profileUser.html', context)
+
+def profileUserName(request, username, inos):
+    
+    posts = Post.objects.all()
+    authors = search(request, username)
+
+    for post in posts:
+        if post.author.username == username:
+            posts = Post.objects.filter(
+                Q(author=post.author)).distinct().order_by('-date_posted')
+            authors = post.author
+
+    
+    posts = Post.objects.filter(author__username=username).distinct().order_by('-date_posted')
+
+    paginator = Paginator(posts, 2)
+
+    page = request.GET.get('page')
+    try:
+        post_List = paginator.page(page)
+    except PageNotAnInteger:
+        post_List = paginator.page(1)
+    except EmptyPage:
+        post_List = paginator.page(paginator.num_pages)
+    context = {
+        'authors': authors,
+
+        'post_List': post_List
+    }
+
+    href = 'users/profileUser.html'
+
+    p = pathlib.Path(request.path)
+    p.parts[2:]
+
+
+    if len(posts) ==0:
+        messages.success(
+                request, f'This user does not have any posts'
+            )
+        if inos == 's':
+            return redirect('postman:sent')
+        if inos == 'in':
+            return redirect('postman:inbox')
+
+      
+
+    return render(request,href, context)
 
 
 def base(request):

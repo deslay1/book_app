@@ -1,45 +1,33 @@
 {% extends 'bookmarket/base.html' %}
 {% block title %} Send Message {% endblock %}
+
+{% comment %}<div class="col-md-3 card2 add-message-container">
+    <a class="card2" href="{% url "postman:write" %}">
+        <i class="material-icons add-message-icons">email</i>
+        <font size="+2">Write</font>
+        <a>
+</div>
+{% endcomment %}
 {% block content %}
 
-
-
 <div class="col-md-12 mx-auto card-deck ">
-
-
     <div class="col-md-4 card2 add-message-container ">
-
+        
         <a class="card2 " href="{% url "postman:sent" %}">
             <i class="material-icons add-message-icons">archive</i>
             <font size="+2">Sent</font>
             <a>
     </div>
-
-
-    <div class="col-md-4 card2 add-message-container">
+    <div class="col-md-4 card2"> 
+    </div>
+    <div class="col-md-4 card2 add-message-container ">
         <a class="card2" href="{% url "postman:inbox" %}">
             <i class="material-icons add-message-icons">inbox</i>
             <font size="+2">Inbox</font>
             <a>
-
     </div>
-
-
-
-    <div class="col-md-4 card2 add-message-container">
-        <a class="card2" href="{% url "postman:write" %}">
-            <i class="material-icons add-message-icons">message</i>
-            <font size="+2">Send message</font>
-            <a>
+    <div class="col-md-1 ">
     </div>
 </div>
-</div>
-
-
-
-
-
-
-
 
 {% endblock %}

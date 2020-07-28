@@ -6,8 +6,11 @@ local_settings.py
 db.sqlite3-journal
 .env
 .venv
+- git checkout -b "new branch name"
 env/
 venv/
+bookAppEnv/
+
 
 __pycache__/
 *.py[cod]

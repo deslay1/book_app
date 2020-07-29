@@ -334,10 +334,7 @@
                             <a type="button" class="dropdown-item dropdown-post-item" data-toggle="modal"
                               data-target="#updateReplyModal" data-post-id="{{post.id}}"
                               data-reply-url="{% url 'update-reply' post.id reply.id%}"
-                              data-content="{{reply.content}}">Open modal</a>
-                            <a class="dropdown-item dropdown-post-item"
-                              href="{% url 'update-reply' post.id reply.id %}"><i id="nav-icon-links"
-                                class="material-icons">create</i>
+                              data-content="{{reply.content}}"><i id="nav-icon-links" class="material-icons">create</i>
                               Update</a>
                             <a class="dropdown-item dropdown-post-item"
                               href="{% url 'delete-reply' post.id reply.id %}"><i id="nav-icon-links"

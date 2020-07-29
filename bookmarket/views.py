@@ -486,8 +486,8 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         return False
 
 
-def about(request):
-    return render(request, 'bookmarket/about.html', {'test': "test"})
+def condition_guide(request):
+    return render(request, 'bookmarket/condition_guide.html')
 
 
 class UserActivityView(ListView):
@@ -509,3 +509,7 @@ class UserActivityView(ListView):
             likes__id=user.id))
         # And so on for more models
         return context
+
+
+def privacy_policy(request):
+    return render(request, 'bookmarket/privacy_policy.html')

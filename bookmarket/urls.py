@@ -35,7 +35,7 @@ urlpatterns = [
     path('show_message/', views.show_message, name='show_message'),
     path('post-user/<username>', profileUser, name='post-user'),
     path('show_user_post', PostListView.as_view(), name='app-show_post'),
-    path('about/', views.about, name='app-about'),
+    path('condition-guide/', views.condition_guide, name='condition-guide'),
     path('like', views.like_post, name="like_post"),
     path('update_comment_likes/<int:id>/',
          views.update_comment_likes, name="update-comment-likes"),
@@ -43,6 +43,7 @@ urlpatterns = [
          name='update-reply-likes'),
     path('message/', views.message, name="messageSend"),
     path('activity/', UserActivityView.as_view(), name="user-activity"),
+    path('privacy-policy/', views.privacy_policy, name="privacy-policy"),
 
 
 

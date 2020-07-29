@@ -19,8 +19,6 @@ ALLOWED_HOSTS = ['https://bookmarket-app.herokuapp.com/',
 # Application definition
 
 INSTALLED_APPS = [
-
-    'django_filters',
     'bootstrapform',
     'crispy_forms',
     'bookmarket.apps.BookmarketConfig',
@@ -41,8 +39,6 @@ INSTALLED_APPS = [
     'storages',
     'django_cleanup.apps.CleanupConfig',
     'postman',
-
-
 ]
 
 MIDDLEWARE = [

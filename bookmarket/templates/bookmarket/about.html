@@ -1,10 +1,11 @@
 {% extends "bookmarket/base.html" %}
 {% block title %}About Page{% endblock %}
 {% block content %}
+{% load static %}
 <main>
-    <div class="comment-section">
+    <div class="general-section">
         <div class="about-header">
-            <h2>Condition guide!</h2>
+            <h2>Condition guide</h2>
             <p>
                 Attaching a condition label to your books can be tricky. That's why we have decided to make a short
                 guide explaining the different condition labels presented on this site.
@@ -14,73 +15,33 @@
             <hr>
             <div class="condition-section">
                 <h5>As New</h5>
-                <div class="card-deck">
-                    <div class="card">
-                        <img src="..." class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
-                                additional content. This content is a little bit longer.</p>
-                        </div>
-                        <div class="card-footer">
-                            <small class="text-muted">Last updated 3 mins ago</small>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <img src="..." class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <p class="card-text">This card has supporting text below as a natural lead-in to additional
-                                content.</p>
-                        </div>
-                        <div class="card-footer">
-                            <small class="text-muted">Last updated 3 mins ago</small>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <img src="..." class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
-                                additional content. This card has even longer content than the first to show that equal
-                                height action.</p>
-                        </div>
-                        <div class="card-footer">
-                            <small class="text-muted">Last updated 3 mins ago</small>
-                        </div>
-                    </div>
-                </div>
+                <p>Pretty self-explanatory. The <b>As New</b> category is applied to books that look almost as if they
+                    have
+                    just been printed out. </p>
             </div>
             <hr>
             <div class="condition-section">
                 <h5>Very Good</h5>
                 <div class="card-deck">
-                    <div class="card">
-                        <img src="..." class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
-                                additional content. This content is a little bit longer.</p>
-                        </div>
-                        <div class="card-footer">
-                            <small class="text-muted">Last updated 3 mins ago</small>
+                    <div class="card border-secondary" style="width: 18rem;">
+                        <img class="card-img-top" src="{% static 'bookmarket/images/good_book.jpg' %}"
+                            alt="Card image cap">
+                        <div class="card-body mb-2 text-center">
+                            <p class="card-text">First Image</p>
                         </div>
                     </div>
-                    <div class="card">
-                        <img src="..." class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <p class="card-text">This card has supporting text below as a natural lead-in to additional
-                                content.</p>
-                        </div>
-                        <div class="card-footer">
-                            <small class="text-muted">Last updated 3 mins ago</small>
+                    <div class="card border-secondary" style="width: 18rem;">
+                        <img class="card-img-top" src="{% static 'bookmarket/images/good_book.jpg' %}"
+                            alt="Card image cap">
+                        <div class="card-body text-center">
+                            <p class="card-text">Second Image</p>
                         </div>
                     </div>
-                    <div class="card">
-                        <img src="..." class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
-                                additional content. This card has even longer content than the first to show that equal
-                                height action.</p>
-                        </div>
-                        <div class="card-footer">
-                            <small class="text-muted">Last updated 3 mins ago</small>
+                    <div class="card border-secondary" style="width: 18rem;">
+                        <img class="card-img-top" src="{% static 'bookmarket/images/good_book.jpg' %}"
+                            alt="Card image cap">
+                        <div class="card-body text-center">
+                            <p class="card-text">Thid Image</p>
                         </div>
                     </div>
                 </div>
@@ -89,35 +50,25 @@
             <div class="condition-section">
                 <h5>Acceptable</h5>
                 <div class="card-deck">
-                    <div class="card">
-                        <img src="..." class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
-                                additional content. This content is a little bit longer.</p>
-                        </div>
-                        <div class="card-footer">
-                            <small class="text-muted">Last updated 3 mins ago</small>
+                    <div class="card border-secondary" style="width: 18rem;">
+                        <img class="card-img-top" src="{% static 'bookmarket/images/old_book.jpg' %}"
+                            alt="Card image cap">
+                        <div class="card-body mb-2 text-center">
+                            <p class="card-text">First Image</p>
                         </div>
                     </div>
-                    <div class="card">
-                        <img src="..." class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <p class="card-text">This card has supporting text below as a natural lead-in to additional
-                                content.</p>
-                        </div>
-                        <div class="card-footer">
-                            <small class="text-muted">Last updated 3 mins ago</small>
+                    <div class="card border-secondary" style="width: 18rem;">
+                        <img class="card-img-top" src="{% static 'bookmarket/images/old_book.jpg' %}"
+                            alt="Card image cap">
+                        <div class="card-body text-center">
+                            <p class="card-text">Second Image</p>
                         </div>
                     </div>
-                    <div class="card">
-                        <img src="..." class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
-                                additional content. This card has even longer content than the first to show that equal
-                                height action.</p>
-                        </div>
-                        <div class="card-footer">
-                            <small class="text-muted">Last updated 3 mins ago</small>
+                    <div class="card border-secondary" style="width: 18rem;">
+                        <img class="card-img-top" src="{% static 'bookmarket/images/old_book.jpg' %}"
+                            alt="Card image cap">
+                        <div class="card-body text-center">
+                            <p class="card-text">Thid Image</p>
                         </div>
                     </div>
                 </div>
@@ -126,35 +77,25 @@
             <div class="condition-section">
                 <h5>Mixed</h5>
                 <div class="card-deck">
-                    <div class="card">
-                        <img src="..." class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
-                                additional content. This content is a little bit longer.</p>
-                        </div>
-                        <div class="card-footer">
-                            <small class="text-muted">Last updated 3 mins ago</small>
+                    <div class="card border-secondary" style="width: 18rem;">
+                        <img class="card-img-top" src="{% static 'bookmarket/images/very_old_book.jpg' %}"
+                            alt="Card image cap">
+                        <div class="card-body mb-2 text-center">
+                            <p class="card-text">First Image</p>
                         </div>
                     </div>
-                    <div class="card">
-                        <img src="..." class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <p class="card-text">This card has supporting text below as a natural lead-in to additional
-                                content.</p>
-                        </div>
-                        <div class="card-footer">
-                            <small class="text-muted">Last updated 3 mins ago</small>
+                    <div class="card border-secondary" style="width: 18rem;">
+                        <img class="card-img-top" src="{% static 'bookmarket/images/very_old_book.jpg' %}"
+                            alt="Card image cap">
+                        <div class="card-body text-center">
+                            <p class="card-text">Second Image</p>
                         </div>
                     </div>
-                    <div class="card">
-                        <img src="..." class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
-                                additional content. This card has even longer content than the first to show that equal
-                                height action.</p>
-                        </div>
-                        <div class="card-footer">
-                            <small class="text-muted">Last updated 3 mins ago</small>
+                    <div class="card border-secondary" style="width: 18rem;">
+                        <img class="card-img-top" src="{% static 'bookmarket/images/very_old_book.jpg' %}"
+                            alt="Card image cap">
+                        <div class="card-body text-center">
+                            <p class="card-text">Thid Image</p>
                         </div>
                     </div>
                 </div>

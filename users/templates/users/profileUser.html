@@ -1,24 +1,26 @@
 {% extends "bookmarket/base.html" %}
-{% block title %}{{authors.first_name}} {{ authors.last_name  }}{% endblock %}
+{% block title %}{{profile_user.first_name}} {{ profile_user.last_name  }}{% endblock %}
 
 {% load crispy_forms_tags %}
 {% block content %}
 <div class="row">
-  <article class="row col-md-5 mx-auto h-100 w-100 content-section">
-    <div class="col-4">
-      <img class="d-block w-100" src="{{ authors.profile.image.url }}">
-    </div>
-    <div class="col-8">
-      {% if authors.first_name and authors.last_name %}
-      <h2 class="account-heading">{{ authors.first_name }} {{ authors.last_name  }}</h2>
-      {% else %}
-      <h2 class="account-heading">{{ authors }}</h2>
-      {% endif %}
-      {% if user.is_authenticated %}
-      <p class="mx-auto text-secondary"> {{ authors.email }}</p>
-      {% else %}
-      <p class="text-secondary"> Login to see this user's email</p>
-      {% endif %}
+  <article class="col-md-5 mx-auto">
+    <div class="row content-section">
+      <div class="col-4">
+        <img class="d-block w-100" src="{{ profile_user.profile.image.url }}">
+      </div>
+      <div class="col-8">
+        {% if profile_user.first_name and profile_user.last_name %}
+        <h2 class="account-heading">{{ profile_user.first_name }} {{ profile_user.last_name  }}</h2>
+        {% else %}
+        <h2 class="account-heading">{{ profile_user }}</h2>
+        {% endif %}
+        {% if user.is_authenticated %}
+        <p class="mx-auto text-secondary"> {{ profile_user.email }}</p>
+        {% else %}
+        <p class="text-secondary"> Login to see this user's email</p>
+        {% endif %}
+      </div>
     </div>
   </article>
   <div class="col-md-7 w-100">
@@ -141,19 +143,19 @@
 
     {% if post_List %}
     {% if post_List.has_previous %}
-    <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
-    <a class="btn btn-outline-info mb-4" href="?page={{ post_List.previous_page_number }}">Previous</a>
+    <a class="btn btn-primary mb-4" href="?page=1">First</a>
+    <a class="btn btn-primary mb-4" href="?page={{ post_List.previous_page_number }}">Previous</a>
     {% endif %}
     {% for num in post_List.paginator.page_range %}
     {% if post_List.number == num %}
-    <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+    <a class="btn btn-outline-primary active mb-4" href="?page={{ num }}">{{ num }}</a>
     {% elif num > post_List.number|add:'-3' and num < post_List.number|add:'3' %}
-    <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+    <a class="btn btn-primary mb-4" href="?page={{ num }}">{{ num }}</a>
     {% endif %}
     {% endfor %}
     {% if post_List.has_next %}
-    <a class="btn btn-outline-info mb-4" href="?page={{ post_List.next_page_number }}">Next</a>
-    <a class="btn btn-outline-info mb-4" href="?page={{ post_List.paginator.num_pages }}">Last</a>
+    <a class="btn btn-primary mb-4" href="?page={{ post_List.next_page_number }}">Next</a>
+    <a class="btn btn-primary mb-4" href="?page={{ post_List.paginator.num_pages }}">Last</a>
     {% endif %}
     {% endif %}
   </div>

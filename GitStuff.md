@@ -49,7 +49,7 @@ Commiting and pushing to remote repo:
 ## Deleting branch:
 ### Deleting locally:
 ```
-- git -d " branch name"
+- git branch -d "branch name"
 ```
 or to force delete if branch has not been commited and pushed:
 ```

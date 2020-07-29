@@ -3,8 +3,8 @@ from django.contrib.contenttypes.models import ContentType
 from .models import Profile
 
 
-def join_group(user):
-    group, created = Group.objects.get_or_create(name='general')
+def join_group(group_name, user):
+    group, created = Group.objects.get_or_create(name=group_name)
 
     content_type = ContentType.objects.get_for_model(Profile)
 
@@ -20,7 +20,7 @@ def join_group(user):
         permission = Permission.objects.get(name='Can delete comment')
         group.permissions.add(permission)
     else:
-        print("fix this later")
+        print("fix this later, I am in users/groups.py")
         """ permission = Permission.objects.get(name='Can delete comment') """
 
     user.groups.add(group)

@@ -3,13 +3,38 @@
 {% load bootstrap %}
 {% block content %}
 
+<div id="groups" class="mx-auto">
+  <div class="home-container">
+    <div class="col-md-10 mx-auto scrollmenu">
+      <form method="GET" action="">
+        {% for group in groups %}
+        <button id="{{group.name}}"
+          class="group-button{% if category == group.name %}-active{% endif %}{% if group.name == user_group_name %}-user{% endif %}"
+          type="submit" onclick="activateGroup(event, '{{group.name}}')" name="group/category" value="All">
+          {% if group.name == user_group_name %}
+          <i style="vertical-align: middle" class=" material-icons">group</i>
+          {% endif %}
+          {{group.name}}</button>
+        {% endfor %}
+      </form>
+    </div>
+    <!--     <form method="GET" action="">
+      <div class="tab">
+        <button id="sell" type="submit" onclick="activateTab(event, 'sell')" name="tab" value="Sell">Sell</button>
+        <button id="buy" type="submit" onclick="activateTab(event, 'buy')" name="tab" value="Buy">Buy</button>
+      </div>
+    </form> -->
+  </div>
+</div>
 
 <div class="col-md-7 offset-md-4">
+
   <form method="GET" action="">
     <div class="row justify-content-between">
       <div class="row col-8 align-items-center search-form">
         <div class="col-8">
-          <input class="form-control" type="text" name="q" placeholder="Search posts" value="{{ request.GET.q }}" />
+          <input class="form-control" type="text" name="q" placeholder="Search posts"
+            value="{% if query is not None%}{{query}}{% else %}Search posts{% endif%}" />
         </div>
         <div class="col-2">
           <button class="btn btn-primary active my-2 my-sm-0" type="submit">Search</button>
@@ -19,12 +44,7 @@
     </div>
   </form>
 
-  <!-- <div class="container">
-  <form method="GET">
-    {{ filter.form|bootstrap }}
-    <button type="submit" class="btn btn-primary active">Filter</button>
-  </form>
-</div> -->
+
   <!--     <button class="tablinks" onclick="Market(event, 'Sell')" id="defaultOpen">Sell</button>
     <button class="tablinks" name="buy" onclick="Market(event, 'Buy')" id="buy"
       value="{{ request.GET.buy }}">Buy</button>
@@ -33,41 +53,43 @@
     </form> -->
   <form method="GET" action="">
     <div class="tab">
-      <button id="sell" type="submit" onclick="activateTab(event, 'sell')" name="sell"
-        value="{{ request.GET.sell }}">Sell</button>
-      <button id="buy" type="submit" onclick="activateTab(event, 'buy')" name="buy"
-        value="{{ request.GET.buy }}">Buy</button>
+      <button id="Sell" class="tab-button{% if tab == 'Sell' %}-active{% endif %}" type="submit" name="tab"
+        value="Sell">Sell</button>
+      <button id="Buy" class="tab-button{% if tab == 'Buy' %}-active{% endif %}" type="submit" name="tab"
+        value="Buy">Buy</button>
     </div>
   </form>
 </div>
 <div class="row">
 
   {% csrf_token %}
-  <article class="col-md-3 offset-md-1 h-100 w-100 menu-section">
-    <h4 class="filter-bar-header">Filters</h4>
-    <form class="filter-bar-body" action="" method="GET">
-      <h5>By price:</h5>
-      <input type="radio" id="price-low" name="price_order" value="price" {% if price_order == "price" %} checked
-        {% endif %}>
-      <label class="menu-bar" for="price">Lowest first</label><br>
-      <input type="radio" id="price-high" name="price_order" value="-price" {% if price_order == "-price" %} checked
-        {% endif %}>
-      <label class="menu-bar" for="price">Highest first</label><br>
-      <h5>By condition:</h5>
-      <input type="radio" id="As New" name="condition" value="As New" {% if condition == "As New" %} checked
-        {% endif %}>
-      <label class="menu-bar" for="male">As New</label><br>
-      <input type="radio" id="Very Good" name="condition" value="Very Good" {% if condition == "Very Good" %} checked
-        {% endif %}>
-      <label class="menu-bar" for="female">Very Good</label><br>
-      <input type="radio" id="Acceptable" name="condition" value="Acceptable" {% if condition == "Acceptable" %} checked
-        {% endif %}>
-      <label class="menu-bar" for="other">Acceptable</label><br>
-      <input type="radio" id="Mixed" name="condition" value="Mixed" {% if condition == "Mixed" %} checked {% endif %}>
-      <label class="menu-bar" for="other">Mixed</label><br>
-      <input type="submit" value="Filter">
-      <input type="reset" onclick="clearFilters()" value="Clear">
-    </form>
+  <article class="col-md-3 offset-md-1">
+    <div class="menu-section">
+      <h4 class="filter-bar-header">Filters</h4>
+      <form class="filter-bar-body" action="" method="GET">
+        <h5>By price:</h5>
+        <input type="radio" id="price-low" name="price_order" value="price" {% if price_order == "price" %} checked
+          {% endif %}>
+        <label class="menu-bar" for="price">Lowest first</label><br>
+        <input type="radio" id="price-high" name="price_order" value="-price" {% if price_order == "-price" %} checked
+          {% endif %}>
+        <label class="menu-bar" for="price">Highest first</label><br>
+        <h5>By condition:</h5>
+        <input type="radio" id="As New" name="condition" value="As New" {% if condition == "As New" %} checked
+          {% endif %}>
+        <label class="menu-bar" for="male">As New</label><br>
+        <input type="radio" id="Very Good" name="condition" value="Very Good" {% if condition == "Very Good" %} checked
+          {% endif %}>
+        <label class="menu-bar" for="female">Very Good</label><br>
+        <input type="radio" id="Acceptable" name="condition" value="Acceptable" {% if condition == "Acceptable" %}
+          checked {% endif %}>
+        <label class="menu-bar" for="other">Acceptable</label><br>
+        <input type="radio" id="Mixed" name="condition" value="Mixed" {% if condition == "Mixed" %} checked {% endif %}>
+        <label class="menu-bar" for="other">Mixed</label><br>
+        <input class="btn btn-outline-dark" type="submit" value="Filter">
+        <input class="btn btn-outline-dark" type="submit" name="reset" onclick="clearFilters()" value="Clear">
+      </form>
+    </div>
   </article>
 
   <div class="col-md-7 offset-md-0">
@@ -84,14 +106,14 @@
                 {% if post.author == user %}
                 <a class="mr-2" href="/profile/">{{ post.author.first_name }} {{ post.author.last_name }}</a>
                 {% else %}
-                <a class="mr-2" href="profileUser/{{ post.id }}">{{ post.author.first_name }}
+                <a class="mr-2" href="/profileUser/{{ post.id }}">{{ post.author.first_name }}
                   {{ post.author.last_name }}</a>
                 {% endif %}
                 {% else %}
                 {% if post.author == user %}
                 <a class="mr-2" href="/profile/">{{ post.author }}</a>
                 {% else %}
-                <a class="mr-2" href="profileUser/{{ post.id }}">{{ post.author }}</a>
+                <a class="mr-2" href="/profileUser/{{ post.id }}">{{ post.author }}</a>
                 {% endif %}
                 {% endif %}
                 <small class="text-muted">{{ post.date_posted|date:"F d, Y H:i" }}</small>
@@ -229,7 +251,7 @@
 
     {% for num in posts.paginator.page_range %}
     {% if posts.number == num %}
-    <a class="btn btn-primary mb-4" href="?page={{ num }}">{{ num }}</a>
+    <a class="btn btn-outline-primary active mb-4" href="?page={{ num }}">{{ num }}</a>
     {% elif num > posts.number|add:'-3' and num < posts.number|add:'3' %}
     <a class="btn btn-primary active mb-4" href="?page={{ num }}">{{ num }}</a>
     {% endif %}

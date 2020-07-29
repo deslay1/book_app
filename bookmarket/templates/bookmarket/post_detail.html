@@ -1,207 +1,469 @@
 {% extends "bookmarket/base.html" %}
 {% block title %} Post: {{post.title}} {% endblock %}
+
+{% block javascript %}
+<script>
+  $('#updateReplyModal').on('show.bs.modal', function (event) {
+    const button = $(event.relatedTarget) // Button that triggered the modal
+    const content = button.data('content') // Extract info from data-* attributes
+    const postID = button.data('post-id')
+    const replyURL = button.data('reply-url')
+    // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+    // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+    let modal = $(this)
+    modal.find('.reply-input input').val(content)
+    modal.find('#modal-post-id').val(postID)
+    modal.find('#modal-reply-url').val(replyURL)
+  })
+
+  $("#update-reply-button").click(function () {
+    console.log("reached");
+    $('#update-reply-form').submit(function (e) {
+      let modal = $('#updateReplyModal')
+      const content = modal.find('.reply-input input').val()
+      const postID = modal.find('#modal-post-id').val()
+      const replyURL = modal.find('#modal-reply-url').val()
+      e.preventDefault();
+      const serializedData = $(this).serialize();
+      $.ajax({
+        type: "POST",
+        url: replyURL,
+        data: serializedData,
+        success: function (response) {
+          $('#update-reply-form').trigger("reset");
+          window.location.reload();
+          //modal.modal('toggle')
+        },
+        error: function (response) {
+          alert(response["responseJSON"]["error"]);
+        },
+      });
+    })
+  })
+</script>
+{% endblock %}
+
 {% block content %}
-<div class="col-md-8 offset-md-1">
-  <article class="content-section">
-    <div class="media-body">
-      <div class="article-metadata">
-        <div class="post-admin justify-content-between">
-          <div>
-            <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}" />
-            <div style="display:flex;flex-direction: column;">
-              <div style="display:flex;flex-direction: row; align-items: center">
-                {% if post.author.first_name and post.author.last_name %}
-                {% if post.author == user %}
-                <a class="mr-2" href="/profile/">{{ post.author.first_name }} {{ post.author.last_name }}</a>
-                {% else %}
-                <a class="mr-2" href="/profileUser/{{ post.id }}">{{ post.author.first_name }}
-                  {{ post.author.last_name }}</a>
-                {% endif %}
-                {% else %}
-                {% if post.author == user %}
-                <a class="mr-2" href="/profile/">{{ post.author }}</a>
-                {% else %}
-                <a class="mr-2" href="/profileUser/{{ post.id }}">{{ post.author }}</a>
-                {% endif %}
-                {% endif %}
-                <a class="btn btn-sm btn-outline-dark" href="{% url 'postman:write' post.author %}">Send message</a>
-              </div>
-              <small class="text-muted">{{ post.date_posted|date:"F d, Y H:i" }}</small>
-            </div>
-          </div>
-          {% if post.author == user %}
-          <div>
-            <a class="post-button" href="{% url 'post-update' post.id %}">Update</a>
-            <a class="post-button" style="color: red;" href="{% url 'post-delete' post.id %}">Delete</a>
-            <a style="font-size:30px;" href=" {% url 'postman:write' post.author %}"><i
-                class="material-icons">message</i> Message</a>
-          </div>
-          {% endif %}
-        </div>
-        <div class="row col-12 justify-content-between post-button-container">
-          <h6 id="post-type">{{ post.SellerOrBuyer }}</h6>
-          <div class="row justify-content-center align-items-center">
-            {% if post.price == 0.00 %}
-            <h5 class="post-price">Free</h5>
-            {% else %}
-            <h5 class="post-price">{{ post.price|floatformat:"-2" }} kr</h5>
-            {% endif %}
-          </div>
-        </div>
-      </div>
-      <div class="col-14 post-information">
-        <div class="article-title-container">
-          <h4 class="article-title">{{ post.title }}</h4>
-        </div>
-        <p class="article-content">{{ post.content }}</p>
-
-        {% if post.image != "default.jpg" %}
-        <div id="carousel-{{post.id}}" class="carousel-container carousel mx-auto slide" data-ride="carousel">
-          {% if post.image2 or post.image3 %}
-          <a class="carousel-control-prev" href="#carousel-{{post.id}}" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-          </a>
-          {% endif %}
-          <div class="mx-auto">
-            <div class="carousel-inner">
-              {% if post.image %}
-              <div class="carousel-image-container carousel-item active">
-                <img class="d-block w-100 h-auto" src="{{ post.image.url }}" width="200" height="400"
-                  alt="First slide" />
-                <a class="carousel-image-caption btn btn-primary" href="{% url 'post-detail' post.id %}">View
-                  post</a>
-              </div>
-              {% endif %}
-              {% if post.image2 %}
-              <div class="carousel-image-container carousel-item ">
-                <img class="d-block w-100 h-auto" src="{{ post.image2.url }}" width="200" height="400"
-                  alt="Second slide">
-                <a class="carousel-image-caption btn btn-primary" href="{% url 'post-detail' post.id %}">View
-                  post</a>
-              </div>
-              {% endif %}
-              {% if post.image3 %}
-              <div class="carousel-item">
-                <img class="d-block w-100 h-auto" src="{{ post.image3.url }}" width="200" height="400"
-                  alt="Third slide">
-                <a class="carousel-image-caption btn btn-primary" href="{% url 'post-detail' post.id %}">View
-                  post</a>
-              </div>
-              {% endif %}
-            </div>
-
-            <ol class="carousel-indicators">
-              {% if post.image and post.image2 %}
-              <li data-target="#carousel-{{post.id}}" data-slide-to="0" class="active"></li>
-              <li data-target="#carousel-{{post.id}}" data-slide-to="1"></li>
-              {% endif %}
-              {% if post.image3 %}
-              <li data-target="#carousel-{{post.id}}" data-slide-to="2"></li>
-              {% endif %}
-            </ol>
-          </div>
-          {% if post.image2 or post.image3 %}
-          <a class="carousel-control-next" href="#carousel-{{post.id}}" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-          </a>
-          {% endif %}
-        </div>
-        {% endif %}
-
-
-        <div class="justify-content-between post-detail-form">
-          <form class="row post-detail-form-left" action="{% url 'like_post' %}" method="POST">
-            {% csrf_token %}
-            {% if is_liked %}
-            <button class="btn bg-transparent" style="color: red;" type="submit" name="post_id" value="{{ post.id }}"><i
-                id="logo-icon" class="material-icons">thumb_down</i></button>
-            {% else %}
-            <button class="btn bg-transparent" style="color: blue;" type="submit" name="post_id"
-              value="{{ post.id }}"><i id="logo-icon" class="material-icons">thumb_up</i></button>
-            {% endif %}
-            <h6 class="align-items-center" id="like-info">{{ post.likes.count }} Like{{ post.likes.count|pluralize }}
-            </h6>
-          </form>
-          <button class="btn btn-outline-secondary btn-sm ml-4" onclick="viewComments('comments')">View
-            comments
-            ({{ post.comments.count }})</button>
-          <span class=" btn-sm badge badge-success">Condition: {% if post.Condition %}
-            {{ post.Condition }} {% else %} Not specified {% endif %}</span>
-
-        </div>
-      </div>
-  </article>
-
-  <div class="comments" id="comments">
-    <div class="media comment-section">
+{% load crispy_forms_tags %}
+{% load calculate_diff %}
+{% load check_user_reply %}
+<div class="row">
+  <div class="col-md-8 mx-auto">
+    <article class="content-section mb-3">
       <div class="media-body">
-        {% if user.is_authenticated %}
+        <div class="article-metadata">
+          <div class="post-admin justify-content-between">
+            <div>
+              <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}" />
+              <div style="display:flex;flex-direction: column;">
+                <div style="display:flex;flex-direction: row; align-items: center">
+                  {% if post.author.first_name and post.author.last_name %}
+                  {% if post.author == user %}
+                  <a class="mr-2" href="/profile/">{{ post.author.first_name }} {{ post.author.last_name }}</a>
+                  {% else %}
+                  <a class="mr-2" href="/profileUser/{{ post.id }}">{{ post.author.first_name }}
+                    {{ post.author.last_name }}</a>
+                  {% endif %}
+                  {% else %}
+                  {% if post.author == user %}
+                  <a class="mr-2" href="/profile/">{{ post.author }}</a>
+                  {% else %}
+                  <a class="mr-2" href="/profileUser/{{ post.id }}">{{ post.author }}</a>
+                  {% endif %}
+                  {% endif %}
+                  <a class="btn btn-sm btn-outline-dark" href="{% url 'postman:write' post.author %}">Send message</a>
+                </div>
+                <small class="text-muted">{{ post.date_posted|date:"F d, Y H:i" }}</small>
+              </div>
+            </div>
+            {% if post.author == user %}
+            <div>
+              <a class="post-button" href="{% url 'post-update' post.id %}">Update</a>
+              <a class="post-button" style="color: red;" href="{% url 'post-delete' post.id %}">Delete</a>
+            </div>
+            {% endif %}
+          </div>
+          <div class="row col-12 justify-content-between post-button-container">
+            <h6 id="post-type">{{ post.SellerOrBuyer }}</h6>
+            <div class="row justify-content-center align-items-center">
+              {% if post.price == 0.00 %}
+              <h5 class="post-price">Free</h5>
+              {% else %}
+              <h5 class="post-price">{{ post.price|floatformat:"-2" }} kr</h5>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        <div class="col-14 post-information">
+          <div class="article-title-container">
+            <h4 class="article-title">{{ post.title }}</h4>
+          </div>
+          <p class="article-content">{{ post.content }}</p>
+
+          {% if post.image != "default.jpg" %}
+          <div id="carousel-{{post.id}}" class="carousel-container carousel mx-auto slide" data-interval="false">
+            {% if post.image2 or post.image3 %}
+            <a class="carousel-control-prev" href="#carousel-{{post.id}}" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            {% endif %}
+            <div class="mx-auto">
+              <div class="carousel-inner">
+                {% if post.image %}
+                <div class="carousel-image-container carousel-item active">
+                  <img class="d-block w-100 h-auto" src="{{ post.image.url }}" width="200" height="400"
+                    alt="First slide" />
+                  <!-- <a class="carousel-image-caption btn btn-primary" href="{% url 'post-detail' post.id %}">View
+                    post</a> -->
+                </div>
+                {% endif %}
+                {% if post.image2 %}
+                <div class="carousel-image-container carousel-item ">
+                  <img class="d-block w-100 h-auto" src="{{ post.image2.url }}" width="200" height="400"
+                    alt="Second slide">
+                  <!-- <a class="carousel-image-caption btn btn-primary" href="{% url 'post-detail' post.id %}">View
+                    post</a> -->
+                </div>
+                {% endif %}
+                {% if post.image3 %}
+                <div class="carousel-image-container carousel-item">
+                  <img class="d-block w-100 h-auto" src="{{ post.image3.url }}" width="200" height="400"
+                    alt="Third slide">
+                  <!-- <a class="carousel-image-caption btn btn-primary" href="{% url 'post-detail' post.id %}">View
+                    post</a> -->
+                </div>
+                {% endif %}
+              </div>
+
+              <ol class="carousel-indicators">
+                {% if post.image and post.image2 %}
+                <li data-target="#carousel-{{post.id}}" data-slide-to="0" class="active"></li>
+                <li data-target="#carousel-{{post.id}}" data-slide-to="1"></li>
+                {% endif %}
+                {% if post.image3 %}
+                <li data-target="#carousel-{{post.id}}" data-slide-to="2"></li>
+                {% endif %}
+              </ol>
+            </div>
+            {% if post.image2 or post.image3 %}
+            <a class="carousel-control-next" href="#carousel-{{post.id}}" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+            {% endif %}
+          </div>
+          {% endif %}
+
+
+          <div class="justify-content-between post-detail-form">
+            <form class="row post-detail-form-left" action="{% url 'like_post' %}" method="POST">
+              {% csrf_token %}
+
+              <button class="btn ml-2 btn-sm bg-transparent" {% if post_is_liked %} style="color: blue;" {% else %}
+                style="color: rgb(138,138,138);" {% endif %} type="submit" name="like" value="{{ post.id }}"><i
+                  id="logo-icon" class="material-icons">thumb_up</i></button>
+
+              <h6 class="align-items-center" id="like-info">{{ post.likes.count }} Like{{ post.likes.count|pluralize }}
+              </h6>
+            </form>
+            <!--           <button class="btn btn-outline-dark btn-sm ml-4" onclick="viewComments('comments')">View
+            comments
+            ({{ post.comments.count }})</button> -->
+            <span class=" btn-sm badge badge-success">Condition: {% if post.Condition %}
+              {{ post.Condition }} {% else %} Not specified {% endif %}</span>
+
+          </div>
+        </div>
+    </article>
+  </div>
+  <!--   <div class="col-md-4">
+    <div class="content-section">
+      <h3>Optional menu</h3>
+    </div>
+  </div> -->
+</div>
+<div class="row">
+  <div class="col-md-8 mx-auto">
+    <div class="comments" id="comments" style="display: block">
+      <div class="comment-section">
         <div class="comment-top">
           {% if comments %}
-          <h4 id="comment-section-header"><u>Comments: {{ post.comments.count}}</u></h4>
+          <button id="comment-section-header" class="btn btn-outline-dark"
+            onclick="viewComments('comments-container')"><u>Comments:
+              {{ post.comments.count}}</u>
+          </button>
           {% else %}
           <h4 id="comment-section-header"><u>No comments have been posted</u></h4>
           {% endif %}
           <a id="add-comment-button" class="btn btn-primary active" href="{% url 'add-comment-to-post' post.id %}">Add
             comment</a>
         </div>
-        {% endif %}
 
-        {% for comment in comments %}
-        <div class="col-md-12 offset-md-0 card bg-light">
-          <div class="row">
-            <div class="col-md-8 card-header">
-              {% if comment.comuser %}
-              <img class="rounded-circle article-img comment-photo" src="{{ comment.comuser.profile.image.url }}">
-              {% if comment.comuser.first_name and comment.comuser.last_name %}
-              <div style="display:flex;flex-direction: column;">
-                <a href="/profile/">{{ comment.comuser.first_name }} {{ comment.comuser.last_name }}</a>
-                {% else %}
-                <a href="/profile/">{{ comment.comuser }}</a>
-                {% endif %}
-                {% endif %}
-                <small>{{ comment.date_posted|date:"M d, H:i" }}</small>
+      </div>
+      <div id="comments-container" style="display: block">
+        <div class="comment-section">
+          {% if messages %}
+          {% for message in messages%}
+          <div class="alert alert-{{message.tags}}">
+            {{message}}
+          </div>
+          {%endfor%}
+          {% endif %}
+
+          {% for comment in comments %}
+          <div class="comment-container mt-3">
+            <div class="comment-info-container">
+              <div class="parent-comment">
+                <span class="anchor" id="comment-card-{{comment.id}}"></span>
+
+                <div class="card flex-grow-1 {% if user == comment.comuser %}border border-primary{% endif %}">
+                  <div class="card-header">
+                    <div class="justify-content-between row">
+                      <div>
+                        <img class="rounded-circle article-img comment-photo"
+                          src="{{ comment.comuser.profile.image.url }}" />
+                        {% if user == comment.comuser %}
+                        <div style="display:flex;align-items: center;">
+                          {% if comment.comuser.first_name and comment.comuser.last_name %}
+                          <a href="/profile/">{{ comment.comuser.first_name }} {{ comment.comuser.last_name }}</a>
+                          {% else %}
+                          <a href="/profile/">{{ comment.comuser }}</a>
+                          {% endif %}
+                          <small class="ml-2">{{ comment.date_posted|date:"M d, H:i" }}</small>
+                        </div>
+                        {% else %}
+                        <div style="display:flex;align-items: center;">
+                          {% if comment.comuser.first_name and comment.comuser.last_name %}
+                          <a href="/profileUser/{{ post.id }}">{{ comment.comuser.first_name }}
+                            {{ comment.comuser.last_name }}</a>
+                          {% else %}
+                          <a href="/profileUser/{{ post.id }}">{{ comment.comuser }}</a>
+                          {% endif %}
+                          <small class="ml-2">{{ comment.date_posted|date:"M d, H:i" }}</small>
+                        </div>
+                        {% endif%}
+                      </div>
+                      <div class="dropdown">
+                        <i id="post-more-menu" class="material-icons" data-toggle="dropdown"
+                          aria-haspopup="true dropdown-toggle" aria-expanded="false">more_vert</i>
+                        <div class="dropdown-menu dropdown-primary">
+                          <a class="dropdown-item dropdown-post-item"
+                            href="{% url 'update-comment' post.id comment.id %}"><i id="nav-icon-links"
+                              class="material-icons">create</i>
+                            Update</a>
+                          <a class="dropdown-item dropdown-post-item"
+                            href="{% url 'delete-comment' post.id comment.id %}"><i id="nav-icon-links"
+                              class="material-icons">delete</i> Delete</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="ml-2 card-body">
+                    <p>{{ comment.content }}</p>
+                  </div>
+                </div>
+                <div class="comment-side-container">
+                  <div class="comment-like-container">
+                    <form class="comment-like-buttons" action="{% url 'update-comment-likes' comment.id %}"
+                      method="POST">
+                      {% csrf_token %}
+                      <button class="btn btn-sm bg-transparent no-padding" type="submit" name="comment-like"
+                        value="comment-like" {% if user in comment.likes.all %} style="color: blue;" {% else %} style="color:
+                rgb(138,138,138);" {% endif %}><i
+                          class="material-icons comment-like-button">arrow_circle_up</i></button>
+                      <button class="btn btn-sm bg-transparent no-padding" type="submit" name="comment-like"
+                        value="comment-dislike" {% if user in comment.dislikes.all %} style="color: red;" {% else %}
+                        style="color:
+                rgb(138,138,138);" {% endif %}><i
+                          class="material-icons comment-like-button">arrow_circle_down</i></button>
+                    </form>
+                    <div class="comment-like-count">
+                      {{comment.likes.count|calculate_diff:comment.dislikes.count}}
+                    </div>
+                  </div>
+                  <div class="comment-reply-button">
+                    <i class="material-icons comment-reply-{{comment.id}} comment-reply"
+                      onclick="viewReplyForm('{{comment.id}}')">reply</i>
+                  </div>
+                </div>
               </div>
-            </div>
-            <div class="col-md-4 card-header">
-              {% if user == comment.comuser %}
-              <div class="offset-md-4">
-                <a id="update-comment-button" href="{% url 'update-comment' post.id comment.id %}">Update</a>
-                <a id="delete-comment-button" style="color:red"
-                  href="{% url 'delete-comment' post.id comment.id %}">Delete</a>
+
+              <div id="replies-{{comment.id}}" class="replies">
+                {% for reply in comment.replies.all %}
+                <span class="anchor" id="reply-card-{{reply.id}}"></span>
+                <div id="reply-{{forloop.counter}}"
+                  class="reply-{{forloop.counter}} reply-{{forloop.counter}}-{{comment.id}} reply-container ml-4">
+                  <div class="reply-subdir">
+                    <i class="material-icons">subdirectory_arrow_right</i>
+                  </div>
+                  <div class="card mt-2 w-100 {% if user == reply.user %}border border-primary{% endif %}"
+                    style="flex-grow: 8;">
+                    <div class="card-header">
+                      <div class="justify-content-between row">
+                        <div>
+                          <img class="rounded-circle article-img comment-photo"
+                            src="{{ reply.user.profile.image.url }}" />
+                          {% if user == reply.user %}
+                          <div style="display:flex;align-items: center;">
+                            {% if reply.user.first_name and reply.user.last_name %}
+                            <a href="/profile/">{{ reply.user.first_name }}
+                              {{ reply.user.last_name }}</a>
+                            {% else %}
+                            <a href="/profile/">{{ reply.user }}</a>
+                            {% endif %}
+                            <small class="ml-2">{{ reply.date_posted|date:"M d, H:i" }}</small>
+                          </div>
+                          {% else %}
+                          <div style="display:flex;align-items: center;">
+                            {% if reply.user.first_name and reply.user.last_name %}
+                            <a href="/profileUser/{{ post.id }}">{{ reply.user.first_name }}
+                              {{ reply.user.last_name }}</a>
+                            {% else %}
+                            <a href="/profileUser/{{ post.id }}">{{ reply.user }}</a>
+                            {% endif %}
+                            <small class="ml-2">{{ reply.date_posted|date:"M d, H:i" }}</small>
+                          </div>
+                          {% endif%}
+                        </div>
+                        {% if user == reply.user %}
+                        <div class="dropdown">
+                          <i id="post-more-menu" class="material-icons" data-toggle="dropdown"
+                            aria-haspopup="true dropdown-toggle" aria-expanded="false">more_vert</i>
+                          <div class="dropdown-menu dropdown-primary">
+                            <a type="button" class="dropdown-item dropdown-post-item" data-toggle="modal"
+                              data-target="#updateReplyModal" data-post-id="{{post.id}}"
+                              data-reply-url="{% url 'update-reply' post.id reply.id%}"
+                              data-content="{{reply.content}}"><i id="nav-icon-links" class="material-icons">create</i>
+                              Update</a>
+                            <a class="dropdown-item dropdown-post-item"
+                              href="{% url 'delete-reply' post.id reply.id %}"><i id="nav-icon-links"
+                                class="material-icons">delete</i> Delete</a>
+                          </div>
+                        </div>
+                        {% endif %}
+                      </div>
+                    </div>
+                    <div class="ml-2 card-body">
+                      <p>{{ reply.content }}</p>
+                    </div>
+                  </div>
+                  <div class="comment-side-container">
+                    <div class="comment-like-container">
+                      <form class="comment-like-buttons" method="POST" action="{% url 'update-reply-likes' reply.id %}">
+                        {% csrf_token %}
+                        <button class="btn btn-sm bg-transparent no-padding" type="submit" name="reply-like"
+                          value="reply-like" {% if user in reply.likes.all %} style="color: blue;" {% else %} style="color:
+                rgb(138,138,138);" {% endif %}><i
+                            class="material-icons comment-like-button">arrow_circle_up</i></button>
+                        <button class="btn btn-sm bg-transparent no-padding" type="submit" name="reply-like"
+                          value="reply-dislike" {% if user in reply.dislikes.all %} style="color:
+                          red;" {% else %} style="color:
+                rgb(138,138,138);" {% endif %}><i
+                            class="material-icons comment-like-button">arrow_circle_down</i></button>
+                      </form>
+                      <div class="comment-like-count">
+                        {{reply.likes.count|calculate_diff:reply.dislikes.count}}
+                      </div>
+                    </div>
+                    <div class="comment-reply-button">
+                      <!-- <i class="material-icons comment-reply" onclick="viewReplyForm('{{comment.id}}')">reply</i> -->
+                    </div>
+                  </div>
+                </div>
+                {%endfor%}
+                {% if comment.replies.all.count > 2 %}
+                <div class="more-replies mt-1">
+                  <button value="3" class="btn btn-sm bg-transparent more-replies-{{comment.id}}"
+                    onclick="moreReplies(2,'{{comment.id}}' )">View
+                    more
+                    replies...
+                  </button>
+                </div>
+                {% endif %}
               </div>
-              {% endif %}
+
+              <form id="reply-form-{{comment.id}}" class="mt-2 mr-5" method="POST"
+                data-href="{% url 'add-reply-to-comment' post.id comment.id %}">
+                <div id="comment-reply-form-{{comment.id}}" class="comment-reply-form-container">
+                  {% csrf_token %}
+                  <div class="reply-input">
+                    {{reply_form.content}}
+                  </div>
+                  <!--  <input type="text" class="reply-input"> -->
+                  <button type="submit" class="btn btn-sm btn-primary active reply-button" value="{{comment.id}}"
+                    id="reply-button-{{comment.id}}">Post</button>
+                </div>
+              </form>
             </div>
           </div>
-          <div class="col-md-12 card-body">
-            <p>{{ comment.content }}</p>
-          </div>
+          {% endfor %}
         </div>
 
+        <div class="modal fade" id="updateReplyModal" tabindex="-1" role="dialog"
+          aria-labelledby="updateReplyModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="updateReplyModalLabel">Update your reply</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+
+              <form method="POST" id="update-reply-form">
+                {% csrf_token %}
+                <div class="modal-body">
+                  <input type="hidden" class="form-control" id="modal-post-id">
+                  <input type="hidden" class="form-control" id="modal-reply-url">
+                  <div class="reply-input">
+                    {{reply_form.content}}
+                  </div>
+                </div>
+                <!--  <input type="text" class="reply-input"> -->
+                <!-- <button type="submit" class="btn btn-sm btn-primary active reply-button">Post</button> -->
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <!-- <a href=''
+                  onclick="this.href='reply/'+document.getElementById('modal-reply-id').value"
+                  id="modal-reply-button" type="button" class="btn btn-primary active">Update reply</a> -->
+                  <button id="update-reply-button" type="submit" class="btn btn-primary active">Update reply</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="mt-2">
+        {% if comments %}
+        {% if comments.has_previous %}
+        <a class="btn btn-primary active mb-4" href="?page=1">First</a>
+        <a class="btn btn-primary active mb-4" href="?page={{ comments.previous_page_number }}">Previous</a>
+        {% endif %}
+        {% for num in comments.paginator.page_range %}
+        {% if comments.number == num %}
+        <a class="btn btn-outline-primary active mb-4" href="?page={{ num }}">{{ num }}</a>
+        {% elif num > comments.number|add:'-3' and num < comments.number|add:'3' %}
+        <a class="btn btn-primary active mb-4" href="?page={{ num }}">{{ num }}</a>
+        {% endif %}
         {% endfor %}
+        {% if comments.has_next %}
+        <a class="btn btn-primary active mb-4" href="?page={{ comments.next_page_number }}">Next</a>
+        <a class="btn btn-primary active mb-4" href="?page={{ comments.paginator.num_pages }}">Last</a>
+        {% endif %}
+        {% endif %}
       </div>
     </div>
-
-    {% if comments %}
-    {% if comments.has_previous %}
-    <a class="btn btn-primary active mb-4" href="?page=1">First</a>
-    <a class="btn btn-primary active mb-4" href="?page={{ comments.previous_page_number }}">Previous</a>
-    {% endif %}
-    {% for num in comments.paginator.page_range %}
-    {% if comments.number == num %}
-    <a class="btn btn-primary active mb-4" href="?page={{ num }}">{{ num }}</a>
-    {% elif num > comments.number|add:'-3' and num < comments.number|add:'3' %}
-    <a class="btn btn-primary active mb-4" href="?page={{ num }}">{{ num }}</a>
-    {% endif %}
-    {% endfor %}
-    {% if comments.has_next %}
-    <a class="btn btn-primary active mb-4" href="?page={{ comments.next_page_number }}">Next</a>
-    <a class="btn btn-primary active mb-4" href="?page={{ comments.paginator.num_pages }}">Last</a>
-    {% endif %}
-    {% endif %}
   </div>
 </div>
+<!--   <div class="col-md-4">
+    <div class="comment-section">
+      <h4>Active comment</h4>
+    </div>
+  </div> -->
+</div>
+
 
 {% endblock content %}

@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import PostListView, PostDetailView, PostCreateView, PostUpdateView, PostDeleteView, message
+from .views import PostListView, PostCreateView, PostUpdateView, PostDeleteView, UserActivityView
 from users.views import profileUser
 from . import views
 from django.urls import path, include
@@ -17,6 +17,12 @@ urlpatterns = [
          name='update-comment'),
     path('post/<int:pk>/comment/<int:id>/delete', views.delete_comment,
          name='delete-comment'),
+    path('post/<int:pk>/reply/<int:id>/', views.update_reply,
+         name='update-reply'),
+    path('post/<int:pk>/reply/<int:id>/delete', views.delete_reply,
+         name='delete-reply'),
+    path('post/<int:pk>/comment/<int:id>/reply', views.add_reply_to_comment,
+         name='add-reply-to-comment'),
     path('post/<int:pk>/message/', views.add_message_to_post,
          name='send_message_to_user'),
     path('show_message/', views.show_message, name='show_message'),
@@ -24,6 +30,11 @@ urlpatterns = [
     path('show_user_post', PostListView.as_view(), name='app-show_post'),
     path('about/', views.about, name='app-about'),
     path('like', views.like_post, name="like_post"),
-    path('message/', message, name="messageSend"),
+    path('update_comment_likes/<int:id>/',
+         views.update_comment_likes, name="update-comment-likes"),
+    path('update_reply_likes/<int:id>/', views.update_reply_likes,
+         name='update-reply-likes'),
+    path('message/', views.message, name="messageSend"),
+    path('activity/', UserActivityView.as_view(), name="user-activity"),
 
 ]

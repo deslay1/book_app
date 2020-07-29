@@ -2,10 +2,10 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.decorators import login_required
-from .forms import PostForm, CommentForm, MessageForm
-from .models import Post, Message, Comment
+from .forms import PostForm, CommentForm, MessageForm, ReplyForm
+from .models import Post, Message, Comment, Reply
 from django.http import HttpResponse, HttpResponseRedirect
-from django.db.models import Q
+from django.db.models import Q, Case, When
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.generic import (
     ListView,
@@ -14,36 +14,17 @@ from django.views.generic import (
     UpdateView,
     DeleteView
 )
-#from django.forms.models import model_to_dict
+# from django.forms.models import model_to_dict
 from django.core.mail import send_mail
 from django.conf import settings
-from .filters import PostFilter
-
-
-def post_create(request):
-    form = PostForm(request.POST or None, request.FILES or None)
-    if form.is_valid():
-        instance = form.save(commit=False)
-        instance.save()
-        return HttpResponseRedirect(instance.get_absolute_url())
-    context = {
-        "form": form,
-    }
-    return render(request, "home.html", context)
-
-
-def post_update(request, id=None):
-    instance = get_object_or_404(Post, id=id)
-    form = PostForm(request.POST or None,
-                    request.FILES or None, instance=instance)
-    if form.is_valid():
-        instance = form.save(commit=False)
-        instance.save()
-        return HttpResponseRedirect(instance.get_absolute_url())
-    context = {
-        "form": form,
-    }
-    return render(request, "home.html", context)
+from django.forms.models import model_to_dict
+from django.contrib.auth.models import User, Group
+from django.contrib import messages
+from .session_calc import check_session_item
+from django.template.loader import get_template, render_to_string
+from django.utils.html import strip_tags
+from django.http import JsonResponse
+from django.core import serializers
 
 
 @login_required(login_url='login')
@@ -56,16 +37,66 @@ def add_comment_to_post(request, pk):
             comment.post = post
             comment.comuser = request.user
             comment.save()
-            subject = 'Comment recieved in Bookmarket'
-            message = (
-                'You just got a comment on one of your posts, check it out!' "\n" 'http://djangobookmarket.herokuapp.com/post/'+str(post.id)+'/')
-            email_from = settings.EMAIL_HOST_USER
-            recipient_list = [post.author.email, ]
-            send_mail(subject, message, email_from, recipient_list)
+
+            if comment.comuser != post.author and post.author.has_perm(
+                    'users.email_on_post_comment'):
+
+                url = f'http://127.0.0.1:8000/post/{post.id}/'
+                if settings.DEBUG == True:
+                    url = f'https://bookmarket-app.herokuapp.com/post/{post.id}/'
+
+                from_email = settings.EMAIL_HOST_USER
+                recipient_list = [post.author.email, ]
+
+                subject = f'Comment recieved in your post: {comment.post.title}'
+                html_message = render_to_string(
+                    'email_templates/receive_comment.html', {'comment': comment, 'post': comment.post, 'url': url})
+                plain_message = strip_tags(html_message)
+
+                send_mail(subject, plain_message, from_email, recipient_list,
+                          fail_silently=True, html_message=html_message)
+
+            # Removed saved active page in session
+            if 'comment_page' in request.session:
+                del request.session['comment_page']
             return redirect('post-detail', pk=post.pk)
     else:
         form = CommentForm()
-    return render(request, 'bookmarket/add_comment.html', {'form': form})
+    return render(request, 'bookmarket/add_comment.html', {'form': form, 'post': post})
+
+
+@login_required(login_url='login')
+def update_comment_likes(request, id):
+    comment = get_object_or_404(Comment, id=id)
+
+    if comment.comuser != request.user:
+        likes_or_dislikes = request.POST.get('comment-like')
+
+        liked = comment.likes.filter(id=request.user.id).exists()
+        disliked = comment.dislikes.filter(id=request.user.id).exists()
+
+        if likes_or_dislikes == "comment-like":
+            if liked:
+                comment.likes.remove(request.user)
+            else:
+                comment.likes.add(request.user)
+
+            if disliked:
+                comment.dislikes.remove(request.user)
+        else:
+            if disliked:
+                comment.dislikes.remove(request.user)
+            else:
+                comment.dislikes.add(request.user)
+
+            if liked:
+                comment.likes.remove(request.user)
+    else:
+        messages.info(
+            request, "You can not like or dislike your own comment!")
+
+    # Another redirections method...
+    return HttpResponseRedirect(comment.get_absolute_url()+"#comment-card-" + str(id))
 
 
 @login_required(login_url='login')
@@ -87,34 +118,136 @@ def delete_comment(request, pk, id):
     post = get_object_or_404(Post, pk=pk)
     post_comment = get_object_or_404(Comment, id=id)
     post_comment.delete()
-    return redirect('post-detail', pk=post.pk)
+    return HttpResponseRedirect(post.get_absolute_url()+"#comment-card-" + str(id))
+    # return redirect('post-detail', pk=post.pk)
     # Useful....
     # return redirect(request.META['HTTP_REFERER'])
 
 
 @login_required(login_url='login')
+def add_reply_to_comment(request, pk, id):
+    comment = get_object_or_404(Comment, id=id)
+    user_query = User.objects.get(id=request.user.id)
+    # Really ugly way of sending along the url to image....
+    user_profile = request.user.profile
+    user_profile.image = request.user.profile.image.url
+    if request.is_ajax and request.method == "POST":
+        form = ReplyForm(request.POST)
+        if form.is_valid():
+            instance = form.save(commit=False)
+            instance.comment = comment
+            instance.user = request.user
+            instance = form.save()
+            # serialize reply in json
+            # Serious temporary solution to getting the id of the newly made
+            # reply. If two replies are posted at the exact same time
+            # then a user could possibly delete another' user's reply
+            reply_model = Reply.objects.get(date_posted=instance.date_posted)
+            ser_instance = serializers.serialize(
+                'json', [instance, user_query, user_profile, reply_model])
+            return JsonResponse({"instance": ser_instance}, status=200)
+        else:
+            return JsonResponse({"error": form.errors}, status=400)
+
+    # some error occured
+    return JsonResponse({"error": ""}, status=400)
+
+
+@login_required(login_url='login')
+def update_reply_likes(request, id):
+    reply = get_object_or_404(Reply, id=id)
+
+    if reply.user != request.user:
+        likes_or_dislikes = request.POST.get('reply-like')
+
+        liked = reply.likes.filter(id=request.user.id).exists()
+        disliked = reply.dislikes.filter(id=request.user.id).exists()
+
+        if likes_or_dislikes == "reply-like":
+            if liked:
+                reply.likes.remove(request.user)
+            else:
+                reply.likes.add(request.user)
+
+            if disliked:
+                reply.dislikes.remove(request.user)
+        else:
+            if disliked:
+                reply.dislikes.remove(request.user)
+            else:
+                reply.dislikes.add(request.user)
+
+            if liked:
+                reply.likes.remove(request.user)
+    else:
+        messages.info(
+            request, "You can not like or dislike your own reply!")
+
+    return HttpResponseRedirect(reply.comment.get_absolute_url()+"#reply-card-" + str(id))
+
+
+@login_required(login_url='login')
+def update_reply(request, pk, id):
+    post = get_object_or_404(Post, pk=pk)
+    comment_reply = get_object_or_404(Reply, id=id)
+    if request.is_ajax and request.method == "POST":
+        print("reached view")
+        form = ReplyForm(request.POST, instance=comment_reply)
+        if form.is_valid():
+            instance = form.save(commit=False)
+            instance = form.save()
+            return JsonResponse({"success": "Reply updated!"}, status=200)
+        else:
+            return JsonResponse({"error": form.errors}, status=400)
+
+    # some error occured
+    return JsonResponse({"error": ""}, status=400)
+    """     if form.is_valid():
+            form.save()
+            return redirect('post-detail', pk=post.pk)
+    else:
+        form = ReplyForm(instance=comment_reply)
+    return HttpResponseRedirect(post.get_absolute_url()+"#reply-card-" + str(id)) """
+    # return HttpResponseRedirect(post.get_absolute_url())
+
+
+@login_required(login_url='login')
+def delete_reply(request, pk, id):
+    post = get_object_or_404(Post, pk=pk)
+    comment_reply = get_object_or_404(Reply, id=id)
+    comment_reply.delete()
+    return HttpResponseRedirect(post.get_absolute_url()+"#reply-card-" + str(id))
+    # return redirect('post-detail', pk=post.pk)
+
+
+@login_required(login_url='login')
 def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
-    posts = post.comments.all().order_by('-date_posted')
-    paginator = Paginator(posts, 5)
+
+    # User's comments first
+    comments = post.comments.distinct().order_by(
+        Case(When(comuser=request.user, then=0), default=1), '-date_posted')
+
+    paginator = Paginator(comments, 5)
 
     page = request.GET.get('page')
-    try:
-        post_List = paginator.page(page)
-    except PageNotAnInteger:
-        post_List = paginator.page(1)
-    except EmptyPage:
-        post_List = paginator.page(paginator.num_pages)
+    page = check_session_item(request, page, 'comment_page')
 
-    is_liked = False
-    if post.likes.filter(id=request.user.id).exists():
-        is_liked = True
+    try:
+        comments = paginator.page(page)
+    except PageNotAnInteger:
+        comments = paginator.page(1)
+    except EmptyPage:
+        comments = paginator.page(paginator.num_pages)
+
+    post_is_liked = post.likes.filter(id=request.user.id).exists()
 
     context = {
-        'comments': post_List,
+        'comments': comments,
         'post': post,
-        'is_liked': is_liked,
-        'total_likes': post.total_likes()
+        'post_is_liked': post_is_liked,
+        'total_likes': post.total_likes(),
+        'reply_form': ReplyForm()
     }
 
     return render(request, 'bookmarket/post_detail.html', context)
@@ -122,14 +255,14 @@ def post_detail(request, pk):
 
 @login_required(login_url='login')
 def like_post(request):
-    post = get_object_or_404(Post, id=request.POST.get('post_id'))
-    is_liked = False
+    liked_post_id = request.POST.get('like')
+    post = get_object_or_404(Post, id=liked_post_id)
+
     if post.likes.filter(id=request.user.id).exists():
         post.likes.remove(request.user)
-        is_liked = False
     else:
         post.likes.add(request.user)
-        is_liked = True
+
     # Another redirections method...
     return HttpResponseRedirect(post.get_absolute_url())
 
@@ -169,7 +302,6 @@ def home(request):
 
 
 def message(request):
-
     return render(request, 'postman/add_message.html')
 
 
@@ -201,36 +333,68 @@ class PostListView(ListView):
     context_object_name = 'posts'
     ordering = ['-date_posted']
     paginate_by = 5
-    tab = "Sell"
-    # Detta är för paginator och sökfältet
 
     def get_context_data(self, **kwargs):
         context = super(PostListView, self).get_context_data(**kwargs)
 
-        buy = self.request.GET.get("buy")
-        sell = self.request.GET.get("sell")
+        user_groups = self.request.user.groups.values_list(
+            'name', flat=True)
+        groups = Group.objects.distinct().order_by("name")
+        user_group_name = "All"
 
-        condition = self.request.GET.get("condition")
-        price_order = self.request.GET.get("price_order")
+        # When djang groups are empty this needs to be done
+        # in order not tor return any errors
+        if user_groups:
+            user_groups_list = list(user_groups)
+            user_group_name = user_groups_list[0]
+            # Placing a user's group first in list.
+            groups = Group.objects.distinct().order_by(
+                Case(When(name=user_group_name, then=0), default=1), 'name')
+            # Initial group activation on first render
+            if 'category' not in self.request.session:
+                self.request.session['category'] = user_groups_list[0]
+        else:
+            # Initial activation if not logged in
+            if 'category' not in self.request.session:
+                self.request.session['category'] = "All"
 
-        object_list = self.model.objects.distinct().order_by('-date_posted')
-        if buy is not None:
-            PostListView.tab = "Buy"
-        if sell is not None:
-            PostListView.tab = "Sell"
+        # To see model structure
+        # print(model_to_dict(groups[0]))
 
-        if condition is not None:
-            object_list = object_list.filter(
-                Q(Condition__icontains=condition)
-            )
-        if price_order is not None:
-            object_list = object_list.order_by(price_order)
+        category = self.request.GET.get("group/category")
+        category = check_session_item(self.request, category, "category")
 
-        object_list = object_list.filter(
-            Q(SellerOrBuyer__icontains=PostListView.tab)
+        # Initial tab activation
+        self.request.session['active_tab'] = "Sell"
+        tab = self.request.GET.get("tab")
+        tab = check_session_item(self.request, tab, "active_tab")
+
+        object_list = self.model.objects.distinct().order_by(
+            '-date_posted').filter(Q(category__exact=category)).filter(
+            Q(SellerOrBuyer__icontains=tab)
         )
 
+        condition = self.request.GET.get("condition")
+        condition = check_session_item(self.request, condition, "condition")
+
+        price_order = self.request.GET.get("price_order")
+        price_order = check_session_item(
+            self.request, price_order, "price_order")
+
+        reset = self.request.GET.get("reset")
+        if reset is not None:
+            self.request.session['condition'] = "All"
+            self.request.session['price_order'] = "All"
+
+        if self.request.session['condition'] != "All" and condition is not None:
+            object_list = object_list.filter(
+                Q(Condition__exact=condition))
+        if self.request.session['price_order'] != "All" and price_order is not None:
+            object_list = object_list.order_by(price_order)
+
         query = self.request.GET.get('q')
+        query = check_session_item(self.request, query, "search_query")
+
         if query:
             queries = query.split(" ")
             for q in queries:
@@ -241,7 +405,12 @@ class PostListView(ListView):
 
         paginator = Paginator(object_list, self.paginate_by)
         page = self.request.GET.get('page')
-
+        """ if page is None:
+            print(self.request.session['post_page'])
+            if 'post-page' in self.request.session:
+                page = self.request.session['post_page']
+            else:
+                self.request.session['post_page'] = page """
         try:
             object_list = paginator.page(page)
         except PageNotAnInteger:
@@ -249,13 +418,12 @@ class PostListView(ListView):
         except EmptyPage:
             object_list = paginator.page(paginator.num_pages)
 
-        context = {'posts': object_list, 'filter': PostFilter(
-            self.request.GET, queryset=self.get_queryset()), 'condition': condition, 'price_order': price_order}
-        # Add any other variables to the context here
+        context = {'posts': object_list, 'groups': groups, 'user_group_name': user_group_name, 'query': query, 'condition': condition,
+                   'price_order': price_order, "category": category, 'tab': tab}
         return context
 
 
-class PostDetailView(DetailView):
+""" class PostDetailView(DetailView):
     model = Post
     template_name = 'bookmarket/post_detail.html'  # <app>/<model>_<viewtype>.html
     context_object_name = 'posts'
@@ -264,28 +432,28 @@ class PostDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(PostDetailView, self).get_context_data(**kwargs)
-        posts = Comment.objects.all().filter(
+        comments = Comment.objects.all().filter(
             Q(comuser=self.request.user)).order_by('-date_posted')
 
         paginator = Paginator(posts, self.paginate_by)
         page = self.request.GET.get('page')
 
         try:
-            posts = paginator.page(page)
+            comments = paginator.page(page)
         except PageNotAnInteger:
-            posts = paginator.page(1)
+            comments = paginator.page(1)
         except EmptyPage:
-            posts = paginator.page(paginator.num_pages)
+            comments = paginator.page(paginator.num_pages)
 
-        context = {'comments': posts, 'post': post}
+        context = {'comments': comments, 'post': post}
         # Add any other variables to the context here
-        return context
+        return context """
 
 
 class PostCreateView(LoginRequiredMixin, CreateView):
+    #template_name = "bookmarket/post_form.html"
     model = Post
-    fields = ['title', 'content', 'image', 'image2',
-              'image3', 'price', 'SellerOrBuyer', 'Condition']
+    form_class = PostForm
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -294,8 +462,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 
 class PostUpdateView(LoginRequiredMixin, UpdateView, UserPassesTestMixin):
     model = Post
-    fields = ['title', 'content', 'image', 'image2',
-              'image3', 'price', 'SellerOrBuyer', 'Condition']
+    form_class = PostForm
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -320,4 +487,25 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
 
 def about(request):
-    return render(request, 'bookmarket/about.html', {})
+    return render(request, 'bookmarket/about.html', {'test': "test"})
+
+
+class UserActivityView(ListView):
+    context_object_name = 'comments'
+    template_name = 'bookmarket/user_activity.html'
+    queryset = Comment.objects.distinct().order_by('-date_posted')
+
+    def get_context_data(self, **kwargs):
+        context = super(UserActivityView, self).get_context_data(**kwargs)
+
+        user = self.request.user
+        context['comments'] = self.queryset.filter(
+            Q(comuser__exact=user))
+        # Official way is to have the likes field be a ManytoMany(User, through= "Liker") where Liker is a model
+        # that you can add whatever fields to, such as a created at and updated_field: see
+        # https://stackoverflow.com/questions/31776586/how-to-add-a-timestamp-to-a-manytomany-record
+        # This works for now...
+        context['liked_posts'] = reversed(Post.objects.filter(
+            likes__id=user.id))
+        # And so on for more models
+        return context

@@ -2,18 +2,21 @@
 {% block title %} Update Comment {% endblock %}
 
 {% block content %}
-<div class="col-md-6 offset-md-3 card bg-light mb-12">
+<div class="col-md-8 mx-auto card bg-light mb-12">
     <div id="add-comment-header" class="card-header">
-        <h3>Update Comment</h3>
+        <h4>Update Comment</h4>
     </div>
     <form method="POST" class="post-form">{% csrf_token %}
-        <div class="card-body">
+        <div class="card-body mb-2">
             <div class="add-comment-form">
+                <!-- <div style="text-align: center;">
+                    {{ form.content.label }}
+                </div> -->
                 {{ form.content }}
             </div>
         </div>
-        <div class="add-comment-button">
-            <button type="submit" class="btn btn-primary active">Update Comment</button>
+        <div class="col-md-4 mx-auto add-comment-button">
+            <button type="submit" class="col-md-12 btn btn-primary active">Update Comment</button>
         </div>
     </form>
 </div>

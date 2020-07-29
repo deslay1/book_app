@@ -5,7 +5,7 @@
 {% block content %}
 <center>
 
-    <div style="color: white;" id="postman">
+    <div class="col-md-6 mx-auto" style="color: white;" id="postman">
         <h1 style="color: white;">{% block pm_write_title %}{% endblock %}</h1>
         <form style="color: white;" action="{% if next_url %}?next={{ next_url|urlencode }}{% endif %}" method="post">
             {% csrf_token %}
@@ -13,7 +13,8 @@
                 {% block pm_write_recipient %}{% endblock %}
                 {{ form|bootstrap }}
             </table>
-            <button type="submit">{% trans "Send" %} <a href="{% url "postman:inbox" %}"></a> </button>
+            <button class="btn btn-primary active col-md-2" type="submit">{% trans "Send" %} <a
+                    href="{% url "postman:inbox" %}"></a> </button>
         </form>
     </div>
 

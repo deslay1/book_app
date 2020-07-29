@@ -2,8 +2,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.decorators import login_required
-from .forms import PostForm, CommentForm, MessageForm, ReplyForm
-from .models import Post, Message, Comment, Reply
+from .forms import PostForm, CommentForm, ReplyForm
+from .models import Post, Comment, Reply
 from django.http import HttpResponse, HttpResponseRedirect
 from django.db.models import Q, Case, When
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger

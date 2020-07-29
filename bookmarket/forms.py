@@ -4,7 +4,7 @@ from django.template.defaultfilters import filesizeformat
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
 
-from .models import Post, Comment, Message, Reply
+from .models import Post, Comment, Reply
 
 
 class PostForm(forms.ModelForm):
@@ -44,14 +44,6 @@ class ReplyForm(forms.ModelForm):
 
     class Meta:
         model = Reply
-        fields = [
-            "content"
-        ]
-
-
-class MessageForm(forms.ModelForm):
-    class Meta:
-        model = Message
         fields = [
             "content"
         ]

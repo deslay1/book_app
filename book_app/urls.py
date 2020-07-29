@@ -19,6 +19,7 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from users import views as user_views
+from django.views.decorators.csrf import csrf_exempt
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -39,7 +40,8 @@ urlpatterns = [
          name='password_reset_confirm'),
     path('profile/', user_views.profile, name='profile'),
     path('profileUser/<username>/', user_views.profileUser, name='profileUser'),
-    path('profileUserName/<username>/<inos>', user_views.profileUserName, name='profileUserName'),
+    path('profileUserName/<username>/<inos>',
+         user_views.profileUserName, name='profileUserName'),
 
     path('', include('bookmarket.urls')),
     path('accounts/', include('allauth.urls')),

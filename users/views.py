@@ -173,7 +173,7 @@ def profileUser(request, username):
 def profileUserName(request, username, inos):
 
     posts = Post.objects.all()
-    authors = search(request, username)
+    authors = "hej"
 
     for post in posts:
         if post.author.username == username:

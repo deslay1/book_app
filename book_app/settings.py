@@ -19,7 +19,6 @@ ALLOWED_HOSTS = ['https://bookmarket-app.herokuapp.com/',
 # Application definition
 
 INSTALLED_APPS = [
-    'postman',
 
     'django_filters',
     'bootstrapform',
@@ -41,6 +40,8 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.facebook',
     'storages',
     'django_cleanup.apps.CleanupConfig',
+    'postman',
+
 
 ]
 

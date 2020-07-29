@@ -16,87 +16,100 @@ in the INSTALLED_APPS setting.
 {% load i18n %}{% load postman_tags %}
 {% block content %}
 
-    
-
-<center><u id="thisOne2" style="color:white;     font-size: 3vw;">{% if pm_messages|length > 1 %}{% trans "Conversation" %}{% else %}{% trans "Message" %}{% endif %}</u>
-</center>
 
 
-    <div class="commentArea" >   
+<div class=commentArea3 id="thisOne1" style="color: black; height: auto; align-items: center;  text-align: center;  ">
 
 
-        <div class= "card4" id="thisOne1" style="color:black;   "> </div>
 
-        {% for message in pm_messages %}
+</div>
 
-
-        <div id="myDiv" style= 'border:2px solid;color:white;' class="bubbledRight">
-           {{ message.body|linebreaksbr }}
-         
-        </div>
-        {% if forloop.last %}
-      
-        
-        <form action="" method="post">{% csrf_token %}
-        <input type="hidden" {% if pm_messages|length > 1 and message.thread_id %}name="tpks" value="{{ message.thread_id }}"{% else %}name="pks" value="{{ message.pk }}"{% endif %}>
-  
-       
-        
-       </span>
-     
-       {% if reply_to_pk %}<hr />
-
-       <center>   
+<div class=commentArea2 id="thisOne2" style="color: black; height: auto; align-items: center;  text-align: center;  ">
 
 
-        <h2 style="align-items: center;align-self: center;">{% trans 'Reply' %}</h2>
-        <form action="{% url 'postman:reply' reply_to_pk %}?next={{ next_url|urlencode }}" method="post">{% csrf_token %}
-        <div id="pm_reply">{{ form.body }}</div>
-        <button type="submit" class="pm_btn pm_btn-reply">{% trans 'Reply' %}</button>
-        <a href="{{ next_url }}" class="pm_action pm_action-back">{% trans "Back" %}</a>
-        {% else %}
-        <div  class="bubbledMiddle">You must wait for an answer to reply</div>
-        <center>       <a href="{{ next_url }}" class="pm_action pm_action-back">{% trans "Back" %}</a>
+    {% if pm_messages|length > 1 %}{% trans "Conversation" %}{% else %}{% trans "Message" %}{% endif %}
+
+</div>
+
+
+
+
+<div class="commentArea">
+
+
+
+    {% for message in pm_messages %}
+
+
+    <div id="myDiv" style='border:2px solid;color:white;' class="bubbledRight">
+        {{ message.body|linebreaksbr }}
+
+    </div>
+    {% if forloop.last %}
+
+
+    <form action="" method="post">{% csrf_token %}
+        <input type="hidden" {% if pm_messages|length > 1 and message.thread_id %}name="tpks"
+            value="{{ message.thread_id }}" {% else %}name="pks" value="{{ message.pk }}" {% endif %}>
+
+
+
+        </span>
+
+        {% if reply_to_pk %}
+        <hr />
+
+        <center>
+
+
+            <h2 style="align-items: center;align-self: center;">{% trans 'Reply' %}</h2>
+            <form action="{% url 'postman:reply' reply_to_pk %}?next={{ next_url|urlencode }}" method="post">
+                {% csrf_token %}
+                <div id="pm_reply">{{ form.body }}</div>
+                <button type="submit" class="pm_btn pm_btn-reply">{% trans 'Reply' %}</button>
+                <a href="{{ next_url }}" class="pm_action pm_action-back">{% trans "Back" %}</a>
+                {% else %}
+                <div class="bubbledMiddle">You must wait for an answer to reply</div>
+                <center> <a href="{{ next_url }}" class="pm_action pm_action-back">{% trans "Back" %}</a>
+                </center>
+            </form>
         </center>
-        </form>
-       </center>
-      {% endif %}
-      
-       {% endif %}
+        {% endif %}
 
-       <script type="text/javascript">
-        var name2 ='<me>';
-        var name = '{{ message.obfuscated_sender|or_me:user }}';
-        if (name < name2){
-            document.getElementById('myDiv').className = "bubbledRight"; 
-            document.getElementById('myDiv').id = "old";  
-            document.getElementById('thisOne1').textContent = '{{ message.obfuscated_recipient|or_me:user }}'; 
-            document.getElementById('thisOne2').textContent = "  Subject: " + "{{ message.subject }}";
-        }
-        else{
-            document.getElementById('myDiv').className = "bubbledLeft"; 
-            document.getElementById('myDiv').id = "old"; 
-            document.getElementById('thisOne1').textContent =  '{{ message.obfuscated_sender|or_me:user }}'; 
-            document.getElementById('thisOne2').textContent = "  Subject: " + "{{ message.subject }}";
-        }
-            
-    </script>
-       {% endfor %}
+        {% endif %}
+
+        <script type="text/javascript">
+            var name2 = '<me>';
+            var name = '{{ message.obfuscated_sender|or_me:user }}';
+            if (name < name2) {
+                document.getElementById('myDiv').className = "bubbledRight";
+                document.getElementById('myDiv').id = "old";
+                document.getElementById('thisOne1').textContent = '{{ message.obfuscated_recipient|or_me:user }}';
+                document.getElementById('thisOne2').textContent = "  Subject: " + "{{ message.subject }}";
+            }
+            else {
+                document.getElementById('myDiv').className = "bubbledLeft";
+                document.getElementById('myDiv').id = "old";
+                document.getElementById('thisOne1').textContent = '{{ message.obfuscated_sender|or_me:user }}';
+                document.getElementById('thisOne2').textContent = "  Subject: " + "{{ message.subject }}";
+            }
+
+        </script>
+        {% endfor %}
 
 
-       </div>
-
-            
-
-       
-    
+</div>
 
 
 
-        
-     
 
-   
-        {% endblock %}
-    </center>
 
+
+
+
+
+
+
+
+{% endblock %}
+</center>

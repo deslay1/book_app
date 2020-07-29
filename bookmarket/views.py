@@ -2,8 +2,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.decorators import login_required
-from .forms import PostForm, CommentForm, MessageForm
-from .models import Post, Message, Comment
+from .forms import PostForm, CommentForm, MessageForm, ReplyForm
+from .models import Post, Message, Comment, Reply
 from django.http import HttpResponse, HttpResponseRedirect
 from django.db.models import Q, Case, When
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -23,6 +23,8 @@ from django.contrib import messages
 from .session_calc import check_session_item
 from django.template.loader import get_template, render_to_string
 from django.utils.html import strip_tags
+from django.http import JsonResponse
+from django.core import serializers
 
 
 @login_required(login_url='login')
@@ -64,82 +66,6 @@ def add_comment_to_post(request, pk):
 
 
 @login_required(login_url='login')
-def update_comment(request, pk, id):
-    post = get_object_or_404(Post, pk=pk)
-    post_comment = get_object_or_404(Comment, id=id)
-    if request.method == "POST":
-        form = CommentForm(request.POST, instance=post_comment)
-        if form.is_valid():
-            form.save()
-            return redirect('post-detail', pk=post.pk)
-    else:
-        form = CommentForm(instance=post_comment)
-    return render(request, 'bookmarket/update_comment.html', {'form': form})
-
-
-@login_required(login_url='login')
-def delete_comment(request, pk, id):
-    post = get_object_or_404(Post, pk=pk)
-    post_comment = get_object_or_404(Comment, id=id)
-    post_comment.delete()
-    return redirect('post-detail', pk=post.pk)
-    # Useful....
-    # return redirect(request.META['HTTP_REFERER'])
-
-
-@login_required(login_url='login')
-def post_detail(request, pk):
-    post = get_object_or_404(Post, pk=pk)
-
-    # User's comments first
-    comments = post.comments.distinct().order_by(
-        Case(When(comuser=request.user, then=0), default=1), '-date_posted')
-
-    paginator = Paginator(comments, 5)
-
-    page = request.GET.get('page')
-    page = check_session_item(request, page, 'comment_page')
-
-    try:
-        comments = paginator.page(page)
-    except PageNotAnInteger:
-        comments = paginator.page(1)
-    except EmptyPage:
-        comments = paginator.page(paginator.num_pages)
-
-    post_is_liked = post.likes.filter(id=request.user.id).exists()
-    liked_comments = Comment.objects.filter(
-        likes__id=request.user.id)
-    disliked_comments = Comment.objects.filter(
-        dislikes__id=request.user.id)
-
-    context = {
-        'comments': comments,
-        'post': post,
-        'post_is_liked': post_is_liked,
-        'total_likes': post.total_likes(),
-        'liked_comments': liked_comments,
-        'disliked_comments': disliked_comments
-    }
-
-    return render(request, 'bookmarket/post_detail.html', context)
-
-
-@login_required(login_url='login')
-def like_post(request):
-    liked_post_id = request.POST.get('like')
-    post = get_object_or_404(Post, id=liked_post_id)
-
-    if post.likes.filter(id=request.user.id).exists():
-        post.likes.remove(request.user)
-    else:
-        post.likes.add(request.user)
-
-    # Another redirections method...
-    return HttpResponseRedirect(post.get_absolute_url())
-
-
-@login_required(login_url='login')
 def update_comment_likes(request, id):
     comment = get_object_or_404(Comment, id=id)
 
@@ -170,7 +96,175 @@ def update_comment_likes(request, id):
             request, "You can not like or dislike your own comment!")
 
     # Another redirections method...
-    return HttpResponseRedirect(comment.get_absolute_url())
+    return HttpResponseRedirect(comment.get_absolute_url()+"#comment-card-" + str(id))
+
+
+@login_required(login_url='login')
+def update_comment(request, pk, id):
+    post = get_object_or_404(Post, pk=pk)
+    post_comment = get_object_or_404(Comment, id=id)
+    if request.method == "POST":
+        form = CommentForm(request.POST, instance=post_comment)
+        if form.is_valid():
+            form.save()
+            return redirect('post-detail', pk=post.pk)
+    else:
+        form = CommentForm(instance=post_comment)
+    return render(request, 'bookmarket/update_comment.html', {'form': form})
+
+
+@login_required(login_url='login')
+def delete_comment(request, pk, id):
+    post = get_object_or_404(Post, pk=pk)
+    post_comment = get_object_or_404(Comment, id=id)
+    post_comment.delete()
+    return HttpResponseRedirect(post.get_absolute_url()+"#comment-card-" + str(id))
+    # return redirect('post-detail', pk=post.pk)
+    # Useful....
+    # return redirect(request.META['HTTP_REFERER'])
+
+
+@login_required(login_url='login')
+def add_reply_to_comment(request, pk, id):
+    comment = get_object_or_404(Comment, id=id)
+    user_query = User.objects.get(id=request.user.id)
+    # Really ugly way of sending along the url to image....
+    user_profile = request.user.profile
+    user_profile.image = request.user.profile.image.url
+    if request.is_ajax and request.method == "POST":
+        form = ReplyForm(request.POST)
+        if form.is_valid():
+            instance = form.save(commit=False)
+            instance.comment = comment
+            instance.user = request.user
+            instance = form.save()
+            # serialize reply in json
+            # Serious temporary solution to getting the id of the newly made
+            # reply. If two replies are posted at the exact same time
+            # then a user could possibly delete another' user's reply
+            reply_model = Reply.objects.get(date_posted=instance.date_posted)
+            ser_instance = serializers.serialize(
+                'json', [instance, user_query, user_profile, reply_model])
+            return JsonResponse({"instance": ser_instance}, status=200)
+        else:
+            return JsonResponse({"error": form.errors}, status=400)
+
+    # some error occured
+    return JsonResponse({"error": ""}, status=400)
+
+
+@login_required(login_url='login')
+def update_reply_likes(request, id):
+    reply = get_object_or_404(Reply, id=id)
+
+    if reply.user != request.user:
+        likes_or_dislikes = request.POST.get('reply-like')
+
+        liked = reply.likes.filter(id=request.user.id).exists()
+        disliked = reply.dislikes.filter(id=request.user.id).exists()
+
+        if likes_or_dislikes == "reply-like":
+            if liked:
+                reply.likes.remove(request.user)
+            else:
+                reply.likes.add(request.user)
+
+            if disliked:
+                reply.dislikes.remove(request.user)
+        else:
+            if disliked:
+                reply.dislikes.remove(request.user)
+            else:
+                reply.dislikes.add(request.user)
+
+            if liked:
+                reply.likes.remove(request.user)
+    else:
+        messages.info(
+            request, "You can not like or dislike your own reply!")
+
+    return HttpResponseRedirect(reply.comment.get_absolute_url()+"#reply-card-" + str(id))
+
+
+@login_required(login_url='login')
+def update_reply(request, pk, id):
+    post = get_object_or_404(Post, pk=pk)
+    comment_reply = get_object_or_404(Reply, id=id)
+    if request.is_ajax and request.method == "POST":
+        print("reached view")
+        form = ReplyForm(request.POST, instance=comment_reply)
+        if form.is_valid():
+            instance = form.save(commit=False)
+            instance = form.save()
+            return JsonResponse({"success": "Reply updated!"}, status=200)
+        else:
+            return JsonResponse({"error": form.errors}, status=400)
+
+    # some error occured
+    return JsonResponse({"error": ""}, status=400)
+    """     if form.is_valid():
+            form.save()
+            return redirect('post-detail', pk=post.pk)
+    else:
+        form = ReplyForm(instance=comment_reply)
+    return HttpResponseRedirect(post.get_absolute_url()+"#reply-card-" + str(id)) """
+    # return HttpResponseRedirect(post.get_absolute_url())
+
+
+@login_required(login_url='login')
+def delete_reply(request, pk, id):
+    post = get_object_or_404(Post, pk=pk)
+    comment_reply = get_object_or_404(Reply, id=id)
+    comment_reply.delete()
+    return HttpResponseRedirect(post.get_absolute_url()+"#reply-card-" + str(id))
+    # return redirect('post-detail', pk=post.pk)
+
+
+@login_required(login_url='login')
+def post_detail(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+
+    # User's comments first
+    comments = post.comments.distinct().order_by(
+        Case(When(comuser=request.user, then=0), default=1), '-date_posted')
+
+    paginator = Paginator(comments, 5)
+
+    page = request.GET.get('page')
+    page = check_session_item(request, page, 'comment_page')
+
+    try:
+        comments = paginator.page(page)
+    except PageNotAnInteger:
+        comments = paginator.page(1)
+    except EmptyPage:
+        comments = paginator.page(paginator.num_pages)
+
+    post_is_liked = post.likes.filter(id=request.user.id).exists()
+
+    context = {
+        'comments': comments,
+        'post': post,
+        'post_is_liked': post_is_liked,
+        'total_likes': post.total_likes(),
+        'reply_form': ReplyForm()
+    }
+
+    return render(request, 'bookmarket/post_detail.html', context)
+
+
+@login_required(login_url='login')
+def like_post(request):
+    liked_post_id = request.POST.get('like')
+    post = get_object_or_404(Post, id=liked_post_id)
+
+    if post.likes.filter(id=request.user.id).exists():
+        post.likes.remove(request.user)
+    else:
+        post.likes.add(request.user)
+
+    # Another redirections method...
+    return HttpResponseRedirect(post.get_absolute_url())
 
 
 @login_required(login_url='login')

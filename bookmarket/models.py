@@ -77,14 +77,14 @@ class Comment(models.Model):
     post = models.ForeignKey(
         'bookmarket.Post', on_delete=models.CASCADE, related_name='comments')
     #author = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
-    comuser = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    comuser = models.ForeignKey(
+        User, on_delete=models.CASCADE, null=True, related_name='comments')
     content = models.TextField(
         max_length=300, verbose_name="Enter below:")
     date_posted = models.DateTimeField(default=timezone.now)
     approved_comment = models.BooleanField(default=False)
     likes = models.ManyToManyField(
         User, related_name="comment_likes", blank=True)
-    # Not used yet..
     dislikes = models.ManyToManyField(
         User, related_name="comment_dislikes", blank=True)
 
@@ -94,6 +94,23 @@ class Comment(models.Model):
 
     def get_absolute_url(self):
         return reverse('post-detail', kwargs={'pk': self.post.pk})
+
+    def __str__(self):
+        return self.content
+
+
+class Reply(models.Model):
+    comment = models.ForeignKey(
+        'bookmarket.Comment', on_delete=models.CASCADE, related_name='replies')
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, null=True, related_name='replies')
+    content = models.CharField(
+        max_length=200)
+    date_posted = models.DateTimeField(default=timezone.now)
+    likes = models.ManyToManyField(
+        User, related_name="reply_likes", blank=True)
+    dislikes = models.ManyToManyField(
+        User, related_name="reply_dislikes", blank=True)
 
     def __str__(self):
         return self.content

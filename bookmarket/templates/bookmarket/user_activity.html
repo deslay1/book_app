@@ -12,14 +12,14 @@
                         <div>
                             <img class="rounded-circle article-img comment-photo"
                                 src="{{ comment.comuser.profile.image.url }}" />
-                            <div style="display:flex;flex-direction: column;">
+                            <div style="display:flex;align-items: center;">
                                 {% if comment.comuser.first_name and comment.comuser.last_name %}
                                 <a href="/profile/">{{ comment.comuser.first_name }}
                                     {{ comment.comuser.last_name }}</a>
                                 {% else %}
                                 <a href="/profile/">{{ comment.comuser }}</a>
                                 {% endif %}
-                                <small>{{ comment.date_posted|date:"M d, H:i" }}</small>
+                                <small class="ml-2">{{ comment.date_posted|date:"M d, H:i" }}</small>
                             </div>
                         </div>
                         <div class="dropdown">

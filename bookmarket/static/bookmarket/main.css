@@ -425,6 +425,71 @@ ol {
     flex-grow: 8;
 }
 
+.parent-comment {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.comment-side-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.comment-reply-form-container {
+    display: none;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-left: 6rem;
+}
+
+.reply-input {
+    flex-grow: 4;
+    margin-right: 0.5rem;
+}
+
+.reply-button {
+    flex-grow: 1;
+}
+
+.comment-reply-button {
+    margin-left: 0.3rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.comment-reply:hover {
+    cursor: pointer;
+    color: blue
+}
+
+.reply-container {
+    display: none;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.reply-container-active {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.more-replies {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.reply-subdir {
+    width: 3rem
+}
+
 .comment-like-container {
     margin-left: 0.2rem;
     display: flex;
@@ -468,6 +533,7 @@ ol {
 
 .card-body {
     padding: 1rem 0rem 0rem 0rem !important;
+    word-break: break-all;
 }
 
 #add-comment-header {
@@ -649,4 +715,9 @@ footer {
 
 .image-hide {
     display: none;
+}
+
+.anchor {
+    position: absolute;
+    transform: translateY(-20vh);
 }

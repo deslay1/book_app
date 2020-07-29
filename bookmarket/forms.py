@@ -4,7 +4,7 @@ from django.template.defaultfilters import filesizeformat
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
 
-from .models import Post, Comment, Message
+from .models import Post, Comment, Message, Reply
 
 
 class PostForm(forms.ModelForm):
@@ -30,6 +30,20 @@ class PostForm(forms.ModelForm):
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
+        fields = [
+            "content"
+        ]
+
+
+class ReplyForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(ReplyForm, self).__init__(*args, **kwargs)
+        self.fields['content'].widget.attrs['style'] = "width: 100%;"
+        self.fields['content'].widget.attrs.update(
+            {'autofocus': 'autofocus', 'placeholder': 'Write a reply'})
+
+    class Meta:
+        model = Reply
         fields = [
             "content"
         ]

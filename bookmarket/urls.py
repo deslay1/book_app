@@ -1,8 +1,9 @@
 from django.urls import path
 from .views import PostListView, PostCreateView, PostUpdateView, PostDeleteView, UserActivityView
-from users.views import profileUser
+from users.views import profileUser, profileUserName
 from . import views
 from django.urls import path, include
+from book_app import urls
 
 
 urlpatterns = [
@@ -36,5 +37,13 @@ urlpatterns = [
          name='update-reply-likes'),
     path('message/', views.message, name="messageSend"),
     path('activity/', UserActivityView.as_view(), name="user-activity"),
+
+
+
+
+
+
+
+    path('post-user/<username>', profileUserName, name='post-username'),
 
 ]

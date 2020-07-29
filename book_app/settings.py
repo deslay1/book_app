@@ -1,5 +1,5 @@
 import os
-import django_heroku
+#import django_heroku
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -20,6 +20,8 @@ ALLOWED_HOSTS = ['https://bookmarket-app.herokuapp.com/',
 
 INSTALLED_APPS = [
     'postman',
+
+    'django_filters',
     'bootstrapform',
     'crispy_forms',
     'bookmarket.apps.BookmarketConfig',
@@ -39,6 +41,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.facebook',
     'storages',
     'django_cleanup.apps.CleanupConfig',
+
 ]
 
 MIDDLEWARE = [
@@ -50,6 +53,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'social_django.middleware.SocialAuthExceptionMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'dj_pagination.middleware.PaginationMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware'
 ]
 
@@ -177,4 +182,4 @@ MEDIA_URL = '/media/'
     os.path.join(BASE_DIR, 'additional'),
 ) """
 
-django_heroku.settings(locals())
+# django_heroku.settings(locals())

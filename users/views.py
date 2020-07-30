@@ -143,9 +143,7 @@ def profile(request):
 
 
 def profileUser(request, username):
-    inte = int(username, 10)
-    posts = Post.objects.all()
-    authors = "hej"
+    post_id = username
 
     from_post = get_object_or_404(Post, id=post_id)
 

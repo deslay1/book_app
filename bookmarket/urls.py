@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import PostListView, PostCreateView, PostUpdateView, PostDeleteView, UserActivityView
+from .views import PostListView, PostCreateView, PostUpdateView, PostDeleteView, UserActivityView, ContactUsView
 from users.views import profileUser, profileUserName
 from . import views
 from django.urls import path, include
@@ -44,13 +44,7 @@ urlpatterns = [
     path('message/', views.message, name="messageSend"),
     path('activity/', UserActivityView.as_view(), name="user-activity"),
     path('privacy-policy/', views.privacy_policy, name="privacy-policy"),
-
-
-
-
-
-
-
+    path('contact-us/', ContactUsView.as_view(), name="contact-us"),
     path('post-user/<username>', profileUserName, name='post-username'),
 
 ]

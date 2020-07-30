@@ -122,6 +122,7 @@ ul {
     background-color: white;
     padding: 1rem;
     margin-bottom: 2rem;
+    border-radius: 0.8rem;
 }
 
 .general-header-container {}

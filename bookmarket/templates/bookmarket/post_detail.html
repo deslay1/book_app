@@ -185,6 +185,13 @@
 </div>
 <div class="row">
   <div class="col-md-8 mx-auto">
+    {% if messages %}
+    {% for message in messages%}
+    <div class="alert alert-{{message.tags}}">
+      {{message}}
+    </div>
+    {%endfor%}
+    {% endif %}
     <div class="comments" id="comments" style="display: block">
       <div class="comment-section">
         <div class="comment-top">
@@ -203,13 +210,6 @@
       </div>
       <div id="comments-container" style="display: block">
         <div class="comment-section">
-          {% if messages %}
-          {% for message in messages%}
-          <div class="alert alert-{{message.tags}}">
-            {{message}}
-          </div>
-          {%endfor%}
-          {% endif %}
 
           {% for comment in comments %}
           <div class="comment-container mt-3">

@@ -4,7 +4,6 @@ from django.contrib.auth.models import User, Group
 from django.urls import reverse
 from django.conf import settings
 
-from PIL import Image
 from django import forms
 from users.models import Profile
 from django.core.exceptions import ValidationError

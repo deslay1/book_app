@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.decorators import login_required
-from .forms import PostForm, CommentForm, ReplyForm
+from .forms import PostForm, CommentForm, ReplyForm, ContactUsForm
 from .models import Post, Comment, Reply
 from django.http import HttpResponse, HttpResponseRedirect
 from django.db.models import Q, Case, When
@@ -14,7 +14,7 @@ from django.views.generic import (
     UpdateView,
     DeleteView
 )
-# from django.forms.models import model_to_dict
+from django.views.generic.edit import FormView
 from django.core.mail import send_mail
 from django.conf import settings
 from django.forms.models import model_to_dict
@@ -383,7 +383,9 @@ class PostListView(ListView):
 
         reset = self.request.GET.get("reset")
         if reset is not None:
+            condition = "All"
             self.request.session['condition'] = "All"
+            price_order = "All"
             self.request.session['price_order'] = "All"
 
         if self.request.session['condition'] != "All" and condition is not None:
@@ -513,3 +515,13 @@ class UserActivityView(ListView):
 
 def privacy_policy(request):
     return render(request, 'bookmarket/privacy_policy.html')
+
+
+class ContactUsView(FormView):
+    template_name = 'bookmarket/contact_us.html'
+    form_class = ContactUsForm
+    success_url = '/'
+
+    def form_valid(self, form):
+        form.send_email()
+        return super().form_valid(form)

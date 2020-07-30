@@ -53,24 +53,34 @@
                             <!-- <a class="nav-item nav-link" href="//github.com/deslay1/book_app">Github</a> -->
                         </div>
                         <!-- Navbar Right Side -->
-                        <div class="navbar-nav">
+                        <div class="navbar-nav align-items-center">
                             {% if user.is_authenticated %}
                             <div class="dropdown">
                                 <button class="btn btn-danger bg-transparent dropdown-toggle" id="dropdown-right"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span
                                         class="glyphicon glyphicon-search" aria-hidden="true"></span> Messages</button>
                                 <div class="dropdown-menu dropdown-primary">
-                                    <a class="dropdown-item" href="{% url "postman:inbox" %}"><i id="nav-icon-links"
+                                    <a class="dropdown-item" href="{% url 'postman:inbox' %}"><i id="nav-icon-links"
                                             class="material-icons">inbox</i>
                                         Inbox</a>
-                                    <a class="dropdown-item" href="{% url "postman:sent" %}"><i id="nav-icon-links"
+                                    <a class="dropdown-item" href="{% url 'postman:sent' %}"><i id="nav-icon-links"
                                             class="material-icons">archive</i>
                                         Sent</a>
                                 </div>
                             </div>
-                            <a class="nav-item nav-link" href="{% url 'user-activity' %}">My
-                                Activity</a>
-                            <a class="nav-item nav-link" href="/profile">My Profile</a>
+                            <div class="dropdown">
+                                <button class="btn btn-danger bg-transparent dropdown-toggle" id="dropdown-right"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span
+                                        class="glyphicon glyphicon-search" aria-hidden="true"></span> Account</button>
+                                <div class="dropdown-menu dropdown-primary">
+                                    <a class="dropdown-item" href="/profile"><i id="nav-icon-links"
+                                            class="material-icons">account_circle</i>
+                                        Profile</a>
+                                    <a class="dropdown-item" href="{% url 'user-activity' %}"><i id="nav-icon-links"
+                                            class="material-icons">dynamic_feed</i>
+                                        Activity</a>
+                                </div>
+                            </div>
                             <a class="nav-item nav-link" href="/logout">Logout</a>
                             {% else %}
                             <a class="nav-item nav-link" href="/login">Login</a>
@@ -99,7 +109,7 @@
 
     <!-- Footer -->
     <footer class="page-footer font-small stylish-color-dark ">
-        <div class="footer-container col-lg-8 mx-auto text-center text-md-left pt-3 pb-2">
+        <div class="footer-container col-lg-10 mx-auto text-center text-md-left pt-3 pb-2">
             <div class="">
                 <h6 id="footer-header" class=""><i id="logo-icon-footer" class="material-icons">bookmarks</i>
                     Bookmarket</h6>

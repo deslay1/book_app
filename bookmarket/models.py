@@ -31,10 +31,7 @@ class Post(models.Model):
     def getGroupNames():
         groups = Group.objects.order_by(
             "name").values_list('name', flat=True)
-        if groups:
-            return zip(groups, groups)
-        else:
-            return [('All', 'All')]
+        return zip(groups, groups)
 
     def validate_image(file):
         if file.size > settings.MAX_UPLOAD_SIZE:

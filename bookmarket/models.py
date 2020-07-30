@@ -50,7 +50,7 @@ class Post(models.Model):
     image3 = models.ImageField(
         upload_to='post_pics', blank=True, verbose_name="Image 3 (optional) ", validators=[validate_image])
     price = models.DecimalField(
-        max_digits=6, decimal_places=0, default="0.0", verbose_name="Price (kr)")
+        max_digits=6, decimal_places=0, default="0", verbose_name="Price (kr)")
     likes = models.ManyToManyField(User, related_name="post_likes", blank=True)
     date_posted = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)

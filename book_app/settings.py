@@ -1,5 +1,5 @@
 import os
-import django_heroku
+#import django_heroku
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -24,6 +24,7 @@ INSTALLED_APPS = [
     'bookmarket.apps.BookmarketConfig',
     'django.contrib.sessions',
     'django.contrib.messages',
+
     'django.contrib.staticfiles',
     'users.apps.UsersConfig',
     'django.contrib.admin',
@@ -42,6 +43,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -53,6 +55,7 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'dj_pagination.middleware.PaginationMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware'
+
 ]
 
 ROOT_URLCONF = 'book_app.urls'
@@ -179,4 +182,4 @@ MEDIA_URL = '/media/'
     os.path.join(BASE_DIR, 'additional'),
 ) """
 
-django_heroku.settings(locals())
+# django_heroku.settings(locals())

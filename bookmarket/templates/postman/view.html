@@ -16,47 +16,95 @@ in the INSTALLED_APPS setting.
 {% load i18n %}{% load postman_tags %}
 {% block content %}
 
+
+<div id="thisOnes"></div>
+
+
+
+
 <center>
-    <div class=commentArea3 id="thisOne1"
-        style="color: black; height: auto; align-items: center;  text-align: center;  ">
-
-
-
-    </div>
-
-    <div class=commentArea2 id="thisOne2"
-        style="color: black; height: auto; align-items: center;  text-align: center;  ">
-
-
-        {% if pm_messages|length > 1 %}{% trans "Conversation" %}{% else %}{% trans "Message" %}{% endif %}
-
-    </div>
 
 
 
 
-    <div id="scroller" class="commentArea" style="overflow-y: scroll;">
+    <div class="activity-section">
+        <div class="card4 " id="thisOne1"
+            style="color: black; height: auto; align-items: center;  text-align: center;  ">
 
-
-        {% for message in pm_messages %}
-
-
-        <div id="myDiv" style='border:2px solid;color:white; ' class="bubbledLeft">
-
-            {{ message.body|linebreaksbr }}
 
 
         </div>
-        {% if forloop.last %}
-        <form action="" method="post">{% csrf_token %}
-            <input type="hidden" {% if pm_messages|length > 1 and message.thread_id %}name="tpks"
-                value="{{ message.thread_id }}" {% else %}name="pks" value="{{ message.pk }}" {% endif %} />
 
-            <span id="pm_buttons">
 
-            </span>
+        <div id="scroller" class="commentArea6" style="overflow-y: scroll; background-color: whitesmoke;">
+
+
+            {% for message in pm_messages %}
+
+
+            <div id="myDiv" style='border:2px solid;color:white;  ' class="bubbledLeft">
+
+                {{ message.body|linebreaksbr }}
+
+
+            </div>
+            {% if forloop.last %}
+        </div>
+    </div>
+    <div class="activity-section">
+        <hr />
+
+
+
+
+        {% if pm_messages|length > 1 %} <form id="formwrap" action="{% url 'postman:reply' reply_to_pk %}?next="
+            method="post" onloadeddata="myFunction()" onsubmit="myFunction()">
+
+            <input id="formHelp" type="hidden" name="csrfmiddlewaretoken"
+                value="7FsUHgXfZkHOtIvEmUCCXJzoLh0oOwsyBr4pydV9ySziDLrlVTva6M4WkN5eRaNr">
+
+            <div id="pm_reply">{{ form.body }}
+            </div>
+
+
+
+            <button style="margin-top:1rem;" class="btn btn-primary" type="submit">Send</button>
+
+
+            <a style="margin-top:1rem; background-color: gray; color: white;" class="btn btn-primary2"
+                href="{% url 'postman:inbox' %}">{% csrf_token %} {% trans "Back" %}</a>
+
+            <input id="formHelp" type="hidden" name="csrfmiddlewaretoken"
+                value="7FsUHgXfZkHOtIvEmUCCXJzoLh0oOwsyBr4pydV9ySziDLrlVTva6M4WkN5eRaNr">
 
         </form>
+
+
+        {% else %}
+        <form id="formwrap" action="{% url 'postman:reply' reply_to_pk %}?next={{ next_url|urlencode }}" method="post"
+            onloadeddata="myFunction()" onsubmit="myFunction()">
+
+            <input id="formHelp" type="hidden" name="csrfmiddlewaretoken"
+                value="7FsUHgXfZkHOtIvEmUCCXJzoLh0oOwsyBr4pydV9ySziDLrlVTva6M4WkN5eRaNr">
+
+            <div id="pm_reply">{{ form.body }}
+            </div>
+
+
+
+            <button style="margin-top:1rem;" class="btn btn-primary" type="submit">Send</button>
+
+
+            <a style="margin-top:1rem; background-color: gray; " class="btn btn-primary2" type="submit"
+                href="{% url 'postman:inbox' %}">{% trans "Back" %}</a>
+
+            <input id="formHelp" type="hidden" name="csrfmiddlewaretoken"
+                value="7FsUHgXfZkHOtIvEmUCCXJzoLh0oOwsyBr4pydV9ySziDLrlVTva6M4WkN5eRaNr">
+        </form>{% endif %}
+
+
+
+
 
 
 
@@ -64,23 +112,30 @@ in the INSTALLED_APPS setting.
 
 
         <script>
+
+
+
             var name2 = '<me>';
             var name = '{{ message.obfuscated_sender|or_me:user }}';
             if (name < name2) {
                 document.getElementById('myDiv').className = "bubbledRight";
                 document.getElementById('myDiv').id = "old";
-                document.getElementById('thisOne1').textContent = '{{ message.obfuscated_recipient|or_me:user }}';
+                document.getElementById('thisOne1').textContent = '{{ message.obfuscated_recipient|or_me:user }}' + "  |  Subject: " + "{{ message.subject }}";
 
-                document.getElementById('thisOne2').textContent = "  Subject: " + "{{ message.subject }}";
+
+
+
             }
             else {
                 document.getElementById('myDiv').className = "bubbledLeft";
                 document.getElementById('myDiv').id = "old";
-                document.getElementById('thisOne1').textContent = '{{ message.obfuscated_sender|or_me:user }}';
-                document.getElementById('thisOne2').textContent = "  Subject: " + "{{ message.subject }}";
-            }
+                document.getElementById('thisOne1').textContent = '{{ message.obfuscated_sender|or_me:user }}' + "  |  Subject: " + "{{ message.subject }}";
+            } </script>
 
-        </script>
+
+
+
+
 
         {% endfor %}
         <script>
@@ -89,21 +144,16 @@ in the INSTALLED_APPS setting.
             objDiv.scrollTop = objDiv.scrollHeight;
         </script>
 
-    </div>
 
-    <div class="commentArea4">{% if reply_to_pk %}
-        <hr />
-        <form action="{% url 'postman:reply' reply_to_pk %}?next={{ this_url|urlencode }}" method="post">
-            {% csrf_token %}
-            <div id="pm_reply">{{ form.body }}</div>
-            <button type="submit" class="btn btn-primary">Reply</button>
-            <a href="{{ next_url }}">{% trans "Back" %}</a>
 
-        </form>
-        {% endif %}
 
     </div>
+
 
 </center>
+{% if pm_messages|length > 1 %}{% trans "Conversation" %}
+
+
+{% else %}{% trans "Message" %}{% endif %}
 
 {% endblock %}

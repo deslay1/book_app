@@ -71,7 +71,10 @@
                   <a class="mr-2" href="/profileUser/{{ post.id }}">{{ post.author }}</a>
                   {% endif %}
                   {% endif %}
+                  {% if post.author == user %}
+                  {% else %}
                   <a class="btn btn-sm btn-outline-dark" href="{% url 'postman:write' post.author %}">Send message</a>
+                  {% endif %}
                 </div>
                 <small class="text-muted">{{ post.date_posted|date:"F d, Y H:i" }}</small>
               </div>

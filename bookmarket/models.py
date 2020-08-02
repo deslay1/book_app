@@ -52,7 +52,7 @@ class Post(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     SellerOrBuyer = models.CharField(
         max_length=50, default=Buy_Sell[0], choices=Buy_Sell, verbose_name="Are you here to buy or sell? ")
-    Condition = models.CharField(
+    condition = models.CharField(
         max_length=50,
         blank=True,
         choices=conditions,

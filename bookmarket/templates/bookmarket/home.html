@@ -3,9 +3,9 @@
 {% load bootstrap %}
 {% block content %}
 
-<div id="groups" class="mx-auto">
+<div id="groups" class="col-md-7 offset-md-4">
   <div class="home-container">
-    <div class="col-md-10 mx-auto scrollmenu">
+    <div class="scrollmenu">
       <form method="GET" action="">
         {% for group in groups %}
         <button id="{{group.name}}"
@@ -224,9 +224,9 @@
                 Comment{{ post.comments.count|pluralize }}
               </h6>
             </div>
-            {% if post.Condition %}
+            {% if post.condition %}
             <h6 class=" post-condition">
-              <span class="badge badge-success">Condition: {{ post.Condition }}</span>
+              <span class="badge badge-success">Condition: {{ post.condition }}</span>
             </h6>
             {% endif %}
           </div>

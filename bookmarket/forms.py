@@ -22,7 +22,7 @@ class PostForm(forms.ModelForm):
             "image3",
             "price",
             "SellerOrBuyer",
-            'Condition',
+            'condition',
             'category'
         ]
         widgets = {

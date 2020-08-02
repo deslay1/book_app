@@ -47,6 +47,59 @@ body {
 
 }
 
+.popup {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+  }
+  
+  /* The actual popup (appears on top) */
+  .popup .popuptext {
+    visibility: hidden;
+    width: 160px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -80px;
+  }
+  
+  /* Popup arrow */
+  .popup .popuptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+  }
+  
+  /* Toggle this class when clicking on the popup container (hide and show the popup) */
+  .popup .show {
+    visibility: visible;
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s
+  }
+  
+  /* Add animation (fade in the popup) */
+  @-webkit-keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+  }
+  
+  @keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity:1 ;}
+  }
+
+
 table {
     border: 2px solid #555;
     border-collapse: collapse;
@@ -153,6 +206,15 @@ ul {
     border-radius: 0.7rem;
     padding: 1rem;
     max-height: 85vh;
+    overflow: auto;
+    margin-bottom: 1rem;
+}
+.activity-section2 {
+    background: #fff;
+    border: 0.1rem solid black;
+    border-radius: 0.7rem;
+    padding: 1rem;
+    max-height: 50rem;
     overflow: auto;
     margin-bottom: 1rem;
 }
@@ -438,9 +500,15 @@ ol {
 .btn-primary:hover {
     background-color: #0d4b8e !important;
 }
+.btn-primary2:hover {
+    background-color: gray !important;
+}
 
 .btn-primary {
     background-color: #1071da !important;
+}
+.btn-primary2 {
+    background-color: darkgray !important;
 }
 
 .btn-outline-primary {
@@ -613,11 +681,9 @@ ol {
     text-align: center;
     display: inline-block;
 
-    border-style: solid;
-    border-width: 2px;
-    border-color: chartreuse;
-    background-color: rgb(235, 143, 23);
-    color: #ffffff;
+    
+
+margin-bottom: 5px;
 
 
     /*margin: 1rem 0rem 0 0rem;*/
@@ -648,13 +714,12 @@ ol {
 .commentArea4 {
     font: auto Arial;
     padding: 0 10px;
-
+margin-top: 1rem;
     color: black !important;
     background-color: #F8F9F9;
     border-style: solid;
     border-width: 2px;
     border-radius: 1rem;
-
     width: 80%;
     min-width: 80%;
     border-color: #c63f2a;
@@ -764,6 +829,19 @@ ol {
     border-color: #c63f2a;
 
 }
+.commentArea6 {
+    font: auto Arial;
+    padding: 0 10px;
+    margin-top: 2px;
+    
+    background-color: #F8F9F9;
+    display: inline-block;
+    align-self: center;
+    width: 100%;
+    min-height: 30rem;
+    max-height: 30rem;
+
+}
 
 .commentArea {
     font: auto Arial;
@@ -779,7 +857,7 @@ ol {
     width: 80%;
     min-width: 80%;
     min-height: 15rem;
-    max-height: 30em;
+    max-height: 45rem;
     border-color: #c63f2a;
 
 }
@@ -806,12 +884,12 @@ ol {
     -o-border-radius: 8px 8px 8px 0px;
     -ms-border-radius: 8px 8px 8px 0px;
     border-radius: 8px 8px 8px 0px;
-    background-color: #65B045;
+    background-color: gray;
     color: #ffffff;
 }
 
 .bubbledLeft:before {
-    border-bottom: 10px solid #65B045;
+    border-bottom: 10px solid gray;
     border-left: 9px solid rgba(0, 0, 0, 0);
     position: absolute;
     bottom: 0;
@@ -909,8 +987,6 @@ ol {
 }
 
 .card3 {
-    text-size-adjust: 100px;
-    font-style: italic;
     color: #FFFFFF;
 
     display: flex;
@@ -918,7 +994,7 @@ ol {
     /* align horizontal */
     align-items: center;
     /* align vertical */
-    margin-top: 10%;
+    margin-top: 5%;
     margin-bottom: 5%;
 
     /*margin: 1rem 0rem 0 0rem;*/

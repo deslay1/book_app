@@ -170,48 +170,46 @@ def profileUser(request, username):
 
 def profileUserName(request, username, inos):
 
-    posts = Post.objects.all()
-    authors = "hej"
+    post_id = username
 
+    authors = "noOne"
+
+    posts = Post.objects.all()
     for post in posts:
         if post.author.username == username:
             posts = Post.objects.filter(
                 Q(author=post.author)).distinct().order_by('-date_posted')
             authors = post.author
 
-    posts = Post.objects.filter(
-        author__username=username).distinct().order_by('-date_posted')
+    user_posts = Post.objects.filter(
+        Q(author__username=username)).order_by('-date_posted')
 
-    paginator = Paginator(posts, 2)
+    paginator = Paginator(user_posts, 2)
 
     page = request.GET.get('page')
-    try:
-        post_List = paginator.page(page)
-    except PageNotAnInteger:
-        post_List = paginator.page(1)
-    except EmptyPage:
-        post_List = paginator.page(paginator.num_pages)
-    context = {
-        'authors': authors,
 
-        'post_List': post_List
+    try:
+        user_posts = paginator.page(page)
+    except PageNotAnInteger:
+        user_posts = paginator.page(1)
+    except EmptyPage:
+        user_posts = paginator.page(paginator.num_pages)
+    context = {
+        'profile_user': authors,
+        'post_List': user_posts
     }
 
-    href = 'users/profileUser.html'
-
-    p = pathlib.Path(request.path)
-    p.parts[2:]
-
-    if len(posts) == 0:
-        messages.success(
-            request, f'This user does not have any posts'
+    if len(user_posts) == 0:
+        messages.warning(
+            request, username +
+            f' has no posts but you can always use the chat.   Just click on the subject.'
         )
         if inos == 's':
             return redirect('postman:sent')
         if inos == 'in':
             return redirect('postman:inbox')
 
-    return render(request, href, context)
+    return render(request, 'users/profileUser.html', context)
 
 
 def base(request):

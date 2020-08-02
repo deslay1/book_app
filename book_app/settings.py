@@ -21,7 +21,7 @@ ALLOWED_HOSTS = ['https://bookmarket-app.herokuapp.com/',
 INSTALLED_APPS = [
     'bootstrapform',
     'crispy_forms',
-    'bookmarket.apps.BookmarketConfig',
+    # 'bookmarket.apps.BookmarketConfig',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',

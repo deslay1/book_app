@@ -26,6 +26,9 @@ class Post(models.Model):
     ]
 
     def getGroupNames():
+        """ groups = Group.objects.order_by(
+            "name").values_list('name', flat=True)
+        return zip(groups, groups) """
         return [("All", "All")]
 
     def validate_image(file):
@@ -54,9 +57,7 @@ class Post(models.Model):
         choices=conditions,
         verbose_name="Condition of book(s) (optional)")
     category = models.CharField(
-        max_length=50, default=("All", "All"), choices=getGroupNames(), verbose_name='What group do you want to publish to?')
-    # category = models.CharField(
-    #    max_length=50, default=list(getGroupNames())[0], choices=getGroupNames(), verbose_name='What group do you want to publish to?')
+        max_length=50, default=list(getGroupNames())[0], choices=getGroupNames(), verbose_name='What group do you want to publish to?')
 
     def __str__(self):
         return self.title

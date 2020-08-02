@@ -18,7 +18,9 @@ class UserRegisterForm(UserCreationForm):
                   'last_name', 'password1', 'password2']
 
     def getGroupNames():
-        return [("All", "All")]
+        groups = Group.objects.order_by(
+            "name").values_list('name', flat=True)
+        return zip(groups, groups)
 
     category = forms.ChoiceField(
         choices=getGroupNames(), label="What group do you belong to?")

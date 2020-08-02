@@ -16,47 +16,104 @@ in the INSTALLED_APPS setting.
 {% load i18n %}{% load postman_tags %}
 {% block content %}
 
+
+<div id="thisOnes"></div>
 <center>
-    <div class=commentArea3 id="thisOne1"
-        style="color: black; height: auto; align-items: center;  text-align: center;  ">
+
+    <div class="activity-section" style="margin-top: 0px; margin-bottom: 0px;">
+        <hr style="margin-top: 0px; color: black; background-color: black;" />
+
+        <h5 id="thisOne1" style="color: black; height: auto; align-items: center;  text-align: center;  ">
+
+        </h5>
+        <hr style=" color: black; background-color: black; margin-bottom: 0px;" />
+        <div id="scroller" class="commentArea6" style="overflow-y: scroll; background-color: whitesmoke;">
 
 
-
-    </div>
-
-    <div class=commentArea2 id="thisOne2"
-        style="color: black; height: auto; align-items: center;  text-align: center;  ">
+            {% for message in pm_messages %}
 
 
-        {% if pm_messages|length > 1 %}{% trans "Conversation" %}{% else %}{% trans "Message" %}{% endif %}
+            <div id="myDiv" style='border:2px solid;color:white;  ' class="bubbledLeft">
 
-    </div>
-
-
+                {{ message.body|linebreaksbr }}
 
 
-    <div id="scroller" class="commentArea" style="overflow-y: scroll;">
-
-
-        {% for message in pm_messages %}
-
-
-        <div id="myDiv" style='border:2px solid;color:white; ' class="bubbledLeft">
-
-            {{ message.body|linebreaksbr }}
-
-
+            </div>
+            {% if forloop.last %}
         </div>
-        {% if forloop.last %}
-        <form action="" method="post">{% csrf_token %}
-            <input type="hidden" {% if pm_messages|length > 1 and message.thread_id %}name="tpks"
-                value="{{ message.thread_id }}" {% else %}name="pks" value="{{ message.pk }}" {% endif %} />
+    </div>
+    <div class="activity-section">
 
-            <span id="pm_buttons">
 
-            </span>
+        {% if pm_messages|length > 1 %} <form id="formwrap" action="{% url 'postman:reply' reply_to_pk %}?next="
+            method="post">{% csrf_token %}
+
+
+
+            <div id="pm_reply">{{ form.body }}
+            </div>
+
+
+
+            <button style="margin-top:1rem;" class="btn btn-primary" type="submit">Send</button>
+
+
+            <a style="margin-top:1rem; background-color: gray; color: white;" class="btn btn-primary2"
+                href="{% url 'postman:inbox' %}">{% csrf_token %} {% trans "Back" %}</a>
+
 
         </form>
+
+
+        {% else %}
+        {% if message.sender == user %}
+
+        <form id="formwrap" onloadeddata="myFunction()" onsubmit="myFunction()">{% csrf_token %}
+
+            <hr style="margin-top: 0px; color: black; background-color: black;" />
+
+            <h5 id="thisOne1" style="color: black; height: auto; align-items: center;  text-align: center;  ">
+
+
+                You have to wait for an answer to write again
+
+            </h5>
+            <hr style=" color: black; background-color: black; margin-bottom: 0px;" />
+
+        </form>
+
+        {% else %}
+
+        <form id="formwrap" action="{% url 'postman:reply' reply_to_pk %}?next={{ next_url|urlencode }}" method="post"
+            onloadeddata="myFunction()" onsubmit="myFunction()">{% csrf_token %}
+
+
+
+            <div id="pm_reply">{{ form.body }}
+            </div>
+
+
+
+            <button style="margin-top:1rem;" class="btn btn-primary" type="submit">Send</button>
+
+
+            <a style="margin-top:1rem;  background-color: gray; " class="btn btn-primary2" type="submit"
+                href="{% url 'postman:inbox' %}">{% trans "Back" %}</a>
+
+
+        </form>
+
+        {% endif %}
+
+
+
+
+
+        {% endif %}
+
+
+
+
 
 
 
@@ -64,23 +121,30 @@ in the INSTALLED_APPS setting.
 
 
         <script>
-            var name2 = '<me>';
-            var name = '{{ message.obfuscated_sender|or_me:user }}';
-            if (name < name2) {
+
+
+
+            var name2 = '{{ user }}';
+            var name = '{{ message.sender }}';
+            var h = name.localeCompare(name2);
+            if (name == name2) {
                 document.getElementById('myDiv').className = "bubbledRight";
                 document.getElementById('myDiv').id = "old";
-                document.getElementById('thisOne1').textContent = '{{ message.obfuscated_recipient|or_me:user }}';
+                document.getElementById('thisOne1').textContent = "User: " + '{{ message.obfuscated_recipient|or_me:user }}' + "  |  Subject: " + "{{ message.subject }}";
 
-                document.getElementById('thisOne2').textContent = "  Subject: " + "{{ message.subject }}";
+
+
+
             }
             else {
                 document.getElementById('myDiv').className = "bubbledLeft";
                 document.getElementById('myDiv').id = "old";
-                document.getElementById('thisOne1').textContent = '{{ message.obfuscated_sender|or_me:user }}';
-                document.getElementById('thisOne2').textContent = "  Subject: " + "{{ message.subject }}";
-            }
+                document.getElementById('thisOne1').textContent = '{{ message.obfuscated_sender|or_me:user }}' + "  |  Subject: " + "{{ message.subject }}";
+            } </script>
 
-        </script>
+
+
+
 
         {% endfor %}
         <script>
@@ -89,21 +153,13 @@ in the INSTALLED_APPS setting.
             objDiv.scrollTop = objDiv.scrollHeight;
         </script>
 
-    </div>
 
-    <div class="commentArea4">{% if reply_to_pk %}
-        <hr />
-        <form action="{% url 'postman:reply' reply_to_pk %}?next={{ this_url|urlencode }}" method="post">
-            {% csrf_token %}
-            <div id="pm_reply">{{ form.body }}</div>
-            <button type="submit" class="btn btn-primary">Reply</button>
-            <a href="{{ next_url }}">{% trans "Back" %}</a>
 
-        </form>
-        {% endif %}
 
     </div>
+
 
 </center>
+
 
 {% endblock %}

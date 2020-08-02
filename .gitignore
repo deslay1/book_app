@@ -14,7 +14,6 @@ bookAppEnv/
 media/post_pics/*
 media/profile_pics/*
 
-
 __pycache__/
 *.py[cod]
 *$py.class

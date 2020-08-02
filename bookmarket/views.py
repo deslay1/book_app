@@ -7,6 +7,18 @@ from .models import Post, Comment, Reply
 from django.http import HttpResponse, HttpResponseRedirect
 from django.db.models import Q, Case, When
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.utils.decorators import method_decorator
+
+from django.core import serializers
+from django.http import JsonResponse
+from django.utils.html import strip_tags
+from django.template.loader import get_template, render_to_string
+from .session_calc import check_session_item
+from django.contrib import messages
+from django.contrib.auth.models import User, Group
+from django.forms.models import model_to_dict
+from django.conf import settings
+from django.core.mail import send_mail
 from django.views.generic import (
     ListView,
     DetailView,
@@ -25,6 +37,18 @@ from django.template.loader import get_template, render_to_string
 from django.utils.html import strip_tags
 from django.http import JsonResponse
 from django.core import serializers
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.db.models import Q, Case, When
+from django.http import HttpResponse, HttpResponseRedirect
+from .models import Post, Comment, Reply
+from .forms import PostForm, CommentForm, ReplyForm
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.views.generic import ListView
+from django.shortcuts import render, get_object_or_404, redirect
+
+
+# from django.forms.models import model_to_dict
 
 
 @login_required(login_url='login')
@@ -65,7 +89,7 @@ def add_comment_to_post(request, pk):
     return render(request, 'bookmarket/add_comment.html', {'form': form, 'post': post})
 
 
-@login_required(login_url='login')
+@ login_required(login_url='login')
 def update_comment_likes(request, id):
     comment = get_object_or_404(Comment, id=id)
 
@@ -99,7 +123,7 @@ def update_comment_likes(request, id):
     return HttpResponseRedirect(comment.get_absolute_url()+"#comment-card-" + str(id))
 
 
-@login_required(login_url='login')
+@ login_required(login_url='login')
 def update_comment(request, pk, id):
     post = get_object_or_404(Post, pk=pk)
     post_comment = get_object_or_404(Comment, id=id)
@@ -113,7 +137,7 @@ def update_comment(request, pk, id):
     return render(request, 'bookmarket/update_comment.html', {'form': form})
 
 
-@login_required(login_url='login')
+@ login_required(login_url='login')
 def delete_comment(request, pk, id):
     post = get_object_or_404(Post, pk=pk)
     post_comment = get_object_or_404(Comment, id=id)
@@ -124,7 +148,7 @@ def delete_comment(request, pk, id):
     # return redirect(request.META['HTTP_REFERER'])
 
 
-@login_required(login_url='login')
+@ login_required(login_url='login')
 def add_reply_to_comment(request, pk, id):
     comment = get_object_or_404(Comment, id=id)
     user_query = User.objects.get(id=request.user.id)
@@ -153,7 +177,7 @@ def add_reply_to_comment(request, pk, id):
     return JsonResponse({"error": ""}, status=400)
 
 
-@login_required(login_url='login')
+@ login_required(login_url='login')
 def update_reply_likes(request, id):
     reply = get_object_or_404(Reply, id=id)
 
@@ -186,7 +210,7 @@ def update_reply_likes(request, id):
     return HttpResponseRedirect(reply.comment.get_absolute_url()+"#reply-card-" + str(id))
 
 
-@login_required(login_url='login')
+@ login_required(login_url='login')
 def update_reply(request, pk, id):
     post = get_object_or_404(Post, pk=pk)
     comment_reply = get_object_or_404(Reply, id=id)
@@ -211,7 +235,7 @@ def update_reply(request, pk, id):
     # return HttpResponseRedirect(post.get_absolute_url())
 
 
-@login_required(login_url='login')
+@ login_required(login_url='login')
 def delete_reply(request, pk, id):
     post = get_object_or_404(Post, pk=pk)
     comment_reply = get_object_or_404(Reply, id=id)
@@ -220,7 +244,7 @@ def delete_reply(request, pk, id):
     # return redirect('post-detail', pk=post.pk)
 
 
-@login_required(login_url='login')
+@ login_required(login_url='login')
 def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
 
@@ -253,7 +277,7 @@ def post_detail(request, pk):
     return render(request, 'bookmarket/post_detail.html', context)
 
 
-@login_required(login_url='login')
+@ login_required(login_url='login')
 def like_post(request):
     liked_post_id = request.POST.get('like')
     post = get_object_or_404(Post, id=liked_post_id)
@@ -267,7 +291,7 @@ def like_post(request):
     return HttpResponseRedirect(post.get_absolute_url())
 
 
-@login_required(login_url='login')
+@ login_required(login_url='login')
 def add_message_to_post(request, pk):
     post = get_object_or_404(Post, pk=pk)
 
@@ -305,7 +329,7 @@ def message(request):
     return render(request, 'postman/add_message.html')
 
 
-@login_required(login_url='login')
+@ login_required(login_url='login')
 def show_message(request):
     posts = Message.objects.all().filter(
         Q(comuser=request.user)).order_by('-date_posted')
@@ -453,7 +477,7 @@ class PostListView(ListView):
 
 
 class PostCreateView(LoginRequiredMixin, CreateView):
-    #template_name = "bookmarket/post_form.html"
+    # template_name = "bookmarket/post_form.html"
     model = Post
     form_class = PostForm
 

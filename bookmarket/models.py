@@ -26,9 +26,6 @@ class Post(models.Model):
     ]
 
     def getGroupNames():
-        """ groups = Group.objects.order_by(
-            "name").values_list('name', flat=True)
-        return zip(groups, groups) """
         return [("All", "All")]
 
     def validate_image(file):

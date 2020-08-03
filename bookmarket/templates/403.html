@@ -1,0 +1,14 @@
+{% extends "bookmarket/base.html" %}
+{% block title %}Bookmarket{% endblock %}
+{% load bootstrap %}
+{% block content %}
+<div class="general-section col-md-8 mx-auto">
+    <h3>Error 403: Forbidden access.</h3>
+    <h5>Exception raised: <b>{{exception}}.</b></h5>
+    <p>Request method: {{request.method}}.</p>
+    <hr>
+    <p>You need the correct authorization to access the path {{request.path}}.</p>
+    <p>If you think this is a mistake, then please contact us via the link on the bottom to reach out to
+        us about it.</p>
+</div>
+{% endblock content%}

@@ -1,0 +1,13 @@
+{% extends "bookmarket/base.html" %}
+{% block title %}Bookmarket{% endblock %}
+{% load bootstrap %}
+{% block content %}
+<div class="general-section col-md-8 mx-auto">
+    <h3>Error 404: Page not found.</h3>
+    <h5>Exception raised: <b>{{exception}}.</b></h5>
+    <p>Request method: {{request.method}}.</p>
+    <hr>
+    <p>There is no page available on this site at {{request.path}}.</p>
+    <p>Please make sure that the url you are trying to access is correctly formatted.</p>
+</div>
+{% endblock content%}

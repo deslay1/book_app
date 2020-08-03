@@ -20,6 +20,20 @@ from django.conf import settings
 from django.conf.urls.static import static
 from users import views as user_views
 from django.views.decorators.csrf import csrf_exempt
+from django.views.generic import TemplateView
+
+
+# For sentry debug
+def trigger_error(request):
+    division_by_zero = 1 / 0
+
+
+# Error handlers
+handler404 = 'bookmarket.views.handler404'
+# handler500 = 'bookmarket.views.handler500' # Not needed since Sentry captures these errors by default
+handler403 = 'bookmarket.views.handler403'
+handler400 = 'bookmarket.views.handler400'
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -47,7 +61,7 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('user/', include('users.urls')),
     path('messages/', include('postman.urls', namespace='postman')),
-
+    path('sentry-debug/', trigger_error),
 ]
 
 if settings.DEBUG:

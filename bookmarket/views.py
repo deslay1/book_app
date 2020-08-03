@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import PostForm, CommentForm, ReplyForm, ContactUsForm
 from .models import Post, Comment, Reply
 from django.http import HttpResponse, HttpResponseRedirect
+from sentry_sdk import capture_message
 from django.db.models import Q, Case, When
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.utils.decorators import method_decorator
@@ -549,3 +550,24 @@ class ContactUsView(FormView):
     def form_valid(self, form):
         form.send_email()
         return super().form_valid(form)
+
+
+# ---------------------------Error Views ----------------------------
+def handler404(request, exception):
+    capture_message("404: Page not found.", level="error")
+    return render(request, '404.html', {'exception': exception})
+
+
+""" def handler500(request):
+    capture_message("500: Server error.", level="error")
+    return render(request, '500.html', {}) """
+
+
+def handler403(request, exception):
+    capture_message("403: Forbidden access.", level="error")
+    return render(request, '403.html', {'exception': exception})
+
+
+def handler400(request, exception):
+    capture_message("400: Bad Request.", level="error")
+    return render(request, '400.html', {'exception': exception})

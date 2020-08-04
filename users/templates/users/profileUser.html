@@ -30,6 +30,9 @@
         <div class="article-metadata">
           <div class="post-admin justify-content-between">
             <div>
+              <div class="profile-image-container">
+                <img class="rounded-circle img-fluid w-75" src="{{ post.author.profile.image.url }}" />
+              </div>
               <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}" />
               <div style="display:flex;flex-direction: column;">
                 {% if post.author.first_name and post.author.last_name %}

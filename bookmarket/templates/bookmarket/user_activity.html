@@ -10,8 +10,9 @@
                 <div class="card-header">
                     <div class="justify-content-between row">
                         <div>
-                            <img class="rounded-circle article-img comment-photo"
-                                src="{{ comment.comuser.profile.image.url }}" />
+                            <div class="profile-image-container">
+                                <img class="rounded-circle w-75" src="{{ comment.comuser.profile.image.url }}" />
+                            </div>
                             <div style="display:flex;align-items: center;">
                                 {% if comment.comuser.first_name and comment.comuser.last_name %}
                                 <a href="/profile/">{{ comment.comuser.first_name }}
@@ -58,7 +59,9 @@
                 <div class="article-metadata">
                     <div class="post-admin justify-content-between">
                         <div>
-                            <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}" />
+                            <div class="profile-image-container">
+                                <img class="rounded-circle img-fluid w-75" src="{{ post.author.profile.image.url }}" />
+                            </div>
                             <div style="display:flex;flex-direction: column;">
                                 {% if post.author.first_name and post.author.last_name %}
                                 <a class="mr-2" href="/profileUser/{{ post.id }}">{{ post.author.first_name }}

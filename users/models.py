@@ -7,6 +7,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from django.template.defaultfilters import filesizeformat
+from PIL import Image, ImageDraw, ImageFilter
 
 
 class Profile(models.Model):
@@ -25,13 +26,28 @@ class Profile(models.Model):
         return f'{self.user.username}'
 
 
-# Another validion where we look at the height and width of the uploaded profile picture
-"""     def save(self, *args, **kwargs):
+# A validion on save where we set a max height and width of the uploaded profile picture.
+# We also crop out a max square out of the uploaded image for consistent dimensions.
+
+    def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
 
         img = Image.open(self.image.path)
-
         if img.height > 300 or img.width > 300:
             output_size = (300, 300)
             img.thumbnail(output_size)
-            img.save(self.image.path) """
+
+        thumb_width = 300
+        img = self.crop_max_square(img).resize(
+            (thumb_width, thumb_width), Image.LANCZOS)
+        img.save(self.image.path)
+
+    def crop_max_square(self, image):
+        return self.crop_center(image, min(image.size), min(image.size))
+
+    def crop_center(self, image, crop_width, crop_height):
+        img_width, img_height = image.size
+        return image.crop(((img_width - crop_width) // 2,
+                           (img_height - crop_height) // 2,
+                           (img_width + crop_width) // 2,
+                           (img_height + crop_height) // 2))

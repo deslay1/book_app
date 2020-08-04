@@ -86,7 +86,9 @@ $(".reply-button").click(function () {
           <div class="card-header">
             <div class="justify-content-between row">
               <div>
-                <img class="rounded-circle article-img comment-photo" src="${profile.image}" />
+                  <div class="profile-image-container">
+                    <img class="rounded-circle img-fluid w-75" src="${profile.image}" />
+                   </div>
                 <div style="display:flex;align-items: center;">
                   <a href="/profile/">${user.username}</a>
                   <small class="ml-2">just now</small>
@@ -163,13 +165,10 @@ $("#id_image2").change(function () {
   $("#image3").removeClass("image-hide");
 });
 
-
-$('#thisForm')
-  .ajaxForm({
-    url: 'myscript.php', // or whatever
-    dataType: 'json',
-    success: function (response) {
-      alert("The server says: " + response);
-    }
-  })
-  ;
+$("#thisForm").ajaxForm({
+  url: "myscript.php", // or whatever
+  dataType: "json",
+  success: function (response) {
+    alert("The server says: " + response);
+  },
+});

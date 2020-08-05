@@ -171,6 +171,11 @@
             </div>
           </div>
       </article>
+      {% empty %}
+      <div class="general-section">
+        <h4 class="mb-3" style="text-align: center;">Your posts</h4>
+        <h6 class="mt-1">You have not added any posts yet.</h6>
+      </div>
       {% endfor %}
       {% if post_List %}
       {% if post_List.has_previous %}

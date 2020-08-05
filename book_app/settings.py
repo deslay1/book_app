@@ -26,6 +26,7 @@ ALLOWED_HOSTS = ['https://bookmarket-app.herokuapp.com/',
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     'bootstrapform',
     'crispy_forms',
     'bookmarket.apps.BookmarketConfig',
@@ -56,7 +57,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # 'social_django.middleware.SocialAuthExceptionMiddleware',
+    'social_django.middleware.SocialAuthExceptionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'dj_pagination.middleware.PaginationMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware'
@@ -82,8 +83,8 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'postman.context_processors.inbox',
-                # 'social_django.context_processors.backends',
-                # 'social_django.context_processors.login_redirect',
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
@@ -182,5 +183,50 @@ MEDIA_URL = '/media/'
 """ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'additional'),
 ) """
+
+JAZZMIN_SETTINGS = {
+    'site_title': 'Bookmarket Admin',
+    'site_header': 'Bookmarket',
+    'welcome_sign': 'Welcome to the Bookmarket Admin Page',
+    'copyright': 'Bookmarket',
+    'search_model': 'auth.User',
+    'topmenu_links': [
+        {'name': 'Home',  'url': 'admin:index',
+            'permissions': ['auth.view_user']},
+        {'name': 'Production',  'url': 'https://bookmarket-app.herokuapp.com'},
+        {'name': 'Localhost',  'url': 'http://127.0.0.1:8000/'},
+        {'name': 'Github', 'url': 'https://github.com/deslay1/book_app',
+            'new_window': True},
+        {'model': 'auth.User'},
+        {'app': 'bookmarket'},
+    ],
+    'usermenu_links': [
+        {'model': 'auth.user'}
+    ],
+    'show_sidebar': True,
+    'navigation_expanded': True,
+    'hide_apps': [],
+    'hide_models': [],
+    'order_with_respect_to': ['accounts', 'bookmarket'],
+    "show_ui_builder": True,
+}
+
+JAZZMIN_UI_TWEAKS = {
+    "navbar_small_text": False,
+    "footer_small_text": False,
+    "body_small_text": True,
+    "brand_small_text": False,
+    "brand_colour": "navbar-danger",
+    "accent": "accent-danger",
+    "navbar": "navbar-danger navbar-dark",
+    "no_navbar_border": False,
+    "sidebar": "sidebar-dark-danger",
+    "sidebar_nav_small_text": False,
+    "sidebar_disable_expand": False,
+    "sidebar_nav_child_indent": True,
+    "sidebar_nav_compact_style": True,
+    "sidebar_nav_legacy_style": False,
+    "sidebar_nav_flat_style": False
+}
 
 django_heroku.settings(locals())

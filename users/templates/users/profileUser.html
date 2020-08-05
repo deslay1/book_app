@@ -33,7 +33,6 @@
               <div class="profile-image-container">
                 <img class="rounded-circle img-fluid w-75" src="{{ post.author.profile.image.url }}" />
               </div>
-              <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}" />
               <div style="display:flex;flex-direction: column;">
                 {% if post.author.first_name and post.author.last_name %}
                 <a class="mr-2" href="/profileUser/{{ post.id }}">{{ post.author.first_name }}
@@ -141,7 +140,11 @@
           </div>
         </div>
     </article>
-
+    {% empty %}
+    <div class="general-section">
+      <h4 class="mb-3" style="text-align: center;">Posts</h4>
+      <h6 class="mt-1">This user has not added any posts yet.</h6>
+    </div>
     {% endfor %}
 
     {% if post_List %}

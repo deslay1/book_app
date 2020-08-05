@@ -51,10 +51,10 @@ class Profile(models.Model):
             img = self.crop_max_square(img).resize(
                 (thumb_width, thumb_width), Image.LANCZOS)
 
-            if settings.DEBUG == True:
+            """ if settings.DEBUG == True:
                 img.save(self.image.path)
             else:
-                img.save(self.image)
+                img.save(self.image) """
 
     def crop_max_square(self, image):
         return self.crop_center(image, min(image.size), min(image.size))

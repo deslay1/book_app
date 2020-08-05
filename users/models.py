@@ -38,7 +38,7 @@ class Profile(models.Model):
         # does not support absolute paths.
         # Use self.image, which points to the media files in prod.
         if settings.IMAGE_TESTING == False:
-            if settings.USE_POSTGRES == False:
+            if settings.DEBUG == True:
                 img = Image.open(self.image.path)
             else:
                 img = Image.open(self.image)
@@ -51,7 +51,7 @@ class Profile(models.Model):
             img = self.crop_max_square(img).resize(
                 (thumb_width, thumb_width), Image.LANCZOS)
 
-            if settings.USE_POSTGRES == False:
+            if settings.DEBUG == True:
                 img.save(self.image.path)
             else:
                 img.save(self.image)

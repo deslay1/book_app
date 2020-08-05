@@ -47,6 +47,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView
 from django.shortcuts import render, get_object_or_404, redirect
+from django.db import connection
 
 
 # from django.forms.models import model_to_dict
@@ -361,6 +362,9 @@ class PostListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(PostListView, self).get_context_data(**kwargs)
+
+        db_name = connection.settings_dict['NAME']
+        print(db_name)
 
         user_groups = self.request.user.groups.values_list(
             'name', flat=True)

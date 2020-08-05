@@ -7,7 +7,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from django.template.defaultfilters import filesizeformat
-from PIL import Image, ImageDraw, ImageFilter
+from PIL import Image
 
 
 class Profile(models.Model):

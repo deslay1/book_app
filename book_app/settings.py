@@ -156,10 +156,13 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASS')
-SITE_ID = os.environ['SITE_ID']
+SITE_ID = os.environ.get('SITE_ID')
 
-ADMINS = [("Admin-" + str(index), admin)
-          for index, admin in enumerate(os.environ.get("DJANGO_ADMINS").split(","))]
+# ADMINS = [("Admin-" + str(index), admin)
+#          for index, admin in enumerate(os.environ.get("DJANGO_ADMINS").split(","))]
+
+USE_POSTGRES = os.environ.get('USE_POSTGRES')
+IMAGE_TESTING = True
 
 if DEBUG == True:
     STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')

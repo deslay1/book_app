@@ -37,23 +37,24 @@ class Profile(models.Model):
         # Postgres backend (this app's production database)
         # does not support absolute paths.
         # Use self.image, which points to the media files in prod.
-        if settings.DEBUG == True:
-            img = Image.open(self.image.path)
-        else:
-            img = Image.open(self.image)
+        if settings.IMAGE_TESTING == False:
+            if settings.USE_POSTGRES == False:
+                img = Image.open(self.image.path)
+            else:
+                img = Image.open(self.image)
 
-        if img.height > 300 or img.width > 300:
-            output_size = (300, 300)
-            img.thumbnail(output_size)
+            if img.height > 300 or img.width > 300:
+                output_size = (300, 300)
+                img.thumbnail(output_size)
 
-        thumb_width = 300
-        img = self.crop_max_square(img).resize(
-            (thumb_width, thumb_width), Image.LANCZOS)
+            thumb_width = 300
+            img = self.crop_max_square(img).resize(
+                (thumb_width, thumb_width), Image.LANCZOS)
 
-        if settings.DEBUG == True:
-            img.save(self.image.path)
-        else:
-            img.save(self.image)
+            if settings.USE_POSTGRES == False:
+                img.save(self.image.path)
+            else:
+                img.save(self.image)
 
     def crop_max_square(self, image):
         return self.crop_center(image, min(image.size), min(image.size))

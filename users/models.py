@@ -40,7 +40,7 @@ class Profile(models.Model):
         if settings.DEBUG == True:
             img = Image.open(self.image.path)
         else:
-            img = Image.open(self.image.url)
+            img = Image.open(self.image)
 
         if img.height > 300 or img.width > 300:
             output_size = (300, 300)
@@ -53,7 +53,7 @@ class Profile(models.Model):
         if settings.DEBUG == True:
             img.save(self.image.path)
         else:
-            img.save(self.image.url)
+            img.save(self.image)
 
     def crop_max_square(self, image):
         return self.crop_center(image, min(image.size), min(image.size))

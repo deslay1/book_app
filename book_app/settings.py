@@ -162,7 +162,8 @@ SITE_ID = os.environ.get('SITE_ID')
 #          for index, admin in enumerate(os.environ.get("DJANGO_ADMINS").split(","))]
 
 USE_POSTGRES = os.environ.get('USE_POSTGRES')
-IMAGE_TESTING = True
+# To be able to test, use "False" on the right hand side.
+IMAGE_TESTING = (os.environ.get('IMAGE_TESTING') == "True")
 
 if DEBUG == True:
     STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')

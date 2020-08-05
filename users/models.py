@@ -31,10 +31,16 @@ class Profile(models.Model):
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
+
+        # self.image is the same as self.image.name
+        # self.image.path is the full absolute path
+        # Postgres backend (this app's production database)
+        # does not support absolute paths.
+        # Use self.image.url, which ponts to /media/
         if settings.DEBUG == True:
             img = Image.open(self.image.path)
         else:
-            img = Image.open(self.image.name)
+            img = Image.open(self.image.url)
 
         if img.height > 300 or img.width > 300:
             output_size = (300, 300)
@@ -47,7 +53,7 @@ class Profile(models.Model):
         if settings.DEBUG == True:
             img.save(self.image.path)
         else:
-            img.save(self.image.name)
+            img.save(self.image.url)
 
     def crop_max_square(self, image):
         return self.crop_center(image, min(image.size), min(image.size))

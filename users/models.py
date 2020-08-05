@@ -32,11 +32,11 @@ class Profile(models.Model):
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
 
-        # self.image is the same as self.image.name
+        # self.image is the same as self.image.name locally
         # self.image.path is the full absolute path
         # Postgres backend (this app's production database)
         # does not support absolute paths.
-        # Use self.image.url, which ponts to /media/
+        # Use self.image, which points to the media files in prod.
         if settings.DEBUG == True:
             img = Image.open(self.image.path)
         else:

@@ -31,8 +31,11 @@ class Profile(models.Model):
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
+        if settings.DEBUG == True:
+            img = Image.open(self.image.path)
+        else:
+            img = Image.open(self.image.name)
 
-        img = Image.open(self.image.path)
         if img.height > 300 or img.width > 300:
             output_size = (300, 300)
             img.thumbnail(output_size)
@@ -40,7 +43,11 @@ class Profile(models.Model):
         thumb_width = 300
         img = self.crop_max_square(img).resize(
             (thumb_width, thumb_width), Image.LANCZOS)
-        img.save(self.image.path)
+
+        if settings.DEBUG == True:
+            img.save(self.image.path)
+        else:
+            img.save(self.image.name)
 
     def crop_max_square(self, image):
         return self.crop_center(image, min(image.size), min(image.size))

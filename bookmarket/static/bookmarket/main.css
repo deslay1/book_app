@@ -177,6 +177,13 @@ ul {
     margin-bottom: 2rem;
     border-radius: 0.8rem;
 }
+.general-section2 {
+    display: none;
+    background-color: white;
+    padding: 1rem;
+    margin-bottom: 2rem;
+    border-radius: 0.8rem;
+}
 
 .general-header-container {}
 
@@ -213,10 +220,8 @@ ul {
     background: #fff;
     border: 0.1rem solid black;
     border-radius: 0.7rem;
-    padding: 1rem;
     max-height: 50rem;
     overflow: auto;
-    margin-bottom: 1rem;
 }
 
 .activity-post {
@@ -673,6 +678,43 @@ ol {
 
     /*margin: 1rem 0rem 0 0rem;*/
 }
+
+.cookie-bar {
+    visibility: visible !important;
+
+
+    /*margin: 1rem 0rem 0 0rem;*/
+}
+/* The Modal (background) */
+
+  
+  /* Add Animation */
+  @-webkit-keyframes animatetop {
+    from {top:-300px; opacity:0} 
+    to {top:0; opacity:1}
+  }
+  
+  @keyframes animatetop {
+    from {top:-300px; opacity:0}
+    to {top:0; opacity:1}
+  }
+  
+  /* The Close Button */
+  .close {
+    color: white;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+
 
 .card4 {
     margin-left: 0%;

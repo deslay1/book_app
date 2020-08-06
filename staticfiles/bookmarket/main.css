@@ -361,3 +361,22 @@ footer {
     padding: 0.5rem;
     background-color: rgb(10, 143, 10);
 }
+
+
+/* The Modal (background) */
+
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}

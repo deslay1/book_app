@@ -42,11 +42,12 @@ in the INSTALLED_APPS setting.
             {% if forloop.last %}
         </div>
     </div>
-    <div class="activity-section">
+    <div class="activity-section2" style="background-color: whitesmoke;">
 
 
-        {% if pm_messages|length > 1 %} <form id="formwrap" action="{% url 'postman:reply' reply_to_pk %}?next="
-            method="post">{% csrf_token %}
+        {% if pm_messages|length > 1 %} <form id="formwrap"
+            style="margin-right: 0.5rem;margin-left: 0.5rem; margin-top: 1rem; margin-block-end: 0em;  background-color:whitesmoke;"
+            action="{% url 'postman:reply' reply_to_pk %}?next=" method="post">{% csrf_token %}
 
 
 
@@ -54,12 +55,12 @@ in the INSTALLED_APPS setting.
             </div>
 
 
+            <button class="btn btn-primary" style=" margin-bottom: 0.5rem;margin-top: 0.5rem;"
+                type="submit">Send</button>
 
-            <button style="margin-top:1rem;" class="btn btn-primary" type="submit">Send</button>
 
-
-            <a style="margin-top:1rem; background-color: gray; color: white;" class="btn btn-primary2"
-                href="{% url 'postman:inbox' %}">{% csrf_token %} {% trans "Back" %}</a>
+            <a style=" margin-bottom: 0.5rem;margin-top: 0.5rem; background-color: gray; color: white;"
+                class="btn btn-primary2" href="{% url 'postman:inbox' %}">{% csrf_token %} {% trans "Back" %}</a>
 
 
         </form>
@@ -68,9 +69,10 @@ in the INSTALLED_APPS setting.
         {% else %}
         {% if message.sender == user %}
 
-        <form id="formwrap" onloadeddata="myFunction()" onsubmit="myFunction()">{% csrf_token %}
+        <form id="formwrap" onloadeddata="myFunction()" onsubmit="myFunction()"
+            style="margin-right: 0.5rem;margin-left: 0.5rem; margin-top: 1rem; margin-bottom:1 rem;   background-color:whitesmoke;">
+            {% csrf_token %}
 
-            <hr style="margin-top: 0px; color: black; background-color: black;" />
 
             <h5 id="thisOne1" style="color: black; height: auto; align-items: center;  text-align: center;  ">
 
@@ -78,13 +80,13 @@ in the INSTALLED_APPS setting.
                 You have to wait for an answer to write again
 
             </h5>
-            <hr style=" color: black; background-color: black; margin-bottom: 0px;" />
 
         </form>
 
         {% else %}
 
         <form id="formwrap" action="{% url 'postman:reply' reply_to_pk %}?next={{ next_url|urlencode }}" method="post"
+            style="margin-right: 0.5rem;margin-left: 0.5rem; margin-top: 1rem; margin-block-end: 0em;  background-color:whitesmoke;"
             onloadeddata="myFunction()" onsubmit="myFunction()">{% csrf_token %}
 
 
@@ -94,11 +96,12 @@ in the INSTALLED_APPS setting.
 
 
 
-            <button style="margin-top:1rem;" class="btn btn-primary" type="submit">Send</button>
+            <button style=" margin-bottom: 0.5rem;margin-top: 0.5rem;" class="btn btn-primary"
+                type="submit">Send</button>
 
 
-            <a style="margin-top:1rem;  background-color: gray; " class="btn btn-primary2" type="submit"
-                href="{% url 'postman:inbox' %}">{% trans "Back" %}</a>
+            <a style=" margin-bottom: 0.5rem;margin-top: 0.5rem; background-color: gray; color: white;"
+                class="btn btn-primary2" type="submit" href="{% url 'postman:inbox' %}">{% trans "Back" %}</a>
 
 
         </form>

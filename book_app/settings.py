@@ -1,8 +1,10 @@
+from sentry_sdk.integrations.django import DjangoIntegration
+import sentry_sdk
 import os
 import django_heroku
+# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-import sentry_sdk
-from sentry_sdk.integrations.django import DjangoIntegration
 
 # Error reporting
 sentry_sdk.init(
@@ -47,6 +49,7 @@ INSTALLED_APPS = [
     'storages',
     'django_cleanup.apps.CleanupConfig',
     'postman',
+
 ]
 
 MIDDLEWARE = [
@@ -78,6 +81,7 @@ TEMPLATES = [
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
+                'sekizai.context_processors.sekizai',
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
@@ -86,6 +90,9 @@ TEMPLATES = [
                 'social_django.context_processors.backends',
                 'social_django.context_processors.login_redirect',
             ],
+            'libraries': {  # Adding this section should work around the issue.
+                'staticfiles': 'django.templatetags.static',
+            },
         },
     },
 ]

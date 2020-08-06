@@ -18,8 +18,8 @@ in the INSTALLED_APPS setting.
    {% if messages %}
    {% for message in messages%}
    <div class="alert alert-info" id="expl"
-      style="color: #a33003; background-color: #a33003; border-width:0px; margin-top: 1rem; border-radius: 4rem;">
-      <h5 style=" color: white; align-self: center; align-content: center; text-align: center; "> {{message}}</h5>
+      style="color: transparent; background-color: transparent; border-width:0px; margin-top: 1rem;">
+      <h5 style=" color: #a33003; align-self: center; align-content: center; text-align: center; "> {{message}}</h5>
 
    </div>
    {%endfor%}
@@ -29,8 +29,9 @@ in the INSTALLED_APPS setting.
 
 
    <div class="alert alert-info" id="expl"
-      style="color: #a33003; background-color: #a33003; border-width:0px; margin-top: 1rem; border-radius: 4rem;">
-      <h5 style=" color: white; align-self: center; align-content: center; text-align: center; "> Click on the username
+      style="color: #a33003; background-color: transparent; border-width:0px; margin-top: 1rem; vertical-align: middle;">
+      <h5 style=" color: #a33003; align-self: center; align-content: center; text-align: center; "> Click on the
+         username
          to
          view the profile or the
          subject to open the chat.</h5>

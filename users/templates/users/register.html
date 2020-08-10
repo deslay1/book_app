@@ -1,13 +1,9 @@
 {% extends "bookmarket/base.html" %}
 {% block title %}Register{% endblock %}
 {% load crispy_forms_tags %}
-
-
 {% block content %}
 
-
 <div class="col-md-8 mx-auto content-section">
-
     <form method="POST">
         {% csrf_token %}
         <fieldset class="form-group">
@@ -37,12 +33,6 @@
                 </div>
             </div>
             {{ form.category|as_crispy_field}}
-
-
-
-
-
-
         </fieldset>
         <div class="col-md-4 mx-auto form-group">
             <button class="col-md-12 btn btn-primary" type="">Sign up</button>
@@ -54,32 +44,11 @@
             policy</a>* <br>
         <!-- Trigger/Open The Modal -->
     </form>
-
-
-
-
-
-
-
-
-
-
-
-
-
     <div class="border-top pt-3">
         <small class="text-muted">
             Already Have An Account? <a class="ml-2" href="{% url 'login' %}">Log In</a>
         </small>
-
     </div>
-
-
-
-
-
-
-
 </div>
 <div class="modal fade  " id="myModal" role="dialog" style="max-height: 99%; ">
     <div class="modal-dialog col-md-10 mx-auto content-section" style="width: 100%; ">

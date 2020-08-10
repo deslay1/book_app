@@ -71,7 +71,7 @@ in the INSTALLED_APPS setting.
 
          <table class="table table-hover table-dark " style="text-align: center; color: black; margin-bottom: 0px;">
 
-            <thead class="thead-light" style="text-align=center;">
+            <thead class="thead-light" style="text-align: center;">
                <tr>
 
                   {% block pm_sender_header %}
@@ -163,31 +163,30 @@ in the INSTALLED_APPS setting.
 
 
                               <script>
-
                                  if ('{{ message.count }}' == 0) {
                                     var name2 = '{{ user }}';
                                     var name = '{{ message.sender }}';
                                     if (name == name2) {
-                                       document.getElementById('changeThis').href = "{% url 'postman:view' message.pk %}";
+                                       document.getElementById('changeThis').href =
+                                          "{% url 'postman:view' message.pk %}";
                                        document.getElementById('changeThis').id = "old";
-                                    }
-                                    else {
-                                       document.getElementById('changeThis').href = "{% if by_conversation and message.thread_id %}{% url 'postman:view_conversation' message.thread_id %}?next={% url 'postman:view_conversation' message.thread_id %}{% else %}{% url 'postman:view' message.pk %}?next={% url 'postman:view_conversation' message.pk %}{% endif %}";
+                                    } else {
+                                       document.getElementById('changeThis').href =
+                                          "{% if by_conversation and message.thread_id %}{% url 'postman:view_conversation' message.thread_id %}?next={% url 'postman:view_conversation' message.thread_id %}{% else %}{% url 'postman:view' message.pk %}?next={% url 'postman:view_conversation' message.pk %}{% endif %}";
                                        document.getElementById('changeThis').id = "old";
 
 
                                     }
-                                 }
-                                 else {
-                                    document.getElementById('changeThis').href = "{% if by_conversation and message.thread_id %}{% url 'postman:view_conversation' message.thread_id %}?next={% url 'postman:view_conversation' message.thread_id %}{% else %}{% url 'postman:view' message.pk %}?next={% url 'postman:view_conversation' message.pk %}{% endif %}";
+                                 } else {
+                                    document.getElementById('changeThis').href =
+                                       "{% if by_conversation and message.thread_id %}{% url 'postman:view_conversation' message.thread_id %}?next={% url 'postman:view_conversation' message.thread_id %}{% else %}{% url 'postman:view' message.pk %}?next={% url 'postman:view_conversation' message.pk %}{% endif %}";
                                     document.getElementById('changeThis').id = "old";
 
                                  }
-
-
                               </script>
                               {% endblock %}
-                              {% if message.is_replied %}</em>{% endif %}{% if message.is_new %}</strong>{% endif %}
+                              {% if message.is_replied %}
+                           </em>{% endif %}{% if message.is_new %}</strong>{% endif %}
                      </td>
                      <td style="color:black">
 

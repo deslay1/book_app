@@ -11,7 +11,7 @@ from django.views.generic import (
     DetailView,
     CreateView,
     UpdateView,
-    DeleteView
+    DeleteView,
 )
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.models import User
@@ -33,37 +33,35 @@ import pathlib
 
 
 def register(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         u_form = UserRegisterForm(request.POST)
 
         if u_form.is_valid():
             u_form_with_extra_category = u_form.save(commit=False)
-            user = u_form_with_extra_category['form']
-            chosen_group = u_form_with_extra_category['chosen_group']
+            user = u_form_with_extra_category["form"]
+            chosen_group = u_form_with_extra_category["chosen_group"]
             user.save()
             join_group(chosen_group, user)
-            messages.success(
-                request, f'Your account has been created!'
-            )
-            return redirect('register-update', pk=user.id)
+            messages.success(request, f"Your account has been created!")
+            return redirect("register-update", pk=user.id)
     else:
         u_form = UserRegisterForm()
-    return render(request, 'users/register.html', {'form': u_form})
+    return render(request, "users/register.html", {"form": u_form})
 
 
 class RegisterUpdateView(UpdateView, UserPassesTestMixin):
     model = Profile
     template_name = "users/permissions/register.html"
-    success_url = '/login/'
+    success_url = "/login/"
     form_class = ProfileUpdateForm
 
     def get_initial(self):
         # See profile view below for more details
         label = "Choose a profile image for your newly made account:"
         permissions = Permission.objects.filter(
-            user=self.get_object().user).values_list('name', flat=True)
-        return {
-            'permissions': permissions[::1], 'label': label}
+            user=self.get_object().user
+        ).values_list("name", flat=True)
+        return {"permissions": permissions[::1], "label": label}
 
     def form_valid(self, form):
         # user_id = self.kwargs['pk']
@@ -76,9 +74,7 @@ class RegisterUpdateView(UpdateView, UserPassesTestMixin):
             permission = Permission.objects.get(name=perm_name)
             user.user_permissions.add(permission)
 
-        messages.success(
-            self.request, f'Your profile has been updated! Please log in.'
-        )
+        messages.success(self.request, f"Your profile has been updated! Please log in.")
         return super().form_valid(form)
 
     def test_func(self):
@@ -88,22 +84,25 @@ class RegisterUpdateView(UpdateView, UserPassesTestMixin):
         return False
 
 
-@ login_required
+@login_required
 def profile(request):
-
     def getAllUserPermissions():
-        permissions = Permission.objects.filter(
-            user=request.user).values_list('name', flat=True)
+        permissions = Permission.objects.filter(user=request.user).values_list(
+            "name", flat=True
+        )
         # return zip(permissions, permissions)
         # Return as list. Why? --> In order for MultipleChoiceField to validate which ones are already checked
         return permissions[::1]
 
-    if request.method == 'POST':
+    if request.method == "POST":
         label = "Update your profile image:"
         u_form = UserUpdateForm(request.POST, instance=request.user)
         p_form = ProfileUpdateForm(
-            request.POST, request.FILES, instance=request.user.profile, initial={
-                'permissions': getAllUserPermissions(), 'label': label})
+            request.POST,
+            request.FILES,
+            instance=request.user.profile,
+            initial={"permissions": getAllUserPermissions(), "label": label},
+        )
 
         if u_form.is_valid() and p_form.is_valid():
             u_form.save()
@@ -115,18 +114,21 @@ def profile(request):
                 request.user.user_permissions.add(permission)
             p_form.save()
 
-            messages.success(request, f'Your profile has been updated!')
-            return redirect('profile')
+            messages.success(request, f"Your profile has been updated!")
+            return redirect("profile")
     else:
         u_form = UserUpdateForm(instance=request.user)
         label = "Update your profile image:"
-        p_form = ProfileUpdateForm(instance=request.user.profile, initial={
-                                   'permissions': getAllUserPermissions(), 'label': label})
+        p_form = ProfileUpdateForm(
+            instance=request.user.profile,
+            initial={"permissions": getAllUserPermissions(), "label": label},
+        )
 
-    posts = Post.objects.filter(
-        Q(author=request.user)).distinct().order_by('-date_posted')
+    posts = (
+        Post.objects.filter(Q(author=request.user)).distinct().order_by("-date_posted")
+    )
     paginator = Paginator(posts, 5)
-    page = request.GET.get('page')
+    page = request.GET.get("page")
     try:
         post_List = paginator.page(page)
     except PageNotAnInteger:
@@ -134,12 +136,8 @@ def profile(request):
     except EmptyPage:
         post_List = paginator.page(paginator.num_pages)
 
-    context = {
-        'u_form': u_form,
-        'p_form': p_form,
-        'post_List': post_List
-    }
-    return render(request, 'users/profile.html', context)
+    context = {"u_form": u_form, "p_form": p_form, "post_List": post_List}
+    return render(request, "users/profile.html", context)
 
 
 def profileUser(request, username):
@@ -147,12 +145,13 @@ def profileUser(request, username):
 
     from_post = get_object_or_404(Post, id=post_id)
 
-    user_posts = Post.objects.filter(
-        Q(author=from_post.author)).order_by('-date_posted')
+    user_posts = Post.objects.filter(Q(author=from_post.author)).order_by(
+        "-date_posted"
+    )
 
     paginator = Paginator(user_posts, 2)
 
-    page = request.GET.get('page')
+    page = request.GET.get("page")
 
     try:
         user_posts = paginator.page(page)
@@ -160,12 +159,9 @@ def profileUser(request, username):
         user_posts = paginator.page(1)
     except EmptyPage:
         user_posts = paginator.page(paginator.num_pages)
-    context = {
-        'profile_user': from_post.author,
-        'post_List': user_posts
-    }
+    context = {"profile_user": from_post.author, "post_List": user_posts}
 
-    return render(request, 'users/profileUser.html', context)
+    return render(request, "users/profileUser.html", context)
 
 
 def profileUserName(request, username, inos):
@@ -177,16 +173,20 @@ def profileUserName(request, username, inos):
     posts = Post.objects.all()
     for post in posts:
         if post.author.username == username:
-            posts = Post.objects.filter(
-                Q(author=post.author)).distinct().order_by('-date_posted')
+            posts = (
+                Post.objects.filter(Q(author=post.author))
+                .distinct()
+                .order_by("-date_posted")
+            )
             authors = post.author
 
-    user_posts = Post.objects.filter(
-        Q(author__username=username)).order_by('-date_posted')
+    user_posts = Post.objects.filter(Q(author__username=username)).order_by(
+        "-date_posted"
+    )
 
     paginator = Paginator(user_posts, 2)
 
-    page = request.GET.get('page')
+    page = request.GET.get("page")
 
     try:
         user_posts = paginator.page(page)
@@ -194,36 +194,38 @@ def profileUserName(request, username, inos):
         user_posts = paginator.page(1)
     except EmptyPage:
         user_posts = paginator.page(paginator.num_pages)
-    context = {
-        'profile_user': authors,
-        'post_List': user_posts
-    }
+    context = {"profile_user": authors, "post_List": user_posts}
 
     if len(user_posts) == 0:
         messages.warning(
-            request, username +
-            f' has no posts but you can always use the chat.   Just click on the subject.'
+            request,
+            username
+            + f" has no posts but you can always use the chat.   Just click on the subject.",
         )
-        if inos == 's':
-            return redirect('postman:sent')
-        if inos == 'in':
-            return redirect('postman:inbox')
+        if inos == "s":
+            return redirect("postman:sent")
+        if inos == "in":
+            return redirect("postman:inbox")
 
-    return render(request, 'users/profileUser.html', context)
+    return render(request, "users/profileUser.html", context)
 
 
 def base(request):
     profile = Profile.objects.all().filter(user=request.user)
     context = {
-        'profile': profile,
+        "profile": profile,
     }
-    return render(request, 'bookmarket/base.html', context)
+    return render(request, "bookmarket/base.html", context)
 
 
+# Is not used. Remove if you want.
 def index(request):
-    send_mail('Hello from me',
-              'Hello there. this is an automated message.',
-              'book.market.bm@gmail.com',
-              ['book.market.bm@gmail.com'],
-              fail_silently=False)
-    return render(request, 'users/index.html')
+    send_mail(
+        "Hello from me",
+        "Hello there. this is an automated message.",
+        "book.market.bm@gmail.com",
+        ["book.market.bm@gmail.com"],
+        fail_silently=False,
+    )
+    return render(request, "users/index.html")
+

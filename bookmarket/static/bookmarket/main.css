@@ -159,7 +159,8 @@ ul {
 }
 
 .bg-red {
-  background-color: #a33003;
+  /*background-color: #a33003;*/
+  background-color: white;
   /* background: linear-gradient(to right, rgb(207, 75, 75), rgb(192, 57, 3), rgb(207, 75, 75)); */
   background: linear-gradient(to right, darkred, rgb(192, 57, 3), darkred);
 }
@@ -182,15 +183,14 @@ ul {
   margin-bottom: 2rem;
   border-radius: 0.8rem;
 }
-.general-section2 {
-    display: none;
-    background-color: white;
-    padding: 1rem;
-    margin-bottom: 2rem;
-    border-radius: 0.8rem;
-}
 
-.general-header-container {}
+.general-section2 {
+  display: none;
+  background-color: white;
+  padding: 1rem;
+  margin-bottom: 2rem;
+  border-radius: 0.8rem;
+}
 
 .content-section {
   background: #fff;
@@ -223,11 +223,11 @@ ul {
 }
 
 .activity-section2 {
-    background: #fff;
-    border: 0.1rem solid black;
-    border-radius: 0.7rem;
-    max-height: 50rem;
-    overflow: auto;
+  background: #fff;
+  border: 0.1rem solid black;
+  border-radius: 0.7rem;
+  max-height: 50rem;
+  overflow: auto;
 }
 
 .activity-post {
@@ -253,6 +253,10 @@ ul {
 }
 
 .article-title-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-right: 0.5rem;
   margin-bottom: 0.5rem;
   word-wrap: break-word;
 }
@@ -261,6 +265,7 @@ ul {
   color: #444444;
   font-size: 1.6rem;
   line-height: 1.8rem;
+  overflow: auto;
 }
 
 a.article-title:hover,
@@ -289,12 +294,37 @@ h5.article-title:hover {
 }
 
 .article-metadata {
-  border-bottom: 0.05rem solid black;
+  /* border-bottom: 0.05rem solid black; */
 }
 
 .article-metadata a:hover {
   color: #333;
   text-decoration: none;
+}
+
+.collapsible {
+  background-color: rgba(214, 211, 211, 0.178);
+  color: black;
+  cursor: pointer;
+  padding: 0.2rem;
+  width: 100%;
+  border: none;
+  text-align: center;
+  font-size: 12px;
+  outline: none;
+}
+
+.collapsible-active,
+.collapsible:hover {
+  background-color: rgba(214, 211, 211, 0.877);
+}
+
+.content-collapse {
+  padding: 0 18px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+  background-color: #f1f1f1;
 }
 
 .article-svg {
@@ -690,39 +720,54 @@ ol {
 }
 
 .cookie-bar {
-    visibility: visible !important;
+  visibility: visible !important;
 
 
-    /*margin: 1rem 0rem 0 0rem;*/
+  /*margin: 1rem 0rem 0 0rem;*/
 }
+
 /* The Modal (background) */
 
-  
-  /* Add Animation */
-  @-webkit-keyframes animatetop {
-    from {top:-300px; opacity:0} 
-    to {top:0; opacity:1}
+
+/* Add Animation */
+@-webkit-keyframes animatetop {
+  from {
+    top: -300px;
+    opacity: 0
   }
-  
-  @keyframes animatetop {
-    from {top:-300px; opacity:0}
-    to {top:0; opacity:1}
+
+  to {
+    top: 0;
+    opacity: 1
   }
-  
-  /* The Close Button */
-  .close {
-    color: white;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
+}
+
+@keyframes animatetop {
+  from {
+    top: -300px;
+    opacity: 0
   }
-  
-  .close:hover,
-  .close:focus {
-    color: #000;
-    text-decoration: none;
-    cursor: pointer;
+
+  to {
+    top: 0;
+    opacity: 1
   }
+}
+
+/* The Close Button */
+.close {
+  color: white;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
 
 
 
@@ -1145,6 +1190,11 @@ textarea {
   color: #0062cc;
 }
 
+.messages-badge {
+  vertical-align: middle;
+  margin-bottom: 0.1rem;
+}
+
 footer {
   background-color: darkred;
   color: white;
@@ -1267,4 +1317,17 @@ footer {
 .anchor {
   position: absolute;
   transform: translateY(-20vh);
+}
+
+.active {
+  background-color: white;
+}
+
+.tab-inactive {
+  background-color: #343a40;
+  color: white;
+}
+
+.tab-inactive:hover {
+  color: gray;
 }

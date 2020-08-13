@@ -13,21 +13,23 @@ from PIL import Image
 class Profile(models.Model):
     def validate_image(file):
         if file.size > settings.MAX_UPLOAD_SIZE:
-            raise ValidationError(_('Filesize can be maximum %s. The file you uploaded was %s') % (
-                filesizeformat(settings.MAX_UPLOAD_SIZE), filesizeformat(file.size)))
+            raise ValidationError(
+                _("Filesize can be maximum %s. The file you uploaded was %s")
+                % (filesizeformat(settings.MAX_UPLOAD_SIZE), filesizeformat(file.size))
+            )
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='profile_pics',
-                              default='default.jpg', validators=[validate_image])
+    image = models.ImageField(
+        upload_to="profile_pics", default="default.jpg", validators=[validate_image]
+    )
     # permissions = models.CharField(blank=True,
     #                               choices=getBasicUserPermissions(), verbose_name="What kind of notifications would you like to choose?")
 
     def __str__(self):
-        return f'{self.user.username}'
+        return f"{self.user.username}"
 
-
-# A validion on save where we set a max height and width of the uploaded profile picture.
-# We also crop out a max square out of the uploaded image for consistent dimensions.
+    # A validion on save where we set a max height and width of the uploaded profile picture.
+    # We also crop out a max square out of the uploaded image for consistent dimensions.
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
@@ -49,7 +51,8 @@ class Profile(models.Model):
 
             thumb_width = 300
             img = self.crop_max_square(img).resize(
-                (thumb_width, thumb_width), Image.LANCZOS)
+                (thumb_width, thumb_width), Image.LANCZOS
+            )
 
             """ if settings.DEBUG == True:
                 img.save(self.image.path)
@@ -61,7 +64,11 @@ class Profile(models.Model):
 
     def crop_center(self, image, crop_width, crop_height):
         img_width, img_height = image.size
-        return image.crop(((img_width - crop_width) // 2,
-                           (img_height - crop_height) // 2,
-                           (img_width + crop_width) // 2,
-                           (img_height + crop_height) // 2))
+        return image.crop(
+            (
+                (img_width - crop_width) // 2,
+                (img_height - crop_height) // 2,
+                (img_width + crop_width) // 2,
+                (img_height + crop_height) // 2,
+            )
+        )

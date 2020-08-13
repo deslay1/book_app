@@ -6,6 +6,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="Description" CONTENT="A buy and sell platform for used books to make campus life a lot easier.">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -35,7 +36,7 @@
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarToggle">
-                        <div class="navbar-nav mr-auto">
+                        <div class="navbar-nav mr-auto align-items-center">
                             <!--                             <div class="dropdown">
                                 <button class="btn btn-danger bg-transparent dropdown-toggle" id="dropdown-left"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Links</button>
@@ -52,20 +53,37 @@
                             <!-- <a class="nav-item nav-link" href="{% url 'condition-guide' %}">Condition Guide</a> -->
                             <!-- <a class="nav-item nav-link" href="//github.com/deslay1/book_app">Github</a> -->
                         </div>
+                        {% if user.is_authenticated %}
+                        <div class="navbar-nav mr-auto align-items-center">
+                            <a class="nav-item" style="pointer-events: none; color: white;">
+                                User: <strong>{{request.user.username}}</strong></a>
+                        </div>
+                        {% endif %}
                         <!-- Navbar Right Side -->
                         <div class="navbar-nav align-items-center">
                             {% if user.is_authenticated %}
                             <div class="dropdown">
                                 <button class="btn btn-danger bg-transparent dropdown-toggle" id="dropdown-right"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span
-                                        class="glyphicon glyphicon-search" aria-hidden="true"></span> Messages</button>
+                                        class="glyphicon glyphicon-search" aria-hidden="true"></span><span
+                                        class="badge badge-dark messages-badge">{{unread_messages.count}}</span>
+                                    Messages
+                                </button>
                                 <div class="dropdown-menu dropdown-primary">
-                                    <a class="dropdown-item" href="{% url 'postman:inbox' %}"><i id="nav-icon-links"
+                                    <a class="dropdown-item display-flex justify-content-between"
+                                        href="{% url 'postman:inbox' %}"><i id="nav-icon-links"
                                             class="material-icons">inbox</i>
-                                        Inbox</a>
+                                        Inbox <span class="badge badge-secondary
+                                            messages-badge ">{{received_messages.count}}</span>
+                                        {% if unread_messages.count > 0 %}
+                                        | <span class="badge badge-dark messages-badge">{{unread_messages.count}}
+                                            new</span>
+                                        {% endif %}
+                                    </a>
                                     <a class="dropdown-item" href="{% url 'postman:sent' %}"><i id="nav-icon-links"
                                             class="material-icons">archive</i>
-                                        Sent</a>
+                                        Sent <span class="badge badge-secondary messages-badge"
+                                            style="text-align: right;">{{sent_messages.count}}</span></a>
                                 </div>
                             </div>
                             <div class="dropdown">

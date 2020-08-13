@@ -1,5 +1,28 @@
 {% extends "bookmarket/base.html" %}
-{% block title %}Bookmarket{% endblock %}
+{% block title %}Bookmarket: Buy and Sell {% endblock %}
+
+{% block javascript %}
+<script>
+  const coll = document.getElementsByClassName("collapsible");
+  let i;
+
+  for (i = 0; i < coll.length; i++) {
+    coll[i].addEventListener("click", function () {
+      this.classList.toggle("collapsible-active");
+      this.children
+      const content = this.nextElementSibling;
+      if (content.style.maxHeight) {
+        content.style.maxHeight = null;
+        this.childNodes[0].innerHTML = "expand_more"
+      } else {
+        content.style.maxHeight = content.scrollHeight + "px";
+        this.childNodes[0].innerHTML = "expand_less"
+      }
+    });
+  }
+</script>
+{% endblock %}
+
 {% load bootstrap %}
 {% block content %}
 
@@ -62,7 +85,7 @@
   {% csrf_token %}
   <article class="col-md-3 offset-md-1">
     <div class="menu-section">
-      <h4 class="filter-bar-header">Filters</h4>
+      <h4 class="filter-bar-header bg-dark text-color-white" style="color: white;">Filters</h4>
       <form class="filter-bar-body" action="" method="GET">
         <h5>By price:</h5>
         <input type="radio" id="price-low" name="price_order" value="price" {% if price_order == "price" %} checked
@@ -142,92 +165,99 @@
               <a class="post-button" style="color: red;" href="{% url 'post-delete' post.id %}">Delete</a>
             </div> -->
           </div>
-          <div class="col-md-12 align-self-end mb-4 pb-2">
-            <!-- <h6 id="post-type">{{ post.SellerOrBuyer }}</h6> -->
+          <!--           <div class="col-md-12 align-self-end mb-4 pb-2">
+            {% if post.price == 0.00 %}
+            <h5 class="float-right post-price">Free</h5>
+            {% else %}
+            <h5 class="float-right post-price">{{ post.price|floatformat:"-2" }} kr</h5>
+            {% endif %}
+          </div> -->
+        </div>
+        <div class="col-14 post-information">
+          <div class="article-title-container">
+            <a href="{% url 'post-detail' post.id %}" class="article-title">{{ post.title }}</a>
             {% if post.price == 0.00 %}
             <h5 class="float-right post-price">Free</h5>
             {% else %}
             <h5 class="float-right post-price">{{ post.price|floatformat:"-2" }} kr</h5>
             {% endif %}
           </div>
-        </div>
-        <div class="col-14 post-information">
-          <div class="article-title-container">
-            <a href="{% url 'post-detail' post.id %}" class="article-title">{{ post.title }}</a>
-          </div>
-          <p class="article-content">{{ post.content }}</p>
-          {% if post.image != "default.jpg" %}
-          <div id="carousel-{{post.id}}" class="col-8 carousel-container carousel mx-auto slide" data-ride="carousel">
-            {% if post.image2 or post.image3 %}
-            <a class="carousel-control-prev" href="#carousel-{{post.id}}" role="button" data-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="sr-only">Previous</span>
-            </a>
-            {% endif %}
-            <div class="mx-auto">
-              <div class="carousel-inner">
-                {% if post.image %}
-                <div class="carousel-image-container carousel-item active">
-                  <img class="carousel-image rounded img-fluid d-block mx-auto" src="{{ post.image.url }}" width="200"
-                    height="400" alt="First slide" />
-                  <a class="carousel-image-caption btn btn-primary" href="{% url 'post-detail' post.id %}">View
-                    post</a>
+          <button type="button" class="collapsible"><i class="material-icons">expand_more</i></button>
+          <div class="content-collapse pt-2">
+            <p class="article-content">{{ post.content }}</p>
+            {% if post.image != "default.jpg" %}
+            <div id="carousel-{{post.id}}" class="col-8 carousel-container carousel mx-auto slide" data-ride="carousel">
+              {% if post.image2 or post.image3 %}
+              <a class="carousel-control-prev" href="#carousel-{{post.id}}" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+              </a>
+              {% endif %}
+              <div class="mx-auto">
+                <div class="carousel-inner">
+                  {% if post.image %}
+                  <div class="carousel-image-container carousel-item active">
+                    <img class="carousel-image rounded img-fluid d-block mx-auto" src="{{ post.image.url }}" width="200"
+                      height="400" alt="First slide" />
+                    <a class="carousel-image-caption btn btn-primary" href="{% url 'post-detail' post.id %}">View
+                      post</a>
+                  </div>
+                  {% endif %}
+                  {% if post.image2 %}
+                  <div class="carousel-image-container carousel-item ">
+                    <img class="carousel-image rounded img-fluid d-block mx-auto" src="{{ post.image2.url }}"
+                      width="200" height="400" alt="Second slide">
+                    <a class="carousel-image-caption btn btn-primary" href="{% url 'post-detail' post.id %}">View
+                      post</a>
+                  </div>
+                  {% endif %}
+                  {% if post.image3 %}
+                  <div class="carousel-image-container carousel-item">
+                    <img class="carousel-image rounded img-fluid d-block mx-auto" src="{{ post.image3.url }}"
+                      width="200" height="400" alt="Third slide">
+                    <a class="carousel-image-caption btn btn-primary" href="{% url 'post-detail' post.id %}">View
+                      post</a>
+                  </div>
+                  {% endif %}
                 </div>
-                {% endif %}
-                {% if post.image2 %}
-                <div class="carousel-image-container carousel-item ">
-                  <img class="carousel-image rounded img-fluid d-block mx-auto" src="{{ post.image2.url }}" width="200"
-                    height="400" alt="Second slide">
-                  <a class="carousel-image-caption btn btn-primary" href="{% url 'post-detail' post.id %}">View
-                    post</a>
-                </div>
-                {% endif %}
-                {% if post.image3 %}
-                <div class="carousel-image-container carousel-item">
-                  <img class="carousel-image rounded img-fluid d-block mx-auto" src="{{ post.image3.url }}" width="200"
-                    height="400" alt="Third slide">
-                  <a class="carousel-image-caption btn btn-primary" href="{% url 'post-detail' post.id %}">View
-                    post</a>
-                </div>
-                {% endif %}
-              </div>
 
-              <ol class="carousel-indicators">
-                {% if post.image and post.image2 %}
-                <li data-target="#carousel-{{post.id}}" data-slide-to="0" class="active"></li>
-                <li data-target="#carousel-{{post.id}}" data-slide-to="1"></li>
-                {% endif %}
-                {% if post.image3 %}
-                <li data-target="#carousel-{{post.id}}" data-slide-to="2"></li>
-                {% endif %}
-              </ol>
+                <ol class="carousel-indicators">
+                  {% if post.image and post.image2 %}
+                  <li data-target="#carousel-{{post.id}}" data-slide-to="0" class="active"></li>
+                  <li data-target="#carousel-{{post.id}}" data-slide-to="1"></li>
+                  {% endif %}
+                  {% if post.image3 %}
+                  <li data-target="#carousel-{{post.id}}" data-slide-to="2"></li>
+                  {% endif %}
+                </ol>
+              </div>
+              {% if post.image2 or post.image3 %}
+              <a class="carousel-control-next" href="#carousel-{{post.id}}" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+              </a>
+              {% endif %}
             </div>
-            {% if post.image2 or post.image3 %}
-            <a class="carousel-control-next" href="#carousel-{{post.id}}" role="button" data-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="sr-only">Next</span>
-            </a>
+            {% else %}
+            <div class="col-8 mx-auto no-images">
+              <h6 id="no-images"><a class="btn btn-primary" style="font-size: 12"
+                  href="{% url 'post-detail' post.id %}">View
+                  post</a></h6>
+            </div>
             {% endif %}
-          </div>
-          {% else %}
-          <div class="col-8 mx-auto no-images">
-            <h6 id="no-images"><a class="btn btn-primary" style="font-size: 12"
-                href="{% url 'post-detail' post.id %}">View
-                post</a></h6>
-          </div>
-          {% endif %}
-          <div class="row col-md-12 justify-content-between post-footer">
-            <div class="row align-items-center post-footer-left">
-              <h6 class="post-footer-left-info">{{ post.likes.count }} Like{{ post.likes.count|pluralize }}</h6>
-              <h6 class="post-footer-left-info ml-3">{{ post.comments.count }}
-                Comment{{ post.comments.count|pluralize }}
+            <div class="row col-md-12 justify-content-between post-footer">
+              <div class="row align-items-center post-footer-left">
+                <h6 class="post-footer-left-info">{{ post.likes.count }} Like{{ post.likes.count|pluralize }}</h6>
+                <h6 class="post-footer-left-info ml-3">{{ post.comments.count }}
+                  Comment{{ post.comments.count|pluralize }}
+                </h6>
+              </div>
+              {% if post.condition %}
+              <h6 class=" post-condition">
+                <span class="badge badge-success">Condition: {{ post.condition }}</span>
               </h6>
+              {% endif %}
             </div>
-            {% if post.condition %}
-            <h6 class=" post-condition">
-              <span class="badge badge-success">Condition: {{ post.condition }}</span>
-            </h6>
-            {% endif %}
           </div>
         </div>
     </article>

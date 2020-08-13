@@ -16,7 +16,6 @@ sentry_sdk.init(
     send_default_pii=True
 )
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SECRET_KEY = os.environ.get('SECRET_KEY')
@@ -24,8 +23,6 @@ DEBUG = (os.environ.get('DEBUG_VALUE') == 'True')
 
 ALLOWED_HOSTS = ['https://bookmarket-app.herokuapp.com/',
                  '127.0.0.1', 'localhost']
-
-# Application definition
 
 INSTALLED_APPS = [
     'jazzmin',
@@ -87,6 +84,7 @@ TEMPLATES = [
                 'postman.context_processors.inbox',
                 'social_django.context_processors.backends',
                 'social_django.context_processors.login_redirect',
+                'bookmarket.context_processors.messages'
             ],
             'libraries': {  # Adding this section should work around the issue.
                 'staticfiles': 'django.templatetags.static',
@@ -95,10 +93,13 @@ TEMPLATES = [
     },
 ]
 POSTMAN_AUTO_MODERATE_AS = True
+POSTMAN_DISALLOW_ANONYMOUS = True
+POSTMAN_DISABLE_USER_EMAILING = True
+POSTMAN_NOTIFIER_APP = None
+
 WSGI_APPLICATION = 'book_app.wsgi.application'
 
 
-# Database
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -106,9 +107,6 @@ DATABASES = {
     }
 }
 
-
-# Password validation
-# https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -123,9 +121,6 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
-# Internationalization
-# https://docs.djangoproject.com/en/2.1/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'Europe/Stockholm'

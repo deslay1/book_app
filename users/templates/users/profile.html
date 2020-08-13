@@ -6,47 +6,86 @@
 <div class="container w-100 row">
   <div class="col-md-5">
     <div class="content-section">
-      <div class="align-items-center">
-        {% if messages %}
-        {% for message in messages%}
-        <div class="alert alert-{{message.tags}}">
-          {{message}}
+      <nav>
+        <div class="nav nav-tabs justify-content-center" id="nav-tab" role="tablist">
+          <a class="nav-item nav-link tab-inactive active" id="nav-profile-info-tab" data-toggle="tab"
+            href="#nav-profile-info" role="tab" aria-controls="nav-profile-info" aria-selected="true">Profile Info</a>
+          <a class="nav-item nav-link tab-inactive" id="nav-preferences-tab" data-toggle="tab" href="#nav-preferences"
+            role="tab" aria-controls="nav-preferences" aria-selected="false">Preferences</a>
         </div>
-        {%endfor%}
-        {% endif %}
-        <img class="d-block w-25 h-auto" src="{{ user.profile.image.url }}">
-        {% if user.profile.image == "default.jpg" %}
-        <h6 id="no-images">You don't have a profile picture yet.</h6>
-        {% endif %}
+      </nav>
+      <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-profile-info" role="tabpanel"
+          aria-labelledby="nav-profile-info-tab">
+          <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <fieldset class="mt-2 form-group">
+              <legend class="text-center">{{request.user.username}}</legend>
+              <div class="align-items-center mb-3">
+                {% if messages %}
+                {% for message in messages%}
+                <div class="alert alert-{{message.tags}}">
+                  {{message}}
+                </div>
+                {%endfor%}
+                {% endif %}
+                <img class="d-block w-25 h-auto" src="{{ user.profile.image.url }}">
+                {% if user.profile.image == "default.jpg" %}
+                <h6 id="no-images">You don't have a profile picture yet.</h6>
+                {% endif %}
+              </div>
+              <div class="form-group mb-4">
+                <h6 class="border-bottom pb-1">{{p_form.image.label}}</h6>
+                {{p_form.image}}
+              </div>
+              <h6 class="border-bottom pb-1">Basic info:</h6>
+              <div class="row col-md-14">
+                <div class="col-md-6">
+                  {{ u_form.first_name|as_crispy_field }}
+                </div>
+                <div class="col-md-6">
+                  {{ u_form.last_name|as_crispy_field }}
+                </div>
+              </div>
+              <div class="col-md-14 mb-2 pb-1">
+                {{ u_form.email|as_crispy_field }}
+              </div>
+              <!--               <div class="form-group mb-4">
+                <h6 class="border-bottom pb-1">Email preferences:</h6>
+                {{ p_form.permissions|as_crispy_field }}
+              </div> -->
+            </fieldset>
+            <div class="form-group col-md-6 mx-auto">
+              <button class="col-md-12 btn btn-primary" type="submit">Update</button>
+            </div>
+          </form>
+        </div>
+        <div class="tab-pane fade" id="nav-preferences" role="tabpanel" aria-labelledby="nav-preferences-tab">
+          <form class="mt-2" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <fieldset class="form-group">
+              <!-- <legend class="bordor-bottom mb-3">Profile Info</legend> -->
+              <div class="align-items-center mt-3 mb-3">
+                {% if messages %}
+                {% for message in messages%}
+                <div class="alert alert-{{message.tags}}">
+                  {{message}}
+                </div>
+                {%endfor%}
+                {% endif %}
+              </div>
+              <div class="form-group mb-4">
+                <h6 class="border-bottom pb-1">Email preferences:</h6>
+                {{ p_form.permissions|as_crispy_field }}
+              </div>
+            </fieldset>
+            <div class="form-group col-md-6 mx-auto">
+              <button class="col-md-12 btn btn-primary" type="submit">Update</button>
+            </div>
+          </form>
+        </div>
+        <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">...</div>
       </div>
-      <form method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        <fieldset class="form-group">
-          <legend class="bordor-bottom mb-4">Profile Info</legend>
-          <div class="row col-md-14">
-            <div class="col-md-6">
-              {{ u_form.first_name|as_crispy_field }}
-            </div>
-            <div class="col-md-6">
-              {{ u_form.last_name|as_crispy_field }}
-            </div>
-          </div>
-          <div class="col-md-14 mb-2 pb-1">
-            {{ u_form.email|as_crispy_field }}
-          </div>
-          <div class="form-group mb-4">
-            <h6 class="border-bottom pb-1">{{p_form.image.label}}</h6>
-            {{p_form.image}}
-          </div>
-          <div class="form-group mb-4">
-            <h6 class="border-bottom pb-1">Email preferences:</h6>
-            {{ p_form.permissions|as_crispy_field }}
-          </div>
-        </fieldset>
-        <div class="form-group col-md-6 mx-auto">
-          <button class="col-md-12 btn btn-primary" type="submit">Update</button>
-        </div>
-      </form>
     </div>
   </div>
   <div class="col-md-7 w-100">

@@ -10,31 +10,44 @@ from django.db.models import Q
 
 
 class UserRegisterForm(UserCreationForm):
-
     class Meta:
         model = User
         email = User.username
-        fields = ['username', 'email', 'first_name',
-                  'last_name', 'password1', 'password2']
+        fields = [
+            "username",
+            "email",
+            "first_name",
+            "last_name",
+            "password1",
+            "password2",
+        ]
 
-    def getGroupNames():
+    """ def getGroupNames():
         groups = Group.objects.order_by(
-            "name").values_list('name', flat=True)
-        return zip(groups, groups)
+            "name").exclude(name__exact="All").values_list('name', flat=True)
+        return zip(groups, groups) """
 
-    category = forms.ChoiceField(
-        choices=getGroupNames(), label="What group do you belong to?")
+    # category = forms.ChoiceField(
+    #    choices=getGroupNames(), label="What group do you belong to?")
+
+    category = forms.ModelChoiceField(
+        queryset=Group.objects.order_by("name").exclude(name__exact="All"),
+        empty_label="Select from:",
+        label="What group do you belong to?",
+    )
 
     def save(self, commit=True):
         chosen_group = self.cleaned_data["category"]
-        return {'form': super(UserRegisterForm, self).save(commit=commit), 'chosen_group': chosen_group}
+        return {
+            "form": super(UserRegisterForm, self).save(commit=commit),
+            "chosen_group": chosen_group,
+        }
 
 
 class UserUpdateForm(forms.ModelForm):
-
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'email']
+        fields = ["first_name", "last_name", "email"]
 
 
 class ProfileUpdateForm(forms.ModelForm):
@@ -54,22 +67,27 @@ class ProfileUpdateForm(forms.ModelForm):
 
     class Meta:
         model = Profile
-        fields = ['image']
+        fields = ["image"]
 
     def __init__(self, *args, **kwargs):
         super(ProfileUpdateForm, self).__init__(*args, **kwargs)
-        self.fields['image'].label = self.initial['label']
+        self.fields["image"].label = self.initial["label"]
 
-        content_type = ContentType.objects.get(
-            app_label="users", model="profile")
+        content_type = ContentType.objects.get(app_label="users", model="profile")
         # Find a better way to do this than filtering by "Get"
         # Maybe create another content_type somehow, call it "notifications" or something
         permissions_names = Permission.objects.filter(
-            content_type=content_type, name__contains="Get").values_list('name', flat=True)
+            content_type=content_type, name__contains="Get"
+        ).values_list("name", flat=True)
         choices = zip(permissions_names, permissions_names)
 
-        self.fields['permissions'] = forms.MultipleChoiceField(required=False,
-                                                               choices=choices, initial=self.initial['permissions'], label="What kind of notifications do you want to receive?", widget=forms.CheckboxSelectMultiple)
+        self.fields["permissions"] = forms.MultipleChoiceField(
+            required=False,
+            choices=choices,
+            initial=self.initial["permissions"],
+            label="What kind of notifications do you want to receive?",
+            widget=forms.CheckboxSelectMultiple,
+        )
 
     def save(self, commit=True):
         permissions = self.cleaned_data["permissions"]

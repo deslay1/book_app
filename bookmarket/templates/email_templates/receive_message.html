@@ -1,0 +1,14 @@
+<div>
+    {% if message.recipient.first_name %}
+    <h3>Hi {{message.recipient.first_name|capfirst }},</h3>
+    {% else %}
+    <h3>Hi {{message.recipient}},</h3>
+    {% endif %}
+
+    <p>You have received a message by <b>{{message.sender}}</b>:</p>
+    <p style="background-color: rgb(247, 247, 247); padding: 1rem; border-radius: 0.6rem;">{{message.body}}</p>
+    <p>Send a reply to the message by viewing the message in your inbox at: {{url}}</p>
+    <p>We wish you a nice day,</p>
+    <p>Bookmarket Team</p>
+    <p>Note: This is an automated email. Please do not reply.</p>
+</div>

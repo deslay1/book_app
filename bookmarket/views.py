@@ -48,18 +48,18 @@ def add_comment_to_post(request, pk):
                 if settings.DEBUG == True:
                     url = f"https://bookmarket-app.herokuapp.com/post/{post.id}/"
 
-                from_email = settings.EMAIL_HOST_USER
+                from_email = settings.DEFAULT_FROM_EMAIL
                 recipient_list = [
                     post.author.email,
                 ]
 
-                subject = f"Comment recieved in your post: {comment.post.title}"
+                subject = f"Comment recieved on your post: {comment.post.title}"
                 html_message = render_to_string(
                     "email_templates/receive_comment.html",
                     {"comment": comment, "post": comment.post, "url": url},
                 )
                 plain_message = strip_tags(html_message)
-
+                print("SEND!")
                 send_mail(
                     subject,
                     plain_message,
@@ -291,13 +291,15 @@ class PostListView(ListView):
     template_name = "bookmarket/home.html"
     context_object_name = "posts"
     ordering = ["-date_posted"]
-    paginate_by = 5
+    paginate_by = 10
 
     def get_context_data(self, **kwargs):
         context = super(PostListView, self).get_context_data(**kwargs)
 
         user_groups = self.request.user.groups.values_list("name", flat=True)
-        groups = Group.objects.distinct().order_by("name")
+        groups = Group.objects.distinct().order_by(
+            Case(When(name="All", then=0), default=1), "name"
+        )
         user_group_name = "All"
 
         # When djang groups are empty this needs to be done

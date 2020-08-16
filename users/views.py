@@ -46,7 +46,11 @@ def register(request):
             return redirect("register-update", pk=user.id)
     else:
         u_form = UserRegisterForm()
-    return render(request, "users/register.html", {"form": u_form})
+    return render(
+        request,
+        "users/register.html",
+        {"form": u_form, "privacy_policy": "content/privacy_policy.html"},
+    )
 
 
 class RegisterUpdateView(UpdateView, UserPassesTestMixin):
@@ -86,8 +90,10 @@ class RegisterUpdateView(UpdateView, UserPassesTestMixin):
 
 @login_required
 def profile(request):
+    user = get_object_or_404(User, id=request.user.id)
+
     def getAllUserPermissions():
-        permissions = Permission.objects.filter(user=request.user).values_list(
+        permissions = Permission.objects.filter(user=user).values_list(
             "name", flat=True
         )
         # return zip(permissions, permissions)
@@ -96,11 +102,11 @@ def profile(request):
 
     if request.method == "POST":
         label = "Update your profile image:"
-        u_form = UserUpdateForm(request.POST, instance=request.user)
+        u_form = UserUpdateForm(request.POST, instance=user)
         p_form = ProfileUpdateForm(
             request.POST,
             request.FILES,
-            instance=request.user.profile,
+            instance=user.profile,
             initial={"permissions": getAllUserPermissions(), "label": label},
         )
 
@@ -108,25 +114,23 @@ def profile(request):
             u_form.save()
 
             permissions = p_form.cleaned_data["permissions"]
-            request.user.user_permissions.clear()
+            user.user_permissions.clear()
             for perm_name in permissions:
                 permission = Permission.objects.get(name=perm_name)
-                request.user.user_permissions.add(permission)
+                user.user_permissions.add(permission)
             p_form.save()
 
             messages.success(request, f"Your profile has been updated!")
             return redirect("profile")
     else:
-        u_form = UserUpdateForm(instance=request.user)
+        u_form = UserUpdateForm(instance=user)
         label = "Update your profile image:"
         p_form = ProfileUpdateForm(
-            instance=request.user.profile,
+            instance=user.profile,
             initial={"permissions": getAllUserPermissions(), "label": label},
         )
 
-    posts = (
-        Post.objects.filter(Q(author=request.user)).distinct().order_by("-date_posted")
-    )
+    posts = Post.objects.filter(Q(author=user)).distinct().order_by("-date_posted")
     paginator = Paginator(posts, 5)
     page = request.GET.get("page")
     try:

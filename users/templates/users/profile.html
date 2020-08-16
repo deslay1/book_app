@@ -14,11 +14,11 @@
             role="tab" aria-controls="nav-preferences" aria-selected="false">Preferences</a>
         </div>
       </nav>
-      <div class="tab-content" id="nav-tabContent">
-        <div class="tab-pane fade show active" id="nav-profile-info" role="tabpanel"
-          aria-labelledby="nav-profile-info-tab">
-          <form method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
+      <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="tab-content" id="nav-tabContent">
+          <div class="tab-pane fade show active" id="nav-profile-info" role="tabpanel"
+            aria-labelledby="nav-profile-info-tab">
             <fieldset class="mt-2 form-group">
               <legend class="text-center">{{request.user.username}}</legend>
               <div class="align-items-center mb-3">
@@ -58,11 +58,8 @@
             <div class="form-group col-md-6 mx-auto">
               <button class="col-md-12 btn btn-primary" type="submit">Update</button>
             </div>
-          </form>
-        </div>
-        <div class="tab-pane fade" id="nav-preferences" role="tabpanel" aria-labelledby="nav-preferences-tab">
-          <form class="mt-2" method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
+          </div>
+          <div class="tab-pane fade" id="nav-preferences" role="tabpanel" aria-labelledby="nav-preferences-tab">
             <fieldset class="form-group">
               <!-- <legend class="bordor-bottom mb-3">Profile Info</legend> -->
               <div class="align-items-center mt-3 mb-3">
@@ -82,10 +79,10 @@
             <div class="form-group col-md-6 mx-auto">
               <button class="col-md-12 btn btn-primary" type="submit">Update</button>
             </div>
-          </form>
+
+          </div>
         </div>
-        <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">...</div>
-      </div>
+      </form>
     </div>
   </div>
   <div class="col-md-7 w-100">

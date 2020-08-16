@@ -13,8 +13,9 @@
                 {% block pm_write_recipient %}{% endblock %}
                 {{ form|bootstrap }}
             </table>
-            <button class="btn btn-primary active col-md-2" type="submit">{% trans "Send" %} <a
-                    href="{% url "postman:inbox" %}"></a> </button>
+            <button class="btn btn-primary active col-md-2" type="submit"
+                onclick="this.disabled=true;this.value='Sending, please wait...';this.form.submit();">{% trans "Send" %}
+                <a href="{% url "postman:inbox" %}"></a> </button>
         </form>
     </div>
 

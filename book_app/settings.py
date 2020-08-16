@@ -24,6 +24,7 @@ DEBUG = os.environ.get("DEBUG_VALUE") == "True"
 ALLOWED_HOSTS = ["https://bookmarket-app.herokuapp.com/", "127.0.0.1", "localhost"]
 
 INSTALLED_APPS = [
+    "scout_apm.django",
     "jazzmin",
     "bootstrapform",
     "crispy_forms",
@@ -154,6 +155,10 @@ EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASS')
 DEFAULT_FROM_EMAL = os.environ.get("DEFAULT_FROM_EMAIL")
 
+SCOUT_MONITOR = os.environ.get("SCOUT_MONITOR")
+SCOUT_KEY = os.environ.get("SCOUT_KEY")
+SCOUT_NAME = os.environ.get("SCOUT_NAME")
+SCOUT_LOG_LEVEL = os.environ.get("SCOUT_LOG_LEVEL")
 
 # ADMINS = [("Admin-" + str(index), admin)
 #          for index, admin in enumerate(os.environ.get("DJANGO_ADMINS").split(","))]

@@ -250,6 +250,7 @@
                         </div>
                         {% endif%}
                       </div>
+                      {% if user == comment.comuser %}
                       <div class="dropdown">
                         <i id="post-more-menu" class="material-icons" data-toggle="dropdown"
                           aria-haspopup="true dropdown-toggle" aria-expanded="false">more_vert</i>
@@ -263,6 +264,7 @@
                               class="material-icons">delete</i> Delete</a>
                         </div>
                       </div>
+                      {% endif %}
                     </div>
                   </div>
                   <div class="ml-2 card-body">

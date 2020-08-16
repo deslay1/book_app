@@ -27,7 +27,7 @@ def messages(request):
                 if rm.email == "":
                     rm.email = "Sent"
                     rm.save()
-                    from_email = settings.EMAIL_HOST_USER
+                    from_email = settings.DEFAULT_FROM_EMAIL
                     recipient_list = [rm.recipient.email]
                     url = "https://bookmarket-app.herokuapp.com/messages/inbox/"
 
